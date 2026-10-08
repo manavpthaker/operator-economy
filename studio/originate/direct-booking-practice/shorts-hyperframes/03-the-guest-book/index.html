@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>EP009 Short 03 — The Guest Book</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f5f0e6; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .clip { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <!--
+      EP009 Short 03 — The Guest Book. 1080x1920, 24 fps, 1092 frames, 45.5s.
+
+      Three movements and a bridge, per the owner-ruled EP007 clean-frame grammar:
+      presenter opens, full-screen designed proof owns the mechanism, presenter returns
+      to land the conclusion, then a 2.0s silent episode bridge.
+
+      Every boundary is measured against the owner-accepted narration, not chosen. Each
+      cut lands on a 24 fps frame at the incoming word's onset, so no outgoing word is
+      clipped. Presenter frames are placeholders: that generation is not authorized.
+
+      Audio is the owner-accepted Original C narration, 43.514s. LOCKED.
+    -->
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="45.5"
+    >
+      <audio
+        id="narration"
+        src="assets/audio/narration.wav"
+        data-start="0"
+        data-duration="43.514"
+        data-track-index="0"
+      ></audio>
+
+      <div
+        class="clip"
+        id="clip-f031-presenter-open"
+        data-composition-id="f031-presenter-open"
+        data-composition-src="compositions/01-presenter-open.html"
+        data-start="0"
+        data-duration="6.541667"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f03a-the-policy"
+        data-composition-id="f03a-the-policy"
+        data-composition-src="compositions/03a-the-policy.html"
+        data-start="6.541667"
+        data-duration="5.291666"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f03b-the-alias"
+        data-composition-id="f03b-the-alias"
+        data-composition-src="compositions/03b-the-alias.html"
+        data-start="11.833333"
+        data-duration="7.25"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f03c-blocked"
+        data-composition-id="f03c-blocked"
+        data-composition-src="compositions/03c-blocked.html"
+        data-start="19.083333"
+        data-duration="4.916667"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f03d-guest-book"
+        data-composition-id="f03d-guest-book"
+        data-composition-src="compositions/03d-guest-book.html"
+        data-start="24.0"
+        data-duration="12.166667"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f036-presenter-close"
+        data-composition-id="f036-presenter-close"
+        data-composition-src="compositions/06-presenter-close.html"
+        data-start="36.166667"
+        data-duration="7.333333"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f037-episode-bridge"
+        data-composition-id="f037-episode-bridge"
+        data-composition-src="compositions/07-episode-bridge.html"
+        data-start="43.5"
+        data-duration="2.0"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+    </div>
+
+    <script>
+      // The root carries no motion: every frame owns its timeline and the boundaries are
+      // hard cuts. A root tween here would animate across a cut.
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 04d, the ceiling. f444-739, 12.292s. silent_graphic.
+         The mix shift carries a visible unmeasured marker, per C019: the size of the shift
+         is a hypothesis nobody has measured, and the picture must say so as plainly as the
+         narration does. Role of the final line: activeCommitment, the number the fee lives
+         under. Still no figures: those are spoken in the presenter close. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500; font-display: block; }
+        #root { position: absolute; inset: 0; background: #f5f0e6; overflow: hidden; }
+        /* SHARED GEOMETRY v2. Portrait safe area: bottom 300px, right 180px stay clear. */
+        .head { position: absolute; left: 80px; top: 200px; width: 800px; }
+        .kick { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 26px;
+          letter-spacing: 0.24em; text-transform: uppercase; color: #566461; }
+        .body { position: absolute; left: 80px; top: 300px; width: 800px; }
+        .foot { position: absolute; left: 80px; top: 1230px; width: 800px;
+          font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 40px;
+          line-height: 1.3; color: #19201f; }
+        /* A ledger of method, not of figures. No value is ever filled in: no claim
+           supports a rate for any property, and the instruction is to go and find out. */
+        .line { display: grid; grid-template-columns: 1fr 210px; align-items: baseline;
+          border-bottom: 1px solid #d8cfb9; padding: 30px 0 26px; }
+        .lk { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 40px;
+          color: #19201f; }
+        .lv { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 30px;
+          letter-spacing: 0.16em; text-transform: uppercase; text-align: right; color: #566461; }
+        .line.derived { border-bottom-color: #c4b99e; }
+        .line.derived .lk { color: #33464c; }
+        .line.ceiling { border-bottom: 3px solid #b5482f; border-top: 3px solid #b5482f;
+          margin-top: 22px; padding: 34px 0 30px; }
+        .line.ceiling .lk { color: #87341f; }
+        .line.ceiling .lv { color: #87341f; }
+        .hyp { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 24px;
+          letter-spacing: 0.18em; text-transform: uppercase; color: #90394a; margin-top: 12px; }
+        .op { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 26px;
+          letter-spacing: 0.2em; text-transform: uppercase; color: #566461; margin: 20px 0 4px; }
+
+      </style>
+      <div id="root" data-composition-id="f04d-the-ceiling" data-width="1080" data-height="1920">
+        <div class="head"><div class="kick">then the honest part</div></div>
+        <div class="body">
+          <div class="op">from the annual commission cost</div>
+          <div class="line derived" id="L7"><div class="lk">Assume a shift in the mix</div><div class="lv">derived</div></div>
+          <div class="hyp" id="HYP">a hypothesis nobody has measured</div>
+          <div class="op" id="OP3">minus</div>
+          <div class="line derived" id="L8"><div class="lk">What running direct costs</div><div class="lv">derived</div></div>
+          <div class="line ceiling" id="L9"><div class="lk">The recoverable amount, a month</div><div class="lv"></div></div>
+        </div>
+        <div class="foot" id="f04d-foot" style="opacity:0">That is the ceiling. Your fee lives under it.</div>
+      </div>
+      <script>
+        (() => { const tl = gsap.timeline({ paused: true });
+          // The shift arrives, and its marker arrives with it rather than after it: the
+          // qualification is not allowed to lag the claim.
+          tl.from("#L7", { opacity: 0, y: 18, duration: 0.45, ease: "power3.out" }, 0.3);
+          tl.from("#HYP", { opacity: 0, duration: 0.4, ease: "power2.out" }, 0.75);
+          tl.from("#OP3", { opacity: 0, duration: 0.25, ease: "power2.out" }, 6.6);
+          tl.from("#L8", { opacity: 0, y: 18, duration: 0.45, ease: "power3.out" }, 6.85);
+          // interrupt, then settle: the one line the whole method exists to produce.
+          tl.from("#L9", { opacity: 0, y: 24, duration: 0.55, ease: "power3.out" }, 9.3);
+          tl.to("#f04d-foot", { opacity: 1, duration: 0.45, ease: "power2.out" }, 10.4);
+          window.__timelines["f04d-the-ceiling"] = tl; })();
+      </script>
+    </template>
+  </body>
+</html>
