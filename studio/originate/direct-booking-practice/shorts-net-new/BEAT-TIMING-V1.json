@@ -1,0 +1,293 @@
+{
+ "schema": "oe-beat-timing-v1",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-practice",
+ "basis": "owner-accepted Original C narration, event ep009-shorts-narration-owner-accepted-v1",
+ "method": "Paragraphs anchored into the accepted audio's word timings by exact phrase match on closing and opening words, never by proportion. Each cut is placed on the incoming word's onset, snapped back to a 24 fps frame boundary, so the outgoing movement keeps its last word complete. The measured gap is reported for every cut so the margin is visible. Whisper word times are approximate at the tens-of-milliseconds level; this is not WhisperX forced alignment and does not claim that precision.",
+ "finding": "The narration was generated as one continuous read per Short, so there is no engineered silence at the movement boundaries. Six of the eight gaps are under 0.30 s and four are under 0.12 s, against the 0.35 to 0.55 s protected hold in EP007's accepted Short 01. Onset-aligned frame-snapped cuts are what make these usable without new audio; a midpoint cut would clip the outgoing word's release.",
+ "supersedes": "the estimated windows in PICTURE-GRAMMAR-V1.md",
+ "shorts": {
+  "01": {
+   "slug": "01-book-your-own-room",
+   "asr_model": "small.en",
+   "accepted_audio_seconds": 43.328,
+   "movements": [
+    {
+     "movement": "presenter_open",
+     "paragraphs": [
+      0,
+      1
+     ],
+     "first_word": "you",
+     "first_word_start_s": 0.2,
+     "last_word": "phone.",
+     "last_word_end_s": 11.56,
+     "spoken_seconds": 11.36
+    },
+    {
+     "movement": "screens",
+     "paragraphs": [
+      2,
+      3
+     ],
+     "first_word": "Pick",
+     "first_word_start_s": 11.64,
+     "last_word": "yourself.",
+     "last_word_end_s": 32.84,
+     "spoken_seconds": 21.2
+    },
+    {
+     "movement": "presenter_close",
+     "paragraphs": [
+      4,
+      5
+     ],
+     "first_word": "Whatever",
+     "first_word_start_s": 33.06,
+     "last_word": "audit.",
+     "last_word_end_s": 43.04,
+     "spoken_seconds": 9.98
+    }
+   ],
+   "cuts": [
+    {
+     "between": "presenter_open -> screens",
+     "prev_word_end_s": 11.56,
+     "next_word_start_s": 11.64,
+     "measured_gap_s": 0.08,
+     "cut_at_s": 11.625,
+     "cut_at_frame_24fps": 279,
+     "outgoing_keeps_word_by_s": 0.065,
+     "midpoint_alternative_s": 11.6,
+     "margin": "very tight, inspect by ear"
+    },
+    {
+     "between": "screens -> presenter_close",
+     "prev_word_end_s": 32.84,
+     "next_word_start_s": 33.06,
+     "measured_gap_s": 0.22,
+     "cut_at_s": 33.041667,
+     "cut_at_frame_24fps": 793,
+     "outgoing_keeps_word_by_s": 0.202,
+     "midpoint_alternative_s": 32.95,
+     "margin": "tight"
+    }
+   ],
+   "post_word_hold_s": 0.288,
+   "end_bridge_seconds": 2.0,
+   "total_picture_seconds": 45.328,
+   "presenter_share_of_speech": 0.502
+  },
+  "02": {
+   "slug": "02-sounds-like-marketing",
+   "asr_model": "medium.en",
+   "accepted_audio_seconds": 42.214,
+   "movements": [
+    {
+     "movement": "presenter_open",
+     "paragraphs": [
+      0
+     ],
+     "first_word": "You",
+     "first_word_start_s": 0.02,
+     "last_word": "operations.",
+     "last_word_end_s": 10.35,
+     "spoken_seconds": 10.33
+    },
+    {
+     "movement": "screens",
+     "paragraphs": [
+      1,
+      2
+     ],
+     "first_word": "At",
+     "first_word_start_s": 10.38,
+     "last_word": "owner.",
+     "last_word_end_s": 32.36,
+     "spoken_seconds": 21.98
+    },
+    {
+     "movement": "presenter_close",
+     "paragraphs": [
+      3
+     ],
+     "first_word": "So",
+     "first_word_start_s": 32.38,
+     "last_word": "outside.",
+     "last_word_end_s": 41.88,
+     "spoken_seconds": 9.5
+    }
+   ],
+   "cuts": [
+    {
+     "between": "presenter_open -> screens",
+     "prev_word_end_s": 10.35,
+     "next_word_start_s": 10.38,
+     "measured_gap_s": 0.03,
+     "cut_at_s": 10.375,
+     "cut_at_frame_24fps": 249,
+     "outgoing_keeps_word_by_s": 0.025,
+     "midpoint_alternative_s": 10.365,
+     "margin": "very tight, inspect by ear"
+    },
+    {
+     "between": "screens -> presenter_close",
+     "prev_word_end_s": 32.36,
+     "next_word_start_s": 32.38,
+     "measured_gap_s": 0.02,
+     "cut_at_s": 32.375,
+     "cut_at_frame_24fps": 777,
+     "outgoing_keeps_word_by_s": 0.015,
+     "midpoint_alternative_s": 32.37,
+     "margin": "very tight, inspect by ear"
+    }
+   ],
+   "post_word_hold_s": 0.334,
+   "end_bridge_seconds": 2.0,
+   "total_picture_seconds": 44.214,
+   "presenter_share_of_speech": 0.474
+  },
+  "03": {
+   "slug": "03-the-guest-book",
+   "asr_model": "medium.en",
+   "accepted_audio_seconds": 43.514,
+   "movements": [
+    {
+     "movement": "presenter_open",
+     "paragraphs": [
+      0
+     ],
+     "first_word": "You",
+     "first_word_start_s": 0.09,
+     "last_word": "tool.",
+     "last_word_end_s": 6.4,
+     "spoken_seconds": 6.31
+    },
+    {
+     "movement": "screens",
+     "paragraphs": [
+      1,
+      2,
+      3
+     ],
+     "first_word": "Booking.com's",
+     "first_word_start_s": 6.57,
+     "last_word": "email.",
+     "last_word_end_s": 36.03,
+     "spoken_seconds": 29.46
+    },
+    {
+     "movement": "presenter_close",
+     "paragraphs": [
+      4
+     ],
+     "first_word": "That",
+     "first_word_start_s": 36.17,
+     "last_word": "advice.",
+     "last_word_end_s": 43.4,
+     "spoken_seconds": 7.23
+    }
+   ],
+   "cuts": [
+    {
+     "between": "presenter_open -> screens",
+     "prev_word_end_s": 6.4,
+     "next_word_start_s": 6.57,
+     "measured_gap_s": 0.17,
+     "cut_at_s": 6.541667,
+     "cut_at_frame_24fps": 157,
+     "outgoing_keeps_word_by_s": 0.142,
+     "midpoint_alternative_s": 6.485,
+     "margin": "tight"
+    },
+    {
+     "between": "screens -> presenter_close",
+     "prev_word_end_s": 36.03,
+     "next_word_start_s": 36.17,
+     "measured_gap_s": 0.14,
+     "cut_at_s": 36.166667,
+     "cut_at_frame_24fps": 868,
+     "outgoing_keeps_word_by_s": 0.137,
+     "midpoint_alternative_s": 36.1,
+     "margin": "tight"
+    }
+   ],
+   "post_word_hold_s": 0.114,
+   "end_bridge_seconds": 2.0,
+   "total_picture_seconds": 45.514,
+   "presenter_share_of_speech": 0.315
+  },
+  "04": {
+   "slug": "04-four-numbers",
+   "asr_model": "medium.en",
+   "accepted_audio_seconds": 47.787,
+   "movements": [
+    {
+     "movement": "presenter_open",
+     "paragraphs": [
+      0
+     ],
+     "first_word": "You",
+     "first_word_start_s": 0.09,
+     "last_word": "for.",
+     "last_word_end_s": 5.98,
+     "spoken_seconds": 5.89
+    },
+    {
+     "movement": "screens",
+     "paragraphs": [
+      1,
+      2,
+      3
+     ],
+     "first_word": "Rooms,",
+     "first_word_start_s": 6.16,
+     "last_word": "month.",
+     "last_word_end_s": 30.72,
+     "spoken_seconds": 24.56
+    },
+    {
+     "movement": "presenter_close",
+     "paragraphs": [
+      4,
+      5
+     ],
+     "first_word": "That",
+     "first_word_start_s": 30.81,
+     "last_word": "quote.",
+     "last_word_end_s": 47.84,
+     "spoken_seconds": 17.03
+    }
+   ],
+   "cuts": [
+    {
+     "between": "presenter_open -> screens",
+     "prev_word_end_s": 5.98,
+     "next_word_start_s": 6.16,
+     "measured_gap_s": 0.18,
+     "cut_at_s": 6.125,
+     "cut_at_frame_24fps": 147,
+     "outgoing_keeps_word_by_s": 0.145,
+     "midpoint_alternative_s": 6.07,
+     "margin": "tight"
+    },
+    {
+     "between": "screens -> presenter_close",
+     "prev_word_end_s": 30.72,
+     "next_word_start_s": 30.81,
+     "measured_gap_s": 0.09,
+     "cut_at_s": 30.791667,
+     "cut_at_frame_24fps": 739,
+     "outgoing_keeps_word_by_s": 0.072,
+     "midpoint_alternative_s": 30.765,
+     "margin": "very tight, inspect by ear"
+    }
+   ],
+   "post_word_hold_s": -0.053,
+   "end_bridge_seconds": 2.0,
+   "total_picture_seconds": 49.787,
+   "presenter_share_of_speech": 0.483
+  }
+ }
+}
