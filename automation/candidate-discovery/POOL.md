@@ -883,7 +883,9 @@ None.
 
 - Status: `admitted` (Monday bench 2026-09-28; was `shortlisted`, 2026-09-27 run 3, priority 1)
 - Step 0 candidate ID: `candidate-2026-09-28-records-request-overflow` (decision: continue research;
-  see `automation/runs/oe-weekly-research/2026-09-28.md`). Admission is not eligibility or promotion.
+  see `automation/runs/oe-weekly-research/2026-09-28.md`; **parked** 2026-10-08 by the Thursday bench:
+  bounded search found no small-provider award and no second small-agency outside-review spend; see the
+  disposition addendum and parked register). Admission is not eligibility or promotion.
 - First seen / last checked: 2026-09-27 / 2026-09-27 ET
 - Exact question or change: records-request volume is rising sharply at small agencies, partly
   because AI services file requests at scale, while each agency still has one records officer and

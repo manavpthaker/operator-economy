@@ -120,3 +120,20 @@ Revised desk re-entry (both required to advance to an analogy map and scorecard)
 
 If a further bench run finds neither after a bounded search, park with these as the reopening
 condition rather than continuing to spend runs on it.
+
+## Addendum 2026-10-08: bounded search complete; parked (Thursday bench)
+
+Evidence: `../02-research/candidate-2026-09-28-records-request-overflow-amendment-02.md`
+
+Decision: **parked**, as the 2026-10-01 addendum required when a bounded search finds neither desk
+item.
+
+- Item 1 (Ithaca award or another small-provider award): not found.
+- Item 2 (another small-agency non-law outside review spend): not found.
+- Added disconfirming context: Richmond, CA chose an e-discovery subscription for staff (NTE
+  $144,000, three years) over outside review. Three of the agencies on file now answer overflow
+  with software for existing staff.
+
+Not archived: the Los Alamos contract (paid, non-law, hourly, agency-reviewed) and the Ithaca RFP
+(individuals eligible) remain sound primary evidence; the gap is repeat and small-provider buying.
+Unblock condition and review trigger: `../04-queue/parked/candidate-2026-09-28-records-request-overflow.md`.
