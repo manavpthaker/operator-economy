@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-07 ET, scout run: adds `DISC-2026-10-07-020` (catch-up reconciliation to
+Updated: 2026-10-08 ET, scout run: two spend-first ideas screened, both rejected (outsourced
+warranty-claim administration for small dealers; small-multifamily lease audits); shortlist
+unchanged. Full record: `runs/2026-10-08.md`.
+Previous: 2026-10-07 ET, scout run: adds `DISC-2026-10-07-020` (catch-up reconciliation to
 audit-ready for small towns and special districts) as held — strong spend, no independent buyer
 question signal; shortlist unchanged. Full record: `runs/2026-10-07.md`.
 Previous: 2026-10-06 ET, scout run: three ideas screened, all rejected (municipal continuing-disclosure
@@ -1257,7 +1260,13 @@ None.
   vendors such as Paradigm at up to 7% already serve small districts; AI is not the work).
   Reopening conditions in `runs/2026-10-06.md`.
 
+- 2026-10-08 (scout) — Two ideas rejected: outsourced warranty-claim administration for small
+  powersports, marine, and equipment dealers (a decades-old outsourcing business at 2%–4% of claims;
+  MarineLab sells it to marine dealers on contingency and FrogData has sold an AI-plus-expert remote
+  service since 2023; fails AI-change) and lease/rent-roll audits for small multifamily buyers (no
+  problem-value signal; buyers do it in-house). Reopening conditions in `runs/2026-10-08.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
-`runs/2026-10-06.md`, `runs/2026-10-07.md`.
+`runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`.
