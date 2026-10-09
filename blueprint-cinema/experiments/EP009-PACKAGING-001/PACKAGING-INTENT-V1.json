@@ -214,5 +214,52 @@
    "framing": "F2",
    "why": "It is the only one that is both legible at 168px and correct about who is who. F3 is the stronger image at full size but its hook dies small and the edge crop reads as a mistake. F1 is the warmest and has the boundary problem. F4 is the best photograph and the weakest thumbnail."
   }
+ },
+ "likeness_round_3": {
+  "at_utc": "2026-10-09T19:30:00Z",
+  "prompted_by": "owner, 2026-10-09: 'yes is like F1 and F2 but that doesn't look like me looks odd'",
+  "diagnosis": "The framing directions F1 and F2 are accepted; the face was wrong. Both rounds used ref-C as the likeness source, which is a frame grabbed from the r11 cut. That cut is a 1280x720 review proxy, so his head occupies a few hundred soft pixels. At that quality the generator has to reconstruct the face rather than copy it, and it reconstructed a rounder jaw and a heavier beard. Nothing in the prompt could fix that; the reference was the fault.",
+  "fix": "Use the episode's own locked look still, L3-chambray at 2688x1520, as the likeness anchor. A head and shoulders crop of it was made at 1161x1215 and passed first, with the full still for wardrobe and the inn desk for setting. The prompt now names the features that went wrong by name: lean oval face, narrow jaw, sparse cheek stubble, thin clear-framed round glasses, and says not to round the face, thicken the beard or broaden the jaw.",
+  "jobs": {
+   "G1": "eea49a51-9901-4af6-a40b-16e1cbeaa9ea",
+   "G2": "ac3a4fa7-d228-4da4-b7e2-babff615804f",
+   "G3": "6017cd06-dcd0-48d4-874e-42564339a60a"
+  },
+  "files": {
+   "G1": {
+    "path": "thumbs/G1-across-desk-v2.png",
+    "sha256": "0fa81e7a8b6f863d7d9f8d302cc1be16f28879e5ac8359a4d75a494ca125f1a5"
+   },
+   "G2": {
+    "path": "thumbs/G2-counter-between-v2.png",
+    "sha256": "d71906498e1c191fb29b9f78a6013f85c8f36190dc1009e9a409b3ab3153765c"
+   },
+   "G3": {
+    "path": "thumbs/G3-him-left-her-right-v2.png",
+    "sha256": "576aa864163c71f0f9c2598cb325b180f33a830f3d52b036e53652064868a41c"
+   }
+  },
+  "review_surfaces": {
+   "likeness-before-after": {
+    "path": "review/likeness-before-after.png",
+    "sha256": "ba15e995a638e46697793fd03f8634527d6cd24ac802711dab7cdd64fa24698e"
+   },
+   "g-shrink-test": {
+    "path": "review/g-shrink-test.png",
+    "sha256": "cfd7d83f47d2ba836835090b44d500fa324a88f418439513ddfb4eafd01b2f11"
+   }
+  },
+  "what_the_comparison_shows": "Set beside the locked look, the F1 and F2 faces are visibly rounder with a fuller beard. G1 and G3 sit much closer: the jaw narrows, the stubble thins on the cheeks, the glasses are the right shape. G3 is the closest of the three.",
+  "honest_limit": "This is consistency with the episode's established look, not with a photograph of him. L3-chambray is itself a generated still that he approved as his look for this episode. If the face still reads wrong to him, the reference itself is what needs revisiting, not the prompt.",
+  "framings": {
+   "G1": "F2's composition, across the desk with the guest book between them.",
+   "G2": "F1's warmth with the boundary fixed: the counter is now clearly between them, so he reads as a visitor rather than a second innkeeper.",
+   "G3": "New: him near camera on the guest side, her working behind the counter. Largest face of the three."
+  },
+  "cost": {
+   "images": 3,
+   "credits": 0.75,
+   "running_total_credits": 2.5
+  }
  }
 }
