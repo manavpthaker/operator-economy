@@ -156,5 +156,31 @@
   "spent_on_the_failed_take": 56,
   "note": "The gap is still driven by the roughly 115 credits of spend on this account from outside this session, not by the batch price."
  },
- "held": "No further take submitted. The fix is verified in the Wednesday package but not yet proved on an EP009 take, and the account cannot cover the batch either way."
+ "held": "No further take submitted. The fix is verified in the Wednesday package but not yet proved on an EP009 take, and the account cannot cover the batch either way.",
+ "measurement_correction": {
+  "at_utc": "2026-10-09T14:30:00Z",
+  "what_i_reported": "Take 1 stretched its speech by +1.46s, about 22 percent, worse than the drift that failed this episode's long form.",
+  "what_is_true": "Measured directly from the audio envelope in 20ms windows, take 1's speech runs 0.50 to 7.38, a 6.88s span against the reference slice's 6.44s. The real stretch is +0.44s, about 7 percent.",
+  "why_i_was_wrong": "I took the figure from Whisper word timings. On take 1 it put the last word at 8.00s, and on take 2 it put the last word at 8.32s inside a 7.07s clip, which is impossible. Whisper's word-end timings overrun file boundaries and are not a timing measurement. This is the second time in this session that the same artifact has misled me: it also produced the false end-overrun reading on the narration guides.",
+  "method_lesson": "For speech timing, measure the audio envelope. ASR establishes words, not when they happen.",
+  "cost_of_the_error": "49 credits on a second take designed to fix an overstated fault."
+ },
+ "second_take": {
+  "job_id": "df6778ab-ac05-4b3d-904e-b24c99ad7de7",
+  "credits": 49,
+  "generated_s": 7,
+  "slice": "0.4s lead silence, 6.542s speech, 0.058s trail, padded to exactly 7.000s",
+  "measured": "speech 0.94 to 6.46, a 5.52s span",
+  "result": "fail, in the opposite direction",
+  "finding": "Padding did not remove the timing error, it reversed its sign. Take 2 starts 0.44s late and speaks 0.92s fast, about 14 percent compressed, against take 1's 0.44s slow. The model does not follow the audio reference's timing closely in either configuration."
+ },
+ "revised_reading": {
+  "take_1_may_be_usable": "At +0.44s over a 6.44s span, take 1 sits inside the sub-0.7s drift band that EP007's accepted takes held. I called it unusable on a measurement that was wrong.",
+  "untested_step": "The accepted Wednesday route runs fal-ai/sync-lipsync/react-1 over every take. That pass exists to absorb exactly this residual drift, and I have not run it. Judging either take before it is judging an unfinished stage.",
+  "honest_position": "Neither take is proven good or bad yet, and the padding hypothesis is disproved."
+ },
+ "balance_note": {
+  "observed_at_1430": 4490.75,
+  "comment": "The balance rose well above anything this session spent, so the account was topped up or credited from outside this session. The batch is no longer budget constrained, but I did not do this and am not treating it as authorization."
+ }
 }
