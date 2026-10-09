@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Not an email tool</title></head><body><template>
+<style>
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+  * { box-sizing:border-box; }
+  #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#173530; font-family:"BL Supreme",Arial,sans-serif; }
+  .identity { position:absolute; z-index:12; left:54px; top:50px; color:#F5F0E6; background:#173530; padding:14px 18px 12px; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .identity.paper { color:#173530; background:#F5F0E6; border:2px solid #173530; }
+  .micro { font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .display { font:700 96px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .oxide { color:#B5482F; }
+  .paper-bg { position:absolute; inset:0; background:#F5F0E6; }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.07; background-image:radial-gradient(#173530 0.65px,transparent 0.65px); background-size:14px 14px; }
+  .caption-clear { position:absolute; left:0; right:0; top:1360px; bottom:0; pointer-events:none; }
+
+
+  .step-label { position:absolute; left:64px; top:210px; color:#586D74; font:500 26px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .tool-card { position:absolute; left:120px; top:465px; width:840px; height:520px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:50px; border:5px solid #173530; background:#F5F0E6; }
+  .tool-card strong { color:#173530; font:700 82px/.95 "BL Zodiak",Georgia,serif; letter-spacing:-.04em; }
+  .mail-icon { position:relative; width:260px; height:170px; border:7px solid #173530; }
+  .mail-icon span,.mail-icon i { position:absolute; left:14px; right:14px; top:34px; height:7px; background:#173530; transform-origin:50% 50%; }
+  .mail-icon span { transform:rotate(31deg); } .mail-icon i { transform:rotate(-31deg); }
+  .not-first { position:absolute; left:310px; top:890px; z-index:4; padding:24px 38px; background:#B5482F; color:#F5F0E6; font:500 54px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.06em; }
+  .unknown-slot { position:absolute; left:180px; right:180px; top:520px; height:430px; display:grid; place-items:center; border:5px dashed #B5482F; background:#F5F0E6; text-align:center; }
+  .unknown-slot span { align-self:end; color:#586D74; font:500 30px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.1em; }
+  .unknown-slot b { align-self:start; color:#B5482F; font:700 180px/.8 "BL Zodiak",Georgia,serif; }
+</style>
+<div id="root" data-composition-id="scene-05-no-tool" data-start="0" data-duration="3.000000" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="paper-bg"></div><div class="grain"></div>
+  <div class="identity paper">THE OPERATOR ECONOMY</div>
+  <div class="step-label">THE FIRST STEP</div>
+  <div id="tool-card" class="tool-card">
+    <div class="mail-icon"><span></span><i></i></div>
+    <strong>EMAIL TOOL</strong>
+  </div>
+  <div id="not-first" class="not-first">NOT FIRST</div>
+  <div id="unknown-slot" class="unknown-slot"><span>WHAT COMES FIRST?</span><b>?</b></div>
+
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused:true });
+  tl.fromTo(".step-label", { opacity:0, y:18 }, { opacity:1, y:0, duration:.22, ease:"power3.out" }, .03);
+  tl.fromTo("#tool-card", { opacity:0, x:32 }, { opacity:1, x:0, duration:.26, ease:"power3.out" }, .18);
+  tl.fromTo("#not-first", { opacity:0, scale:1.35, rotate:-7 }, { opacity:1, scale:1, rotate:-4, duration:.24, ease:"power4.out" }, 1.12);
+  tl.to("#tool-card", { x:-300, opacity:.18, duration:.28, ease:"power3.in" }, 1.52);
+  tl.fromTo("#unknown-slot", { opacity:0, x:55 }, { opacity:1, x:0, duration:.3, ease:"power3.out" }, 1.82);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["scene-05-no-tool"] = tl;
+  tl.seek(0);
+})();</script>
+</template></body></html>

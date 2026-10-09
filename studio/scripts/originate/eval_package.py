@@ -15,6 +15,8 @@ import re
 import sys
 from pathlib import Path
 
+from shorts_contract import validate_payload
+
 ROOT = Path(__file__).parent.parent.parent
 
 BANNED_OPENERS = ["hey", "welcome", "today we", "today i", "in this video",
@@ -69,6 +71,113 @@ def words(t):
 
 def content_words(t):
     return {w.strip(".,!?()'\"").lower() for w in t.split()} - STOPWORDS
+
+
+PIN_ISSUE_CODES = {"missing_pinned_comment", "invalid_pinned_comment"}
+
+
+def _contract_issue_detail(issues):
+    details = []
+    for issue in issues:
+        location = f"brief {issue.index}" if issue.index is not None else "package"
+        if issue.field:
+            location += f".{issue.field}"
+        details.append(f"{location}: {issue.message}")
+    return "; ".join(details)
+
+
+def _kill_for_contract_issues(rubric, issues, codes, name):
+    matching = [issue for issue in issues if issue.code in codes]
+    if matching:
+        rubric.kill(name, _contract_issue_detail(matching))
+
+
+def evaluate_shorts_briefs(briefs, rubric):
+    """Apply the shared standalone-Short contract to publication briefs."""
+    result = validate_payload(
+        briefs,
+        mode="derived",
+        require_pinned_comment=True,
+    )
+    pin_issues = [
+        issue for issue in result.issues if issue.code in PIN_ISSUE_CODES
+    ]
+    core_issues = [
+        issue for issue in result.issues if issue.code not in PIN_ISSUE_CODES
+    ]
+
+    rubric.score(
+        "shorts: cold-viewer context, exact tail, and standalone narrow payoff",
+        4 if not core_issues else 0,
+        4,
+        _contract_issue_detail(core_issues),
+    )
+    rubric.score(
+        "shorts: every brief has a pinned comment pointing to the long-form",
+        3 if not pin_issues else 0,
+        3,
+        _contract_issue_detail(pin_issues),
+    )
+
+    _kill_for_contract_issues(
+        rubric, result.issues, {"missing_hook_line"}, "missing Shorts hook"
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        {"missing_cold_viewer_context", "invalid_cold_viewer_context"},
+        "missing cold-viewer topic context",
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        {"missing_terminal_line"},
+        "missing Shorts last-line anchor",
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        {"missing_standalone_payoff"},
+        "missing standalone payoff",
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        {"cta_standalone_payoff"},
+        "episode CTA used as standalone payoff",
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        {"invalid_episode_extension", "invalid_episode_bridge"},
+        "episode extension is not additive and distinct",
+    )
+    _kill_for_contract_issues(
+        rubric,
+        result.issues,
+        PIN_ISSUE_CODES,
+        "missing Shorts pinned comment",
+    )
+
+    categorized = {
+        "missing_hook_line",
+        "missing_cold_viewer_context",
+        "invalid_cold_viewer_context",
+        "missing_terminal_line",
+        "missing_standalone_payoff",
+        "cta_standalone_payoff",
+        "invalid_episode_extension",
+        "invalid_episode_bridge",
+        *PIN_ISSUE_CODES,
+    }
+    uncategorized = [
+        issue for issue in result.issues if issue.code not in categorized
+    ]
+    if uncategorized:
+        rubric.kill(
+            "invalid Shorts brief package",
+            _contract_issue_detail(uncategorized),
+        )
 
 
 def main():
@@ -233,25 +342,12 @@ def main():
     r.score("cta: soft blueprint mention in 55–75% window", 3 if "blueprint" in mid_text else 0, 3,
             "" if "blueprint" in mid_text else "no mid-video mention (end-only reaches ~16%)")
 
-    # ---- SHORTS BRIEFS (information-gap strategy) ----
+    # ---- SHORTS BRIEFS (standalone narrow answer + optional episode depth) ----
     shorts_path = Path(args.script).parent / "content" / "shorts_briefs.json"
     if shorts_path.exists():
         with open(shorts_path) as f:
             briefs = json.load(f)
-        no_gap, no_pin = [], []
-        for i, b in enumerate(briefs):
-            cliff = (b.get("cliffhanger_line") or "").strip()
-            pin = (b.get("pinned_comment") or "").lower()
-            if not cliff:
-                no_gap.append(i)
-            if "full" not in pin and "breakdown" not in pin and "link" not in pin:
-                no_pin.append(i)
-        r.score("shorts: every brief ends on a cliffhanger (information gap)",
-                4 if not no_gap else 0, 4, f"briefs missing cliffhanger: {no_gap}" if no_gap else "")
-        r.score("shorts: every brief has a pinned comment pointing to the long-form",
-                3 if not no_pin else 0, 3, f"briefs missing pin: {no_pin}" if no_pin else "")
-        if no_gap:
-            r.kill("complete-answer Short", "a Short that resolves the question kills conversion")
+        evaluate_shorts_briefs(briefs, r)
     else:
         print("  (shorts_briefs.json not present yet — shorts checks run after derive step)")
 

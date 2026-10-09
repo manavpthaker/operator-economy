@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>EP009 Short 02 · Machine versus judgment</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        margin: 0;
+        overflow: hidden;
+        background: #f5f0e6;
+      }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        color: #19201f;
+        background: #f5f0e6;
+        font-family: Montserrat, Arial, sans-serif;
+      }
+
+      .clip {
+        position: absolute;
+      }
+
+      .paper-field {
+        inset: 0;
+        z-index: 0;
+        background: #f5f0e6;
+      }
+
+      .paper-field::before {
+        position: absolute;
+        inset: 0;
+        content: "";
+        opacity: 0.2;
+        background-image:
+          linear-gradient(rgba(32, 68, 64, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(32, 68, 64, 0.035) 1px, transparent 1px);
+        background-size: 56px 56px;
+      }
+
+      .masthead {
+        position: absolute;
+        z-index: 5;
+        top: 50px;
+        right: 54px;
+        left: 54px;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #c4b99e;
+      }
+
+      .masthead__publisher {
+        color: #204440;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+      }
+
+      .masthead__review {
+        color: #586d74;
+        font-family: "IBM Plex Mono", "Courier New", monospace;
+        font-size: 23px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .scene-host {
+        inset: 0;
+        z-index: 2;
+      }
+
+      .truth-strip {
+        position: absolute;
+        z-index: 5;
+        top: 1302px;
+        right: 54px;
+        left: 54px;
+        display: flex;
+        min-height: 74px;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 14px 22px;
+        border: 2px solid #204440;
+        background: #fbf8f1;
+        color: #204440;
+        font-family: "IBM Plex Mono", "Courier New", monospace;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.045em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .truth-strip__dot {
+        width: 7px;
+        height: 7px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: #b5482f;
+      }
+
+      .caption-rail {
+        z-index: 6;
+        top: 1404px;
+        right: 54px;
+        left: 54px;
+        display: flex;
+        height: 274px;
+        align-items: center;
+        padding: 32px 42px 32px 48px;
+        overflow: hidden;
+        border: 2px solid #d8cfb9;
+        background: rgba(251, 248, 241, 0.97);
+        box-shadow: 0 18px 48px rgba(32, 68, 64, 0.09);
+      }
+
+      .caption-rail::before {
+        position: absolute;
+        top: 26px;
+        bottom: 26px;
+        left: 0;
+        width: 8px;
+        content: "";
+        background: #b5482f;
+      }
+
+      .caption-inner {
+        display: block;
+        width: 100%;
+        color: #19201f;
+        font-size: 50px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.14;
+        text-wrap: balance;
+      }
+
+      .caption-inner em {
+        color: #b5482f;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.06em;
+        font-style: italic;
+        font-weight: 700;
+      }
+
+    </style>
+  </head>
+  <body>
+    <main
+      id="root"
+      data-composition-id="ep009-short02"
+      data-start="0"
+      data-duration="20.5"
+      data-width="1080"
+      data-height="1920"
+      data-fps="24"
+    >
+      <section id="paper-field" class="paper-field">
+        <header class="masthead">
+          <span class="masthead__publisher">The Operator Economy</span>
+          <span class="masthead__review">EP009 · private review</span>
+        </header>
+        <div class="truth-strip" data-layout-allow-caption-zone>
+          <span>Fictional fixture</span>
+          <span class="truth-strip__dot" aria-hidden="true"></span>
+          <span>Awaiting human review</span>
+          <span class="truth-strip__dot" aria-hidden="true"></span>
+          <span>No sending available</span>
+        </div>
+      </section>
+
+      <div
+        id="scene-01-question-host"
+        class="clip scene-host"
+        data-composition-id="scene-01-question"
+        data-composition-src="compositions/scene-01-question.html"
+        data-start="0"
+        data-duration="3.541666666666667"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-02-operator-host"
+        class="clip scene-host"
+        data-composition-id="scene-02-operator"
+        data-composition-src="compositions/scene-02-operator.html"
+        data-start="3.541666666666667"
+        data-duration="2"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-03-workflow-overview-host"
+        class="clip scene-host"
+        data-composition-id="scene-03-workflow-overview"
+        data-composition-src="compositions/scene-03-workflow-overview.html"
+        data-start="5.541666666666667"
+        data-duration="1.75"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-04-draft-path-host"
+        class="clip scene-host"
+        data-composition-id="scene-04-draft-path"
+        data-composition-src="compositions/scene-04-draft-path.html"
+        data-start="7.291666666666667"
+        data-duration="2.5"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-05-returned-draft-host"
+        class="clip scene-host"
+        data-composition-id="scene-05-returned-draft"
+        data-composition-src="compositions/scene-05-returned-draft.html"
+        data-start="9.791666666666667"
+        data-duration="2.5"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-06-schedule-gates-host"
+        class="clip scene-host"
+        data-composition-id="scene-06-schedule-gates"
+        data-composition-src="compositions/scene-06-schedule-gates.html"
+        data-start="12.291666666666667"
+        data-duration="2"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        id="scene-07-human-judgment-host"
+        class="clip scene-host"
+        data-composition-id="scene-07-human-judgment"
+        data-composition-src="compositions/scene-07-human-judgment.html"
+        data-start="14.291666666666667"
+        data-duration="6.208333333333333"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <section id="caption-01" class="clip caption-rail" data-start="0.0083333333332" data-duration="3.14" data-track-index="2" data-layout-allow-caption-zone>
+        <span class="caption-inner">What does the machine do, then, and what do you do?</span>
+      </section>
+      <section id="caption-02" class="clip caption-rail" data-start="3.9683333333332" data-duration="2.06" data-track-index="3" data-layout-allow-caption-zone>
+        <span class="caption-inner">The software does the repetitive half.</span>
+      </section>
+      <section id="caption-03" class="clip caption-rail" data-start="6.5083333333332" data-duration="2" data-track-index="4" data-layout-allow-caption-zone>
+        <span class="caption-inner">A language model drafts the thank you,</span>
+      </section>
+      <section id="caption-04" class="clip caption-rail" data-start="8.6283333333332" data-duration="3" data-track-index="5" data-layout-allow-caption-zone>
+        <span class="caption-inner">the review request, the note about the trail in the fall.</span>
+      </section>
+      <section id="caption-05" class="clip caption-rail" data-start="12.2883333333334" data-duration="2.74" data-track-index="6" data-layout-allow-caption-zone>
+        <span class="caption-inner">An automation tool schedules them off the checkout date.</span>
+      </section>
+      <section id="caption-06" class="clip caption-rail" data-start="16.4283333333334" data-duration="4.06" data-track-index="7" data-layout-allow-caption-zone>
+        <span class="caption-inner">You do the half that decides whether it's <em>hospitality.</em></span>
+      </section>
+
+      <audio
+        id="locked-audio"
+        src="assets/locked-carrier.mp4"
+        data-start="0"
+        data-duration="20.5"
+        data-media-start="692.4583333333334"
+        data-track-index="20"
+        data-volume="1"
+      ></audio>
+    </main>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      [
+        ["#caption-01 .caption-inner", 0.0083333333332],
+        ["#caption-02 .caption-inner", 3.9683333333332],
+        ["#caption-03 .caption-inner", 6.5083333333332],
+        ["#caption-04 .caption-inner", 8.6283333333332],
+        ["#caption-05 .caption-inner", 12.2883333333334],
+        ["#caption-06 .caption-inner", 16.4283333333334]
+      ].forEach(([selector, at]) => {
+        tl.fromTo(
+          selector,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.18, ease: "power2.out", immediateRender: false },
+          at
+        );
+      });
+      window.__timelines["ep009-short02"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

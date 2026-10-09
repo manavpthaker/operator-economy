@@ -1,0 +1,350 @@
+{
+  "ok": false,
+  "strict": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 7
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 2,
+    "warningCount": 0,
+    "infoCount": 2,
+    "findings": [
+      {
+        "code": "text_box_overflow",
+        "severity": "error",
+        "time": 13.877,
+        "selector": "#stop-gate > span:nth-of-type(1)",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 782.62,
+          "top": 907.38,
+          "right": 832.62,
+          "bottom": 1022.62,
+          "width": 50,
+          "height": 115.23
+        },
+        "containerSelector": "#stop-gate",
+        "text": "SITE-RULEBOUNDARY",
+        "fixHint": "Text is 50px x 115px inside 90px x 260px and overflows by up to 5px; widen the container to at least ~95px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 738,
+          "top": 835,
+          "right": 828,
+          "bottom": 1095,
+          "width": 90,
+          "height": 260
+        },
+        "overflow": {
+          "right": 4.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-04-boundary.html",
+        "bbox": {
+          "x": 782.62,
+          "y": 907.38,
+          "width": 50,
+          "height": 115.23
+        },
+        "firstSeen": 13.877,
+        "lastSeen": 16.4,
+        "occurrences": 2,
+        "heldMs": 0
+      },
+      {
+        "code": "text_box_overflow",
+        "severity": "error",
+        "time": 13.877,
+        "selector": "div.send-chip",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 867,
+          "top": 935.5,
+          "right": 1019.61,
+          "bottom": 994,
+          "width": 152.61,
+          "height": 58.5
+        },
+        "containerSelector": "div.send-chip",
+        "text": "MARKETINGMESSAGE",
+        "fixHint": "Text is 153px x 59px inside 170px x 118px and overflows by up to 4px; widen the container to at least ~174px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 846,
+          "top": 906,
+          "right": 1016,
+          "bottom": 1024,
+          "width": 170,
+          "height": 118
+        },
+        "overflow": {
+          "right": 3.61
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-04-boundary.html",
+        "bbox": {
+          "x": 867,
+          "y": 935.5,
+          "width": 152.61,
+          "height": 58.5
+        },
+        "firstSeen": 13.877,
+        "lastSeen": 16.4,
+        "occurrences": 2,
+        "heldMs": 0
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 8.831,
+        "selector": "#presenter-still",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -73.36,
+          "top": -101.38,
+          "right": 1120.69,
+          "bottom": 2021.38,
+          "width": 1194.05,
+          "height": 2122.75
+        },
+        "containerSelector": "#host-scene-03-constraint > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 73.36,
+          "right": 40.69,
+          "top": 101.38,
+          "bottom": 101.38
+        },
+        "dataAttributes": {
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/scene-03-constraint.html",
+        "bbox": {
+          "x": -73.36,
+          "y": -101.38,
+          "width": 1194.05,
+          "height": 2122.75
+        },
+        "firstSeen": 8.831,
+        "lastSeen": 8.831,
+        "occurrences": 1,
+        "heldMs": 0
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 18.965,
+        "selector": "#tool-card > strong:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 195.33,
+          "top": 783.05,
+          "right": 712.27,
+          "bottom": 885.05,
+          "width": 516.94,
+          "height": 102
+        },
+        "containerSelector": "#unknown-slot > b:nth-of-type(1)",
+        "text": "EMAIL TOOL",
+        "fixHint": "Give each block its own zone, or mark intentional layering with data-layout-allow-overlap.",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-05-no-tool.html",
+        "bbox": {
+          "x": 195.33,
+          "y": 783.05,
+          "width": 516.94,
+          "height": 102
+        },
+        "firstSeen": 18.965,
+        "lastSeen": 18.965,
+        "occurrences": 1,
+        "heldMs": 0
+      }
+    ],
+    "duration": 22.708333,
+    "samples": [
+      1.262,
+      3.785,
+      6.308,
+      8.831,
+      11.354,
+      13.877,
+      16.4,
+      18.924,
+      21.447
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 4,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "specPath": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-SHORTS-002/03-guest-book/index.motion.json",
+    "samples": 300
+  },
+  "contrast": {
+    "ok": false,
+    "errorCount": 3,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1:1; WCAG AA requires 4.5:1.",
+        "text": "PRIVATE REVIEW · LOCKED EP009 AUDIO",
+        "fg": "rgb(245,240,230)",
+        "bg": "rgb(245,240,230)",
+        "ratio": 1,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(111,109,105)",
+        "large": false,
+        "selector": "div > div:nth-of-type(7)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 728.796875,
+          "y": 1883,
+          "width": 327.203125,
+          "height": 15
+        },
+        "time": 6.308
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1:1; WCAG AA requires 4.5:1.",
+        "text": "PRIVATE REVIEW · LOCKED EP009 AUDIO",
+        "fg": "rgb(245,240,230)",
+        "bg": "rgb(245,240,230)",
+        "ratio": 1,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(111,109,105)",
+        "large": false,
+        "selector": "div > div:nth-of-type(7)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 728.796875,
+          "y": 1883,
+          "width": 327.203125,
+          "height": 15
+        },
+        "time": 11.354
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "error",
+        "message": "Contrast is 1:1; WCAG AA requires 4.5:1.",
+        "text": "PRIVATE REVIEW · LOCKED EP009 AUDIO",
+        "fg": "rgb(245,240,230)",
+        "bg": "rgb(245,240,230)",
+        "ratio": 1,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(111,109,105)",
+        "large": false,
+        "selector": "div > div:nth-of-type(7)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 728.796875,
+          "y": 1883,
+          "width": 327.203125,
+          "height": 15
+        },
+        "time": 16.4
+      },
+      {
+        "code": "contrast_aa_failure",
+        "severity": "warning",
+        "message": "Contrast is 1:1; WCAG AA requires 4.5:1.",
+        "text": "Tap the related video ↗",
+        "fg": "rgb(23,53,48)",
+        "bg": "rgb(23,53,48)",
+        "ratio": 1,
+        "requiredRatio": 4.5,
+        "suggestedColor": "rgb(139,154,151)",
+        "large": false,
+        "selector": "#cta-action",
+        "dataAttributes": {},
+        "sourceFile": "compositions/scene-06-cta.html",
+        "bbox": {
+          "x": 74,
+          "y": 705.390625,
+          "width": 932,
+          "height": 24
+        },
+        "time": 21.447
+      }
+    ],
+    "enabled": true,
+    "samples": [
+      1.262,
+      6.308,
+      11.354,
+      16.4,
+      21.447
+    ],
+    "checked": 37,
+    "passed": 33
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": true,
+    "files": [
+      "snapshots/frame-00-at-1.3s.png",
+      "snapshots/frame-01-at-6.3s.png",
+      "snapshots/frame-02-at-11.4s.png",
+      "snapshots/frame-03-at-16.4s.png",
+      "snapshots/frame-04-at-21.4s.png"
+    ],
+    "times": [
+      1.262,
+      6.308,
+      11.354,
+      16.4,
+      21.447
+    ],
+    "findingFiles": [
+      "snapshots/finding-00-text_box_overflow.png",
+      "snapshots/finding-01-text_box_overflow.png",
+      "snapshots/finding-02-contrast_aa_failure.png",
+      "snapshots/finding-03-contrast_aa_failure.png",
+      "snapshots/finding-04-contrast_aa_failure.png"
+    ]
+  },
+  "_meta": {
+    "version": "0.8.51",
+    "latestVersion": "0.8.51",
+    "updateAvailable": false
+  }
+}

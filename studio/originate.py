@@ -191,7 +191,7 @@ def main():
         run_step("eval_edit.py", [script], "Edit Rubric §VII (pre-render)")
         if not args.skip_derive:
             run_step("derive_content.py", [script], "Derive LinkedIn/Grapevines Content")
-            # Re-run craft evals now that shorts_briefs.json exists (cliffhanger/pin gate)
+            # Re-run craft evals now that shorts_briefs.json exists (standalone/pin gate)
             run_step("eval_package.py", [script], "Craft Rubric (incl. Shorts checks)")
             # Pre-publish confidence: decides whether the episode library
             # (video + shorts + posts + newsletter + blueprint) requires

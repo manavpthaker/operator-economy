@@ -1,0 +1,185 @@
+{
+  "record_type": "ep009_r7_guided_screen_edit_manifest",
+  "status": "prepared_for_review",
+  "source_timebase": "24fps",
+  "output_frames": [
+    0,
+    706
+  ],
+  "segments": [
+    {
+      "id": "native-overview",
+      "kind": "native_node_red_current_configuration",
+      "output_frames": [
+        0,
+        42
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+        "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+      },
+      "source_frames": [
+        0,
+        1
+      ],
+      "transform": "full native Node-RED editor",
+      "limit": "later local view of the persisted fictional run"
+    },
+    {
+      "id": "native-openai-request",
+      "kind": "native_node_red_current_configuration",
+      "output_frames": [
+        42,
+        102
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+        "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+      },
+      "source_frames": [
+        0,
+        1
+      ],
+      "transform": "crop [240,40,1200,675] shows the native comment and OpenAI HTTP-request branch",
+      "limit": "later local view; native UI is not represented as a live provider call"
+    },
+    {
+      "id": "retained-returned-draft",
+      "kind": "retained_r2_test_recording",
+      "output_frames": [
+        102,
+        162
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_frames": [
+        194,
+        195
+      ],
+      "transform": "crop [300,330,640,360] of actual returned draft and prepared date rule",
+      "limit": "editorial still hold"
+    },
+    {
+      "id": "native-checkout-rule",
+      "kind": "native_node_red_current_configuration",
+      "output_frames": [
+        162,
+        210
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+        "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+      },
+      "source_frames": [
+        0,
+        1
+      ],
+      "transform": "crop [180,320,720,405] shows POST /api/queue to Checkout + one day",
+      "limit": "later local view"
+    },
+    {
+      "id": "retained-queued-draft",
+      "kind": "retained_r2_test_recording",
+      "output_frames": [
+        210,
+        261
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_frames": [
+        240,
+        241
+      ],
+      "transform": "crop [300,330,640,360] shows queued draft, time, human review, and no sending",
+      "limit": "editorial still hold"
+    },
+    {
+      "id": "retained-human-edit",
+      "kind": "retained_r2_test_recording",
+      "output_frames": [
+        261,
+        400
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_frames": [
+        314,
+        414
+      ],
+      "transform": "crop [300,330,640,360] of recorded text edit, followed by 39-frame reading hold",
+      "limit": "no speed change"
+    },
+    {
+      "id": "retained-one-draft-approval",
+      "kind": "retained_r2_test_recording",
+      "output_frames": [
+        400,
+        552
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_frames": [
+        514,
+        515
+      ],
+      "transform": "crop [620,180,640,360] shows specific one-draft approval",
+      "limit": "editorial still hold"
+    },
+    {
+      "id": "retained-seasonal-exclusion",
+      "kind": "retained_r2_test_recording",
+      "output_frames": [
+        552,
+        622
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+        "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011"
+      },
+      "source_frames": [
+        622,
+        623
+      ],
+      "transform": "crop [620,180,640,360] shows Excluded by human and Seasonal follow-up excluded",
+      "limit": "editorial still hold"
+    },
+    {
+      "id": "native-human-boundary",
+      "kind": "native_node_red_current_configuration",
+      "output_frames": [
+        622,
+        706
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+        "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+      },
+      "source_frames": [
+        0,
+        1
+      ],
+      "transform": "crop [180,390,900,506] shows save, one-draft approval, and no-future-promotion nodes",
+      "limit": "later local view"
+    }
+  ],
+  "guidance": {
+    "method": "native tool identification then one readable state at a time",
+    "annotations": "none; crops themselves direct attention",
+    "no_generated_ui": true,
+    "no_optical_flow": true,
+    "no_speed_ramp": true,
+    "provider_call_in_this_conform": false,
+    "editorial_ellipses": [
+      "Native Node-RED views are later local configuration views of the already-persisted fictional test, not a continuous replay of the provider request.",
+      "Static holds preserve a true source frame for reading. The human edit is the retained r2 source [314,414) followed by a declared 39-frame hold."
+    ]
+  }
+}

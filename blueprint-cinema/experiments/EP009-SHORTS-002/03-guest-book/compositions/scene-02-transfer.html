@@ -1,0 +1,65 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>The guest book moved</title></head><body><template>
+<style>
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+  * { box-sizing:border-box; }
+  #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#173530; font-family:"BL Supreme",Arial,sans-serif; }
+  .identity { position:absolute; z-index:12; left:54px; top:50px; color:#F5F0E6; background:#173530; padding:14px 18px 12px; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .identity.paper { color:#173530; background:#F5F0E6; border:2px solid #173530; }
+  .micro { font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .display { font:700 96px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .oxide { color:#B5482F; }
+  .paper-bg { position:absolute; inset:0; background:#F5F0E6; }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.07; background-image:radial-gradient(#173530 0.65px,transparent 0.65px); background-size:14px 14px; }
+  .caption-clear { position:absolute; left:0; right:0; top:1360px; bottom:0; pointer-events:none; }
+
+
+  .transfer-title { position:absolute; left:64px; top:190px; right:64px; display:flex; align-items:baseline; justify-content:space-between; }
+  .transfer-title span { color:#586D74; font:500 26px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; }
+  .transfer-title strong { color:#B5482F; font:700 92px/.9 "BL Zodiak",Georgia,serif; letter-spacing:-.04em; }
+  #relationship { position:absolute; left:0; top:240px; width:1080px; height:1120px; overflow:visible; }
+  #relationship path { fill:none; stroke:#173530; stroke-width:6; stroke-linecap:round; stroke-linejoin:round; }
+  #relationship .accent { stroke:#B5482F; stroke-width:9; }
+  #relationship text { fill:#173530; font:500 28px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.09em; }
+  #route { fill:none; stroke:#586D74 !important; stroke-width:5 !important; }
+  #book path { fill:#F5F0E6; }
+  .ownership { position:absolute; left:630px; top:1110px; width:390px; padding:20px; color:#F5F0E6; background:#B5482F; text-align:center; font:500 25px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.08em; }
+</style>
+<div id="root" data-composition-id="scene-02-transfer" data-start="0" data-duration="2.958333" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="paper-bg"></div><div class="grain"></div>
+  <div class="identity paper">THE OPERATOR ECONOMY</div>
+  <div class="transfer-title"><span>THE GUEST BOOK</span><strong>MOVED</strong></div>
+  <svg id="relationship" viewBox="0 0 1080 1150" aria-label="The guest book moves from the inn to the booking site">
+    <g id="inn" class="building" transform="translate(80 390)">
+      <path d="M0 150 L170 40 L340 150 M35 150 V385 H305 V150 M85 205 H135 V260 H85 Z M205 205 H255 V260 H205 Z M150 292 H205 V385" />
+      <text x="170" y="445" text-anchor="middle">THE INN</text>
+    </g>
+    <path id="route" d="M390 610 C510 555 600 555 720 610" />
+    <g id="site" class="building" transform="translate(730 390)">
+      <path d="M0 150 L155 50 L310 150 M35 165 V385 H275 V165 M80 215 V385 M150 215 V385 M220 215 V385" />
+      <text x="155" y="445" text-anchor="middle">BOOKING SITE</text>
+    </g>
+    <g id="book" transform="translate(260 655)">
+      <path d="M0 0 C42 -25 88 -22 132 3 V165 C88 140 42 140 0 165 Z M132 3 C176 -22 222 -25 264 0 V165 C222 140 176 140 132 165 Z" />
+      <path class="accent" d="M132 3 V165" />
+      <text x="132" y="215" text-anchor="middle">GUEST BOOK</text>
+    </g>
+  </svg>
+  <div id="ownership" class="ownership">RELATIONSHIP HELD HERE</div>
+
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused:true });
+  tl.fromTo(".transfer-title span", { opacity:0, y:22 }, { opacity:1, y:0, duration:.22, ease:"power3.out" }, .02);
+  tl.fromTo(".transfer-title strong", { opacity:0, x:26 }, { opacity:1, x:0, duration:.24, ease:"power3.out" }, .15);
+  tl.fromTo("#route", { strokeDasharray:520, strokeDashoffset:520 }, { strokeDashoffset:0, duration:.58, ease:"power2.inOut" }, .35);
+  tl.fromTo("#book", { x:0 }, { x:495, duration:1.38, ease:"power3.inOut" }, .58);
+  tl.fromTo("#ownership", { opacity:0, y:16 }, { opacity:1, y:0, duration:.22, ease:"power3.out" }, 2.12);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["scene-02-transfer"] = tl;
+  tl.seek(0);
+})();</script>
+</template></body></html>

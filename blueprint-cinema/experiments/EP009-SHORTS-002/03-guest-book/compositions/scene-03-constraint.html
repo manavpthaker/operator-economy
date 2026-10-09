@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Constraint before tool</title></head><body><template>
+<style>
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+  * { box-sizing:border-box; }
+  #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#173530; font-family:"BL Supreme",Arial,sans-serif; }
+  .identity { position:absolute; z-index:12; left:54px; top:50px; color:#F5F0E6; background:#173530; padding:14px 18px 12px; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .identity.paper { color:#173530; background:#F5F0E6; border:2px solid #173530; }
+  .micro { font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .display { font:700 96px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .oxide { color:#B5482F; }
+  .paper-bg { position:absolute; inset:0; background:#F5F0E6; }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.07; background-image:radial-gradient(#173530 0.65px,transparent 0.65px); background-size:14px 14px; }
+  .caption-clear { position:absolute; left:0; right:0; top:1360px; bottom:0; pointer-events:none; }
+
+
+  .order-label { position:absolute; left:64px; top:220px; color:#586D74; font:500 25px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  h1 { position:absolute; left:64px; right:64px; top:330px; color:#173530; font:700 88px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  h1 em { color:#B5482F; font-style:normal; }
+  .order-stack { position:absolute; left:64px; right:64px; top:690px; height:600px; }
+  .order-block { position:absolute; left:0; right:0; height:188px; display:grid; grid-template-columns:116px 1fr; align-items:center; border:4px solid #173530; background:#F5F0E6; }
+  .order-block span { display:grid; place-items:center; align-self:stretch; color:#F5F0E6; background:#173530; font:500 42px/1 "BL Supreme",Arial,sans-serif; }
+  .order-block strong { padding-left:38px; color:#173530; font:500 45px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.055em; }
+  .constraint-block { top:0; border-color:#B5482F; }
+  .constraint-block span { background:#B5482F; }
+  .constraint-block strong { color:#B5482F; }
+  .order-path { position:absolute; left:50%; top:188px; width:100px; height:180px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; }
+  .order-path i { width:6px; height:118px; background:#173530; }
+  .order-path i::after { content:""; position:absolute; left:38px; top:100px; width:22px; height:22px; border-right:6px solid #173530; border-bottom:6px solid #173530; transform:rotate(45deg); }
+  .order-path b { margin-top:22px; color:#586D74; font:500 18px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .tool-block { top:368px; }
+</style>
+<div id="root" data-composition-id="scene-03-constraint" data-start="0" data-duration="4.625000" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="paper-bg"></div><div class="grain"></div>
+  <div class="identity paper">THE OPERATOR ECONOMY</div>
+  <div class="order-label">ORDER OF OPERATIONS</div>
+  <h1>Before the tool,<br><em>there is a constraint.</em></h1>
+  <div class="order-stack">
+    <div id="constraint-block" class="order-block constraint-block">
+      <span>01</span><strong>DESIGN CONSTRAINT</strong>
+    </div>
+    <div id="order-path" class="order-path"><i></i><b>THEN</b></div>
+    <div id="tool-block" class="order-block tool-block">
+      <span>02</span><strong>EMAIL TOOL</strong>
+    </div>
+  </div>
+
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused:true });
+  tl.fromTo(".order-label", { opacity:0, y:18 }, { opacity:1, y:0, duration:.22, ease:"power3.out" }, .04);
+  tl.fromTo("h1", { opacity:0, y:30 }, { opacity:1, y:0, duration:.3, ease:"power3.out" }, .18);
+  tl.fromTo("#constraint-block", { opacity:0, x:-42 }, { opacity:1, x:0, duration:.32, ease:"power3.out" }, .72);
+  tl.fromTo("#order-path i", { scaleY:0 }, { scaleY:1, transformOrigin:"50% 0%", duration:.42, ease:"power2.inOut" }, 1.52);
+  tl.fromTo("#order-path b", { opacity:0 }, { opacity:1, duration:.18, ease:"power2.out" }, 1.78);
+  tl.fromTo("#tool-block", { opacity:0, y:32 }, { opacity:.34, y:0, duration:.3, ease:"power3.out" }, 2.08);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["scene-03-constraint"] = tl;
+  tl.seek(0);
+})();</script>
+</template></body></html>

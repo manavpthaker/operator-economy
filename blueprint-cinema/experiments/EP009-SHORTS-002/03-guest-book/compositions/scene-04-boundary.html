@@ -1,0 +1,63 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Relay and site-rule boundary</title></head><body><template>
+<style>
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+  * { box-sizing:border-box; }
+  #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#173530; font-family:"BL Supreme",Arial,sans-serif; }
+  .identity { position:absolute; z-index:12; left:54px; top:50px; color:#F5F0E6; background:#173530; padding:14px 18px 12px; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .identity.paper { color:#173530; background:#F5F0E6; border:2px solid #173530; }
+  .micro { font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .display { font:700 96px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .oxide { color:#B5482F; }
+  .paper-bg { position:absolute; inset:0; background:#F5F0E6; }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.07; background-image:radial-gradient(#173530 0.65px,transparent 0.65px); background-size:14px 14px; }
+  .caption-clear { position:absolute; left:0; right:0; top:1360px; bottom:0; pointer-events:none; }
+
+
+  .boundary-title { position:absolute; left:64px; right:64px; top:175px; }
+  .boundary-title span { display:block; color:#586D74; font:500 24px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.1em; }
+  .boundary-title strong { display:block; margin-top:18px; color:#173530; font:700 86px/.95 "BL Zodiak",Georgia,serif; letter-spacing:-.04em; }
+  .relay-card { position:absolute; left:64px; right:64px; top:500px; padding:34px 30px 38px; border:4px solid #173530; background:#F5F0E6; }
+  .relay-card span { display:block; color:#586D74; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.1em; }
+  .relay-card strong { display:block; margin-top:22px; color:#173530; font:500 37px/1.08 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:-.02em; overflow-wrap:anywhere; }
+  .route-attempt { position:absolute; left:64px; right:64px; top:805px; height:320px; display:grid; grid-template-columns:135px 1fr 120px 195px; gap:14px; align-items:center; }
+  .inn-chip,.send-chip { display:grid; place-items:center; min-height:118px; padding:14px 10px; border:3px solid #173530; color:#173530; background:#F5F0E6; text-align:center; font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.055em; }
+  #attempt-line { height:8px; background:#D8CFB9; overflow:hidden; }
+  #attempt-line i { display:block; width:100%; height:100%; background:#173530; }
+  #stop-gate { height:260px; border-left:12px solid #B5482F; display:grid; place-items:center; }
+  #stop-gate span { color:#B5482F; font:500 18px/1.2 "BL Supreme",Arial,sans-serif; letter-spacing:.055em; text-align:center; transform:rotate(-90deg); white-space:nowrap; }
+  .rule-note { position:absolute; left:64px; right:64px; top:1150px; padding:24px; background:#B5482F; color:#F5F0E6; text-align:center; font:500 25px/1.15 "BL Supreme",Arial,sans-serif; letter-spacing:.065em; }
+</style>
+<div id="root" data-composition-id="scene-04-boundary" data-start="0" data-duration="6.125000" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="paper-bg"></div><div class="grain"></div>
+  <div class="identity paper">THE OPERATOR ECONOMY</div>
+  <div class="boundary-title"><span>THE ADDRESS LOOKS USABLE.</span><strong>IT ISN'T YOUR LIST.</strong></div>
+  <div class="relay-card">
+    <span>PLATFORM RELAY · ILLUSTRATIVE</span>
+    <strong>k7m2q9x4@guest.booking.com</strong>
+  </div>
+  <div class="route-attempt">
+    <div class="inn-chip">INN</div>
+    <div id="attempt-line"><i></i></div>
+    <div id="stop-gate"><span>SITE-RULE<br>BOUNDARY</span></div>
+    <div class="send-chip">MARKETING<br>MESSAGE</div>
+  </div>
+  <div id="rule-note" class="rule-note">DO NOT ROUTE AROUND THE PLATFORM RELATIONSHIP</div>
+
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused:true });
+  tl.fromTo(".boundary-title", { opacity:0, y:26 }, { opacity:1, y:0, duration:.28, ease:"power3.out" }, .04);
+  tl.fromTo(".relay-card", { opacity:0, y:26 }, { opacity:1, y:0, duration:.3, ease:"power3.out" }, .32);
+  tl.fromTo("#attempt-line i", { scaleX:0 }, { scaleX:1, transformOrigin:"0% 50%", duration:.78, ease:"power2.inOut" }, 1.08);
+  tl.fromTo("#stop-gate", { scaleY:0 }, { scaleY:1, transformOrigin:"50% 100%", duration:.25, ease:"power3.out" }, 1.66);
+  tl.fromTo(".send-chip", { opacity:.18 }, { opacity:.42, duration:.2, ease:"power2.out" }, 1.88);
+  tl.fromTo("#rule-note", { opacity:0, y:18 }, { opacity:1, y:0, duration:.24, ease:"power3.out" }, 3.12);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["scene-04-boundary"] = tl;
+  tl.seek(0);
+})();</script>
+</template></body></html>

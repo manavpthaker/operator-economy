@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; }
+        .scene { position:absolute; inset:0; }
+        .stage { position:absolute; top:166px; left:40px; width:1000px; height:1110px; }
+        .media-frame { position:absolute; inset:0; overflow:hidden; border:2px solid #d8cfb9; background:#fbf8f1; box-shadow:0 24px 60px rgba(32,68,64,.12); }
+        .camera { position:absolute; inset:0; width:100%; height:100%; will-change:transform; transform-origin:64% 50%; }
+        video { display:block; width:100%; height:100%; object-fit:cover; object-position:72% 50%; }
+      </style>
+      <div id="root" data-composition-id="scene-02-operator" data-width="1080" data-height="1920" data-duration="2">
+        <section id="scene-02" class="scene">
+          <div class="stage">
+            <div class="media-frame">
+              <div class="camera" data-layout-allow-overflow>
+                <video id="scene-02-video" src="assets/locked-carrier.mp4" data-start="0" data-duration="2" data-media-start="696" data-track-index="10" muted playsinline></video>
+              </div>
+            </div>
+          </div>
+        </section>
+        <script>
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(".camera", { scale: 1.01, x: 0 }, { scale: 1.065, x: -18, duration: 2, ease: "none" }, 0);
+          window.__timelines["scene-02-operator"] = tl;
+        </script>
+      </div>
+    </template>
+  </body>
+</html>

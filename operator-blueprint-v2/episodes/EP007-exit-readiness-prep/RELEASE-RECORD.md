@@ -75,7 +75,18 @@ Decision log: `blueprint-cinema/episodes/EP007-exit-readiness-prep/review/decisi
   - Short 04 https://youtu.be/UWI-v4M78do · Fri 2026-10-09 08:30 ET
   - Playlists (public): Episodes `PLCmSnXQWzHxo`, Shorts `PLdu7PeWE3s2M`
 - [ ] Studio: avatar, pinned comments, end screen, altered-content check
-- [ ] Site: rebuild with the live link, owner preview, deploy
-- [ ] LinkedIn: episode post (Mon 11:00), Shorts posts (Tue–Fri 08:30), newsletter edition
+- [x] Site (2026-10-05, after premiere): №001 Canvas page ported from the 09-23 rebuild into the
+  current Boundary Ledger site; homepage features №001; earlier series unlisted with watch links
+  removed (videos private). Owner previewed and approved; deployed as `7dac6c23` on origin/main.
+  Watch URL read from `launch/links.json` at build. `/episodes/exit-readiness-prep` → 308 → Canvas page.
+- [x] LinkedIn OE page (2026-10-05): the 11:00 post was missed. Post 1 (incentive gap) published
+  ~12:10 ET with the first comment (episode + Canvas links). Shorts posts 01–04 scheduled Tue–Fri
+  08:30 ET as native video. Captions first used the YouTube Short descriptions, then were rewritten
+  for LinkedIn the same day (owner-approved; `studio/originate/exit-readiness-prep/content/linkedin-shorts-posts.md`),
+  episode link in the body (LinkedIn cannot schedule first comments; owner choice). Videos re-encoded to <10 MB
+  for upload (SSIM 0.997 vs master). Kit post 2 scheduled Mon 2026-10-12 08:30 ET and post 3 Tue 2026-10-13 08:30 ET (owner
+  choice), text only; their first comments (episode + Canvas links) must be added by hand after each
+  goes live.
+- [x] Personal newsletter edition: scheduled Mon 12:30 by Content OS (not by this record).
 - [ ] Legal review of the licensing claim (open since research)
 - [x] Owner approval of the four v0.1 runbooks (2026-09-24)

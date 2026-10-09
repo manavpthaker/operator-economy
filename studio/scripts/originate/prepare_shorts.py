@@ -4,7 +4,7 @@ replaces cut_shorts.py's letterboxed crops — "we need new videos in
 that vertical ratio").
 
 Per brief in content/shorts_briefs.json:
-  1. anchors the hook/cliffhanger window in the ElevenLabs alignment
+  1. anchors the hook/last-line window in the ElevenLabs alignment
      (phrase-matched, never proportioned),
   2. slices the window's PRE-MIXED audio (VO + bed) from the long-form
      render, fades the tail, stamps the "operator" tag over the end card,
@@ -233,12 +233,21 @@ def main():
     for n, br in enumerate(briefs, 1):
         if args.only and n != args.only:
             continue
+        hook_line = (br.get("hook_line") or "").strip()
+        # `cliffhanger_line` is an archive-only fallback so already-derived
+        # episodes remain renderable. New briefs must pass `last_line` through
+        # eval_package.py; the legacy field does not satisfy that gate.
+        last_line = (br.get("last_line") or br.get("cliffhanger_line") or "").strip()
+        if not hook_line or not last_line:
+            missing = "hook_line" if not hook_line else "last_line"
+            print(f"⚠ short {n}: missing {missing} — fix the brief, don't guess.")
+            continue
         words = json.loads((base / "vo" / f"words-{br['section']}.json").read_text())["words"]
-        head = find_phrase(words, " ".join(br["hook_line"].split()[:4]))
-        tail = find_phrase(words, " ".join(br["cliffhanger_line"].split()[-4:]), from_end=True)
+        head = find_phrase(words, " ".join(hook_line.split()[:4]))
+        tail = find_phrase(words, " ".join(last_line.split()[-4:]), from_end=True)
         if not head or not tail:
             print(f"⚠ short {n}: couldn't anchor the "
-                  f"{'hook' if not head else 'cliffhanger'} line — fix the brief, don't guess.")
+                  f"{'hook' if not head else 'last'} line — fix the brief, don't guess.")
             continue
         # Section-relative window (for captions) and video-absolute (for audio).
         w0, w1 = head[0] - PAD_IN, tail[1] + PAD_OUT

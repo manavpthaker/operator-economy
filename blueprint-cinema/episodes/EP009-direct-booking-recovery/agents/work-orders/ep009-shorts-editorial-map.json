@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-shorts-editorial-map",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "role": "transcript_mapper",
+  "objective": "Select and rank four self-contained 9:16 Short candidates from the exact locked EP009 r8 carrier, with word-accurate cut ranges, strong native openings, deliberate unresolved handoffs to the full episode, and no factual drift from the locked narration.",
+  "required_gate": "greybox_ready",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/TIMEMAP.json",
+      "sha256": "5427ecd19835ab60414291b8ec3cde474188c422e89ee9d0ad67090a586a4272"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json",
+      "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9"
+    },
+    {
+      "path": "../content-os/flow.md",
+      "sha256": "9d647fd927dd9a54df13bceb96c21eac90eddebd233244fecf3d7377484f6c51"
+    },
+    {
+      "path": "studio/originate/direct-booking-recovery/content/shorts_briefs.json",
+      "sha256": "f199badf5125b7de3c58ab1f73ffd920a036e4798ddb3bbc48c11a20c13f2d60"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "studio/originate/direct-booking-recovery",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/review"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute every issued input hash before using it.",
+    "Return exactly four ranked candidates with exact first and last word IDs, source seconds, 24 fps frame bounds, verbatim transcript, duration, hook, cliffhanger line and pinned-comment intent.",
+    "Treat the existing shorts briefs as historical prompts only and reject any wording or claim absent from the locked r8 transcript.",
+    "Each candidate must preserve the original voice, avoid a complete-answer Short, and identify the specific curiosity gap that remains for the full episode.",
+    "Write shorts-map.json, report.md and a schema-valid deliverable.json only inside the owned deliverable directory."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop rather than inventing a clean word boundary when the transcript or source timing is ambiguous.",
+    "Do not render, edit canonical media, append the decision log or claim owner acceptance."
+  ],
+  "status": "closed"
+}

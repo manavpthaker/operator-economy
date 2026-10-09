@@ -1,0 +1,31 @@
+{
+  "stage": "guide",
+  "candidate": "W4G",
+  "at": "2026-09-23T17:54:53.072376+00:00",
+  "source_sha256": "d7c0d2fb5c227c54437c0cc329152fa09c5d91a19607e535a420966842da1976",
+  "script_sha256": "81968ef90dc55f9135b427d753c117e3acf718af3b1922089f7eafb25690ca95",
+  "duration_seconds": 64.33095833333333,
+  "expected_word_count": 198,
+  "engines": [
+    "faster-whisper small.en",
+    "faster-whisper medium.en"
+  ],
+  "settings": "beam5; VAD; no previous-text conditioning; no initial prompt",
+  "normalized_exact_match": true,
+  "normalized_exact_match_basis": "small.en reproduced all 198 words with zero differences; no difference appeared in both engines.",
+  "single_engine_artifacts_not_counted": [
+    {
+      "engine": "medium.en",
+      "heard": "never print it again",
+      "script": "never printed again",
+      "note": "Recurring medium.en misread, seen on W4B and W4C; small.en reads it correctly every time."
+    }
+  ],
+  "changed_from_W4F": [
+    {
+      "removed": "Tell me who they are.",
+      "why": "Owner request: end on the open offer without a closing instruction."
+    }
+  ],
+  "perceptual_review": "Not performed. ASR supports words, not naturalness or identity acceptance."
+}

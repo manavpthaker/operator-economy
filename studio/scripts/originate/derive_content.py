@@ -298,7 +298,7 @@ Rules:
 - Personal reposts: also produce `repost_blurbs` — 2 casual one-liners in Manav's voice for resharing the company post from his personal profile. "Found this useful" energy; zero self-promotion; never mentions that he made it beyond natural attribution. Staggered days, so vary the angle.
 - Newsletter: 400-700 words, has a named takeaway section and links the video + blueprint.
 - Blueprint doc: the actual deliverable promised in the video — idea, evidence table, tool stack with costs, week-by-week playbook, honest economics, sources. Someone should be able to act on it without watching.
-- Shorts briefs: YOUTUBE-ONLY (no LinkedIn clips). INFORMATION-GAP strategy, strictly. Each Short presents the setup and first insight, then ENDS ON A CLIFFHANGER — it must never resolve the core question (complete-answer Shorts kill long-form conversion). Hook in the first line, 30-75s of VO, and a pinned_comment pointing to the full breakdown.
+- Shorts briefs: YOUTUBE-ONLY (no LinkedIn clips). Each Short must work for a cold viewer with no episode context: introduce the topic immediately, answer one bounded question completely, and make the episode optional additive depth rather than the missing answer. `cold_viewer_context` states the topic/context supplied in the Short. `hook_line` and `last_line` are exact spoken anchors from the selected source span. `standalone_payoff` states the useful narrow answer actually delivered. `episode_extension` is optional; when present it must be distinct from the payoff and name broader depth without withholding the Short's conclusion. Hook in the first line, 30-75s of VO, and include a `pinned_comment` pointing to the full episode. Do not emit `cliffhanger_line`.
 - Trailer brief: a PRE-LAUNCH montage teaser (~20-30s total) that ships the day BEFORE the episode. Pick 2-4 non-contiguous VO moments from DIFFERENT sections (e.g. the hook's sharpest line, one evidence spike with a number, the honest-math tease). Each segment is 4-10s and must cut mid-tension. Segments are stitched in brief order. HARD RULES: the trailer never states the thesis, never resolves any question, never reveals the playbook — it is 100% information gap. The last segment's final line must leave the biggest open loop. Include end-card copy announcing the Monday drop, a YouTube title/description, and a LinkedIn post (same text-only rules as above) for the OE page announcing the episode drops Monday.
 - Never promise income. Sourced numbers only."""
 
@@ -353,7 +353,7 @@ Return JSON:
   "newsletter_md": str,     // full markdown draft
   "linkedin_posts": [{{"theme": str, "post": str, "comment": str}}],
   "repost_blurbs": [str, str],
-  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cliffhanger_line": str, "pinned_comment": str, "why": str}}]{trailer_schema}
+  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cold_viewer_context": str, "last_line": str, "standalone_payoff": str, "episode_extension": str, "pinned_comment": str, "why": str}}]{trailer_schema}
 }}
 
 Trailer segment rules (if trailer requested): `first_line`/`last_line` are EXACT

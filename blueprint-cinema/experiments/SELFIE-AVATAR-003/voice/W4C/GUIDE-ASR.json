@@ -1,0 +1,38 @@
+{
+  "stage": "guide",
+  "candidate": "W4C",
+  "at": "2026-09-23T17:30:31.115487+00:00",
+  "source_sha256": "545e44014187b14255d592ad766cc5c3e7d59b87bb77ac1f5ca0aa4748b74fa7",
+  "script_sha256": "42d609f6b2e69e20e792b086548ab26215192985e197b373b9427025750463c9",
+  "duration_seconds": 72.17095833333333,
+  "expected_word_count": 194,
+  "engines": [
+    "faster-whisper small.en",
+    "faster-whisper medium.en"
+  ],
+  "settings": "beam5; VAD; no previous-text conditioning; no initial prompt",
+  "normalized_exact_match": true,
+  "normalized_exact_match_basis": "small.en reproduced all 194 words with zero differences.",
+  "normalization": "Punctuation/case/apostrophe style; gotta/got to and wanna/want to. No omission or paraphrase allowance; contractions required.",
+  "single_engine_artifacts_not_counted": [
+    {
+      "engine": "medium.en",
+      "heard": "never print it again",
+      "script": "never printed again",
+      "note": "medium.en produced the same misread on W4B while small.en read it correctly both times. Single-engine disagreement, not a guide error."
+    }
+  ],
+  "fixed_from_earlier_candidates": [
+    {
+      "was": "she's spent her whole life wanting to be a moto",
+      "now": "she's wanted to be a moto her whole life",
+      "why": "Moved the contracted /z/ off the /s/ of 'spent' onto a /w/, where assimilation cannot hide it. Both engines now read the contraction."
+    },
+    {
+      "was": "style prompt 2607 characters",
+      "now": "2260 characters",
+      "why": "W4 dropped a whole phrase; excess direction competing with a longer script was the likely cause."
+    }
+  ],
+  "perceptual_review": "Not performed. ASR supports words, not naturalness or identity acceptance."
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>What has to come first</title></head><body><template>
+<style>
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+  @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+  * { box-sizing:border-box; }
+  #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#173530; font-family:"BL Supreme",Arial,sans-serif; }
+  .identity { position:absolute; z-index:12; left:54px; top:50px; color:#F5F0E6; background:#173530; padding:14px 18px 12px; font:500 20px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.13em; }
+  .identity.paper { color:#173530; background:#F5F0E6; border:2px solid #173530; }
+  .micro { font:500 22px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+  .display { font:700 96px/.94 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .oxide { color:#B5482F; }
+  .paper-bg { position:absolute; inset:0; background:#F5F0E6; }
+  .grain { position:absolute; inset:0; pointer-events:none; opacity:.07; background-image:radial-gradient(#173530 0.65px,transparent 0.65px); background-size:14px 14px; }
+  .caption-clear { position:absolute; left:0; right:0; top:1360px; bottom:0; pointer-events:none; }
+
+
+  .cta-bg { position:absolute; inset:0; background:#173530; }
+  .cta-accent { position:absolute; left:0; top:0; bottom:0; width:26px; background:#FB8B69; }
+  .cta-id { position:absolute; left:74px; top:72px; color:#D8CFB9; font:500 22px/1 "BL Supreme",Arial,sans-serif; letter-spacing:.12em; }
+  .cta-copy { position:absolute; left:74px; right:74px; top:350px; }
+  .cta-copy h1 { color:#F5F0E6; font:700 132px/.9 "BL Zodiak",Georgia,serif; letter-spacing:-.05em; }
+  .cta-copy p { margin-top:76px; color:#D8CFB9; font:500 38px/1.1 "BL Supreme",Arial,sans-serif; letter-spacing:.025em; }
+  .related-link-panel { margin-top:42px; height:112px; padding:0 30px; display:grid; grid-template-columns:1fr auto; align-items:center; color:#173530; background:#FB8B69; font:500 38px/1 "BL Supreme",Arial,sans-serif; }
+  .related-link-panel b { color:#173530; font:500 62px/1 "BL Supreme",Arial,sans-serif; }
+</style>
+<div id="root" data-composition-id="scene-06-cta" data-start="0" data-duration="2.500000" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="cta-bg"></div><div class="cta-accent"></div>
+  <div class="cta-id">THE OPERATOR ECONOMY · EP009</div>
+  <div class="cta-copy">
+    <h1 id="cta-question">What has to<br>come first?</h1>
+    <p id="cta-answer">The full answer in EP009</p>
+    <div class="related-link-panel"><span id="related-link-label">Tap the related video</span><b id="related-link-arrow">↗</b></div>
+  </div>
+
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused:true });
+  tl.fromTo(".cta-accent", { scaleY:0 }, { scaleY:1, transformOrigin:"50% 100%", duration:.24, ease:"power3.out" }, 0);
+  tl.fromTo("#cta-question", { opacity:0, x:34 }, { opacity:1, x:0, duration:.28, ease:"power3.out" }, .08);
+  tl.fromTo("#cta-answer", { opacity:0, y:20 }, { opacity:1, y:0, duration:.24, ease:"power3.out" }, .42);
+  tl.fromTo("#related-link-label", { opacity:0, y:16 }, { opacity:1, y:0, duration:.24, ease:"power3.out" }, .66);
+  tl.fromTo("#related-link-arrow", { opacity:0, x:-10 }, { opacity:1, x:0, duration:.22, ease:"power3.out" }, .82);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["scene-06-cta"] = tl;
+  tl.seek(0);
+})();</script>
+</template></body></html>

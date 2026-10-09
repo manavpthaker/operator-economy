@@ -1,0 +1,97 @@
+{
+  "record_type": "ep009_r8_tool_clarity_guided_screen_edit_manifest",
+  "status": "prepared_for_private_review",
+  "source_timebase": "24fps",
+  "output_frames": [
+    0,
+    706
+  ],
+  "base_r7_focus_plate": {
+    "path": "software-demo/capture/node-red-editor-r7/screen-r7-tool-focus-706.mp4",
+    "sha256": "7294f161c26c8540334515bb8886bcf58ef28e87cc998f1aa5bd8f45bedc5221"
+  },
+  "segments": [
+    {
+      "id": "retained-r7-native-overview",
+      "kind": "retained_r7_focus_plate",
+      "output_frames": [
+        0,
+        42
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/screen-r7-tool-focus-706.mp4",
+        "sha256": "7294f161c26c8540334515bb8886bcf58ef28e87cc998f1aa5bd8f45bedc5221"
+      },
+      "source_frames": [
+        0,
+        42
+      ],
+      "transform": "decoded r7 frames retained losslessly",
+      "limit": "r8 does not reopen the r7 overview beat"
+    },
+    {
+      "id": "native-openai-request-tight-r8",
+      "kind": "native_node_red_current_configuration",
+      "output_frames": [
+        42,
+        102
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+        "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+      },
+      "source_frames": [
+        0,
+        1
+      ],
+      "transform": "crop=640:360:480:240, scale=1280:720; focus the actual Fictional fixture to capped real request and OpenAI genuine thank-you draft labels",
+      "crop_xywh": [
+        480,
+        240,
+        640,
+        360
+      ],
+      "limit": "later local configuration view, not a live provider call"
+    },
+    {
+      "id": "retained-r7-after-request",
+      "kind": "retained_r7_focus_plate",
+      "output_frames": [
+        102,
+        706
+      ],
+      "source": {
+        "path": "software-demo/capture/node-red-editor-r7/screen-r7-tool-focus-706.mp4",
+        "sha256": "7294f161c26c8540334515bb8886bcf58ef28e87cc998f1aa5bd8f45bedc5221"
+      },
+      "source_frames": [
+        102,
+        706
+      ],
+      "transform": "decoded r7 frames retained losslessly",
+      "limit": "r8 does not reopen the r7 returned-draft, queue, human-edit, approval, exclusion, or boundary beats"
+    }
+  ],
+  "guidance": {
+    "method": "retain r7 except for one readable native request beat",
+    "annotations": "none; the tighter native crop directs attention without fabricated UI or editorial labels",
+    "no_generated_ui": true,
+    "no_optical_flow": true,
+    "no_speed_ramp": true,
+    "provider_call_in_this_conform": false,
+    "retained_r7_decoded_frame_ranges": [
+      [
+        0,
+        42
+      ],
+      [
+        102,
+        706
+      ]
+    ],
+    "changed_decoded_frame_range": [
+      42,
+      102
+    ]
+  }
+}

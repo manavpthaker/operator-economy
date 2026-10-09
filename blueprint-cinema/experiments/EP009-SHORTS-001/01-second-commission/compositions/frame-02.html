@@ -1,0 +1,104 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>checkout and departure</title></head><body><template>
+<style>
+  * { box-sizing: border-box; }
+  #frame-02 { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; }
+  @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+  .zoom-stage { position:absolute; left:60px; top:250px; width:900px; height:1200px; overflow:hidden; display:grid; place-items:center; background:#EDE7D8; border:2px solid #C4B99E; }
+  .zoom-outer { position:relative; width:900px; height:506px; transform-origin:50% 50%; will-change:transform; }
+  .zoom-inner { position:absolute; inset:0; width:900px; height:506px; will-change:transform; }
+  .zoom-inner video { position:absolute; inset:0; width:900px; height:506px; object-fit:contain; object-position:center; }
+  .focus-mark { position:absolute; left:0; top:0; width:8px; height:100%; background:#B5482F; transform-origin:50% 0%; }
+  .portrait-panel { position:absolute; left:0; width:1080px; overflow:hidden; background:#EDE7D8; }
+  .portrait-panel video { position:absolute; top:0; max-width:none; object-fit:fill; }
+  .portrait-mark { position:absolute; left:0; top:0; width:160px; height:8px; background:#B5482F; transform-origin:0% 50%; }
+  .thesis-panel { position:absolute; left:96px; top:450px; width:804px; min-height:720px; display:flex; flex-direction:column; justify-content:center; }
+  .thesis-panel h1 { color:#173530; font-family:"BL Zodiak",Georgia,serif; font-size:118px; line-height:1.02; letter-spacing:-.038em; font-weight:700; }
+  .thesis-mark { margin-top:54px; width:240px; height:10px; background:#B5482F; transform-origin:0% 50%; }
+  .native-stage { position:absolute; left:60px; top:250px; width:900px; height:1100px; padding:54px 36px 48px; border:2px solid #C4B99E; border-left:9px solid #B5482F; background:#F0EBDD; overflow:hidden; color:#173530; }
+  .native-kicker { color:#586D74; font:500 24px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.12em; }
+  .native-title { margin-top:28px; max-width:820px; color:#173530; font-family:"BL Zodiak",Georgia,serif; font-size:82px; line-height:1.02; letter-spacing:-.035em; font-weight:700; }
+  .native-visual { position:absolute; left:36px; right:36px; top:330px; bottom:44px; display:flex; flex-direction:column; justify-content:center; gap:34px; }
+  .evidence-card { position:relative; padding:48px 36px 40px; border:3px solid #173530; background:#F5F0E6; }
+  .field-label,.model-note { color:#586D74; font:500 22px/1.2 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .mono-value { margin-top:30px; color:#173530; font:500 46px/1.18 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:-.025em; overflow-wrap:anywhere; }
+  .tag { display:inline-block; margin-top:34px; padding:12px 18px; color:#F5F0E6; font:500 26px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.10em; }
+  .oxide { background:#B5482F; }
+  .flow-row { display:grid; grid-template-columns:1fr 1.15fr 1fr; align-items:center; gap:22px; }
+  .node { min-height:190px; padding:30px 22px; display:grid; place-items:center; border:3px solid #173530; background:#F5F0E6; text-align:center; }
+  .node span { font:500 32px/1.15 "BL Supreme",system-ui,sans-serif; letter-spacing:.04em; }
+  .node.active,.stay-card.active,.world-card.active,.tool-card.active { border-color:#B5482F; box-shadow:inset 0 -12px 0 #B5482F; }
+  .node.wide { width:620px; min-height:112px; margin:0 auto; }
+  .route { position:relative; height:10px; background:#586D74; }
+  .route span { position:absolute; left:50%; top:-54px; transform:translateX(-50%); color:#586D74; font:500 22px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .route.broken::before,.route.broken::after { content:""; position:absolute; top:-18px; width:8px; height:46px; background:#B5482F; transform:rotate(28deg); }
+  .route.broken::before { left:45%; } .route.broken::after { left:55%; }
+  .status-line { align-self:center; padding:18px 24px; color:#B5482F; font:500 26px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .status-dot { display:inline-block; width:16px; height:16px; margin-right:12px; border-radius:50%; background:#B5482F; }
+  .flow-stack { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .down-arrow { color:#B5482F; font:500 52px/1 "BL Supreme",system-ui,sans-serif; }
+  .stay-grid { display:grid; grid-template-columns:1fr 64px 1fr; align-items:center; gap:20px; }
+  .stay-card { min-height:310px; padding:44px 24px; border:3px solid #173530; background:#F5F0E6; display:flex; flex-direction:column; justify-content:space-between; }
+  .stay-card span { color:#586D74; font:500 24px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .stay-card strong { font:500 38px/1.05 "BL Supreme",system-ui,sans-serif; overflow-wrap:anywhere; }
+  .equals { text-align:center; font:500 54px/1 "BL Supreme",system-ui,sans-serif; }
+  .ledger-stack { display:flex; flex-direction:column; gap:22px; }
+  .ledger-row { display:grid; grid-template-columns:90px 1fr; gap:8px 22px; align-items:center; padding:24px 26px; border-bottom:2px solid #C4B99E; }
+  .ledger-row > span { grid-row:1/3; color:#B5482F; font:500 56px/1 ui-monospace,SFMono-Regular,monospace; }
+  .ledger-row strong { font:500 34px/1.1 "BL Supreme",system-ui,sans-serif; }
+  .ledger-row small { color:#586D74; font:400 26px/1.1 "BL Supreme",system-ui,sans-serif; }
+  .question-box { padding:28px 30px; background:#173530; color:#F5F0E6; text-align:center; font:500 42px/1.08 "BL Supreme",system-ui,sans-serif; letter-spacing:.02em; }
+  .question-box.huge { padding:52px 36px; font-family:"BL Zodiak",Georgia,serif; font-size:72px; line-height:1.04; letter-spacing:-.025em; }
+  .site-card { width:650px; min-height:480px; margin:0 auto; padding:40px; border:3px solid #173530; text-align:center; background:#F5F0E6; }
+  .building-mark { font:500 112px/1 "BL Supreme",system-ui,sans-serif; }
+  .site-card > strong { display:block; margin-top:8px; font:500 34px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.06em; }
+  .book-card { margin-top:48px; padding:28px; display:flex; align-items:center; justify-content:center; gap:22px; background:#173530; color:#F5F0E6; }
+  .book-mark { font-size:62px; line-height:1; } .book-card span:last-child { font:500 34px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.05em; }
+  .split-world { display:grid; grid-template-columns:1fr 10px 1fr; gap:30px; align-items:stretch; }
+  .world-card { min-height:350px; padding:36px 24px; border:3px solid #173530; background:#F5F0E6; display:flex; flex-direction:column; justify-content:space-between; text-align:center; }
+  .world-card strong { font:500 32px/1.1 "BL Supreme",system-ui,sans-serif; }
+  .no-email,.email-chip { display:block; padding:18px 12px; font:500 25px/1.05 "BL Supreme",system-ui,sans-serif; letter-spacing:.05em; }
+  .no-email { color:#B5482F; border:2px solid #B5482F; } .email-chip { color:#F5F0E6; background:#173530; }
+  .rule-boundary { background:#B5482F; }
+  .type-lockup { display:flex; align-items:baseline; justify-content:center; gap:28px; padding:60px 30px; border-top:3px solid #B5482F; border-bottom:3px solid #B5482F; }
+  .type-lockup span { color:#586D74; font:500 36px/1 "BL Supreme",system-ui,sans-serif; }
+  .type-lockup strong { font:500 70px/1 "BL Supreme",system-ui,sans-serif; }
+  .constraint-line { display:grid; grid-template-columns:150px 1fr 180px; align-items:center; gap:16px; color:#586D74; font:500 26px/1 "BL Supreme",system-ui,sans-serif; }
+  .constraint-line i { height:5px; background:#173530; } .constraint-line b { padding:16px; color:#F5F0E6; background:#B5482F; text-align:center; }
+  .relay-card { padding:30px 28px; border:3px solid #173530; background:#F5F0E6; font:500 31px/1.2 ui-monospace,SFMono-Regular,monospace; overflow-wrap:anywhere; }
+  .attempt-path { display:grid; grid-template-columns:auto 1fr 64px; align-items:center; gap:22px; color:#586D74; font:500 24px/1 "BL Supreme",system-ui,sans-serif; }
+  .attempt-path i { height:5px; background:#173530; } .attempt-path b { color:#B5482F; font-size:76px; line-height:1; }
+  .rules-line { padding:24px; border-top:8px solid #B5482F; color:#B5482F; text-align:center; font:500 34px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .choice-stack { display:flex; flex-direction:column; gap:30px; }
+  .tool-card { min-height:180px; padding:30px; border:3px solid #173530; background:#F5F0E6; display:flex; justify-content:space-between; align-items:center; }
+  .tool-card span { color:#586D74; font:500 26px/1 "BL Supreme",system-ui,sans-serif; } .tool-card b { max-width:520px; text-align:right; font:500 36px/1.05 "BL Supreme",system-ui,sans-serif; }
+  .tool-card.muted { opacity:.58; }
+  .signing-card { display:flex; align-items:end; justify-content:center; gap:50px; min-height:320px; padding:44px; border-bottom:4px solid #173530; }
+  .person-mark { font-size:150px; line-height:.75; } .pen-mark { color:#B5482F; font-size:120px; line-height:1; } .book-mark.large { font-size:140px; line-height:1; }
+  .choice-label { text-align:center; color:#B5482F; font:500 36px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.06em; }
+  .number-lockup,.money-lockup { text-align:center; }
+  .number-lockup strong { display:block; color:#173530; font:700 156px/.92 "BL Zodiak",Georgia,serif; letter-spacing:-.05em; }
+  .number-lockup span,.money-lockup span { display:block; margin-top:22px; color:#586D74; font:500 32px/1 "BL Supreme",system-ui,sans-serif; letter-spacing:.08em; }
+  .band-bar { position:relative; width:180px; height:260px; margin:0 auto; border:4px solid #173530; }
+  .band-bar::before { content:""; position:absolute; left:0; right:0; bottom:0; height:62%; background:#D8CFB9; }
+  .band-bar i { position:absolute; left:-4px; right:-4px; bottom:56%; height:18%; background:#B5482F; opacity:.82; }
+  .money-lockup strong { display:block; color:#173530; font:700 130px/.88 "BL Zodiak",Georgia,serif; letter-spacing:-.045em; }
+  .model-note { text-align:center; }
+  .wrong-number { padding:42px; border:4px solid #B5482F; text-align:center; }
+  .wrong-number span { display:block; color:#586D74; font:500 40px/1 "BL Supreme",system-ui,sans-serif; }
+  .wrong-number strong { display:block; margin-top:12px; color:#B5482F; font:700 118px/.9 "BL Zodiak",Georgia,serif; letter-spacing:-.04em; }
+</style>
+<div id="frame-02" data-composition-id="frame-02" data-start="0" data-duration="6.916667" data-width="1080" data-height="1920" data-fps="24">
+
+  <div class="portrait-panel" style="top:555px;height:810px;">
+    <video id="frame-02-portrait-video" class="clip" data-layout-allow-overflow style="left:-180.000px;width:1440px;height:810px;" src="assets/episode-r8.mp4" data-start="0" data-duration="6.916667" data-media-start="3.583333" muted playsinline></video>
+    <div id="frame-02-focus-mark" class="portrait-mark"></div>
+  </div>
+</div>
+<script>(() => {
+  const tl = gsap.timeline({ paused: true });
+  tl.fromTo("#frame-02-focus-mark", { scaleX: 0 }, { scaleX: 1, duration: 0.22, ease: "power3.out" }, 0.08);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["frame-02"] = tl;
+})();</script>
+</template></body></html>

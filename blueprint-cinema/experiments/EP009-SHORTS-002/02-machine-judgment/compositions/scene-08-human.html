@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><body><template>
+  <style>
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#fff}
+    video{position:absolute;top:0;left:0;width:1080px;height:1720px;object-fit:cover;object-position:48% 72%;will-change:transform}
+    .boundary{position:absolute;z-index:2;left:80px;right:80px;top:1110px;padding:22px 28px;border:4px solid #b5482f;background:rgba(251,248,241,.95);color:#204440;font:700 30px/1.2 'IBM Plex Mono','Courier New',monospace;text-align:center;text-transform:uppercase;letter-spacing:.04em;will-change:transform,opacity}
+  </style>
+  <div id="root" data-composition-id="scene-08-human" data-width="1080" data-height="1920" data-duration="4.083333333333333">
+    <video id="human-state" class="clip" src="assets/locked-carrier.mp4" data-start="0" data-duration="4.083333333333333" data-media-start="708.875" data-track-index="10" muted playsinline data-layout-allow-overflow></video>
+    <div id="human-boundary" class="boundary">Human review required · no sending available</div>
+    <script>
+      window.__timelines=window.__timelines||{};
+      const tl=gsap.timeline({paused:true});
+      tl.fromTo('#human-state',{scale:1.015,y:6},{scale:1.07,y:-24,duration:4.083333333333333,ease:'none'},0);
+      tl.fromTo('#human-boundary',{opacity:0,y:18},{opacity:1,y:0,duration:.24,ease:'power2.out',immediateRender:false},2.25);
+      window.__timelines['scene-08-human']=tl;
+    </script>
+  </div>
+</template></body></html>

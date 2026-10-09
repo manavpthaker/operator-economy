@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-final-r8-lock-audit",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "role": "qa_reviewer",
+  "objective": "Independently audit the newly recorded EP009 r8 full-episode owner lock, confirming exact carrier identity, source-message scope, manifest bindings, decision-log linkage, and separation between picture lock, derivative authorization, release clearance and publication approval.",
+  "required_gate": "greybox_ready",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-final-episode-lock-and-shorts-start.json",
+      "sha256": "a7d0bf1e03bd6c8ba67caaee88cdaedf3a58cecdf27a73b4c58fb2fe31b7b8f2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-DECISION-EVENT-r8.json",
+      "sha256": "2f1c55a43729e94299daff6e42afd8dc2b5acaa7b1c84b62e3c889dce263b1ab"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-OWNER-FEEDBACK-r8.json",
+      "sha256": "261afc94d7993d84ea9547f9d37d25761b8687ee21d80999cac3f3affe092908"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/decisions/events.jsonl",
+      "sha256": "80ebba0fbc3242e0482a632d874dcc85320008f75050470d19483126ec3755ff"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-final-r8-lock-audit/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "studio",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/review"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute every issued input hash.",
+    "Validate the full episode decision log hash chain and locate the exact final decision and owner feedback events.",
+    "Confirm the lock manifest binds the current r8 carrier, 29,323 frames, unchanged r3 narration, prior scoped locks and P08 resolution without claiming publication approval.",
+    "Report any overreach, missing binding, inconsistent scope or false release claim.",
+    "Write report.md, audit.json and a schema-valid deliverable.json only inside the owned deliverable directory."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 0,
+  "stopping_conditions": [
+    "Stop on any input hash mismatch and report the stale input.",
+    "Do not modify the lock, event log, source record, carrier or any canonical state."
+  ],
+  "status": "closed"
+}

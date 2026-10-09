@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-shorts-editorial-map",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/TIMEMAP.json",
+      "sha256": "5427ecd19835ab60414291b8ec3cde474188c422e89ee9d0ad67090a586a4272"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json",
+      "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9"
+    },
+    {
+      "path": "../content-os/flow.md",
+      "sha256": "9d647fd927dd9a54df13bceb96c21eac90eddebd233244fecf3d7377484f6c51"
+    },
+    {
+      "path": "studio/originate/direct-booking-recovery/content/shorts_briefs.json",
+      "sha256": "f199badf5125b7de3c58ab1f73ffd920a036e4798ddb3bbc48c11a20c13f2d60"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/shorts-map.json",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/report.md",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "shasum -a 256 on all six issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe exact r8 carrier dimensions, frame rate, duration and frame count",
+      "outcome": "pass"
+    },
+    {
+      "command": "inline Python validation of four ranks, word ranges, verbatim transcript, 24 fps cut bounds and duration limits",
+      "outcome": "pass"
+    },
+    {
+      "command": "jsonschema validation of deliverable.json against blueprint-cinema/schemas/agent-deliverable.schema.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-work-order preflight stopped before work-order validation because EP009 episode.json is absent",
+      "outcome": "not_run"
+    },
+    {
+      "command": "oe-cinema validate-deliverable unavailable because the EP009 episode project record is absent",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "All six work-order inputs were rehashed and matched their issued SHA-256 values before use.",
+    "The current r3 word transcript supplies exact word IDs and timings; the current r3 timemap supplies the 24 fps output clock used by the r8 carrier.",
+    "SHOT-PLAN.json was used for scene and lane meaning only because its authored timing predates the r3 revisions.",
+    "The prior shorts_briefs.json was treated as historical prompting only; none of its unbound public copy or absent claims was adopted."
+  ],
+  "assumptions": [
+    "A source cut may include the fractional-frame pre-roll or post-roll required to retain the complete first and last timed word.",
+    "The future vertical builder will choose the portrait reframe and caption treatment without changing these contiguous narration ranges.",
+    "Pinned-comment entries in shorts-map.json state intent only and do not authorize public copy or a hand-typed episode URL."
+  ],
+  "unresolved_questions": [
+    "Portrait reframing, caption density, music, overlay design and final render order remain for the vertical source and build stages.",
+    "The full oe-cinema work-order and deliverable validators cannot run until the EP009 episode project record exists at blueprint-cinema/episodes/EP009-direct-booking-recovery/episode.json."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

@@ -1,0 +1,162 @@
+{
+  "event_id": "ep009-s13-native-tool-focus-verified-r8",
+  "decision_id": "ep009-s13-real-software-demo",
+  "event_type": "verification",
+  "tags": [
+    "software-demo",
+    "native-tool",
+    "attention-direction",
+    "decoded-picture",
+    "decoded-audio",
+    "private-phone-review"
+  ],
+  "data": {
+    "decision_event_id": "ep009-s13-native-tool-focus-r8",
+    "method": "Built the r8 candidate from the verified r7 base; decoded all 29,323 output frames; checked the emitted graph against the selections; verified that only r8-versus-r7 frames [16794,16854) changed; preserved r7 source pixels outside local [42,102); compared the encoded program audio with the unchanged r3 narration master; inspected the full S13 sequence and tight native crop; then loaded, played, range-requested and sought the private Tailscale route at a 375 by 812 browser viewport.",
+    "result": "pass",
+    "scope": "Technical verification of the private r8 review candidate only. F03 remains [16704,16752); the native-tool sequence remains [16752,17458); only [16794,16854) changes from r7. Owner creative acceptance and release clearance remain false.",
+    "limitations": "The native Node-RED screenshot is a later local configuration view, not a fresh provider execution. No provider call or runtime mutation occurred for r8. The sequence uses the actual native source plus retained r2 fictional test states, with a static crop and holds; it adds no annotations, callouts, generated UI, optical flow or speed change. Maya Chen and Alder House Inn are fictional, and the queued draft has no send node, recipient, credential or customer result. The 375 by 812 check used a browser viewport through Tailscale, not physical-phone hardware or a continuous human watch-through. P08 remains open. A technical pass does not establish owner acceptance or release clearance.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+        "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+        "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r8-review.html",
+        "sha256": "e562e10766addc78517bef35a748dda496bb0df12034f71ccbf6b79e9acab87f"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/PHONE-REVIEW-r8.json",
+        "sha256": "64fe7c48c0f0c2eb91122326162fd8791c8005f2004cf308ae40c28956a7b92e"
+      }
+    ],
+    "owner_accepted": false,
+    "release_cleared": false
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-s13-native-tool-focus.json",
+      "sha256": "817615da0a5864f8016bd1230b6dd0ab8e3d09a9b0e1d327ddbce04135192ec2",
+      "locator": "Owner revision scope and preserved locks."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/TIMING-CONTRACT.json",
+      "sha256": "59f284bdf9de77bcf021eabca2e6f146d842da74d88dea24013e819880334db4",
+      "locator": "Exact S13 timing boundaries."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85",
+      "locator": "Sole unchanged program-audio source."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "locator": "Spoken timing used to review the S13 beats."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/DIRECTION-r8.json",
+      "sha256": "7efe790661cbffacabb64be3ea6999e44e3f096b00a702046d393e3d752124f9",
+      "locator": "R8 selected framing and limitations."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/SELECTIONS-r8.json",
+      "sha256": "762e1dc462c5d499d491c1a16f8a9ef991ec1a417a59b33a201d227dcabd36f2",
+      "locator": "Exact r8 frame assignments."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/GUIDED-SCREEN-EDIT-MANIFEST-r8.json",
+      "sha256": "a5d9d6a3a1d59d0d6bc311b6fb645f1358c3666a2a49581d439ca9c49472ee7a",
+      "locator": "Native-tool overview, tight crop and retained-state edit map."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/SCREEN-R8-CONFORM.json",
+      "sha256": "179b38d5fed79c9897863cc28e0647d5e3f4299806bfc6e76bfe5f19e519c626",
+      "locator": "R8 24 fps conform and crop transform."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/NATIVE-CAPTURE-PROVENANCE-r8.json",
+      "sha256": "886356b3e2b008d58c0bd46ed19178c1f336674cb454fbe38431ff5279d24b11",
+      "locator": "Bound native-source provenance and explicit non-actions."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/SCREEN-REVIEW-r8.json",
+      "sha256": "d053139fb4cd5317d9ff9ee554d64efc218611b5ef1b0adc0b60b994b3bace34",
+      "locator": "R8 visual inspection and readable target labels."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+      "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6",
+      "locator": "Clean native Node-RED editor source used for the tight crop."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/screen-r8-tool-clarity-706.mp4",
+      "sha256": "452e905fb1e8a947798ae61e0ba6eff1193b87022597eb4d395d60ba127959d5",
+      "locator": "Exact 706-frame r8 screen source."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/screen-706.mp4",
+      "sha256": "b958b406f7d6d29304de5746ef843762cc6b0be848c69bcb23dca597474fa011",
+      "locator": "Retained r2 execution and human-review picture source."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/SANITIZED-RUNTIME-EVIDENCE.json",
+      "sha256": "5819f93a12cca9b19a7b794d7fe5572c92de81e6e7e083b7a61345c4f93e4e9a",
+      "locator": "Sanitized persisted-state, provider and no-send evidence for the fictional test."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/CAPTURE-PROVENANCE.json",
+      "sha256": "68c231d21afef21b1b3286b981b9a61087ef0292532e1d5fb72877d97ff50977",
+      "locator": "R2 capture method, declared ellipses and fictional-fixture boundaries."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-openai-real-run-r2/SCREEN-REVIEW.json",
+      "sha256": "9baaf56afcf641401f55171fa70d06fed0db3a05fec361f2931573e2ff42d8af",
+      "locator": "Review of the retained r2 execution states and limits."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r7-tool-focus/ep009-r7-tool-focus-review-r1-BUILD.json",
+      "sha256": "82f184b4be87496c289899ccc1b0067759d60b0c4ea66a71f8e6f113ec3b1f09",
+      "locator": "Inherited r7 technical base."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r7-tool-focus/ep009-r7-tool-focus-review-r1-VERIFICATION.json",
+      "sha256": "7e2ec95e24dec9deec29b162c255ca7270f3226af87441428aa68a3f197a21e0",
+      "locator": "Inherited r7 decoded-picture and audio continuity checks."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-BUILD.json",
+      "sha256": "8fe2c44e1b96c3af0a044f6af94220ef74e470ee792dca715db56628c1171ddf",
+      "locator": "R8 assembly bindings and command."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-graph.txt",
+      "sha256": "79ef4e223ad4431426b185927f411c465fbfccb2d00c39d43a362487ec025313",
+      "locator": "Emitted r8 assembly graph."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+      "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106",
+      "locator": "Full decoded picture, mapping and encoded-audio identity verification."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "locator": "Exact private r8 review candidate."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/ep009-r8-review.html",
+      "sha256": "e562e10766addc78517bef35a748dda496bb0df12034f71ccbf6b79e9acab87f",
+      "locator": "Private review page with focused S13 jumps and visible limits."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/PHONE-REVIEW-r8.json",
+      "sha256": "64fe7c48c0f0c2eb91122326162fd8791c8005f2004cf308ae40c28956a7b92e",
+      "locator": "Private Tailscale route, byte-range, playback, seek and 375-pixel viewport check."
+    }
+  ]
+}
