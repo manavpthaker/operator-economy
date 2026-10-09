@@ -1,6 +1,9 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-08 ET, scout run: two spend-first ideas screened, both rejected (outsourced
+Updated: 2026-10-09 ET, scout run: adds `DISC-2026-10-09-021` (ordinance recodification and
+supplements for small towns) as held — current codifier spend and a 2026-07-16 market merger, but
+no independent buyer question signal; shortlist unchanged. Full record: `runs/2026-10-09.md`.
+Previous: 2026-10-08 ET, scout run: two spend-first ideas screened, both rejected (outsourced
 warranty-claim administration for small dealers; small-multifamily lease audits); shortlist
 unchanged. Full record: `runs/2026-10-08.md`.
 Previous: 2026-10-07 ET, scout run: adds `DISC-2026-10-07-020` (catch-up reconciliation to
@@ -238,6 +241,59 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-09-021` — ordinance recodification and supplements for small towns
+
+- Status: `held` (2026-10-09 scout)
+- First seen / last checked: 2026-10-09 / 2026-10-09 ET
+- Exact question or change: small towns pay a codifier $5,000–$37,000 and wait 10–24 months to
+  recodify an ordinance book, then $18–$23 per page for supplements. Two of the three national
+  codifiers merged into ICC Code Solutions on 2026-07-16. Can one AI-equipped operator recodify and
+  maintain a small town's code for a fraction of that, in weeks?
+- Sources: ICC release 2026-07-16 (read); Alexandria VA FY2027 codification budget item ($25,612);
+  Isle of Palms SC RFP 2026-07; Salt Lake City RFI SLCI27019 (2026-08-03, asks about generative AI);
+  Novi MI, North Adams MA, East Troy WI, Richland County WI, Greenbelt MD, Bancroft WV, Sundance WY,
+  Monticello IA, Louisville CO board items (SERP). Full ledger: `runs/2026-10-09.md`.
+- Signal types: operating change (market consolidation), buyer spend, procurement, capability.
+- Who cares / decision: clerks, managers and councils of small towns whose code is years out of date,
+  deciding whether to recodify, with whom, and at what price.
+- Buyer / costly problem: an out-of-date ordinance book with obsolete, duplicative and conflicting
+  provisions; a 10–24-month, five-figure fix; ongoing per-page supplement fees.
+- Offer / outcome: fixed-fee recodification draft plus issue memo, then per-ordinance or annual
+  supplements; outcome is an adopted, searchable code.
+- Mechanism: AI reads every ordinance since the last code, proposes the structure, renumbering,
+  cross-references, index, and an issue list; the operator checks and edits; the town attorney
+  decides flagged issues; the council adopts.
+- Why now: AI reads a whole ordinance book cheaply; the 2026-07-16 merger narrows the national field
+  to two; at least one large buyer (Salt Lake City) now asks codifiers about generative AI.
+- **AI-change test: plausibly passes, to verify.** AI does the reading, sorting and drafting that
+  took a firm's editors months. To verify: hours per 100 pages with and without AI.
+- **Delivery boundary: passes on paper.** Codifiers are publishers; legal conflicts go to the town
+  attorney and adoption to the council. Residual: an unlicensed operator delivers a reorganized,
+  indexed draft code and an issue memo for the town attorney, then keeps it supplemented.
+  Unconfirmed whether buyers accept a non-attorney's conflict memo.
+- **Substitute:** ICC Code Solutions; CivicPlus Municode (full-service and self-publishing);
+  regional codifiers at about $5,000 (Sterling, Simmering-Cory); enCodePlus self-publishing. No
+  AI-native codifier found.
+- **Problem-value signals:** `residual` (towns paying codifiers $4,850–$36,650 for recodification
+  and $18–$23/page for supplements); `problem cost` (codes unrevised since 1984; 10–24-month waits).
+- **Payment evidence:** found — `residual`.
+- Switching question: why a solo operator rather than the incumbent that already hosts the code, a
+  low-cost regional, or a self-publishing platform?
+- Strongest invalidating question: will a small town move its code off an incumbent that also hosts
+  it, when regionals already quote about $5,000 and RFPs ask for references from similar projects?
+- Missing condition (why held): no independent buyer-side question signal; every signal is a
+  procurement or budget record (same reason as `DISC-2026-10-07-020`). Public-sector buyer, against
+  the lane-3 private-sector preference. Trends flat (5-year, US).
+- Reopening condition: one buyer-side question signal (clerk forum or listserv thread asking how to
+  recodify cheaply or which codifier to use, a `site:quora.com` title, or buyer-phrased Trends
+  movement). Then: a hosting path a solo operator can offer, and a town accepting a non-codifier.
+- Possible OE point of view: a town's laws sit in a book only two companies now maintain at scale;
+  AI makes reading the whole book cheap, leaving an accountable person and the town attorney to sign
+  off. Showable with a real town's public ordinances, no guest needed.
+- Semantic deduplication: no match in the repository or pool; shares the small-town buyer with
+  `DISC-2026-10-07-020` and the parked records-request lead, not the job.
+- Disposition: held. Recheck 2026-10-23; expires 2027-03-31. Step 0 candidate ID: none.
 
 ### `DISC-2026-10-07-020` — catch-up reconciliation to audit-ready for small towns and special districts
 
