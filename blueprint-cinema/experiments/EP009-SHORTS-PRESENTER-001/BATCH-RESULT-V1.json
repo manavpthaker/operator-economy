@@ -1,0 +1,145 @@
+{
+ "schema": "oe-presenter-batch-result-v1",
+ "at_utc": "2026-10-09T15:35:00Z",
+ "episode": "EP009",
+ "of": "BATCH-INTENT-V1.json",
+ "generation": {
+  "submitted": 8,
+  "landed": 6,
+  "failed": 0,
+  "credits_charged": 595,
+  "matches_preflight": true,
+  "still_running": [
+   "01-close",
+   "01-open"
+  ]
+ },
+ "repair": {
+  "model": "fal-ai/sync-lipsync/react-1",
+  "args": {
+   "model_mode": "lips",
+   "emotion": "neutral",
+   "lipsync_mode": "cut_off",
+   "temperature": 0.5
+  },
+  "done": 6,
+  "gate_hit_first": {
+   "gate": "look_lock",
+   "charged": false,
+   "what": "oe-cinema refused the first react-1 call because presenter/LOOK-LOCK.json did not exist in this experiment. The owner had picked P1 on 2026-10-09 but the pick lived only in LOOK-SELECTED.json, which the gate does not read.",
+   "resolved": "oe-cinema lock-look wrote v1 from that pick; the locked still hashes 7b08bd3a..., the same bytes LOOK-SELECTED names.",
+   "worth_keeping": "The gate was right. A paid presenter pass with no look lock in the canonical place is exactly what it exists to stop."
+  }
+ },
+ "takes": {
+  "02-close": {
+   "short": "02",
+   "span": "close",
+   "master_from_s": 32.375,
+   "master_to_s": 42.208333,
+   "span_seconds": 9.833,
+   "native_duration_s": 11.072,
+   "react1_duration_s": 9.833333,
+   "frames": 236,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "84a14cc25f6264e15521a69e4650fb037fcadb6123946d6bdfe8e0e041024000",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/02-close-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  },
+  "02-open": {
+   "short": "02",
+   "span": "open",
+   "master_from_s": 0.0,
+   "master_to_s": 10.375,
+   "span_seconds": 10.375,
+   "native_duration_s": 12.064,
+   "react1_duration_s": 10.375,
+   "frames": 249,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "ced0a8089266e34bad276845137d582a618f08e3d5e929dc1a810476fed76ad9",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/02-open-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  },
+  "03-close": {
+   "short": "03",
+   "span": "close",
+   "master_from_s": 36.166667,
+   "master_to_s": 43.5,
+   "span_seconds": 7.333,
+   "native_duration_s": 9.056,
+   "react1_duration_s": 7.333333,
+   "frames": 176,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "8554ad07f919a92a88858125cc5f58c4988a02b23b6ef6ea1351d8883e1916db",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/03-close-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  },
+  "04-close-a": {
+   "short": "04",
+   "span": "close-a",
+   "master_from_s": 30.791667,
+   "master_to_s": 42.083,
+   "span_seconds": 11.291,
+   "native_duration_s": 13.056,
+   "react1_duration_s": 11.291667,
+   "frames": 271,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "5fa0bf759529cafdab7576b7fee24013b031663af4107ee10f633752ad2b4702",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-close-a-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  },
+  "04-close-b": {
+   "short": "04",
+   "span": "close-b",
+   "master_from_s": 42.083,
+   "master_to_s": 47.791667,
+   "span_seconds": 5.709,
+   "native_duration_s": 7.072,
+   "react1_duration_s": 5.708333,
+   "frames": 137,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "0190caeab12200ede386565babe18175d5439f4add729eb289712e12f6f032fc",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-close-b-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  },
+  "04-open": {
+   "short": "04",
+   "span": "open",
+   "master_from_s": 0.0,
+   "master_to_s": 6.125,
+   "span_seconds": 6.125,
+   "native_duration_s": 8.064,
+   "react1_duration_s": 6.125,
+   "frames": 147,
+   "fps": "24/1",
+   "pixels": "720x1280",
+   "sha256": "54af4fce9bcd8ebe7a8d00d9056d48edbe08a5b8e54d96457039d43f361419de",
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-open-react1.mp4",
+   "trimmed_to_audio": true,
+   "full_decode_ok": true
+  }
+ },
+ "verified": {
+  "duration": "Every landed take returned exactly its span length. cut_off trims to the audio, so none needs trimming downstream and each drops straight into the frame count the Short already allots.",
+  "framing": "Contact sheets show P1's angle holding across the takes: phone-height selfie, face filling the frame, chambray, the inn breakfast room with the window right and the table edge low, no arm in frame, head steady on the lens.",
+  "a_correction": "I first reported 04-close-a at 531 frames. That was the AAC frame count: react-1 returns the audio stream first and the script was reading streams[0]. The picture is 271 frames at 24fps. The script now selects by codec_type and every count here is a picture count."
+ },
+ "not_verified": {
+  "lip_sync": "Not asserted. The cross-correlation audit was inconclusive on the accepted take and the timing tooling has misread this material twice today. Owner viewing settles it, as it settled EP007.",
+  "acceptance": "None of these is accepted. Each is a separate stochastic result and gets its own view before it is mounted."
+ },
+ "cost": {
+  "seedance_credits": 595,
+  "react1_usd_estimate": "about 1.3 to 2.1 per take at these lengths; fal does not report the charge in the result"
+ }
+}

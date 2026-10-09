@@ -78,11 +78,15 @@ if rec.get("react1", {}).get("status") != "done":
         rec["react1"] = {"status": "failed", "stdout": r.stdout[-2000:], "stderr": r.stderr[-2000:]}
         save(); sys.exit(f"{take_id}: react-1 failed; this take holds")
     p = probe(out)
-    frames = int(p["streams"][0]["nb_frames"])
+    # pick the VIDEO stream by codec_type: react-1 returns audio first, and
+    # streams[0]["nb_frames"] there is an AAC frame count, not a picture count.
+    v = next(st for st in p["streams"] if st["codec_type"] == "video")
+    frames = int(v["nb_frames"])
     dur = float(p["format"]["duration"])
     rec["react1"] = {"status": "done", "item": f"{take_id}-react1", "est_usd": est,
         "audio_url": audio_url, "path": str(out.relative_to(REPO)), "sha256": sha(out),
-        "probe": p, "full_decode_ok": decode_ok(out), "frames": frames, "duration_s": dur,
+        "probe": p, "full_decode_ok": decode_ok(out), "frames": frames,
+        "fps": v["r_frame_rate"], "pixels": f'{v["width"]}x{v["height"]}', "duration_s": dur,
         "span_seconds": plan["speech_s"],
         "trimmed_to_audio": abs(dur - plan["speech_s"]) < 0.05,
         "note": "cut_off should return the span length exactly. A mismatch is reported, not trimmed away."}
