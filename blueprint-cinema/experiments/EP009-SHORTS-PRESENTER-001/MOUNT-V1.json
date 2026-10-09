@@ -1,8 +1,8 @@
 {
  "schema": "oe-presenter-mount-v1",
- "at_utc": "2026-10-09T15:55:00Z",
+ "at_utc": "2026-10-09T17:40:00Z",
  "episode": "EP009",
- "authorization": "owner, 2026-10-09: 'approved, mount them', plus 'looks good' on 03-open earlier the same day",
+ "authorization": "owner, 2026-10-09: 'approved, mount them', plus 'looks good' on 03-open earlier the same day; and again 2026-10-09 for 01-open and 01-close",
  "what": "Seven accepted takes replace the presenter placeholders in Shorts 02, 03 and 04.",
  "mounted": {
   "02-open": {
@@ -67,6 +67,24 @@
    "mounted_sha256": "3954338b8f96bc9eab11fcac27d38a3e3d8a780151a1983125f9c85279a56899",
    "duration_s": 5.708333,
    "frames": 137
+  },
+  "01-open": {
+   "short": "01",
+   "span": "open",
+   "source_sha256": "3bdb89b2ab9f42d03433d0fb219c8df1f03ad7e404be9df03d1353f35ef9ddda",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/01-book-your-own-room/assets/video/presenter-open.mp4",
+   "mounted_sha256": "57f101d9247d5abadfa74ecb4d3d16a97e3637e71a5e44eca6c43997276cf347",
+   "duration_s": 11.625,
+   "frames": 279
+  },
+  "01-close": {
+   "short": "01",
+   "span": "close",
+   "source_sha256": "fe6d8019626efd2ac47f69f24dc3a432371067337a1e3dd275dfe94288c37d01",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/01-book-your-own-room/assets/video/presenter-close.mp4",
+   "mounted_sha256": "a615a5df8e320ab7e0b827636b28db718e972d189a8880b834f81d3fd461738e",
+   "duration_s": 10.291667,
+   "frames": 247
   }
  },
  "shorts": {
@@ -87,10 +105,15 @@
     "04-close-b"
    ],
    "render_s": 49.8
+  },
+  "01": {
+   "open": "01-open",
+   "close": "01-close",
+   "render_s": 45.333333
   }
  },
- "short_01": "Not mounted. Both of its spans are 01-open and 01-close, which were still generating when the owner approved, so it keeps its placeholders.",
- "fit": "Every mount point was measured against the duration its Short's root allots that frame, read from index.html rather than assumed. All seven fit exactly.",
+ "short_01": "Mounted 2026-10-09 on 'approved, mount them' after the rerun produced 01-open. All four Shorts now carry a presenter in both movements; no placeholder remains.",
+ "fit": "Every mount point was measured against the duration its Short's root allots that frame, read from index.html rather than assumed. All seven fit exactly. Short 01's close is allotted 10.291666s against a 10.291667s take \u2014 one microsecond, far inside the half-frame tolerance the mount checks.",
  "three_things_the_mount_had_to_fix": [
   {
    "what": "composition ids",
