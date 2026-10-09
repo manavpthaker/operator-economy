@@ -21,13 +21,36 @@ cover. That upscale is the cost of the owner's 720p ruling, not a defect.
 
 Only runs for a take whose TAKE.json records react1 done and owner_accepted true.
 """
-import json, shutil, sys
+import json, re, subprocess, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SHORTS = HERE.parents[2] / "studio/originate/direct-booking-practice/shorts-hyperframes"
-FRAME = {"open": ("01-presenter-open.html", "f01-presenter-open"),
-         "close": ("06-presenter-close.html", "f06-presenter-close")}
+FRAME = {"open": "01-presenter-open.html", "close": "06-presenter-close.html"}
+
+
+def probe_av(path):
+    """Frame count and duration of the video stream, to prove the conform changed neither."""
+    out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0",
+        "-show_entries", "stream=nb_frames,r_frame_rate,width,height", "-of", "json",
+        str(path)], capture_output=True, text=True, check=True).stdout
+    st = json.loads(out)["streams"][0]
+    return st["nb_frames"], st["r_frame_rate"], st["width"], st["height"]
+
+
+def mount_point(slug, fname):
+    """Read the composition id and allotted duration the Short's root gives this frame.
+
+    The ids are per-Short (f01/f06 in Short 01, f021/f026 in Short 02, ...), so they
+    are read from the root rather than assumed. Registering under the wrong id leaves
+    the frame with no timeline the runtime will seek.
+    """
+    root = (SHORTS / slug / "index.html").read_text()
+    block = next(b for b in re.findall(r"<div\b[^>]*?>", root, re.S)
+                 if f'compositions/{fname}' in b)
+    cid = re.search(r'data-composition-id="([^"]+)"', block).group(1)
+    dur = float(re.search(r'data-duration="([^"]+)"', block).group(1))
+    return cid, dur
 
 HTML = """<!doctype html>
 <html>
@@ -56,7 +79,9 @@ HTML = """<!doctype html>
   </body>
 </html>
 """
-VIDEO = ('        <video class="take" src="assets/video/{f}" muted\n'
+# The id is required, not cosmetic: the renderer discovers media elements by id and a
+# <video> without one renders frozen on its first frame.
+VIDEO = ('        <video id="{vid}" class="take" src="assets/video/{f}" muted\n'
          '               data-start="{start}" data-duration="{dur}" data-track-index="1"></video>\n')
 
 groups = {}
@@ -77,14 +102,29 @@ for (short, span), recs in groups.items():
     for r in recs:
         src = HERE.parents[2] / r["react1"]["path"]
         name = f"presenter-{r['span']}.mp4"
-        shutil.copy2(src, out / name)
-        vids += VIDEO.format(f=name, start=round(start, 6), dur=r["react1"]["duration_s"])
+        # Conform, don't copy. react-1 returns ~5-6s between keyframes, which the
+        # renderer seeks against frame by frame: it warns this freezes frames. One
+        # keyframe per second of picture fixes that. -r 24 matches the source rate,
+        # so no frame is added, dropped or retimed. -an because the root plays the
+        # accepted narration and the element is muted anyway.
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src), "-an",
+                        "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
+                        "-r", "24", "-g", "24", "-keyint_min", "24", "-crf", "16",
+                        "-preset", "slow", "-movflags", "+faststart", str(out / name)],
+                       check=True)
+        a, b = probe_av(src), probe_av(out / name)
+        assert a == b, f"{name}: conform changed the picture {a} -> {b}"
+        vids += VIDEO.format(vid=f"presenter-{r['span']}", f=name,
+                             start=round(start, 6), dur=r["react1"]["duration_s"])
         start += r["react1"]["duration_s"]
-    fname, cid = FRAME[span]
+    fname = FRAME[span]
+    cid, allotted = mount_point(slug, fname)
     note = (f"Presenter {span}. {len(recs)} accepted take(s), "
             + ", ".join(f"{r['take']} {r['react1']['duration_s']}s sha256 {r['react1']['sha256'][:8]}" for r in recs)
-            + f". Total {round(start, 6)}s against the span the root allots. "
+            + f". Total {round(start, 6)}s against the {allotted}s the root allots. "
               "Muted: the root plays the accepted narration. Scaled from 720x1280 by object-fit cover.")
     (SHORTS / slug / "compositions" / fname).write_text(
         HTML.format(comment=note, cid=cid, videos=vids))
-    print(f"{slug}/{fname}: {len(recs)} take(s), {round(start, 6)}s")
+    fit = abs(start - allotted) < 0.021  # half a frame at 24fps
+    print(f"{slug}/{fname}: {cid}, {len(recs)} take(s), {round(start, 6)}s "
+          f"against {allotted}s allotted — {'fits' if fit else 'MISMATCH'}")

@@ -1,0 +1,123 @@
+{
+ "schema": "oe-presenter-mount-v1",
+ "at_utc": "2026-10-09T15:55:00Z",
+ "episode": "EP009",
+ "authorization": "owner, 2026-10-09: 'approved, mount them', plus 'looks good' on 03-open earlier the same day",
+ "what": "Seven accepted takes replace the presenter placeholders in Shorts 02, 03 and 04.",
+ "mounted": {
+  "02-open": {
+   "short": "02",
+   "span": "open",
+   "source_sha256": "ced0a8089266e34bad276845137d582a618f08e3d5e929dc1a810476fed76ad9",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/02-sounds-like-marketing/assets/video/presenter-open.mp4",
+   "mounted_sha256": "41b895915d855e8c2206cabe066b52f7f5f7ccb6cba0abcf37c8150120751083",
+   "duration_s": 10.375,
+   "frames": 249
+  },
+  "02-close": {
+   "short": "02",
+   "span": "close",
+   "source_sha256": "84a14cc25f6264e15521a69e4650fb037fcadb6123946d6bdfe8e0e041024000",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/02-sounds-like-marketing/assets/video/presenter-close.mp4",
+   "mounted_sha256": "8ca7314dc64ae141d94b34b644d151171087f4ec3e3ed9090ff7d45b9f28e234",
+   "duration_s": 9.833333,
+   "frames": 236
+  },
+  "03-open": {
+   "short": "03",
+   "span": "open",
+   "source_sha256": "9b8763b8ed0293dfac981e0436dc495c228381216578d1e7ef6a76a1eef8b27a",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/03-the-guest-book/assets/video/presenter-open.mp4",
+   "mounted_sha256": "82b083c32ea88fec7de11f9c2ce5fdaadbe8c0cccaf8702b40d1bb87db4e9dbe",
+   "duration_s": 6.541667,
+   "frames": 157
+  },
+  "03-close": {
+   "short": "03",
+   "span": "close",
+   "source_sha256": "8554ad07f919a92a88858125cc5f58c4988a02b23b6ef6ea1351d8883e1916db",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/03-the-guest-book/assets/video/presenter-close.mp4",
+   "mounted_sha256": "3f5dc11a7dcae1d4d3c1c39ac2e619ac7e19526d515aab869b400f9b08dd3e05",
+   "duration_s": 7.333333,
+   "frames": 176
+  },
+  "04-open": {
+   "short": "04",
+   "span": "open",
+   "source_sha256": "54af4fce9bcd8ebe7a8d00d9056d48edbe08a5b8e54d96457039d43f361419de",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/04-four-numbers/assets/video/presenter-open.mp4",
+   "mounted_sha256": "f5456f6c384774aeecb789810e36857c873ec2e1ad631a1d8b01f0df71e165b3",
+   "duration_s": 6.125,
+   "frames": 147
+  },
+  "04-close-a": {
+   "short": "04",
+   "span": "close-a",
+   "source_sha256": "5fa0bf759529cafdab7576b7fee24013b031663af4107ee10f633752ad2b4702",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/04-four-numbers/assets/video/presenter-close-a.mp4",
+   "mounted_sha256": "6cc826df322aa9be5c602d5a8ea7a5c64190c19e9700d076b258896495eeed76",
+   "duration_s": 11.291667,
+   "frames": 271
+  },
+  "04-close-b": {
+   "short": "04",
+   "span": "close-b",
+   "source_sha256": "0190caeab12200ede386565babe18175d5439f4add729eb289712e12f6f032fc",
+   "mounted_path": "studio/originate/direct-booking-practice/shorts-hyperframes/04-four-numbers/assets/video/presenter-close-b.mp4",
+   "mounted_sha256": "3954338b8f96bc9eab11fcac27d38a3e3d8a780151a1983125f9c85279a56899",
+   "duration_s": 5.708333,
+   "frames": 137
+  }
+ },
+ "shorts": {
+  "02": {
+   "open": "02-open",
+   "close": "02-close",
+   "render_s": 44.2
+  },
+  "03": {
+   "open": "03-open",
+   "close": "03-close",
+   "render_s": 45.5
+  },
+  "04": {
+   "open": "04-open",
+   "close": [
+    "04-close-a",
+    "04-close-b"
+   ],
+   "render_s": 49.8
+  }
+ },
+ "short_01": "Not mounted. Both of its spans are 01-open and 01-close, which were still generating when the owner approved, so it keeps its placeholders.",
+ "fit": "Every mount point was measured against the duration its Short's root allots that frame, read from index.html rather than assumed. All seven fit exactly.",
+ "three_things_the_mount_had_to_fix": [
+  {
+   "what": "composition ids",
+   "why": "The ids are per-Short \u2014 f01/f06 in Short 01 but f021/f026 in Short 02, f031/f036, f041/f046. The first pass hardcoded Short 01's, which would have registered each timeline under an id the runtime never seeks. The script now reads the id out of the root."
+  },
+  {
+   "what": "a required id on each <video>",
+   "why": "The renderer discovers media by id. Without one, lint says the video renders frozen on its first frame. Two errors, caught by npm run check before any render."
+  },
+  {
+   "what": "keyframe density",
+   "why": "react-1 returns about five to six seconds between keyframes and the renderer seeks frame by frame, which it warned would freeze frames. The mount now conforms each asset to one keyframe per second at 24fps with audio dropped, and asserts the picture is unchanged \u2014 same frame count, rate and size \u2014 before writing it."
+  }
+ ],
+ "root_fps": {
+  "changed": "data-fps=24 added to all four Short roots, Short 01 included.",
+  "why": "The renderer defaults to 30 when the root does not say. Everything here is authored at 24: the cuts are snapped to 24fps frames and the presenter takes are 24fps. Rendering at 30 was resampling the talking head.",
+  "evidence": "The first Short 03 render came back 1365 frames over 45.5s, which is 30fps."
+ },
+ "verified": {
+  "checks": "npm run check passes on all three: lint, runtime, layout, motion and contrast, zero errors.",
+  "renders": "All three rendered. Frames sampled by timestamp across each show the presenter moving in every span, the cuts landing where the beat timing puts them, Short 04's close-a to close-b join continuous, and the bridge card at the end.",
+  "audio": "The mounted elements are muted and carry no audio stream. The root's accepted narration is the only voice."
+ },
+ "not_done": [
+  "Short 01, pending its two takes",
+  "owner viewing of the three assembled Shorts; these renders are verification, not a delivery",
+  "captions, thumbnails, Gate 3, the AI disclosure, and launch/links.json"
+ ]
+}
