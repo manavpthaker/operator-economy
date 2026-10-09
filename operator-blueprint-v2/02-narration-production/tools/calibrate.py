@@ -55,6 +55,19 @@ GUIDE_LANGUAGE = "en-US"
 GUIDE_AUDIO_ENCODING = "LINEAR16"
 GUIDE_SAMPLE_RATE_HZ = 24_000
 
+# Spoken spellings for the guide text (owner 2026-10-09: "it's Manav in Indian Gujarati", /ˈmɑː.nəv/).
+# The guide's pronunciation carries through speech-to-speech, so the fix belongs here. Same alias as
+# studio/config/blueprint.json voiceover.speech_aliases (won the 2026-07-04 bake-off; picked again by ear
+# 2026-10-09). Applied to new guide requests only; the script of record and captions keep the display word.
+GUIDE_SPEECH_ALIASES = {"Manav": "Mah-nuhv"}
+
+
+def apply_guide_aliases(text: str) -> str:
+    for display, spoken in GUIDE_SPEECH_ALIASES.items():
+        text = re.sub(rf"(?<!\w){re.escape(display)}(?!\w)", spoken, text)
+    return text
+
+
 TRANSFER_VOICE_ID = "scMbPZwQjr40V1MzL3Nj"  # Original C
 TRANSFER_MODEL = "eleven_multilingual_sts_v2"
 TRANSFER_ENDPOINT = f"https://api.elevenlabs.io/v1/speech-to-speech/{TRANSFER_VOICE_ID}"
@@ -355,7 +368,7 @@ def run_guide(args) -> list[pathlib.Path]:
     out_dir = pathlib.Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    body = compact_json(guide_body(text, style, args.voice))
+    body = compact_json(guide_body(apply_guide_aliases(text), style, args.voice))
     print(f"[guide] {GUIDE_MODEL} / {args.voice} / {GUIDE_LANGUAGE}")
     print(f"  passage : {args.text} ({len(text)} chars, sha {sha256_bytes(text.encode())[:12]})")
     print(f"  style   : {label} ({len(style)} chars, sha {sha256_bytes(style.encode())[:12]})")
@@ -527,7 +540,7 @@ def run_mode(args) -> None:
     transfers: list[pathlib.Path] = []
     records: list[dict] = []
     for index, chunk in enumerate(chunks, 1):
-        body = compact_json(guide_body(chunk, style, args.voice))
+        body = compact_json(guide_body(apply_guide_aliases(chunk), style, args.voice))
         guide_path = out_dir / f"{stem}.c{index:02d}.guide.wav"
         transfer_path = out_dir / f"{stem}.c{index:02d}.saved-c.wav"
 

@@ -174,7 +174,7 @@ def plan_chunks(blocks: list[tuple[str, str]], max_chars: int) -> list[dict]:
 # --- provider stages -----------------------------------------------------------
 
 def guide_once(text: str, style: str, headers: dict[str, str], retries: int = 2) -> tuple[int, bytes]:
-    body = cal.compact_json(cal.guide_body(text, style, GUIDE_VOICE))
+    body = cal.compact_json(cal.guide_body(cal.apply_guide_aliases(text), style, GUIDE_VOICE))
     status, payload = cal.post(cal.GUIDE_ENDPOINT, body, headers)
     attempt = 0
     while status in (502, 503, 429) and attempt < retries:
