@@ -1,18 +1,31 @@
 {
  "schema": "oe-presenter-batch-result-v1",
- "at_utc": "2026-10-09T15:35:00Z",
+ "at_utc": "2026-10-09T16:20:00Z",
  "episode": "EP009",
  "of": "BATCH-INTENT-V1.json",
  "generation": {
   "submitted": 8,
-  "landed": 6,
-  "failed": 0,
+  "landed": 7,
+  "failed": 1,
+  "failed_take": {
+   "id": "01-open",
+   "job_id": "5346e4aa-d874-47c5-b7c4-452155f84b32",
+   "span": "Short 01 presenter open, 0.0 to 11.625s",
+   "generate_s": 13,
+   "submitted_at_utc": "2026-10-09T14:43:49Z",
+   "status": "failed",
+   "refund": {
+    "credits": 91,
+    "at_utc": "2026-10-09T15:43:59Z",
+    "read_from": "transaction ledger, not the balance"
+   },
+   "reading": "The refund lands sixty minutes and ten seconds after the charge, which reads as a provider-side timeout rather than a fault in the request. 04-close-a was the other thirteen-second take and it came back fine, so the duration is not the cause. Nothing in the request differs from the seven that worked except the audio slice.",
+   "not_resubmitted": "BATCH-INTENT-V1.json says a take that fails is reported, not resubmitted, because a resubmission is new paid work. Resubmitting 01-open costs 91 credits again and is the owner's call."
+  },
   "credits_charged": 595,
-  "matches_preflight": true,
-  "still_running": [
-   "01-close",
-   "01-open"
-  ]
+  "credits_refunded": 91,
+  "credits_net": 504,
+  "matches_preflight": true
  },
  "repair": {
   "model": "fal-ai/sync-lipsync/react-1",
@@ -22,7 +35,7 @@
    "lipsync_mode": "cut_off",
    "temperature": 0.5
   },
-  "done": 6,
+  "done": 8,
   "gate_hit_first": {
    "gate": "look_lock",
    "charged": false,
@@ -32,101 +45,77 @@
   }
  },
  "takes": {
+  "01-close": {
+   "short": "01",
+   "span": "close",
+   "span_seconds": 10.292,
+   "react1_duration_s": 10.291667,
+   "frames": 247,
+   "sha256": "fe6d8019626efd2ac47f69f24dc3a432371067337a1e3dd275dfe94288c37d01",
+   "owner_accepted": false
+  },
   "02-close": {
    "short": "02",
    "span": "close",
-   "master_from_s": 32.375,
-   "master_to_s": 42.208333,
    "span_seconds": 9.833,
-   "native_duration_s": 11.072,
    "react1_duration_s": 9.833333,
    "frames": 236,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "84a14cc25f6264e15521a69e4650fb037fcadb6123946d6bdfe8e0e041024000",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/02-close-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
   },
   "02-open": {
    "short": "02",
    "span": "open",
-   "master_from_s": 0.0,
-   "master_to_s": 10.375,
    "span_seconds": 10.375,
-   "native_duration_s": 12.064,
    "react1_duration_s": 10.375,
    "frames": 249,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "ced0a8089266e34bad276845137d582a618f08e3d5e929dc1a810476fed76ad9",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/02-open-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
   },
   "03-close": {
    "short": "03",
    "span": "close",
-   "master_from_s": 36.166667,
-   "master_to_s": 43.5,
    "span_seconds": 7.333,
-   "native_duration_s": 9.056,
    "react1_duration_s": 7.333333,
    "frames": 176,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "8554ad07f919a92a88858125cc5f58c4988a02b23b6ef6ea1351d8883e1916db",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/03-close-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
+  },
+  "03-open": {
+   "short": "03",
+   "span": "open",
+   "span_seconds": 6.541667,
+   "react1_duration_s": 6.541667,
+   "frames": 157,
+   "sha256": "9b8763b8ed0293dfac981e0436dc495c228381216578d1e7ef6a76a1eef8b27a",
+   "owner_accepted": true
   },
   "04-close-a": {
    "short": "04",
    "span": "close-a",
-   "master_from_s": 30.791667,
-   "master_to_s": 42.083,
    "span_seconds": 11.291,
-   "native_duration_s": 13.056,
    "react1_duration_s": 11.291667,
    "frames": 271,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "5fa0bf759529cafdab7576b7fee24013b031663af4107ee10f633752ad2b4702",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-close-a-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
   },
   "04-close-b": {
    "short": "04",
    "span": "close-b",
-   "master_from_s": 42.083,
-   "master_to_s": 47.791667,
    "span_seconds": 5.709,
-   "native_duration_s": 7.072,
    "react1_duration_s": 5.708333,
    "frames": 137,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "0190caeab12200ede386565babe18175d5439f4add729eb289712e12f6f032fc",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-close-b-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
   },
   "04-open": {
    "short": "04",
    "span": "open",
-   "master_from_s": 0.0,
-   "master_to_s": 6.125,
    "span_seconds": 6.125,
-   "native_duration_s": 8.064,
    "react1_duration_s": 6.125,
    "frames": 147,
-   "fps": "24/1",
-   "pixels": "720x1280",
    "sha256": "54af4fce9bcd8ebe7a8d00d9056d48edbe08a5b8e54d96457039d43f361419de",
-   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/generated/04-open-react1.mp4",
-   "trimmed_to_audio": true,
-   "full_decode_ok": true
+   "owner_accepted": true
   }
  },
  "verified": {
