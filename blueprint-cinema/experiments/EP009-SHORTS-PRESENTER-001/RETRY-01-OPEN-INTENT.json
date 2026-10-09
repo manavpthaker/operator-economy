@@ -1,0 +1,26 @@
+{
+ "schema": "oe-presenter-retry-intent-v1",
+ "at_utc": "2026-10-09T16:30:00Z",
+ "episode": "EP009",
+ "take": "01-open",
+ "authorization": "owner, 2026-10-09: 'rerun 01-open', after being told the first attempt failed, was refunded, and that a retry costs 91 credits again",
+ "what": "One resubmission of the identical request. Nothing is changed: same P1 image reference, same K01 and K08 behaviour references, same unpadded 11.625s narration slice, same prompt bytes, same 13s at 720p 9:16.",
+ "why_unchanged": "The first attempt failed after sixty minutes with a refund, which reads as a provider-side timeout. 04-close-a was the other thirteen-second take and succeeded on these exact settings. There is nothing in the request to fix, and changing something would make a second failure unreadable.",
+ "prompt_sha256": "8826029a8a18464da24d4b968fa2715e322d627146e227335b5e263f20c6f5d9",
+ "first_attempt": {
+  "job_id": "5346e4aa-d874-47c5-b7c4-452155f84b32",
+  "charged": 91,
+  "refunded": 91,
+  "refunded_at_utc": "2026-10-09T15:43:59Z"
+ },
+ "cost": {
+  "credits_expected": 91,
+  "rate": "7 per second at 720p"
+ },
+ "no_retry": "This is the one resubmission the owner authorized. A second failure is reported, not retried again.",
+ "submitted": {
+  "at_utc": "2026-10-09T16:32:00Z",
+  "job_id": "a71d4faf-750d-41ec-8258-f8b13c887035",
+  "status": "pending"
+ }
+}
