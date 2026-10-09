@@ -36,7 +36,14 @@
    "image": "P1, the owner-picked selfie-angle still",
    "audio": "the accepted narration sliced 0.0 to 6.542s of Short 03"
   },
-  "chosen_first_because": "cheapest take in the batch, so the chain is proven before the remaining 595 credits are committed, and it is a take the batch needs regardless"
+  "chosen_first_because": "cheapest take in the batch, so the chain is proven before the remaining 595 credits are committed, and it is a take the batch needs regardless",
+  "result": "fail",
+  "fault": {
+   "what": "The take stretched the speech to fill the clip instead of finishing when the audio reference ended.",
+   "measured": "Words are exactly right. A medium.en read of the take puts the last word ending at 8.00s inside an 8.064s clip, against a 6.542s audio slice. That is +1.46s, about 22 percent slow.",
+   "consequence": "Unusable as is. Placed over the accepted narration the lips would drift progressively to about 1.46s out by the end, worse than the 1.5s drift that failed this episode's long form.",
+   "prompt_did_not_prevent_it": "The prompt carried the Wednesday line 'Do not stretch the speech to fill the generated clip'. It was not enough on its own."
+  }
  },
  "cost_model_correction": {
   "what_i_said": "A balance drop of 163 after one take, implying the take cost 163 and the batch was about three times my estimate.",
@@ -55,5 +62,99 @@
   "the remaining eight takes, deliberately held until the first is seen",
   "the fal-ai/sync-lipsync/react-1 repair pass",
   "assembly of any take into the built Shorts"
- ]
+ ],
+ "fix": {
+  "found_in": "the accepted Wednesday take's SLICE.json",
+  "mechanism": "Wednesday pads its audio slice with silence to exactly the generated duration: T1 holds 10.7612s of speech inside a 12.0s slice for a 12s generation, with lead_zero_pad_s 0.05 and lead_silence_total_s 0.4. With the audio running the full clip length the model has nothing to stretch into.",
+  "mine_was": "6.542s of speech supplied against an 8s generation, so the model filled the gap by slowing down.",
+  "correction": "Pad every slice to its exact generation length, lead pad plus speech plus trailing silence.",
+  "side_benefit": "The trailing silence is the trim headroom, so takes no longer need the extra second of generation. Generating at ceil(speech) instead of ceil(speech)+1 cuts the batch from 651 to 588."
+ },
+ "batch_plan_v2": {
+  "takes": 9,
+  "credits_total": 588,
+  "per_take": [
+   {
+    "short": "01",
+    "span": "open",
+    "speech_s": 11.625,
+    "generate_s": 12,
+    "slice_pad_s": 0.375,
+    "credits": 84
+   },
+   {
+    "short": "01",
+    "span": "close",
+    "speech_s": 10.292,
+    "generate_s": 11,
+    "slice_pad_s": 0.708,
+    "credits": 77
+   },
+   {
+    "short": "02",
+    "span": "open",
+    "speech_s": 10.375,
+    "generate_s": 11,
+    "slice_pad_s": 0.625,
+    "credits": 77
+   },
+   {
+    "short": "02",
+    "span": "close",
+    "speech_s": 9.833,
+    "generate_s": 10,
+    "slice_pad_s": 0.167,
+    "credits": 70
+   },
+   {
+    "short": "03",
+    "span": "open",
+    "speech_s": 6.542,
+    "generate_s": 7,
+    "slice_pad_s": 0.458,
+    "credits": 49
+   },
+   {
+    "short": "03",
+    "span": "close",
+    "speech_s": 7.333,
+    "generate_s": 8,
+    "slice_pad_s": 0.667,
+    "credits": 56
+   },
+   {
+    "short": "04",
+    "span": "open",
+    "speech_s": 6.125,
+    "generate_s": 7,
+    "slice_pad_s": 0.875,
+    "credits": 49
+   },
+   {
+    "short": "04",
+    "span": "close-a",
+    "speech_s": 11.291,
+    "generate_s": 12,
+    "slice_pad_s": 0.709,
+    "credits": 84
+   },
+   {
+    "short": "04",
+    "span": "close-b",
+    "speech_s": 5.709,
+    "generate_s": 6,
+    "slice_pad_s": 0.291,
+    "credits": 42
+   }
+  ],
+  "change": "generate at ceil(speech seconds), with the audio slice padded to the same length"
+ },
+ "affordability_v2": {
+  "balance": 548,
+  "batch_v2": 588,
+  "short_by": 40,
+  "spent_on_the_failed_take": 56,
+  "note": "The gap is still driven by the roughly 115 credits of spend on this account from outside this session, not by the batch price."
+ },
+ "held": "No further take submitted. The fix is verified in the Wednesday package but not yet proved on an EP009 take, and the account cannot cover the batch either way."
 }
