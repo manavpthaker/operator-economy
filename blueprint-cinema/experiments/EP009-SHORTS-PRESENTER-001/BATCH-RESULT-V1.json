@@ -1,11 +1,11 @@
 {
  "schema": "oe-presenter-batch-result-v1",
- "at_utc": "2026-10-09T16:20:00Z",
+ "at_utc": "2026-10-09T17:20:00Z",
  "episode": "EP009",
  "of": "BATCH-INTENT-V1.json",
  "generation": {
   "submitted": 8,
-  "landed": 7,
+  "landed": 9,
   "failed": 1,
   "failed_take": {
    "id": "01-open",
@@ -20,12 +20,22 @@
     "read_from": "transaction ledger, not the balance"
    },
    "reading": "The refund lands sixty minutes and ten seconds after the charge, which reads as a provider-side timeout rather than a fault in the request. 04-close-a was the other thirteen-second take and it came back fine, so the duration is not the cause. Nothing in the request differs from the seven that worked except the audio slice.",
-   "not_resubmitted": "BATCH-INTENT-V1.json says a take that fails is reported, not resubmitted, because a resubmission is new paid work. Resubmitting 01-open costs 91 credits again and is the owner's call."
+   "not_resubmitted": "BATCH-INTENT-V1.json says a take that fails is reported, not resubmitted, because a resubmission is new paid work. Resubmitting 01-open costs 91 credits again and is the owner's call.",
+   "rerun": {
+    "authorization": "owner: 'rerun 01-open'",
+    "job_id": "a71d4faf-750d-41ec-8258-f8b13c887035",
+    "submitted_at_utc": "2026-10-09T16:10:52Z",
+    "credits": 91,
+    "result": "completed",
+    "request_identical": "prompt bytes hash 8826029a, same as the first attempt; same references, duration and resolution",
+    "confirms": "The first failure was provider-side. Nothing in the request was wrong."
+   }
   },
-  "credits_charged": 595,
+  "credits_charged": 686,
   "credits_refunded": 91,
-  "credits_net": 504,
-  "matches_preflight": true
+  "credits_net": 595,
+  "matches_preflight": true,
+  "note": "595 for eight takes, which is what the original preflight said eight would cost. The failed attempt and its refund cancel out."
  },
  "repair": {
   "model": "fal-ai/sync-lipsync/react-1",
@@ -35,7 +45,7 @@
    "lipsync_mode": "cut_off",
    "temperature": 0.5
   },
-  "done": 8,
+  "done": 9,
   "gate_hit_first": {
    "gate": "look_lock",
    "charged": false,
@@ -52,6 +62,15 @@
    "react1_duration_s": 10.291667,
    "frames": 247,
    "sha256": "fe6d8019626efd2ac47f69f24dc3a432371067337a1e3dd275dfe94288c37d01",
+   "owner_accepted": false
+  },
+  "01-open": {
+   "short": "01",
+   "span": "open",
+   "span_seconds": 11.625,
+   "react1_duration_s": 11.625,
+   "frames": 279,
+   "sha256": "3bdb89b2ab9f42d03433d0fb219c8df1f03ad7e404be9df03d1353f35ef9ddda",
    "owner_accepted": false
   },
   "02-close": {
