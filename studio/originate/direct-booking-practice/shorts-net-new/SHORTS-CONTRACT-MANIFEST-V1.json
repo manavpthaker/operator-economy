@@ -1,0 +1,53 @@
+{
+ "schema": "oe-shorts-direct-manifest-v1",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-recovery",
+ "shorts_source": "studio/originate/direct-booking-practice/shorts-net-new/STANDALONE-SCRIPTS-V1.json",
+ "note": "Written during the 2026-10-09 red team. The four net-new Shorts were scripted, locked, narrated, built and rendered without ever passing through shorts_contract.py, which is the validator the repo's own rules name for exactly this contract. Anchors here are set deliberately, not extracted mechanically: mechanical extraction is what put Short 03's payoff on 'Check your jurisdiction' in the r4 set.",
+ "standalone_contract": {
+  "context_rule": "Every Short opens by naming the practice itself, a service that helps a small independent hotel get its returning guests to book direct instead of paying a booking site to reach them again, so a viewer arriving cold knows the subject before any detail lands."
+ },
+ "scripts": [
+  {
+   "id": "01",
+   "slug": "01-book-your-own-room",
+   "hook_line": "You can build a practice that helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again.",
+   "payoff_line": "Whatever breaks is your finding.",
+   "last_line": "Ten minutes, and you have half an audit.",
+   "standalone_payoff": "A guest-side check the viewer can run tonight on a phone: pick a twenty to forty room independent property, search it the way a guest would, look for the free official-site link beside the site rates, compare the direct rate, and try to finish the booking. Whatever breaks is the finding, and the three ways it breaks are named.",
+   "spoken_copy": "You can build a practice that helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again. You can run the first piece tonight, on your phone. Pick an independent property near you, twenty to forty rooms. Search for it the way a guest would. Does a free link to the hotel's own site show up beside the site rates? Google shows one for a property connected through a partner, and charges nothing for it. Compare the direct rate to the site's. Try to finish a direct booking yourself. Whatever breaks is your finding. Not findable, not bookable, or a direct rate that costs the guest more. Ten minutes, and you have half an audit.",
+   "episode_extension": "The full episode runs the other half: the ceiling on the property's own numbers, and what the written recommendation contains."
+  },
+  {
+   "id": "02",
+   "slug": "02-sounds-like-marketing",
+   "hook_line": "You can build a service that gets a small hotel's returning guests to book direct, instead of paying a booking site to meet them again.",
+   "payoff_line": "It is owning a list of small recurring jobs in a business you do not own.",
+   "last_line": "Rates and revenue management stay outside.",
+   "standalone_payoff": "What the service actually is: a list of small recurring jobs at a twenty room inn that the one overloaded person already carries, where the drafting has gone cheap and the judgment, who gets a message and what the owner is told, has not. Rates and revenue management are out of scope.",
+   "spoken_copy": "You can build a service that gets a small hotel's returning guests to book direct, instead of paying a booking site to meet them again. It sounds like marketing. The work is operations. At a twenty room inn, the person who would write the thank you is the one checking in a guest and finding a plumber. The direct path is not a system, it is a list of small jobs, and the list belongs to nobody. The drafting got cheap. A language model writes the message, an automation tool schedules it. The judgment did not: who gets one, and what you tell the owner. So the qualification is not hotel marketing. It is owning a list of small recurring jobs in a business you do not own. Rates and revenue management stay outside.",
+   "episode_extension": "The full episode covers the three jobs in full, the one number reported monthly, and where in the room count the work starts to pay."
+  },
+  {
+   "id": "03",
+   "slug": "03-the-guest-book",
+   "hook_line": "You can build a direct-booking practice for small hotels.",
+   "payoff_line": "It is a guest book of its own, at the front desk, that the guest chooses to sign.",
+   "last_line": "This is not legal advice.",
+   "standalone_payoff": "The constraint and the fix together: the booking site relays guest email behind an alias and asks partners to stay on platform, so winning a guest back from that address is closed off, and the list an inn can work with is the guest book it collects itself at the front desk, on the registration card and the wifi login.",
+   "spoken_copy": "You can build a direct-booking practice for small hotels. Get one constraint right before you pick a tool. Booking dot com's own partner help says it does not share private guest email addresses. Both sides see an alias ending at guest dot booking dot com, and partners are asked to keep the conversation on the platform. So you cannot win a guest back from a relay address, and you are not supposed to try. What the inn needs first is not an email tool. It is a guest book of its own, at the front desk, that the guest chooses to sign. The registration card and the wifi login ask for the guest's own email. That list runs under the American email law, and European rules for European guests. Check your jurisdiction. This is not legal advice.",
+   "episode_extension": "The full episode covers what an outside operator may and may not do with that list under each site's own partner terms."
+  },
+  {
+   "id": "04",
+   "slug": "04-four-numbers",
+   "hook_line": "You can build a direct-booking practice, and price it honestly off four numbers you ask the owner for.",
+   "payoff_line": "That is the ceiling, and your fee lives under it.",
+   "last_line": "The arithmetic tells you which, before you quote.",
+   "standalone_payoff": "The pricing arithmetic end to end: four numbers from the owner give the revenue the sites carry, a commission band gives the annual cost, an assumed shift in the mix less what running direct costs leaves a monthly recoverable amount, and the fee sits under that ceiling.",
+   "spoken_copy": "You can build a direct-booking practice, and price it honestly off four numbers you ask the owner for. Rooms. Average nightly rate. Occupancy. And the share of bookings arriving through the sites. That gives you the revenue the sites carry. Apply a commission band and you have the annual cost. Then assume a shift in the mix, and say out loud that the size of that shift is a hypothesis nobody has measured. Subtract what running direct costs. What is left is the recoverable amount, a month. That is the ceiling, and your fee lives under it. On an illustrative twenty room inn at a hundred and eighty a night and seventy percent occupancy, it lands near a thousand to fourteen hundred dollars a month. Some properties cannot fund this. The arithmetic tells you which, before you quote.",
+   "episode_extension": "The full episode runs the arithmetic end to end on an illustrative inn and shows what is left after the work."
+  }
+ ],
+ "bridge_field_note": "The bridge text is carried on episode_extension, not episode_bridge_line. episode_bridge_line is position-checked inside spoken_copy, which assumes the bridge is narrated. EP009's picture grammar puts it on a silent end card with no narration under it, so the spoken layer does not contain it. episode_extension is the field for depth that is additive but not spoken, and it is still checked against the standalone payoff."
+}
