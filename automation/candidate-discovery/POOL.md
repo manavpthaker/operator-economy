@@ -1,6 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-09 ET, scout run: adds `DISC-2026-10-09-021` (ordinance recodification and
+Updated: 2026-10-10 ET, scout run: adds `DISC-2026-10-10-022` (No Surprises Act arbitration desk
+for small out-of-network practices) as held — the 2026-05-28 IDR operations rule cut the filing fee
+to $15, but no buyer-side question signal; rejects back-of-book indexing for authors; shortlist
+unchanged. Full record: `runs/2026-10-10.md`.
+Previous: 2026-10-09 ET, scout run: adds `DISC-2026-10-09-021` (ordinance recodification and
 supplements for small towns) as held — current codifier spend and a 2026-07-16 market merger, but
 no independent buyer question signal; shortlist unchanged. Full record: `runs/2026-10-09.md`.
 Previous: 2026-10-08 ET, scout run: two spend-first ideas screened, both rejected (outsourced
@@ -241,6 +245,63 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-10-022` — No Surprises Act arbitration (IDR) desk for small out-of-network practices
+
+- Status: `held` (2026-10-10 scout)
+- First seen / last checked: 2026-10-10 / 2026-10-10 ET
+- Exact question or change: the Federal IDR Operations final rule (2026-05-28) cut the federal fee
+  to dispute an out-of-network payment from $115 to $15 per party (disputes from 2026-06-11) and
+  widened batching to 50 items. Three filers made over three-quarters of 2025 disputes while "many
+  smaller local practices are not using the IDR process" (Georgetown CHIR, 2026-08-26). Can one
+  AI-equipped operator file and argue small practices' disputes that big filers skip?
+- Sources: Sidley 2026-06, Baker Donelson, AASM and ACR rule summaries; Medical Economics
+  2026-08-27 on the Georgetown study (read); HaloMD contract terms via yespress.io; Zelis and
+  Daffodil payer-side AI launches (2026). Full ledger: `runs/2026-10-10.md`.
+- Signal types: operating change (fee and batching rule), problem cost, old-way spend, capability.
+- Who cares / decision: owners and billing managers of small emergency, anesthesia, radiology,
+  pathology and neurology groups paid below their rate out of network, deciding whether to dispute,
+  write off, or hand claims to a contingency firm.
+- Buyer / costly problem: out-of-network underpayments written off because filing was too costly or
+  confusing; awards won but unpaid.
+- Offer / outcome: per-dispute or contingency filing service; outcome is disputes filed on time,
+  awards won and collected.
+- Mechanism: AI screens remittances for eligibility, drafts open-negotiation notices and the offer
+  brief from the claim, the plan's QPA (median in-network rate) and public determination data; the
+  operator files in the federal portal, tracks deadlines, and chases payment.
+- Why now: $15 fee from 2026-06-11; wider batching; eligibility codes on remittances; IDR Gateway
+  portal phasing in during 2026.
+- **AI-change test: partial, to verify.** The fee cut made small disputes worth filing; AI's claim
+  is that screening and brief-writing per dispute become cheap enough for one operator to serve the
+  small tail. HaloMD's scale shows the work automates at volume.
+- **Delivery boundary: passes on paper.** No licence needed to file IDR for a provider (HaloMD and
+  revenue-cycle firms do it). Residual: an unlicensed operator screens, notices, files and argues
+  disputes under a HIPAA business-associate agreement; the provider signs off.
+- **Substitute:** HaloMD (about 20% contingency in one reported contract); revenue-cycle firms.
+  Payer-side AI exists (Zelis, Daffodil). No provider-side AI tool sold to small practices found.
+- **Problem-value signals:** `problem cost` (Georgetown: small practices not filing; about 60% of
+  emergency-physician awards reported unpaid, SERP); `old-way spend` (HaloMD 20% of award, one
+  contract via litigation coverage).
+- **Payment evidence:** found — `old-way spend` (weak, one contract).
+- Switching question: why a solo operator rather than HaloMD or the practice's billing company?
+- Strongest invalidating question: do HaloMD and revenue-cycle firms already take small-volume
+  practices at about 20%, leaving nothing an AI-equipped solo operator does better?
+- Missing condition (why held): no independent buyer-side question signal (Reddit blocked; no Quora
+  titles; no practice-manager forum thread found; `IDR dispute` near zero in Trends). Paid trainings
+  and a medical-society webinar are seller and association signals only.
+- Reopening condition: one buyer-side question (a practice or biller asking how to file IDR or whom
+  to hire, on a reachable forum or as a `site:quora.com` title), plus evidence that contingency firms
+  decline small-volume practices.
+- Risks: payer "gaming" suits against filers (Elevance v. HaloMD dismissed, appeal sought); 2026-09
+  House letters to IDR entities on AI use; possible legislative curbs; primary care mostly excluded.
+- Possible OE point of view: arbitration that providers win most of the time has been used mostly by
+  three large filers; a $15 fee and AI drafting may let a small practice's operator collect what it
+  wrote off — or show that the middlemen already serve them. Showable with public IDR data and a
+  sample dispute, no guest needed.
+- Semantic deduplication: no match in the repository; shares the small-practice buyer with
+  shortlisted `DISC-2026-09-27-012` (Medicare prior auth, different payer and job); distinct from the
+  rejected 2026-09-29 payer underpayment recovery (a fee-schedule lookup).
+- Disposition: held. Recheck 2026-10-24; expires 2027-03-31. Step 0 candidate ID: none.
 
 ### `DISC-2026-10-09-021` — ordinance recodification and supplements for small towns
 
@@ -1322,7 +1383,13 @@ None.
   service since 2023; fails AI-change) and lease/rent-roll audits for small multifamily buyers (no
   problem-value signal; buyers do it in-house). Reopening conditions in `runs/2026-10-08.md`.
 
+- 2026-10-10 (scout) — Back-of-book indexing for authors: authors pay indexers about $3–$7 per page,
+  but AI indexing tools sell to authors directly (Indexia $99 per index, IndexerLabs, IndexStudio)
+  and the residual edit goes to the author or an existing indexer. Reopening condition in
+  `runs/2026-10-10.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
-`runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`.
+`runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
+`runs/2026-10-10.md`.
