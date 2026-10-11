@@ -1,9 +1,12 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-10 ET, scout run: adds `DISC-2026-10-10-022` (No Surprises Act arbitration desk
+Updated: 2026-10-11 ET, scout run: rejects self-funded employer claims audit and contractor
+prequalification (ISNetworld/Avetta); rechecks `DISC-2026-10-10-022` (still held, no buyer question
+signal); shortlist unchanged. Full record: `runs/2026-10-11.md`.
+Previous: 2026-10-10 ET, scout run: adds `DISC-2026-10-10-022` (No Surprises Act arbitration desk
 for small out-of-network practices) as held — the 2026-05-28 IDR operations rule cut the filing fee
 to $15, but no buyer-side question signal; rejects back-of-book indexing for authors; shortlist
-unchanged. Full record: `runs/2026-10-10.md`.
+unchanged. Full record: `runs/2026-10-10.md`, `runs/2026-10-11.md`.
 Previous: 2026-10-09 ET, scout run: adds `DISC-2026-10-09-021` (ordinance recodification and
 supplements for small towns) as held — current codifier spend and a 2026-07-16 market merger, but
 no independent buyer question signal; shortlist unchanged. Full record: `runs/2026-10-09.md`.
@@ -248,8 +251,8 @@ None.
 
 ### `DISC-2026-10-10-022` — No Surprises Act arbitration (IDR) desk for small out-of-network practices
 
-- Status: `held` (2026-10-10 scout)
-- First seen / last checked: 2026-10-10 / 2026-10-10 ET
+- Status: `held` (2026-10-10 scout; rechecked 2026-10-11, unchanged)
+- First seen / last checked: 2026-10-10 / 2026-10-11 ET
 - Exact question or change: the Federal IDR Operations final rule (2026-05-28) cut the federal fee
   to dispute an out-of-network payment from $115 to $15 per party (disputes from 2026-06-11) and
   widened batching to 50 items. Three filers made over three-quarters of 2025 disputes while "many
@@ -257,7 +260,7 @@ None.
   AI-equipped operator file and argue small practices' disputes that big filers skip?
 - Sources: Sidley 2026-06, Baker Donelson, AASM and ACR rule summaries; Medical Economics
   2026-08-27 on the Georgetown study (read); HaloMD contract terms via yespress.io; Zelis and
-  Daffodil payer-side AI launches (2026). Full ledger: `runs/2026-10-10.md`.
+  Daffodil payer-side AI launches (2026). Full ledger: `runs/2026-10-10.md`, `runs/2026-10-11.md`.
 - Signal types: operating change (fee and batching rule), problem cost, old-way spend, capability.
 - Who cares / decision: owners and billing managers of small emergency, anesthesia, radiology,
   pathology and neurology groups paid below their rate out of network, deciding whether to dispute,
@@ -301,6 +304,9 @@ None.
 - Semantic deduplication: no match in the repository; shares the small-practice buyer with
   shortlisted `DISC-2026-09-27-012` (Medicare prior auth, different payer and job); distinct from the
   rejected 2026-09-29 payer underpayment recovery (a fee-schedule lookup).
+- Recheck 2026-10-11: no practice-side question found (AAPC search); only society letters (CAP;
+  multisociety letter 2026-04-27 on plans reopening decided disputes). Missing condition unchanged.
+  Record: `runs/2026-10-11.md`.
 - Disposition: held. Recheck 2026-10-24; expires 2027-03-31. Step 0 candidate ID: none.
 
 ### `DISC-2026-10-09-021` — ordinance recodification and supplements for small towns
@@ -1386,10 +1392,16 @@ None.
 - 2026-10-10 (scout) — Back-of-book indexing for authors: authors pay indexers about $3–$7 per page,
   but AI indexing tools sell to authors directly (Indexia $99 per index, IndexerLabs, IndexStudio)
   and the residual edit goes to the author or an existing indexer. Reopening condition in
-  `runs/2026-10-10.md`.
+  `runs/2026-10-10.md`, `runs/2026-10-11.md`.
+
+- 2026-10-11 (scout) — Two ideas rejected: claims audit for small self-funded employer health plans
+  (Bluespine, Avelis and ClaimInformatics already sell AI review of every claim; for small plans the
+  constraint is getting the claims file, which AI does not change) and contractor prequalification
+  for ISNetworld/Avetta (PrequalPilot sells AI-drafted RAVS answers and safety programs to subs at
+  $299/yr). Reopening conditions in `runs/2026-10-11.md`.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`.
