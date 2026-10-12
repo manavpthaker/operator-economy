@@ -78,3 +78,28 @@ count gets decided. REBOOK would have made it three.
 
 The altered-or-synthetic-content disclosure is a Studio step at upload and is on the checklist in
 `content/youtube-longform.md`. The Shorts' Related Video is set after the episode is live.
+
+---
+
+## Resolution of the CTA finding (2026-10-12)
+
+Owner chose to fix it in the episode rather than ship the deviation or amend the rubric. The
+spoken fix was scoped first and rejected on cost once its real shape was clear: inserting a line
+shifts every segment after it, which means rebuilding the r3 to r11 assembly chain and reopening
+narration locked at N7 behind its own gate.
+
+**What shipped instead:** a five-second Operator Canvas card at **12:39**, 62 percent of runtime,
+inside the "What do you sell first?" beat. Mineral ground with paper text and an oxide rule,
+matching the Shorts' bridge cards. No narration change, no timing change, no re-cut.
+
+Placement was measured, not chosen by eye. Seven candidate stretches between 55 and 75 percent were
+sampled for how much content sits in the card's area across the full five seconds. seg050 at frame
+18224 returns 0.0 percent at every sample; the next best was 2.5. An earlier placement at 13:15 was
+built and discarded because the diagram underneath finished building and the card covered its
+"front desk" element.
+
+This satisfies section VI's position requirement. The framing is the owner's to accept.
+
+**Still open as a standing question:** the rubric's kill-list item "end-only CTA as sole CTA" now
+has two published episodes against it, No. 001 unmodified and this one fixed by an overlay rather
+than by the spoken prompt the rubric describes. The rule is worth revisiting on its own terms.
