@@ -1,12 +1,16 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-11 ET, scout run: rejects self-funded employer claims audit and contractor
+Updated: 2026-10-12 ET, scout run: rejects estate settlement for executors, property tax appeals for
+small commercial owners, and Amazon suspension appeals (AI tools or services already sell each to
+the buyer); adds a WISeR status note (GAO rule finding 2026-05-12; 13 of 15 services in scope);
+shortlist unchanged. Full record: `runs/2026-10-12.md`.
+Previous: 2026-10-11 ET, scout run: rejects self-funded employer claims audit and contractor
 prequalification (ISNetworld/Avetta); rechecks `DISC-2026-10-10-022` (still held, no buyer question
 signal); shortlist unchanged. Full record: `runs/2026-10-11.md`.
 Previous: 2026-10-10 ET, scout run: adds `DISC-2026-10-10-022` (No Surprises Act arbitration desk
 for small out-of-network practices) as held — the 2026-05-28 IDR operations rule cut the filing fee
 to $15, but no buyer-side question signal; rejects back-of-book indexing for authors; shortlist
-unchanged. Full record: `runs/2026-10-10.md`, `runs/2026-10-11.md`.
+unchanged. Full record: `runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`.
 Previous: 2026-10-09 ET, scout run: adds `DISC-2026-10-09-021` (ordinance recodification and
 supplements for small towns) as held — current codifier spend and a 2026-07-16 market merger, but
 no independent buyer question signal; shortlist unchanged. Full record: `runs/2026-10-09.md`.
@@ -239,6 +243,11 @@ lead into formal Operator Blueprint V2 Step 0.
   New risk: S.J.Res.198 (July 2026) seeks congressional disapproval of the WISeR rule; FY27 funding runs
   to 2026-12-11. Stays shortlisted, moved to priority 2 behind the CAM lead because its survival past
   that date is uncertain.
+- Scout note 2026-10-12 (status unchanged): search summaries, not primary sources, report that GAO
+  found on 2026-05-12 that the WISeR notice is a rule under the Congressional Review Act (opening a
+  disapproval route), and that CMS delayed two of 15 service categories on 2026-04-06, leaving 13.
+  Operations continue. No October 2026 news found. Recheck 2026-10-25 stands. Record:
+  `runs/2026-10-12.md`.
 - Disposition: shortlisted. Decisive reason: a dated federal change with fresh public records, a
   licence-free residual, and a first-party wage for the old way. Recheck 2026-10-25; expires
   2027-01-01 unless expansion is confirmed. Step 0 candidate ID: none.
@@ -260,7 +269,7 @@ None.
   AI-equipped operator file and argue small practices' disputes that big filers skip?
 - Sources: Sidley 2026-06, Baker Donelson, AASM and ACR rule summaries; Medical Economics
   2026-08-27 on the Georgetown study (read); HaloMD contract terms via yespress.io; Zelis and
-  Daffodil payer-side AI launches (2026). Full ledger: `runs/2026-10-10.md`, `runs/2026-10-11.md`.
+  Daffodil payer-side AI launches (2026). Full ledger: `runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`.
 - Signal types: operating change (fee and batching rule), problem cost, old-way spend, capability.
 - Who cares / decision: owners and billing managers of small emergency, anesthesia, radiology,
   pathology and neurology groups paid below their rate out of network, deciding whether to dispute,
@@ -1395,7 +1404,7 @@ None.
 - 2026-10-10 (scout) — Back-of-book indexing for authors: authors pay indexers about $3–$7 per page,
   but AI indexing tools sell to authors directly (Indexia $99 per index, IndexerLabs, IndexStudio)
   and the residual edit goes to the author or an existing indexer. Reopening condition in
-  `runs/2026-10-10.md`, `runs/2026-10-11.md`.
+  `runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`.
 
 - 2026-10-11 (scout) — Two ideas rejected: claims audit for small self-funded employer health plans
   (Bluespine, Avelis and ClaimInformatics already sell AI review of every claim; for small plans the
@@ -1403,8 +1412,15 @@ None.
   for ISNetworld/Avetta (PrequalPilot sells AI-drafted RAVS answers and safety programs to subs at
   $299/yr). Reopening conditions in `runs/2026-10-11.md`.
 
+- 2026-10-12 (scout) — Three ideas rejected: estate settlement for executors (Alix sells the service
+  at 1% of the gross estate and AI tools sell direct from $39; court work and advice stay with
+  counsel), property tax appeals for small commercial owners (Ownwell, TaxRival and others already
+  sell AI-built appeals at 25%–35% contingency), and Amazon seller suspension appeals (freelancers
+  from $100, consultants $1,500–$2,500, free AI skills; the business exists unchanged). Reopening
+  conditions in `runs/2026-10-12.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`.
