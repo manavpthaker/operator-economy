@@ -4,6 +4,7 @@ import { NewsletterBand } from '../../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome';
 import { ARCHIVED_NOTE, getOperation, OPERATIONS, padOperationNumber } from '../../lib/operations';
 import { DirectBookingPage } from './DirectBookingPage';
+import { DirectBookingPracticePage } from './DirectBookingPracticePage';
 import { SaleReadinessPage } from './SaleReadinessPage';
 
 export function generateStaticParams() {
@@ -23,6 +24,7 @@ export default async function BusinessPage({ params }: { params: Promise<{ slug:
   const operation = getOperation((await params).slug);
   if (!operation) notFound();
   if (operation.slug === 'exit-readiness-prep') return <SaleReadinessPage operation={operation} />;
+  if (operation.slug === 'direct-booking-practice') return <DirectBookingPracticePage operation={operation} />;
   if (operation.slug === 'direct-booking-recovery') return <DirectBookingPage operation={operation} />;
 
   return (
