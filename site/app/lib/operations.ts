@@ -33,7 +33,7 @@ export const OPERATIONS: Operation[] = [
     question: "Could one operator get a small hotel's returning guests to book direct?",
     episodeTitle: 'The One-Person Business That Gets Small Hotels Booking Direct',
     // Only launch/links.json may originate an episode URL. Empty until the upload writes it.
-    youtubeUrl: '',
+    youtubeUrl: 'https://youtu.be/vx25OoVALSA',
     sources: 37,
     published: 'Oct 2026',
     pdfUrl: '/canvas/operator-canvas-002.pdf',
