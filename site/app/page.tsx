@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { NewsletterBand } from './components/NewsletterForm';
 import { SiteFooter, SiteHeader } from './components/SiteChrome';
 import { EpisodeThumbnail, WatchAction, episodeStatus } from './components/WatchAction';
+import { getEpisodeLinks } from './lib/episode-links';
 import { LIVE_OPERATIONS, padOperationNumber } from './lib/operations';
 
 export const metadata: Metadata = {
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const latest = LIVE_OPERATIONS[0];
+  // Feature the newest operation whose episode is out (links.json carries a real URL), so a Canvas
+  // published ahead of its premiere does not displace the episode people can watch today. Once the
+  // upload writes the newer links.json, the next build features it. Falls back to the newest.
+  const latest = LIVE_OPERATIONS.find((operation) => getEpisodeLinks(operation.slug).episodeUrl) ?? LIVE_OPERATIONS[0];
   const recent = LIVE_OPERATIONS.slice(0, 2);
 
   return (

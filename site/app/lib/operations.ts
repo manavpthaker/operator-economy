@@ -25,6 +25,28 @@ export type Operation = {
 
 export const OPERATIONS: Operation[] = [
   {
+    // Internal EP009. Not EP006's direct-booking-recovery (archived below, with its own links.json).
+    number: 2,
+    slug: 'direct-booking-practice',
+    name: 'Direct-Booking Practice',
+    audience: 'Small independent hotels',
+    offer: 'Fixed-fee audit, then a retainer',
+    summary:
+      'Help small independent hotels get returning guests to book direct, instead of paying a booking site to meet them again.',
+    episodeTitle: 'The One-Person Business That Gets Small Hotels Booking Direct',
+    published: 'Oct 2026',
+    pdfUrl: '/blueprints/direct-booking-practice.pdf',
+    artifact: 'canvas',
+    question:
+      'Could one operator help a small hotel keep its returning guests, for a fee priced under what the property could recover?',
+    thumbnail: {
+      src: '/episodes/direct-booking-practice/thumbnail.jpg',
+      width: 1920,
+      height: 1080,
+      alt: 'Episode thumbnail. An innkeeper behind a wooden front desk hands a room key to a departing guest, while the presenter stands beside her looking at the camera. Headline: Help her keep them.',
+    },
+  },
+  {
     number: 1,
     slug: 'exit-readiness-prep',
     name: 'Sale-Readiness Practice',
