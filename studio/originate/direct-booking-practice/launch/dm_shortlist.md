@@ -1,7 +1,7 @@
 # DM shortlist — direct-booking-practice (2026-10-19)
 
 Register: friend who saw something relevant. No ask. Ever. One msg per person per episode.
-Episode: [PENDING_UPLOAD] · Blueprint: https://theoperatoreconomy.com/episodes/direct-booking-practice
+Episode: [PENDING_UPLOAD] · Operator Canvas: https://theoperatoreconomy.com/episodes/direct-booking-practice
 
 ## Tier 1 — direct relevance (5–10)
 | Who | Why this episode is theirs | Draft | Sent |

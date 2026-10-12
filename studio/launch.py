@@ -128,7 +128,10 @@ def main() -> None:
     desc_file = ep_dir / "content" / "youtube_description.txt"
     # The reader-tool page (Operator Canvas for V2 episodes, legacy Blueprint for V1). One URL,
     # two placeholder names: {{CANVAS_URL}} is current, {{BLUEPRINT_URL}} is the legacy alias.
-    canvas_url = f"https://theoperatoreconomy.com/episodes/{args.slug}"
+    # /businesses/<slug> is the canonical page. The /episodes/<slug> form still
+    # resolves but only as a permanent redirect, and this URL goes into five
+    # video descriptions, so it points at the real page.
+    canvas_url = f"https://theoperatoreconomy.com/businesses/{args.slug}"
     ep_desc = desc_file.read_text() if desc_file.exists() else ""
     for ph in ("{{CANVAS_URL}}", "{{BLUEPRINT_URL}}"):
         ep_desc = ep_desc.replace(ph, canvas_url)
