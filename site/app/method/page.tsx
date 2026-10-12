@@ -106,7 +106,7 @@ export default function MethodPage() {
             <p className="bl-chapter__number">How revisions work</p>
             <div><h2 id="versioning-title">The current model never erases the prior one.</h2><p>A material Canvas change creates a new dated revision. Its source, public data, and PDF each receive their own full hash. Earlier revisions remain available and clearly labeled.</p></div>
           </header>
-          <div className="bl-ledger-row"><span className="bl-ledger-row__name">Current library</span><p>The published businesses currently use the earlier Blueprint format. No V2 Canvas is represented as live.</p><span className="oe-class">Legacy</span></div>
+          <div className="bl-ledger-row"><span className="bl-ledger-row__name">Current library</span><p>Every published business uses the V2 Canvas format. The earlier V1 Blueprints were withdrawn on 12 October 2026 and are no longer published.</p><span className="oe-class">Canvas</span></div>
           <p style={{ marginTop: 'var(--bl-space-5)' }}><Link className="bl-text-link" href="/businesses">Browse businesses</Link></p>
         </section>
 

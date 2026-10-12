@@ -28,15 +28,15 @@ export default function BusinessesPage() {
         <section className="oe-section oe-band-inset bl-shell" aria-labelledby="businesses-title">
           <header className="bl-chapter__head">
             <p className="bl-chapter__number">Published work</p>
-            <div><h2 id="businesses-title">Start with a business.</h2><p>Open an entry for the business case, its episode, the earlier Blueprint, and what remains unproven.</p></div>
+            <div><h2 id="businesses-title">Start with a business.</h2><p>Open an entry for the business case, its episode, the Canvas, and what remains unproven.</p></div>
           </header>
           <BusinessList operations={OPERATIONS} />
         </section>
 
         <section className="oe-trust oe-trust--mineral bl-shell" aria-labelledby="formats-title">
           <p className="bl-chapter__number">Two formats</p>
-          <h2 id="formats-title">Blueprints document the earlier episodes. Canvases are the new decision tool.</h2>
-          <p>Legacy Blueprints remain available and labeled. A Canvas will appear here only after its V2 model, evidence, and publication state are locked.</p>
+          <h2 id="formats-title">A Canvas is the decision tool. Blueprints were the earlier format.</h2>
+          <p>Each Canvas carries the four-number model, the evidence behind it, and what stays unproven. A business appears here only after its model, evidence, and publication state are locked. The earlier V1 Blueprints are no longer published.</p>
         </section>
 
         <NewsletterBand />

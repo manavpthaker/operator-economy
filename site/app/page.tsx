@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const latest = OPERATIONS[0];
+  // Only links.json may originate an episode URL, so the newest operation has no video link
+  // between the site going up and the upload running. Nothing may claim it is live in that window.
+  const latestIsLive = latest.youtubeUrl.length > 0;
   const recent = OPERATIONS.slice(0, 2);
 
   return (
@@ -29,8 +32,13 @@ export default function Home() {
                 numbers work, and the first test to make before you commit.
               </p>
               <div className="oe-actions">
-                <a className="bl-action" href={latest.youtubeUrl} target="_blank" rel="noreferrer">
-                  Watch the latest episode<span className="oe-sr"> (opens in new tab)</span>
+                <a
+                  className="bl-action"
+                  href={latestIsLive ? latest.youtubeUrl : `/businesses/${latest.slug}`}
+                  {...(latestIsLive ? { target: '_blank', rel: 'noreferrer' } : {})}
+                >
+                  {latestIsLive ? 'Watch the latest episode' : 'See the latest operation'}
+                  {latestIsLive && <span className="oe-sr"> (opens in new tab)</span>}
                 </a>
                 <Link className="bl-action" href="/businesses">Browse businesses</Link>
               </div>
@@ -41,12 +49,12 @@ export default function Home() {
             <aside className="bl-docket">
               <div className="bl-docket__head">
                 <span>Latest operation</span>
-                <span className="bl-live">Live</span>
+                <span className="bl-live">{latestIsLive ? 'Live' : 'Scheduled'}</span>
               </div>
               <div className="bl-docket__body">
                 <span className="bl-docket__identity">№{padOperationNumber(latest.number)} · {latest.audience}</span>
                 <h2 id="latest-title">{latest.name}</h2>
-                <p>Could one operator help independent hotels turn OTA guests into direct repeat customers?</p>
+                <p>{latest.question}</p>
               </div>
               <dl className="bl-docket__rows">
                 <div className="bl-docket__row"><dt>Buyer</dt><dd>{latest.audience}</dd></div>

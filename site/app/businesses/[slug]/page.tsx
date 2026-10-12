@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { NewsletterBand } from '../../components/NewsletterForm';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome';
 import { getOperation, OPERATIONS, padOperationNumber } from '../../lib/operations';
-import { DirectBookingPage } from './DirectBookingPage';
+import { CanvasPage } from './CanvasPage';
 
 export function generateStaticParams() {
   return OPERATIONS.map(({ slug }) => ({ slug }));
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BusinessPage({ params }: { params: Promise<{ slug: string }> }) {
   const operation = getOperation((await params).slug);
   if (!operation) notFound();
-  if (operation.slug === 'direct-booking-recovery') return <DirectBookingPage operation={operation} />;
+  if (operation.artifact === 'canvas') return <CanvasPage operation={operation} />;
 
   return (
     <div id="top">
