@@ -1193,7 +1193,10 @@ None.
 - First seen / last checked: 2026-09-20 / 2026-09-21 ET
 - Admission: admitted by the 2026-09-21 weekly research bench as
   `candidate-2026-09-21-vendor-payment-verification`. Admission is not eligibility, promotion, or
-  editorial authorization. The Step 0 disposition is `continue research`.
+  editorial authorization. The Step 0 disposition is `continue research`; **parked** 2026-10-12 by
+  the Monday bench: delivery boundary documented from primary sources and the viewer's test written,
+  but a bounded search found no buyer-side price or spend record; see the disposition addendum and
+  parked register.
 - Exact question or change: A small business with roughly 40 recurring vendors asked what a company
   without enterprise security staff should do when its bank-change control is checking that an email
   looks right. Nacha Phase 2 now requires covered non-consumer ACH Originators and related parties to
