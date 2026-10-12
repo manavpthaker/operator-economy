@@ -1,6 +1,6 @@
 # Operator Canvas: a direct-booking practice
 
-Status: **approved** (owner, 2026-09-03) (Gate E3 lock recommended)
+Status: **locked** (owner, 2026-09-03; header reconciled to the Canvas lock block 2026-10-12)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 

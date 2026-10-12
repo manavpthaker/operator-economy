@@ -18,7 +18,7 @@ Locked by: Manav Thaker
 |---|---|---|---|---|---|
 | Step 0 handoff | `handoff.md` | E1 accepted | `8695ad97d1908261e9d2d448d7db414b5c6247e226a803111c3ad319dae304d1` | Manav Thaker | 2026-09-03 |
 | Editorial contract | `editorial-contract.md` | v0.1 | `4cb950b520f7013083d2032d340999cb1ac05cb77b714f1d762e35c742209ea2` | Manav Thaker | 2026-09-03 |
-| Operator Canvas | `operator-canvas.md` | v0.1 | `c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35` | Manav Thaker | 2026-09-03 |
+| Operator Canvas | `operator-canvas.md` | v0.2 | `4cadea93e2fe7fd49e55a34a8adab94228e56bec33bbd9bc54ad141b7d10a43c` | Manav Thaker | 2026-09-03 |
 | Episode Investment Thesis | `episode-investment-thesis.md` | v0.1 | `f5210eec2bd8edfcaec25f612a82cf6420ff43f4859731d844a91c53f76c6c93` | Manav Thaker | 2026-09-03 |
 | Narrative spine | `narrative-spine.md` | v0.1 | `b1383559042fbabef276e52a1af1e24d389501de5280ca9d6332d23924819548` | Manav Thaker | 2026-09-03 |
 | Episode beat sheet | `episode-beat-sheet.md` | v0.1 | `ae3e89c3b4c366000a574504b71f629ca0e7a4fa3de3773a746a37cc8b7f2578` | Manav Thaker | 2026-09-03 |
@@ -254,3 +254,32 @@ Extracted with `oe-narration extract` from the locked `script.md`; the extractor
 ## Boundary for Step 2
 
 Step 2 may add non-lexical performance direction. Step 2 may **not** change words, invent a payoff tease, or improvise an audience ask. Any added, removed, reordered, or rewritten spoken word creates a new script revision and hash, and invalidates this lock. A pronunciation spelling or performance tag may live in the narration layer only if the spoken lexical sequence remains identical. If Step 2 finds an unperformable or misleading sentence, it issues a change request; Step 1 revises and relocks before narration resumes.
+
+## Amendment, 2026-10-12
+
+The Operator Canvas header said `approved ... (Gate E3 lock recommended)` while its own
+Canvas lock block recorded `Decision: **lock.**`, approved by Manav Thaker on 2026-09-03
+with the statement of record "Approved let's keep going". The header was never reconciled
+to that decision, which blocked the public Canvas render: the renderer refuses any source
+not marked locked.
+
+On 2026-10-12 the owner authorised reconciling the header and rebinding the hash
+("update the header to locked and rebind the sha"). Only the status line changed; no
+Canvas content was edited.
+
+| | |
+|---|---|
+| Revision | v0.1 to v0.2 |
+| Previous SHA-256 | `c3b00ed94fa4587b82a0dc8fb6d30044cd7768be984217f3bef4d1aaff27ec35` |
+| Current SHA-256 | `4cadea93e2fe7fd49e55a34a8adab94228e56bec33bbd9bc54ad141b7d10a43c` |
+| Authorised by | Manav Thaker, 2026-10-12 |
+
+**Downstream bindings are deliberately left at v0.1.** Six records still cite
+`c3b00ed9…`: the narration package manifest, the visual-translation handoff, the editorial
+handoff checklist, `V1-INPUT-LOCK.md`, `CANDIDATE-STATUS.md` and `engine.json`. They are correct.
+Each consumed v0.1 and the narration was produced against it. Rewriting them to v0.2 would claim
+they consumed something they never saw.
+
+The two revisions differ in one line, the status header, and in no Canvas content. Every artifact
+bound to v0.1 therefore remains valid, and v0.2 adds only the reconciliation this amendment
+records. A future consumer should bind v0.2; an existing one should not be rewritten.
