@@ -1,0 +1,1611 @@
+1
+00:00:00,080 --> 00:00:03,630
+An innkeeper with twenty rooms
+is closing out a reservation.
+
+2
+00:00:03,900 --> 00:00:08,040
+Good guest. Three nights, tipped
+housekeeping, asked about the trail behind
+
+3
+00:00:08,080 --> 00:00:10,690
+the property. The kind of
+person she'd like to see again.
+
+4
+00:00:11,360 --> 00:00:13,110
+So she goes to send a thank you note.
+
+5
+00:00:13,270 --> 00:00:16,650
+And the email on the
+reservation isn't his.
+
+6
+00:00:17,000 --> 00:00:21,370
+It's a string of letters and
+numbers ending in guest.booking.com.
+
+7
+00:00:21,740 --> 00:00:22,740
+A relay.
+
+8
+00:00:23,340 --> 00:00:26,960
+A week or so after checkout,
+the relay stops working.
+
+9
+00:00:27,000 --> 00:00:32,010
+A year later the same guest books the
+same room, through the same website.
+
+10
+00:00:32,500 --> 00:00:36,490
+And she pays the site the same
+commission she paid the first time.
+
+11
+00:00:36,760 --> 00:00:39,420
+For a guest she already knows by name.
+
+12
+00:00:40,560 --> 00:00:45,210
+There's a service a small inn would pay
+for hiding inside that second commission.
+
+13
+00:00:45,720 --> 00:00:49,640
+And there's one piece of arithmetic that
+decides whether it's worth your time to
+
+14
+00:00:49,680 --> 00:00:50,680
+sell it.
+
+15
+00:00:50,900 --> 00:00:54,220
+I couldn't find anyone selling
+it who'd done that arithmetic.
+
+16
+00:00:54,880 --> 00:00:57,610
+So what did that second
+stay actually cost her,
+
+17
+00:00:58,000 --> 00:00:59,670
+and who gets paid to stop it?
+
+18
+00:01:00,130 --> 00:01:04,950
+This is The Operator Economy, where we
+show you how to use AI to build, own, and
+
+19
+00:01:04,990 --> 00:01:07,710
+operate a sustainable business of one.
+
+20
+00:01:07,750 --> 00:01:10,390
+Today we're building a
+direct-booking practice.
+
+21
+00:01:10,450 --> 00:01:14,510
+It helps a small hotel get its returning
+guests to book direct, instead of paying a
+
+22
+00:01:14,550 --> 00:01:16,790
+booking site to meet them again.
+
+23
+00:01:16,830 --> 00:01:20,430
+By the end you'll be able to take four
+numbers from a small property and know
+
+24
+00:01:20,470 --> 00:01:24,570
+what it can honestly pay for the job,
+and whether that's worth your time.
+
+25
+00:01:24,610 --> 00:01:28,910
+Start with how a small inn fills its
+rooms, because it's worth being fair to
+
+26
+00:01:28,950 --> 00:01:30,660
+the system before we pick at it.
+
+27
+00:01:30,970 --> 00:01:36,120
+A traveller opens Booking.com or Expedia,
+types a town and some dates, and compares.
+
+28
+00:01:36,350 --> 00:01:38,140
+So the inn lists there.
+
+29
+00:01:38,180 --> 00:01:41,470
+The site puts the property in front of
+people the inn could never reach on its
+
+30
+00:01:41,510 --> 00:01:44,630
+own and takes a commission on every stay.
+
+31
+00:01:44,670 --> 00:01:48,360
+She rents an audience she couldn't
+build, and that's a fair trade.
+
+32
+00:01:48,400 --> 00:01:50,680
+The commission is where it gets layered.
+
+33
+00:01:51,190 --> 00:01:55,770
+Booking.com's own partner help says it's a
+set percentage of the whole booking, fees
+
+34
+00:01:55,810 --> 00:02:00,350
+included, charged at checkout, and that it
+goes up if the property joins one of its
+
+35
+00:02:00,390 --> 00:02:01,790
+visibility programmes.
+
+36
+00:02:01,890 --> 00:02:03,990
+It doesn't publish the base rate.
+
+37
+00:02:04,030 --> 00:02:07,930
+Trade reporting puts that around fifteen
+percent in most European markets.
+
+38
+00:02:08,120 --> 00:02:11,650
+The preferred badge and the visibility
+booster add to it, and the Genius
+
+39
+00:02:11,690 --> 00:02:15,280
+programme is a discount the
+hotel funds from its own rate.
+
+40
+00:02:15,320 --> 00:02:17,310
+Then three things changed.
+
+41
+00:02:17,850 --> 00:02:22,950
+Cloudbeds, which sells hotel software,
+reports the share of independent hotel
+
+42
+00:02:22,990 --> 00:02:27,870
+reservations coming through these sites
+rose in twenty twenty five, to about sixty
+
+43
+00:02:27,910 --> 00:02:29,910
+three percent worldwide.
+
+44
+00:02:29,950 --> 00:02:35,430
+Early in twenty twenty six, Booking.com
+changed how Genius placement works, so the
+
+45
+00:02:35,470 --> 00:02:38,800
+minimum discount no longer
+buys the visibility it used to.
+
+46
+00:02:39,370 --> 00:02:44,350
+And in Europe, more than fifteen thousand
+hotels have joined a damages claim against
+
+47
+00:02:44,390 --> 00:02:47,200
+Booking.com over price parity clauses.
+
+48
+00:02:47,530 --> 00:02:51,120
+That's Europe, not here,
+but hotels are acting at scale.
+
+49
+00:02:51,710 --> 00:02:52,760
+Who feels it?
+
+50
+00:02:53,110 --> 00:02:57,370
+The owner running twenty to forty rooms
+with no marketing hire and a front desk
+
+51
+00:02:57,410 --> 00:02:58,690
+that's short staffed.
+
+52
+00:02:59,090 --> 00:03:02,550
+About two thirds of the hotels the
+American Hotel and Lodging Association
+
+53
+00:03:02,590 --> 00:03:05,260
+surveyed reported staffing shortages.
+
+54
+00:03:05,799 --> 00:03:07,650
+Which brings us to the question.
+
+55
+00:03:07,980 --> 00:03:11,549
+The site introduces the guest
+and keeps the guest's email.
+
+56
+00:03:11,750 --> 00:03:16,110
+When that guest comes back, who at the inn
+is paid to make sure the second booking
+
+57
+00:03:16,150 --> 00:03:17,150
+comes to the inn?
+
+58
+00:03:17,710 --> 00:03:22,150
+And if the answer is nobody, can
+somebody from outside get paid to do it?
+
+59
+00:03:22,190 --> 00:03:23,600
+Nobody at the inn is.
+
+60
+00:03:23,990 --> 00:03:25,400
+And that's not a lapse.
+
+61
+00:03:25,840 --> 00:03:29,690
+The site is paid per introduction,
+so it has no reason to hand over the
+
+62
+00:03:29,730 --> 00:03:30,760
+relationship.
+
+63
+00:03:31,130 --> 00:03:35,570
+The desk is short staffed, so writing to
+last year's guests is the job that never
+
+64
+00:03:35,610 --> 00:03:36,610
+gets done.
+
+65
+00:03:36,930 --> 00:03:41,470
+Which leaves the property paying an
+introduction fee to meet its own regulars.
+
+66
+00:03:41,510 --> 00:03:45,260
+That gap is a job. I think
+it can be sold from outside.
+
+67
+00:03:45,680 --> 00:03:49,790
+But only for what it recovers,
+and what it recovers is a number.
+
+68
+00:03:50,390 --> 00:03:53,270
+By the end you'll be able
+to compute it for any inn.
+
+69
+00:03:53,310 --> 00:03:57,430
+First, how much of the inn's
+business is actually rented.
+
+70
+00:03:57,470 --> 00:04:01,410
+Cloudbeds, from about ninety million
+bookings, puts the share of independent
+
+71
+00:04:01,450 --> 00:04:06,720
+hotel bookings arriving through the sites
+at about sixty three percent, worldwide.
+
+72
+00:04:07,330 --> 00:04:12,650
+Cloudbeds sells the software hotels use to
+take bookings direct, so it has a view on
+
+73
+00:04:12,690 --> 00:04:15,200
+this the way a dentist
+has a view on flossing.
+
+74
+00:04:15,890 --> 00:04:21,830
+For balance, HOTREC, the European hotel
+association, studied three thousand hotels
+
+75
+00:04:21,870 --> 00:04:26,520
+and found direct channels still carried
+about half of overnight stays there.
+
+76
+00:04:27,090 --> 00:04:32,630
+So somewhere between half and two
+thirds of a small property's bookings
+
+77
+00:04:32,670 --> 00:04:34,740
+arrive with a commission attached.
+
+78
+00:04:35,130 --> 00:04:39,810
+And nobody has published what a thirty
+room inn in the United States actually
+
+79
+00:04:39,850 --> 00:04:43,460
+runs. That's the first
+thing the audit measures.
+
+80
+00:04:43,500 --> 00:04:45,610
+Same data, one more thing.
+
+81
+00:04:45,650 --> 00:04:49,580
+Bookings through the sites cancelled
+at about twenty two percent.
+
+82
+00:04:50,090 --> 00:04:52,410
+Direct bookings, about eleven.
+
+83
+00:04:52,450 --> 00:04:56,340
+So the rented booking costs
+more and shows up less often.
+
+84
+00:04:56,790 --> 00:05:02,270
+The inn is renting most of its demand, at
+a price, and doesn't know its own number.
+
+85
+00:05:02,850 --> 00:05:04,710
+Second, what the site keeps.
+
+86
+00:05:05,050 --> 00:05:07,340
+Old inns had a guest book by the door.
+
+87
+00:05:07,590 --> 00:05:12,030
+You signed it, and the innkeeper had your
+name, where you'd come from, and a reason
+
+88
+00:05:12,070 --> 00:05:15,610
+to write to you. That book was the inn's.
+
+89
+00:05:15,650 --> 00:05:21,110
+Booking.com's own partner help says it
+doesn't share private email addresses.
+
+90
+00:05:21,150 --> 00:05:26,670
+Both sides see an alias ending in
+guest.booking.com, and partners are asked
+
+91
+00:05:26,710 --> 00:05:29,220
+to keep the conversation on the platform.
+
+92
+00:05:29,460 --> 00:05:33,550
+The trade press puts the messaging window
+at about seven days after checkout, and
+
+93
+00:05:33,590 --> 00:05:35,880
+Expedia's at about forty five.
+
+94
+00:05:36,270 --> 00:05:39,420
+So the guest book now
+lives at the booking site.
+
+95
+00:05:39,500 --> 00:05:43,220
+The inn served the guest
+and doesn't have his email.
+
+96
+00:05:43,750 --> 00:05:48,620
+Which means the recovery job has a
+design constraint before it has a tool.
+
+97
+00:05:48,910 --> 00:05:53,230
+You can't win a guest back from a relay
+address, and under the site's rules you're
+
+98
+00:05:53,270 --> 00:05:58,240
+not supposed to try. What the inn
+needs first isn't an email tool.
+
+99
+00:05:58,390 --> 00:06:03,770
+It's a guest book of its own, at the
+front desk, that the guest chooses to
+
+100
+00:06:03,810 --> 00:06:06,230
+sign. Fair question here.
+
+101
+00:06:06,270 --> 00:06:10,070
+If the parts to fix this are cheap,
+why doesn't the inn just do it?
+
+102
+00:06:10,470 --> 00:06:15,710
+The parts are cheap. Google will show a
+free official site link beside the site
+
+103
+00:06:15,750 --> 00:06:19,820
+rates for a property connected through
+a partner, and charges nothing for it.
+
+104
+00:06:20,190 --> 00:06:24,170
+A small property booking engine runs from
+around thirty dollars a month to about a
+
+105
+00:06:24,210 --> 00:06:25,280
+hundred and nine.
+
+106
+00:06:25,870 --> 00:06:28,000
+The obstacle is the front desk.
+
+107
+00:06:28,190 --> 00:06:33,260
+At a twenty room inn, the person who'd set
+up the free link, check the direct rate,
+
+108
+00:06:33,390 --> 00:06:37,270
+write the thank you, and read the
+reservation report is the same person
+
+109
+00:06:37,310 --> 00:06:39,960
+checking in the guest
+and finding a plumber.
+
+110
+00:06:40,430 --> 00:06:43,020
+So the direct path isn't a system.
+
+111
+00:06:43,210 --> 00:06:46,720
+It's a list of small jobs,
+and the list belongs to nobody.
+
+112
+00:06:47,170 --> 00:06:49,090
+Which raises the obvious objection.
+
+113
+00:06:49,230 --> 00:06:52,820
+If this were worth paying for,
+somebody would already be selling it.
+
+114
+00:06:53,290 --> 00:06:55,320
+Somebody is, at two scales.
+
+115
+00:06:55,890 --> 00:07:00,940
+Independent hotels big enough to justify
+it hire outsourced revenue managers,
+
+116
+00:07:01,090 --> 00:07:05,500
+outside specialists who run pricing and
+channel strategy on a monthly retainer.
+
+117
+00:07:06,090 --> 00:07:08,090
+Almost all of them quote privately.
+
+118
+00:07:09,160 --> 00:07:14,350
+And there are hotel marketing agencies
+aimed squarely at independents, inns, and
+
+119
+00:07:14,390 --> 00:07:15,390
+small resorts.
+
+120
+00:07:15,910 --> 00:07:19,000
+One publishes its entry price,
+fifteen hundred dollars a month,
+
+121
+00:07:19,510 --> 00:07:24,660
+and lists past guest email and direct
+share reporting among the things it does.
+
+122
+00:07:25,610 --> 00:07:28,110
+And above it all sit the sites themselves,
+
+123
+00:07:28,470 --> 00:07:33,850
+which by their own filings each ran more
+than a hundred billion dollars of bookings
+
+124
+00:07:33,890 --> 00:07:37,220
+in twenty twenty five, blended
+across everything they sell.
+
+125
+00:07:37,780 --> 00:07:40,290
+That's the floor under this conversation.
+
+126
+00:07:40,930 --> 00:07:46,350
+So the job is real and it's paid for,
+by properties big enough to fund it.
+
+127
+00:07:46,390 --> 00:07:49,780
+I could not find anyone selling
+it to the twenty room inn.
+
+128
+00:07:50,590 --> 00:07:54,970
+It's that the inn can only pay what the
+job recovers, and nobody selling this has
+
+129
+00:07:55,010 --> 00:07:57,020
+published what that is.
+
+130
+00:07:57,060 --> 00:07:59,640
+So let's compute it. Here's the model.
+
+131
+00:08:00,030 --> 00:08:05,330
+It's illustrative, I'm making the inn up,
+and every input is one you'd swap for the
+
+132
+00:08:05,370 --> 00:08:06,810
+real property's numbers.
+
+133
+00:08:07,430 --> 00:08:10,800
+Twenty rooms. A hundred and
+eighty dollars a night on average.
+
+134
+00:08:11,110 --> 00:08:13,320
+Seventy percent full across the year.
+
+135
+00:08:13,690 --> 00:08:16,980
+That's about nine hundred and twenty
+thousand dollars of room revenue.
+
+136
+00:08:17,350 --> 00:08:22,210
+Say sixty three percent of that comes
+through the sites, the Cloudbeds figure.
+
+137
+00:08:22,250 --> 00:08:25,920
+That's about five hundred and eighty
+thousand dollars of rented bookings.
+
+138
+00:08:26,290 --> 00:08:30,850
+At an all in commission of eighteen to
+twenty two percent, my assumption from the
+
+139
+00:08:30,890 --> 00:08:35,290
+reported bands, the inn is paying the
+sites roughly a hundred and five to a
+
+140
+00:08:35,330 --> 00:08:37,289
+hundred and thirty
+thousand dollars a year.
+
+141
+00:08:37,770 --> 00:08:40,520
+That's where the old version
+of this argument stops.
+
+142
+00:08:40,630 --> 00:08:44,270
+It's the wrong number, because the
+inn is never going to move all of it.
+
+143
+00:08:44,310 --> 00:08:48,960
+It needs the sites. The real question
+is what a recovery service can shift.
+
+144
+00:08:49,330 --> 00:08:54,450
+Say it moves ten points of the mix, from
+sixty three percent rented to fifty three.
+
+145
+00:08:55,240 --> 00:08:58,690
+That's about ninety two thousand
+dollars of revenue now booked direct.
+
+146
+00:08:59,010 --> 00:09:03,230
+Commission saved on that, at eighteen to
+twenty two percent, is about sixteen and a
+
+147
+00:09:03,270 --> 00:09:05,590
+half to twenty thousand dollars a year.
+
+148
+00:09:05,630 --> 00:09:09,830
+Take off the cost of the direct channel
+itself, call it three and a half to five
+
+149
+00:09:09,870 --> 00:09:12,660
+percent, the low end being
+one vendor's own figure.
+
+150
+00:09:12,950 --> 00:09:16,250
+What's left is roughly twelve to
+seventeen thousand dollars a year.
+
+151
+00:09:16,500 --> 00:09:19,060
+A thousand to fourteen
+hundred dollars a month.
+
+152
+00:09:19,100 --> 00:09:23,530
+That's the ceiling. It's the most a twenty
+room inn can rationally pay anyone to do
+
+153
+00:09:23,570 --> 00:09:26,180
+this job, and the retainer
+has to sit under it.
+
+154
+00:09:26,610 --> 00:09:27,670
+Two things move it.
+
+155
+00:09:28,070 --> 00:09:31,670
+A forty room property doubles it,
+to roughly two thousand to twenty eight
+
+156
+00:09:31,710 --> 00:09:36,330
+hundred a month. A five point shift
+instead of ten halves it, to about five to
+
+157
+00:09:36,370 --> 00:09:37,370
+seven hundred.
+
+158
+00:09:37,610 --> 00:09:40,690
+The ten points is a hypothesis
+nobody has measured.
+
+159
+00:09:40,730 --> 00:09:44,730
+But the ceiling tells you, in four
+numbers, whether a property can afford you
+
+160
+00:09:44,770 --> 00:09:46,540
+before you've spent an hour on it.
+
+161
+00:09:47,010 --> 00:09:51,960
+Now picture the company that does this
+job, before we shrink it to a first sale.
+
+162
+00:09:52,370 --> 00:09:54,090
+A direct-booking practice.
+
+163
+00:09:54,130 --> 00:09:58,990
+One person working for a handful of small
+properties at once, owning the three jobs
+
+164
+00:09:59,030 --> 00:10:01,290
+the desk doesn't have time for.
+
+165
+00:10:01,330 --> 00:10:03,590
+Findable, so the free link is live.
+
+166
+00:10:03,630 --> 00:10:06,580
+Bookable, so the direct
+rate matches the site.
+
+167
+00:10:07,070 --> 00:10:11,590
+Remembered, which is the guest book,
+the thank you, the reason to come back,
+
+168
+00:10:11,950 --> 00:10:15,210
+with the guest's permission
+and inside the sites' rules.
+
+169
+00:10:15,590 --> 00:10:17,460
+And one number to the owner every month.
+
+170
+00:10:17,670 --> 00:10:20,630
+Direct share of bookings,
+before and after.
+
+171
+00:10:21,190 --> 00:10:26,250
+At maturity that's six or so properties,
+each priced under its own ceiling, and a
+
+172
+00:10:26,290 --> 00:10:30,610
+practice that learns from its own audits
+where in the room count the job starts to
+
+173
+00:10:30,650 --> 00:10:31,650
+pay.
+
+174
+00:10:31,810 --> 00:10:34,620
+Nobody has built that and
+published what it earns.
+
+175
+00:10:35,040 --> 00:10:38,640
+That's what makes it an
+opportunity and not a category.
+
+176
+00:10:39,690 --> 00:10:41,900
+So that's the business.
+
+177
+00:10:42,270 --> 00:10:45,680
+The question now is whether
+you're the person to build it.
+
+178
+00:10:46,170 --> 00:10:50,170
+What this job actually needs isn't
+a revenue management credential.
+
+179
+00:10:50,210 --> 00:10:53,270
+It needs somebody who can write a thank
+you an innkeeper would be proud to have
+
+180
+00:10:53,310 --> 00:10:57,470
+sent, because a recovery message that
+reads like a newsletter with a name tag on
+
+181
+00:10:57,510 --> 00:10:59,800
+it loses the guest faster than silence.
+
+182
+00:11:00,370 --> 00:11:03,293
+And somebody who can sit across
+from an owner and talk about money.
+
+183
+00:11:03,333 --> 00:11:07,893
+I spent ten years in hospitality,
+including Ace Hotel and Standard Hotels.
+
+184
+00:11:07,933 --> 00:11:10,813
+I know this business from the inside out.
+
+185
+00:11:10,853 --> 00:11:13,803
+I haven't sold this
+particular service, though.
+
+186
+00:11:14,023 --> 00:11:17,373
+What a thirty room inn will pay for it
+is still something I'd have to test.
+
+187
+00:11:18,167 --> 00:11:22,007
+Start with properties you can drive
+to and owners you can sit across from.
+
+188
+00:11:22,047 --> 00:11:25,177
+If you've worked in hospitality,
+or you know an innkeeper, start there.
+
+189
+00:11:25,827 --> 00:11:29,437
+The advantage is being let into
+the back office and the guest book.
+
+190
+00:11:29,687 --> 00:11:31,856
+That's a relationship, not a tool.
+
+191
+00:11:32,467 --> 00:11:35,857
+What does the machine do,
+then, and what do you do?
+
+192
+00:11:36,427 --> 00:11:38,737
+The software does the repetitive half.
+
+193
+00:11:38,967 --> 00:11:43,527
+A language model drafts the thank you, the
+review request, the note about the trail
+
+194
+00:11:43,567 --> 00:11:44,567
+in the fall.
+
+195
+00:11:44,747 --> 00:11:47,737
+An automation tool schedules
+them off the checkout date.
+
+196
+00:11:48,887 --> 00:11:52,917
+You do the half that decides
+whether it's hospitality.
+
+197
+00:11:52,957 --> 00:11:57,177
+You set the voice. You decide who
+gets a message and who doesn't,
+
+198
+00:11:57,627 --> 00:12:02,137
+because a guest who signed the book
+expecting a thank you did not sign up for
+
+199
+00:12:02,177 --> 00:12:07,397
+a drip campaign. That's what makes
+six properties a one person job.
+
+200
+00:12:07,437 --> 00:12:08,887
+The drafting got cheap.
+
+201
+00:12:08,927 --> 00:12:10,037
+The judgment didn't.
+
+202
+00:12:10,567 --> 00:12:11,877
+What do you sell first?
+
+203
+00:12:12,987 --> 00:12:15,417
+Not the retainer. The audit.
+
+204
+00:12:16,427 --> 00:12:20,747
+One property on a fixed fee, which in the
+model is twelve hundred dollars and about
+
+205
+00:12:20,787 --> 00:12:24,287
+twelve hours. You pull the site's reports
+
+206
+00:12:24,707 --> 00:12:26,037
+and the property system's.
+
+207
+00:12:26,807 --> 00:12:30,117
+You compute the commission line
+and the ceiling on real inputs.
+
+208
+00:12:31,027 --> 00:12:34,136
+You test the direct path
+as a guest, on your phone.
+
+209
+00:12:35,147 --> 00:12:36,147
+And
+
+210
+00:12:36,427 --> 00:12:38,297
+you check one thing at the front desk.
+
+211
+00:12:38,947 --> 00:12:44,247
+Does the registration card ask for
+the guest's own email, or does the
+
+212
+00:12:44,287 --> 00:12:46,717
+inn only ever hold the relay?
+
+213
+00:12:47,167 --> 00:12:49,397
+The audit's done when
+the owner has a baseline,
+
+214
+00:12:49,827 --> 00:12:53,077
+the ceiling in their own numbers,
+and a written recommendation.
+
+215
+00:12:53,847 --> 00:12:55,177
+Sometimes that's a retainer.
+
+216
+00:12:55,527 --> 00:12:57,057
+Sometimes it's audit only.
+
+217
+00:12:57,597 --> 00:13:01,887
+And sometimes it's this property can't
+fund it, because you're on base commission
+
+218
+00:13:01,927 --> 00:13:06,117
+with a low share through the sites and
+the recoverable is a few hundred a month.
+
+219
+00:13:06,347 --> 00:13:07,517
+That's the product.
+
+220
+00:13:08,827 --> 00:13:09,827
+It's judgment,
+
+221
+00:13:10,167 --> 00:13:12,617
+and it's why the owner trusts
+the second conversation.
+
+222
+00:13:13,667 --> 00:13:19,347
+When the audit says yes, the retainer
+is the three jobs, monthly, at a
+
+223
+00:13:19,387 --> 00:13:21,657
+price under that property's ceiling.
+
+224
+00:13:22,247 --> 00:13:26,157
+Findable and bookable are the
+audit fixes, kept current.
+
+225
+00:13:26,807 --> 00:13:30,037
+Remembered is the part
+that's actually new.
+
+226
+00:13:30,467 --> 00:13:32,637
+The guest book comes
+back to the front desk.
+
+227
+00:13:33,007 --> 00:13:38,497
+The registration card and the wifi
+login ask for the guest's own email.
+
+228
+00:13:39,167 --> 00:13:44,207
+Then, after checkout, a thank you and a
+seasonal reason to return that fits the
+
+229
+00:13:44,247 --> 00:13:45,277
+stay they had.
+
+230
+00:13:45,927 --> 00:13:47,236
+Inside the rules.
+
+231
+00:13:47,787 --> 00:13:50,137
+No marketing to the relay address, ever.
+
+232
+00:13:50,647 --> 00:13:55,067
+The list runs under the American email
+law, and European rules for European
+
+233
+00:13:55,107 --> 00:13:56,107
+guests.
+
+234
+00:13:56,167 --> 00:13:58,737
+And you never tell the
+owner to leave the sites.
+
+235
+00:13:59,387 --> 00:14:01,717
+Then one number on the first of the month,
+
+236
+00:14:02,167 --> 00:14:03,637
+direct share of bookings.
+
+237
+00:14:04,127 --> 00:14:09,247
+If it isn't moving, the report says so,
+and you find out why instead of decorating
+
+238
+00:14:09,287 --> 00:14:11,957
+it. How does the first owner arrive?
+
+239
+00:14:12,327 --> 00:14:13,687
+Lead with the ceiling.
+
+240
+00:14:13,727 --> 00:14:18,267
+Four inputs the owner already knows, and
+one conversation tells them what the job
+
+241
+00:14:18,307 --> 00:14:19,307
+could be worth.
+
+242
+00:14:19,607 --> 00:14:22,097
+Where you find them is the unproven part.
+
+243
+00:14:22,487 --> 00:14:27,257
+Innkeeper associations, and the partner
+lists of the property management systems.
+
+244
+00:14:27,727 --> 00:14:32,727
+Those are hypotheses, not a funnel, and
+I won't invent a conversion rate to make
+
+245
+00:14:32,767 --> 00:14:33,837
+them look like one.
+
+246
+00:14:34,507 --> 00:14:37,217
+And there's a kill condition
+one phone call away.
+
+247
+00:14:37,387 --> 00:14:42,967
+If the agencies already retain thirty room
+inns at fifteen hundred a month and owners
+
+248
+00:14:43,007 --> 00:14:47,347
+prefer it, the solo version
+has no front door at this size.
+
+249
+00:14:47,387 --> 00:14:51,377
+Ask two agencies what their
+smallest retained property is.
+
+250
+00:14:51,867 --> 00:14:55,207
+Say the door's open.
+Your side of the arithmetic, then.
+
+251
+00:14:55,247 --> 00:14:57,417
+Everything from here
+is a modeled scenario.
+
+252
+00:14:57,527 --> 00:15:01,057
+Not observed performance,
+not an earnings forecast.
+
+253
+00:15:01,447 --> 00:15:02,887
+Audit at twelve hundred.
+
+254
+00:15:02,927 --> 00:15:07,007
+Retainer at six hundred a month for a
+twenty room property, rising to a thousand
+
+255
+00:15:07,047 --> 00:15:08,937
+or twelve fifty at forty rooms.
+
+256
+00:15:09,247 --> 00:15:10,887
+Call the blend eight hundred.
+
+257
+00:15:11,387 --> 00:15:12,957
+Six properties on retainer.
+
+258
+00:15:13,287 --> 00:15:16,567
+Eight hours a month each,
+and twelve for each audit.
+
+259
+00:15:16,607 --> 00:15:21,137
+Six properties at eight hundred a month is
+fifty seven thousand six hundred a year.
+
+260
+00:15:21,507 --> 00:15:25,847
+Add six audits at twelve hundred, and
+that's sixty four thousand eight hundred
+
+261
+00:15:25,887 --> 00:15:26,887
+gross.
+
+262
+00:15:26,987 --> 00:15:31,027
+Take off tools and overhead, about six
+thousand a year, and you're at fifty eight
+
+263
+00:15:31,067 --> 00:15:34,137
+thousand eight hundred
+before you pay yourself.
+
+264
+00:15:34,467 --> 00:15:37,657
+Now price your time at the
+model's sixty dollars an hour.
+
+265
+00:15:38,127 --> 00:15:42,647
+Six properties at eight hours, plus the
+audits, is about six hundred and fifty
+
+266
+00:15:42,687 --> 00:15:46,467
+hours. At sixty an hour,
+roughly thirty nine thousand.
+
+267
+00:15:46,507 --> 00:15:51,047
+So after you've paid yourself for the
+hours, there's about twenty thousand left.
+
+268
+00:15:51,087 --> 00:15:54,887
+And if the work runs twelve hours a
+property instead of eight, the stress
+
+269
+00:15:54,927 --> 00:15:58,677
+case, that twenty thousand becomes
+about two and a half thousand.
+
+270
+00:15:59,407 --> 00:16:04,737
+Six twenty room inns at six hundred a
+month is forty three thousand a year.
+
+271
+00:16:04,827 --> 00:16:06,127
+That's a side income.
+
+272
+00:16:06,167 --> 00:16:08,317
+It's a foothold. It is not a living.
+
+273
+00:16:08,787 --> 00:16:11,137
+Up the band it becomes a business.
+
+274
+00:16:11,667 --> 00:16:17,287
+Six forty room properties at twelve fifty
+is ninety thousand a year of retainer
+
+275
+00:16:17,327 --> 00:16:18,477
+before costs.
+
+276
+00:16:18,947 --> 00:16:21,357
+Six properties. Not a market share.
+
+277
+00:16:21,567 --> 00:16:26,167
+The hotel association counts over thirty
+three thousand small business lodging
+
+278
+00:16:26,207 --> 00:16:31,677
+properties in this country, and nobody
+has counted how many sit in this band.
+
+279
+00:16:32,047 --> 00:16:36,337
+You need six owners who say yes,
+on a route you can drive.
+
+280
+00:16:36,967 --> 00:16:38,867
+Six owners who say yes.
+
+281
+00:16:38,907 --> 00:16:41,277
+What's genuinely hard about that?
+
+282
+00:16:41,317 --> 00:16:42,317
+Three things.
+
+283
+00:16:42,607 --> 00:16:44,497
+The ceiling can say no.
+
+284
+00:16:44,537 --> 00:16:49,007
+A property on base commission with a
+modest share through the sites recovers a
+
+285
+00:16:49,047 --> 00:16:51,297
+few hundred a month, and you walk away.
+
+286
+00:16:51,847 --> 00:16:54,387
+So the viable band might be narrow.
+
+287
+00:16:54,427 --> 00:16:58,246
+Too small on one side, already
+served by an agency on the other,
+
+288
+00:16:58,707 --> 00:17:00,996
+and nobody knows how wide the window is.
+
+289
+00:17:01,667 --> 00:17:06,226
+Renewal. A good summer isn't your case
+study because you happened to be standing
+
+290
+00:17:06,266 --> 00:17:11,706
+there, so keep the baseline, or the
+owner cancels the first slow month.
+
+291
+00:17:11,746 --> 00:17:12,746
+And access.
+
+292
+00:17:13,227 --> 00:17:17,327
+Every engagement runs inside the
+owner's accounts, at the owner's desk.
+
+293
+00:17:17,367 --> 00:17:18,367
+You're a guest.
+
+294
+00:17:18,987 --> 00:17:23,107
+If no owner in the band will fund six
+hundred a month, or the agencies already
+
+295
+00:17:23,147 --> 00:17:25,677
+own the band, stop, or move up.
+
+296
+00:17:26,287 --> 00:17:28,457
+Forty to eighty rooms is the redesign,
+
+297
+00:17:28,907 --> 00:17:32,337
+and up there you're competing
+with the agencies on their ground.
+
+298
+00:17:32,807 --> 00:17:37,627
+Before you get anywhere near that,
+the first thirty days are building, not
+
+299
+00:17:37,667 --> 00:17:39,617
+thinking. Build the audit.
+
+300
+00:17:39,677 --> 00:17:42,937
+The checklist, the ceiling calculator,
+and the phone side test.
+
+301
+00:17:43,257 --> 00:17:45,787
+Then run it on three
+properties in the band.
+
+302
+00:17:46,047 --> 00:17:49,787
+One free, for an owner you already
+know, to start a stopwatch.
+
+303
+00:17:50,147 --> 00:17:51,517
+Two at the audit fee.
+
+304
+00:17:51,747 --> 00:17:55,647
+Put the ceiling and a retainer under it
+in front of each owner, and write down the
+
+305
+00:17:55,687 --> 00:17:56,687
+answer.
+
+306
+00:17:56,727 --> 00:18:01,407
+And make five calls. Two property
+management system partner managers and one
+
+307
+00:18:01,447 --> 00:18:05,387
+innkeeper association,
+asking who they refer this to.
+
+308
+00:18:05,427 --> 00:18:09,017
+Two agencies, asking their
+smallest retained property.
+
+309
+00:18:09,327 --> 00:18:15,177
+Success at day thirty is one paid audit,
+one yes to a retainer under the ceiling,
+
+310
+00:18:15,507 --> 00:18:17,757
+and an audit inside fifteen hours.
+
+311
+00:18:18,367 --> 00:18:22,767
+Days thirty one to ninety, deliver the
+first retainer, replace the eight hour
+
+312
+00:18:22,807 --> 00:18:27,347
+assumption with real hours,
+rerun the arithmetic, and decide.
+
+313
+00:18:27,387 --> 00:18:31,957
+Keep going, move the band up,
+or sell the audit only.
+
+314
+00:18:31,997 --> 00:18:33,617
+Say the first retainer's running.
+
+315
+00:18:34,227 --> 00:18:35,227
+Go back to the inn.
+
+316
+00:18:35,627 --> 00:18:37,987
+The same guest checks
+in the following spring.
+
+317
+00:18:38,027 --> 00:18:40,517
+This time the registration
+card asks for his email.
+
+318
+00:18:40,907 --> 00:18:43,437
+The guest book is back,
+and it's the inn's.
+
+319
+00:18:43,987 --> 00:18:47,556
+After checkout there's a thank you that
+sounds like the innkeeper wrote it.
+
+320
+00:18:48,007 --> 00:18:50,457
+In October, a note about
+the trail in the fall.
+
+321
+00:18:50,907 --> 00:18:55,467
+And the next booking comes through the
+inn's own page, with no introduction fee,
+
+322
+00:18:55,767 --> 00:18:58,227
+because nobody needed to be introduced.
+
+323
+00:18:58,677 --> 00:19:01,757
+The site still did the first introduction.
+
+324
+00:19:02,227 --> 00:19:05,917
+Nobody left it. The inn just
+stopped paying for the second one.
+
+325
+00:19:06,427 --> 00:19:08,917
+That's the service inside
+the second commission.
+
+326
+00:19:09,417 --> 00:19:10,897
+And now you have the arithmetic.
+
+327
+00:19:11,407 --> 00:19:14,837
+Rooms, rate, occupancy,
+share through the sites.
+
+328
+00:19:15,327 --> 00:19:19,817
+Four numbers, a ceiling, and a
+retainer that has to fit under it.
+
+329
+00:19:20,207 --> 00:19:23,057
+You can run it on any small
+property in ten minutes.
+
+330
+00:19:23,627 --> 00:19:25,617
+My verdict is build.
+
+331
+00:19:26,187 --> 00:19:27,187
+Bounded.
+
+332
+00:19:27,327 --> 00:19:30,917
+The problem is real,
+documented from four directions.
+
+333
+00:19:31,167 --> 00:19:34,507
+The buyer is direct. The parts are cheap.
+
+334
+00:19:34,547 --> 00:19:38,947
+And the arithmetic at the bottom of
+the band is thin, and I've told you so.
+
+335
+00:19:38,987 --> 00:19:42,987
+So build the audit, because the audit
+is the test, and it costs you three
+
+336
+00:19:43,027 --> 00:19:44,457
+properties and a month.
+
+337
+00:19:45,047 --> 00:19:48,987
+What I'm not saying is that a
+twenty room inn will pay you.
+
+338
+00:19:49,027 --> 00:19:51,287
+Nobody knows that yet, including me.
+
+339
+00:19:51,327 --> 00:19:52,487
+You'll know by day thirty.
+
+340
+00:19:52,977 --> 00:19:56,067
+The first move costs you an afternoon.
+
+341
+00:19:56,107 --> 00:19:58,887
+Find one innkeeper you already know.
+
+342
+00:19:58,927 --> 00:20:00,537
+Ask for four numbers.
+
+343
+00:20:00,927 --> 00:20:02,077
+Run the ceiling.
+
+344
+00:20:02,447 --> 00:20:06,007
+Tell them what you found,
+and ask if they'd pay you to fix it.
+
+345
+00:20:06,047 --> 00:20:11,027
+Not to close them. To find out, in one
+conversation, whether this business exists
+
+346
+00:20:11,067 --> 00:20:13,977
+at their size. Right now nobody knows.
+
+347
+00:20:14,707 --> 00:20:19,307
+If you want more businesses worked all the
+way down to the number that decides them,
+
+348
+00:20:19,427 --> 00:20:21,887
+leave a like,
+and subscribe for the next one.
