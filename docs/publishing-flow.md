@@ -64,7 +64,7 @@ Everything targets **Monday 11:00 AM ET** for the episode ("ships every Monday" 
 | Episode post | LinkedIn **OE page** | Mon 11:00 AM | Hour-one package, see Phase 2 |
 | Shorts posts ×4 | LinkedIn **OE page** | Tue–Fri 8:30 AM | Native vertical video + standalone insight text |
 | Newsletter | Resend | Mon ~11:15 AM | From `content/newsletter.md`; drives hour-one watch time |
-| Site | theoperatoreconomy.com | Mon | `episodes.json` gets `youtube_url`, status live; git push deploys |
+| Site | theoperatoreconomy.com | Mon | `publish.py <slug>` copies `episode_url` from `launch/links.json` into `site/data/episode-urls.json`; commit it, land it on `main`, and Vercel deploys |
 
 **Identity rule: all OE content posts from The Operator Economy page.** Personal profile's role is defined in Phase 3.
 
