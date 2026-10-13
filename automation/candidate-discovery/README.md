@@ -2,8 +2,11 @@
 
 Status: noncanonical upstream discovery surface.
 
-This folder records live questions, market changes, buyer problems, emerging capabilities, and
-possible operator-business ideas before formal Operator Blueprint V2 Step 0 intake.
+This folder records buyer problems that one person may now solve with AI (including always-on
+agents) well enough to build a sustainable business, before formal Operator Blueprint V2 Step 0
+intake. Leads start from what buyers say and do, never from sellers, tools, or trends. Industry size
+does not matter; whether one operator can serve many buyers for a share of the value does (owner
+decision 2026-10-13).
 
 Nothing here is a Step 0 candidate, score, eligibility decision, promotion, episode, script, or
 narration authorization. Canonical intake begins only when the Monday research bench deliberately
@@ -13,7 +16,8 @@ candidate template.
 ## Files
 
 - `POOL.md` is the current discovery pool and shortlist.
-- `runs/YYYY-MM-DD.md` records the complete evidence and disposition from each scout run.
+- `runs/YYYY-MM-DD.md` records the buyer observation ledger, evidence, and disposition from each
+  scout run (Wednesday and Sunday).
 - A same-date rerun appends a numbered section; it never replaces an earlier observation.
 
 ## Lead states
@@ -21,7 +25,7 @@ candidate template.
 | State | Meaning |
 |---|---|
 | `new` | A sourced signal worth screening, but not yet qualified for the Monday bench. |
-| `shortlisted` | Passed every scout filter, including the delivery-boundary and willingness-to-pay tests, and may be considered for formal Step 0 admission. |
+| `shortlisted` | Passed the five scout tests (real buyer and problem, one person with AI, delivery boundary, substitutes, showable fit) and may be considered for formal Step 0 admission. |
 | `held` | Plausible, but blocked on a named missing signal, source, access, or timing condition. |
 | `rejected` | Generic, duplicate, evidence-free, guest-dependent, non-showable, outside the thesis, or otherwise not worth reopening without a stated material change. |
 | `admitted` | The Monday bench created a formal Step 0 candidate and recorded its ID. The scout may not set this state. |
@@ -35,12 +39,18 @@ Every lead must preserve:
 
 - stable discovery ID;
 - first-seen and last-checked dates in America/New_York;
+- **origin observation**: the buyer-side observation (posting, brief, question, complaint, review,
+  comment, or rising search) that generated the lead, with source and date;
 - exact question, tension, or observed change;
 - source URLs and observation dates;
 - signal type: conversation, search direction, buyer behavior, spend, adoption, operating change,
   regulation, capability, workflow, or other named type;
 - who appears to care and what they are trying to decide or accomplish;
 - buyer, costly problem, possible offer, observable outcome, and delivery-mechanism hypothesis;
+- what AI and agents do, what the one operator does, and what the job looked like before AI;
+- **unit economics sketch** (modeled scenario): value at stake per buyer, a plausible fee as a share
+  of value or a fixed fee, roughly how many buyers one person could serve, and whether that sustains
+  one person;
 - why now;
 - strongest existing answer or coverage and what it appears to miss;
 - possible Operator Economy point of view;
@@ -51,54 +61,51 @@ Every lead must preserve:
 - **delivery boundary** — who is legally or professionally permitted to deliver the core deliverable,
   and, if any part requires a licence or credential, what concretely remains for an unlicensed
   operator once every regulated task is removed;
-- **automated or productised substitute** and its published price, when one exists;
-- **willingness-to-pay signal** for the residual named in the delivery boundary, recorded with its
-  type and source, or an explicit statement that none was found;
+- **substitutes** (self-serve tools, done-for-you services, firms, the buyer's own staff) with
+  published prices, and what the operator provides that the buyer does not get from them;
+- **problem-value signals**, each typed (`residual`, `old-way spend`, `problem cost`,
+  `adjacent spend`, or `demand signal`) and sourced;
+- **payment evidence:** `found` (type and source) or `unknown — viewer's first test`;
+- for an `old-way spend` signal, the **switching question**: why this buyer would move that spend to
+  an outside operator rather than to software or its own staff using software;
 - expiry or recheck date;
 - status, disposition reason, and exact reopening condition when held or rejected; and
-- Step 0 candidate ID only after a later Monday-bench admission.
+- Step 0 candidate ID only after a later research-bench admission.
 
 Google Trends supplies relative direction and related-query evidence, not exact monthly volume.
 Reddit and other community activity supplies qualitative language and recurrence evidence, not
 proof of demand, willingness to pay, or market size. A source-access failure is an evidence limit,
 not a negative market finding.
 
-## The two tests added 2026-09-21
+## The five tests (rewritten 2026-10-13)
 
-Owner decision, 2026-09-21, after four consecutive leads and two Step 0 candidates failed on the same
-axis: a regulation-triggered service whose delivery boundary requires a licensed professional, whose
-pricing evidence is seller copy, and for which no buyer-paid evidence exists.
+Owner decision 2026-10-13 (`../../operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-13-DISCOVERY-RESET.md`)
+replaced the nine-test stack after 21 runs produced no episode. Full wording is in
+`../prompts/oe-candidate-scout.md` under "Qualification: five tests".
 
-**Delivery boundary.** A rule that creates work usually also names who is allowed to do it. Name that
-person. If a licence or credential is required for any part of the core deliverable, state in one
-specific sentence what remains for an unlicensed operator once every regulated task is removed. That
-residual is the offer. If it cannot be stated, the lead is `held` with "delivery boundary unresolved",
-not `shortlisted`. If the residual is substantially what an automated substitute already outputs,
-hold or reject.
+1. **Real buyer, real problem.** Two independent buyer-side observations, or one plus a dated
+   operating change; at least one typed problem-value signal. Payment evidence is recorded as
+   `found` or `unknown — viewer's first test` and is not required (owner decision 2026-09-28).
+2. **One person with AI.** AI and agents are what let one operator deliver to many buyers, with a
+   unit economics sketch that could sustain one person.
+3. **Delivery boundary.** Who may legally deliver the core work, and the unlicensed residual.
+4. **Substitutes.** A tool sold to buyers is evidence the problem is real, not a reason to reject.
+   Reject only when a done-for-you service already delivers the outcome at a price one operator
+   cannot beat and buyers readily use it, or buyer-side evidence shows buyers run the tool themselves.
+5. **Showable and fit.** Thesis fit, showable without a guest, not hype or duplicate.
 
-**Willingness to pay.** At least one signal that the target buyer pays an independent provider for
-the residual. Accepted: a buyer describing a payment with identifiable scope; a service request,
-brief, or job posting carrying a budget; a disclosed engagement, invoice, contract, or first-party
-result; an observed marketplace transaction; or an incumbent visibly charging a named buyer for that
-specific residual. Not accepted in any combination: vendor or agency pricing pages, directory rate
-cards, cost-explainer content marketing, seller guidance published to win adjacent work, loss or
-fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
-
-Holding is the expected outcome for a fresh regulatory trigger. A held lead costs nothing; a
-shortlisted one consumes a Monday bench run.
-
-The full test wording, including the transition rule for leads shortlisted before 2026-09-21, is in
-`../prompts/oe-candidate-scout.md` under "Qualification and disposition".
+Seller pages, vendor pricing, cost explainers, category size, funding, and deadlines are context
+only, never buyer evidence.
 
 ## Capacity and handoff
 
-- Keep no more than five `shortlisted` leads at once. Five is a ceiling, not a target: under the two
-  tests above, an empty or one-lead shortlist is a normal result, and neither test may be relaxed to
-  fill the pool.
+- Keep no more than five `shortlisted` leads at once. Five is a ceiling, not a target, and no test
+  may be relaxed to fill the pool.
 - Add no more than three materially new leads per scout run.
 - Continue or refresh existing leads before expanding the pool.
 - Do not keep a lead live merely because it is fashionable. Expire, hold, or reject stale signals.
-- Only the Monday research bench may admit one shortlisted lead into formal Step 0.
+- Only the research bench (Monday and Thursday) may admit one shortlisted lead into formal Step 0,
+  or the owner may admit a held lead directly (owner decision 2026-09-28).
 
 ## Prohibited actions
 

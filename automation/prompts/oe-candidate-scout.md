@@ -3,11 +3,28 @@
 Run this workflow every Wednesday and Sunday at 17:00 America/New_York in
 `/Users/brownmanbrain/GitHub/operator-economy`.
 
-Your objective is to maintain a small, current, evidence-led pool of potential Operator Economy
-subjects before formal Step 0 intake. Search what people are actively asking and discussing, but
-also search current markets, operating changes, buyer problems, spending and adoption signals, new
-capabilities, and underserved workflows. Translate strong signals into possible operator businesses,
-not merely content topics or AI trends.
+Rewritten 2026-10-13 by owner decision (`operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-13-DISCOVERY-RESET.md`).
+Twenty-one daily runs from 2026-09-20 screened about 85 ideas and produced no episode. The audit
+found the scout was searching for sellers and needed to search for buyers: ideas came from the
+scout's own brainstorm, searches mostly returned vendor pages, and the substitute check then
+rejected any idea a vendor already served.
+
+## What we are looking for
+
+**Problems that one person can now solve for buyers with AI, well enough to build a sustainable
+business.**
+
+- Start from a buyer's problem, observed in the buyer's own words or actions. Never start from a
+  seller, a tool, or a trend.
+- The solver is one accountable operator running AI, including **always-on agents** that watch,
+  chase, follow up, reconcile, monitor, and answer around the clock under the operator's supervision.
+  Work that used to need a firm, a team, or shift staff is the target.
+- **Industry size does not matter.** Big industries and small niches both qualify. What matters is
+  whether one person can solve the problem for many buyers and charge a small share of the value at
+  stake (money recovered, saved, earned, or risk removed) or a fixed fee, and whether that adds up
+  to a living for one person.
+- Buyers can be businesses of any size, households, or institutions. Prefer buyers who can pay;
+  a buyer who cannot pay and has no one paying on their behalf is not a business.
 
 The first line of the run output must be:
 
@@ -23,203 +40,212 @@ Read these before acting:
 3. `automation/candidate-discovery/README.md` and `POOL.md` for the discovery contract and current
    state.
 4. `operator-blueprint-v2/00-intake/README.md`, `AUTHORITY-MAP.md`,
-   `STEP0.2-APPROVAL.md`, and `STEP0.3-CHANGE-PROPOSAL.md` only to understand what the scout must not
-   pre-empt.
+   `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`, and the owner decisions in that folder only to
+   understand what the scout must not pre-empt.
+
+When the checked-out branch is not `main`, read this prompt, the README, `POOL.md`, and the run
+records from local `main` (`git show main:<path>`); that is where scout commits land.
 
 This is pre-intake discovery. Never create or edit Step 0 artifacts, readiness scores, promotion
 records, the canonical queue, episode numbers, scripts, narration, production, or release state.
 
 ## Preflight and deduplication
 
-1. Resolve the current Eastern date. Inspect the current branch, upstream divergence, and `git
-   status`. Preserve unrelated dirty work and stop on an overlapping edit you cannot isolate.
-2. Read the current pool and recent scout runs. Continue useful unfinished screening before adding
-   more leads.
-3. Build a semantic deduplication map across:
-   - every current Step 0 candidate, research package, validation, disposition, and promotion;
-   - `operator-blueprint-v2/00-intake/04-queue/QUEUE.md`;
-   - every V2 episode workspace and active production workspace;
-   - parked, held, rejected, archived, superseded, and historical topic material;
-   - `research/`, `topics/`, and `studio/originate/`; and
-   - the existing discovery pool.
-4. Compare buyer, costly problem, offer, outcome, mechanism, evidence base, episode claim, and
-   unresolved question. A renamed duplicate is still a duplicate.
+1. Resolve the current Eastern date. Inspect the current branch, upstream divergence (verify ahead
+   and behind with `git rev-list --count`), and `git status`. Preserve unrelated dirty work and stop
+   on an overlapping edit you cannot isolate.
+2. Read the current pool and recent scout runs. Continue useful unfinished screening, then the
+   re-screen queue (below), before adding new leads.
+3. Deduplicate against every Step 0 candidate, research package, validation, disposition and
+   promotion; `operator-blueprint-v2/00-intake/04-queue/QUEUE.md`; every episode and production
+   workspace; parked, rejected, archived and historical topic material; `research/`, `topics/`,
+   `studio/originate/`; and the pool. Compare buyer, problem, offer, outcome, mechanism, and episode
+   claim. A renamed duplicate is still a duplicate. A previously rejected idea is not a duplicate if
+   it was rejected only under a rule this rewrite removed; it goes to the re-screen queue.
 
-## Discovery lane 1: conversation radar
+## Run budget
 
-Search current public conversation and record direct links, exact observed language, dates, and
-access limits.
+Each run is a deep pass, not a skim:
 
-- **Google search:** the most reliable surface. Inspect People Also Ask, the related-search rail,
-  autocomplete, result recency, and repeated query formulations. Record the questions verbatim. Do
-  not infer volume from result counts.
-- **Reddit — search-result renderings only.** Do not plan a run around reading Reddit. As of
-  2026-09-21 the domain is refused by both the built-in browser pane and the Chrome extension, by
-  WebFetch, and by domain-scoped search, and Reddit returns HTTP 403 to `curl`; being signed in does
-  not help, because the request is refused before it is sent. The full test matrix is in
-  `automation/candidate-discovery/runs/2026-09-21.md`. What remains usable is what Google's result
-  page renders: thread title, subreddit, approximate age, comment count, and a top-answer snippet.
-  Cite those as SERP observations, never as a read thread, and never quote or date a comment that was
-  not visible in the rendering. Retest one Reddit URL per run in one call and record the result, so a
-  restored surface is noticed. If the user supplies thread text directly, treat it as a read thread
-  and say where it came from.
-- **Hacker News:** search through the Algolia index with a date window. Strongest for developer,
-  platform, and infrastructure questions; frequently macro-political and consumer-facing on policy
-  topics, which is not a small-operator buyer signal. An absence here is an absence on one surface.
-- **Indie Hackers:** useful for what operators are actually building and charging for. Posts are
-  seller claims: they verify supply, offers, and possible saturation, not customer demand.
-- **YouTube:** inspect autocomplete, recent relevant videos sorted by upload date, view velocity when
-  visible, packaging, comment questions, and whether strong coverage already resolves the topic. A
-  thin or stale result set is a coverage-gap observation, not evidence of low audience demand.
-- **Other reachable communities:** Stack Exchange sites, vendor-hosted and independent Discourse
-  forums, public professional communities, trade-association and practitioner forums, and
-  domain-specific discussion surfaces. Platform seller help centres and changelogs (Shopify, Etsy,
-  eBay, marketplace and payment providers) are a distinct and often better source than a forum,
-  because a dated policy change is a primary operating signal. Use only what is publicly accessible
-  and attributable.
-- **Google Trends:** unreliable in this environment. It failed outright on 2026-09-20 and on
-  2026-09-21 rendered without exposing readable values. Attempt it when a direction claim would
-  change a decision, and otherwise skip it rather than spending a run on it. When it does work,
-  compare useful windows such as 7 days, 90 days, and 12 months and inspect rising and related
-  queries and regional differences. Treat the index as relative direction, never exact monthly search
-  volume.
+- at least 20 searches and at least 6 pages read in full (not search summaries);
+- at least 15 buyer-side observations logged before any idea is formed; and
+- Google Trends checked for the one or two phrases each surviving lead turns on.
 
-Do not force every surface into every run. Choose the surfaces relevant to the observed question and
-record unavailable or blocked access honestly.
+Record what was actually read. A search summary is cited as a summary, never as a read page.
 
-Because Reddit is no longer readable, most runs will qualify a lead through the operating-change
-route in the qualification list — one material operating change plus one independent
-audience/question signal — rather than through recurrence across two conversation surfaces. That is
-expected, not a lowered bar. It raises the burden on the market and operating-signal lane below: the
-change must be dated, primary where possible, and attached to a cost the buyer is already carrying.
-Do not compensate for a lost surface by treating seller marketing, vendor guidance, or a press
-release as an audience signal.
+## Step 1: buyer observation ledger (always first)
 
-## Discovery lane 2: market and operating signals
+Before forming any idea, collect raw buyer-side observations and log each in the run record with
+source, date, the buyer's exact words or action, and the surface. A buyer-side observation is one of:
 
-Search current primary or otherwise credible sources for:
+- **a job or contract posting** for work that is mostly reading, writing, checking, sorting,
+  reconciling, monitoring, chasing, scheduling, or answering (Indeed, LinkedIn, government and
+  association job boards, as search results render them; part-time, per-project, and shift roles
+  are especially useful because they show a job a buyer would hand to an outside operator);
+- **a freelance brief** (Upwork, Fiverr requests, Contra, as search results render them);
+- **a buyer question**: who should I hire for, how much should I pay for, how do I stop spending
+  time on, is there someone who, what do people do about (Google People Also Ask and autocomplete,
+  `site:quora.com` titles, Stack Exchange, BiggerPockets, ContractorTalk, Shopify Community, trade and
+  practitioner forums, vendor-hosted Discourse forums);
+- **a complaint with a consequence**: negative reviews of businesses or tools (Google reviews,
+  G2, Capterra, Trustpilot, app stores) where the reviewer names a job that is not getting done, or
+  a tool they bought that nobody runs;
+- **YouTube comments** on how-to videos where viewers ask for help or say they gave up; and
+- **rising search phrases** from Google Trends related and rising queries.
 
-- product and platform releases, pricing changes, new capabilities, and deprecations;
-- regulatory, compliance, labor, procurement, or industry-rule changes;
-- acquisitions, funding, partnerships, vendor adoption, and buyer spending signals;
-- job postings, service requests, operational complaints, workarounds, and recurring manual labor;
-- margin pressure, customer-acquisition shifts, ownership or data-control changes, and platform
-  dependence; and
-- workflows where a deliberately small accountable operator may now deliver an observable result.
+Seller pages, vendor blogs, press releases, cost-explainer marketing, and directories are never
+buyer-side observations. They may be recorded later as context or as substitutes.
 
-Seller claims, directories, social chatter, search movement, and press coverage have different
-evidentiary weight. Preserve those differences.
+Reddit: as of 2026-09-21 the domain is refused by the browser pane, the Chrome extension, WebFetch,
+and domain-scoped search, and returns HTTP 403 to `curl` (test matrix in `runs/2026-09-21.md`). Use
+only what Google's result page renders (thread title, subreddit, age, comment count, visible snippet)
+and cite it as a SERP observation. Retest one Reddit URL per run and record the result. Quora pages
+return 403; `site:quora.com` titles are usable as SERP observations. Upwork returns 403 directly.
 
-## Translate signals into leads
+## Step 2: where to look (lanes)
 
-For every lead worth retaining, capture the complete contract in
-`automation/candidate-discovery/README.md`, including:
+Spread observation-gathering across these lanes. At least two thirds of new leads must come from
+lanes A to C.
 
-- the exact question, tension, or change;
-- who appears to care and what decision they face;
-- buyer and costly problem;
+### Lane A: buyer problems
+
+Start from a kind of buyer (any industry, any size) and collect what they ask, complain about, hire
+for, and give up on. Rotate buyer types across runs and record which were covered, so runs do not
+keep returning to the same few.
+
+### Lane B: tool-to-service gaps
+
+AI tools and agents are being sold to buyers who do not have the time or skill to set them up, run
+them, check them, or own the result. Look for buyer-side evidence of that gap: reviews saying a tool
+was bought and abandoned, questions about who can set something up or manage it, job postings for
+someone to run a tool. A tool sold to buyers is evidence that the problem is real, not that it is
+solved.
+
+### Lane C: always-on agent work
+
+Jobs that are continuous rather than one-off: watching for changes, chasing replies and payments,
+following up leads, monitoring listings, prices, filings or compliance, answering after hours,
+reconciling as transactions arrive. Before agents these needed staff on shift or were simply not
+done. Look for buyers paying staff, overtime, or answering services for this, or losing money
+because nobody watches.
+
+### Lane D: operating changes
+
+Regulation, platform, pricing, and market changes that create or move work. At most one new lead
+per run from this lane, and it still needs a buyer-side observation (Step 1); a rule alone is not
+a lead. A rule that creates work usually names who may do it, so the delivery-boundary test below
+matters most here.
+
+Ideas from the scout's own knowledge may be used only as **search prompts**: name the buyer and go
+look for their observations. An idea becomes a lead only when a logged buyer-side observation
+supports it, and the lead records the observation that generated it.
+
+## Step 3: turn observations into leads
+
+For every lead worth retaining, capture the contract in `automation/candidate-discovery/README.md`,
+including:
+
+- the **origin observation** (the buyer-side observation that generated the lead);
+- buyer, problem, and what it costs them;
 - potential offer and observable outcome;
-- delivery-mechanism hypothesis;
+- what AI and agents do, and what one person does;
+- **unit economics sketch**: value at stake per buyer, a plausible fee (share of value or fixed),
+  roughly how many buyers one person could serve, and whether that sustains one person. Label it a
+  modeled scenario;
 - why now;
-- strongest existing answer and what it appears to miss;
+- strongest existing answer and what it misses;
 - possible Operator Economy point of view;
 - strongest invalidating question;
 - evidence still needed; and
 - expiry or recheck date.
 
-The Operator Economy angle must be earned. Test whether the useful interpretation concerns hidden
-labor, cost, dependence, accountability, customer ownership, data, decision rights, margin,
-portability, recourse, or a realistic small-operator advantage. Do not manufacture contrarianism.
+The Operator Economy angle must be earned: hidden labor, cost, dependence, accountability, customer
+ownership, data, margin, recourse, or a realistic one-person advantage. Do not manufacture
+contrarianism.
 
-## Qualification and disposition
+## Qualification: five tests
 
-To become `shortlisted`, a lead must have:
+A lead is `shortlisted` when it passes all five. If one named missing condition could change the
+decision, it is `held` with the exact reopening condition. Otherwise it is `rejected`.
 
-1. recurrence across at least two independent conversation surfaces, or one material operating
-   change plus one independent audience/question signal;
-2. clear audience and thesis fit;
-3. a meaningful unresolved tension or coverage gap;
-4. a plausible buyer, costly problem, observable outcome, and delivery mechanism to investigate;
-5. a path to honest, showable evidence that does not depend on a guest;
-6. enough accessible evidence for the Monday bench to decide whether formal Step 0 research is
-   warranted;
-7. a **stated delivery boundary** that survives the licensing test below; and
-8. at least one **willingness-to-pay signal** of an accepted type below.
+### 1. Real buyer, real problem
 
-### The delivery-boundary test
+- At least two buyer-side observations from independent sources (different surfaces or unrelated
+  buyers), or one buyer-side observation plus one dated operating change that raises the cost of the
+  problem.
+- At least one typed **problem-value signal**: `residual` (buyer already pays an independent
+  provider for this job), `old-way spend` (buyer pays staff, overtime, contractors, firms, or
+  agencies for the same job done the pre-AI way), `problem cost` (losses, penalties, time, backlog,
+  lost revenue, churn, or the buyer's own account of the pain with a consequence), `adjacent spend`
+  (budget visibly exists for a neighbouring job), or `demand signal` (buyers asking who to hire, how
+  to fix it, or what it costs).
+- **Payment evidence** is recorded as `found` (type and source) or `unknown — viewer's first test`.
+  It is not required.
+- Vendor pricing pages, rate cards, cost-explainer content, category size, funding, and deadlines
+  are context only, never buyer evidence. Trend-only leads are rejected.
 
-Added 2026-09-21 by owner decision, after four consecutive leads and two Step 0 candidates failed on
-the same axis.
+### 2. One person with AI
 
-A dated regulatory trigger is the scout's most reliable signal and also its most reliable trap,
-because a rule that creates work usually also names who is allowed to do it. Before shortlisting,
-name explicitly:
+Name in one sentence what AI and agents do, and what the business looked like before (a firm, a
+team, staff on shift, or not done at all). Pass when AI is what lets one person deliver the outcome
+to many buyers. Fail when the business runs the same without AI, or AI is a minor helper (drafting
+emails, sorting photos). Include the unit economics sketch; fail it only if no plausible fee and
+client count could sustain one person.
 
-- who is legally or professionally permitted to deliver the core deliverable — an unlicensed
-  operator, a licensed or credentialed professional, or an unresolved mix; and
-- if a licence or credential is required for any part, **what concretely remains** for an unlicensed
-  operator once every regulated task is removed.
+### 3. Delivery boundary
 
-That residual is the offer. If the residual cannot be stated in one specific sentence, the lead is
-`held` with "delivery boundary unresolved" as the named missing condition — not `shortlisted`.
+Name who is legally or professionally permitted to deliver the core deliverable. If any part needs a
+licence or credential, state in one specific sentence what remains for an unlicensed operator. That
+residual is the offer. If it cannot be stated, hold with "delivery boundary unresolved".
 
-Also name the **automated or productised substitute** and its published price when one exists. If
-the residual is substantially what the substitute already outputs, hold or reject; do not shortlist
-a lead whose remaining work is a software output sold as labor.
+### 4. Substitutes (rewritten 2026-10-13)
 
-### The willingness-to-pay test
+Name the strongest substitutes and their published prices: self-serve AI tools, done-for-you
+services, firms, and the buyer's own staff.
 
-At least one signal that the target buyer pays an independent provider for **the residual**, not for
-the regulated or automated work around it. Accepted signals:
+- **A tool sold to buyers does not fail this test.** It shows the problem is real. The operator's
+  angle is what the buyer does not get from the tool: setup, running it every day, checking its
+  output, combining several tools, always-on monitoring, and owning the outcome.
+- **Reject only when** (a) a done-for-you service already delivers the same outcome to this buyer
+  at a price one operator could not beat and buyers in this segment readily use it, or (b) there is
+  buyer-side evidence that buyers in this segment run the tool themselves and get the outcome.
+- Seller claims that a segment is served are not evidence that it is. Record them as context.
+- For an `old-way spend` signal, record the switching question: why this buyer would move that
+  spend to an outside operator rather than to software or its own staff.
 
-- a buyer describing a payment they made, with enough detail to identify the scope;
-- a service request, brief, or job posting carrying a budget for that scope;
-- a disclosed engagement, invoice, contract, or first-party result;
-- an observed marketplace transaction; or
-- an incumbent visibly charging a named buyer for that specific residual.
+### 5. Showable and fit for the channel
 
-**Not accepted, in any combination:** vendor or agency pricing pages, directory rate cards, "how much
-does X cost" content-marketing posts, seller guidance published to win adjacent work, general loss or
-fraud statistics, category size, funding, a deadline, or the volume of coverage a change attracts.
-Several weak sources repeating a number do not become one strong source.
+Clear audience and thesis fit; a showable path that does not depend on a guest; not hype-led,
+generic, or a duplicate; enough accessible evidence for the research bench to decide whether formal
+Step 0 research is warranted.
 
-If no accepted signal exists, the lead is `held` with the exact missing signal named. This is the
-common case for a fresh regulatory trigger, and holding is the correct outcome — a held lead costs
-nothing, while a shortlisted one consumes a Monday bench run.
-
-### Transition
-
-Leads shortlisted before 2026-09-21 were screened without tests 7 and 8. Re-screen every existing
-`shortlisted` lead against both on the next scout run and re-disposition it honestly, before adding
-any new lead. Until a lead records both results, it is not eligible for admission by the Monday
-bench.
-
-Reject generic, duplicative, evidence-free, guest-dependent, non-showable, hype-led, or trend-only
-ideas early. Hold a plausible lead when one named missing condition could change the decision, and
-record its exact reopening condition. A source-access failure is a limitation, not a reason to claim
-no interest or demand.
-
-Do not assign a numeric score. Order shortlisted leads by editorial priority and state the decisive
+Do not assign a numeric score. Order shortlisted leads by editorial priority with the decisive
 reason in plain language. Keep no more than five shortlisted leads and add no more than three
-materially new leads in one run.
+materially new leads per run. Five is a ceiling, not a target. A source-access failure is a
+limitation, not evidence of no interest.
 
-Five is a ceiling, not a target. Under the delivery-boundary and willingness-to-pay tests an empty or
-one-lead shortlist is a normal and acceptable result. Do not relax either test to fill the pool, and
-do not shortlist a lead in order to have something for the Monday bench to admit — the bench is
-required to record `NO_QUALIFYING_SHORTLIST` and stop, and that is a cheaper outcome than a Step 0
-package that parks.
+## Re-screen queue (transition, from 2026-10-13)
+
+Ideas rejected between 2026-09-20 and 2026-10-13 mainly because an AI tool or AI-backed service
+already sold the job (the old substitute check), or because no current buyer voice was found while
+Reddit was blocked, are re-screened under the five tests above. Re-screen up to two per run before
+new leads, starting with those whose rejection named a self-serve tool rather than a done-for-you
+service. Each re-screen needs a fresh buyer-side observation; a re-screen that finds none stays
+rejected with the date. Record re-screens in the run record and update the rejected index. Delivery-
+boundary and AI-change rejections are not re-screened unless their own reopening condition is met.
 
 ## Persistence and git safety
 
-1. Write the full observed-source ledger, screening, deduplication, and dispositions to
+1. Write the observation ledger, screening, deduplication, and dispositions to
    `automation/candidate-discovery/runs/YYYY-MM-DD.md`. Append a numbered rerun section rather than
    overwriting a same-date record.
 2. Update `automation/candidate-discovery/POOL.md` with the current `new`, `shortlisted`, `held`,
    `rejected`, and previously `admitted` states. Preserve historical rejection evidence in the run
    record.
-3. The scout may never mark a lead `admitted`; only the Monday bench may do so after it creates a
+3. The scout may never mark a lead `admitted`; only the research bench may do so after it creates a
    formal candidate artifact.
-4. Commit only the scout prompt, pool, and this run's explicit discovery records. Never use
+4. Commit only the pool and this run's explicit discovery records. When another branch is checked
+   out, commit to local `main` through a temporary index without touching the working tree. Never use
    `git add -A`, reset, clean, delete, amend someone else's commit, or include unrelated dirty work.
 5. Push only when the scoped commit can be pushed without carrying unrelated unpublished ancestor
    commits. Otherwise keep the scoped commit local and report why.
@@ -230,12 +256,13 @@ package that parks.
 
 Return a compact digest containing:
 
-1. sources and surfaces actually inspected;
-2. leads added, changed, held, rejected, or expired;
-3. the ordered shortlist, with one-line rationale and strongest invalidating question for each;
-4. material access limitations;
-5. the pool and run-record paths; and
-6. commit and push status.
+1. surfaces inspected, searches run, pages read, and observations logged;
+2. buyer types covered this run;
+3. leads added, changed, re-screened, held, rejected, or expired;
+4. the ordered shortlist, with one-line rationale and strongest invalidating question for each;
+5. material access limitations;
+6. the pool and run-record paths; and
+7. commit and push status.
 
 Notify only for a materially changed shortlist, a new blocker, or an access problem that requires
-user action. Stay quiet when no lead or disposition changed.
+user action.

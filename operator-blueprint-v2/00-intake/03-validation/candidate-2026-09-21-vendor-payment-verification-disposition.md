@@ -65,3 +65,42 @@ Opportunity-readiness score: not issued
 Owner promotion review: not requested
 
 This record is not a promotion record and cannot create an active queue row. If the candidate re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the decision history.
+
+## Addendum 2026-09-28: re-entry under the coaching standard
+
+Owner decision `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md` removes owner field work as a
+re-entry condition. The decision above (`continue research`) and its reasoning stand; only the
+re-entry path changes.
+
+- Items 1 (paid pilot), 3 (delivery rehearsal), and 4 (buyer interviews) move to the research
+  brief's validation plan as the **viewer's first test**. They no longer gate this candidate.
+- Item 2 (qualified payments/compliance and insurance boundary review) becomes desk work: document
+  the delivery boundary from Nacha's published Phase 2 guidance, bank-published originator
+  agreements, and insurer social-engineering-fraud endorsements, and state what a viewer must have a
+  qualified reviewer confirm before selling.
+- New re-entry condition: a research amendment that (a) documents that boundary from primary
+  sources, (b) finds buyer-side price or spend evidence of an accepted type (a posted request with a
+  budget, a disclosed engagement, or old-way spend), and (c) converts the four field items into a
+  viewer's test with success and kill signals. Then complete the analogy map and scorecard.
+
+Destination: remain in research. Queued for the next bench run with capacity.
+
+## Addendum 2026-10-12: desk re-entry pass; parked (Monday bench)
+
+Evidence: `../02-research/candidate-2026-09-21-vendor-payment-verification-amendment-01.md`
+
+Decision: **parked**. The 2026-09-28 re-entry condition is two-thirds met.
+
+- (a) Delivery boundary: **met** at desk level. A primary US carrier endorsement (Intact M350,
+  03-20) pays social-engineering loss only when an employee performed and logged a pre-arranged
+  callback; with Nacha's rule that outsourcing does not move responsibility, the buyer owns and runs
+  the control and the operator installs and tests it.
+- (b) Buyer-side price or spend: **not found** after a bounded search of posted requests, disclosed
+  engagements, and old-way spend.
+- (c) Viewer's first test: **met**. The four former field items are now a viewer's test with success
+  and kill signals.
+
+Not archived: the rule, the problem, the insurance condition, and the delivery boundary are sound.
+The gap is the same one recorded on 2026-09-21: no record of a target buyer paying an outside
+operator for this job. Analogy map and scorecard not started; no score issued.
+Unblock condition and review trigger: `../04-queue/parked/candidate-2026-09-21-vendor-payment-verification.md`.

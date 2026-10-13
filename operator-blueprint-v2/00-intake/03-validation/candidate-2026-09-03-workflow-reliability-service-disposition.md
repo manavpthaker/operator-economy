@@ -66,3 +66,35 @@ Editorial development authorized: no
 Episode number: unassigned. The published V1 episode keeps its historical number; a V2 rescript would receive a new number only after a valid promotion.
 
 This record is not a promotion record and cannot create an active queue row. If the candidate re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the decision history. A parked or research-stage score is not preserved on re-entry.
+
+## Addendum 2026-09-28: restart under the coaching standard
+
+Recorded: 2026-09-28, on the owner decision `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md` / `95c781cba2a8ad5d8f76dda597329e0f84b4732226f9c8886a9520f0af2cd686`. Nothing above this heading is changed. Scores (A 69, B 63), hard-gate results and the owner-promotion requirement are unchanged.
+
+Evidence amendment: `../02-research/candidate-2026-09-03-workflow-reliability-service-amendment-01.md` / `cbf84d870dc268daa6d0f1daf1da170ab731339e04a029f889da768d4fc686af`
+
+### Re-entry conditions restated without owner field work
+
+1. **Ten owner interviews: removed as a condition.** The consequence and price questions they would have answered are field-only. They are now the viewer's first-test plan in the amendment, with a success signal and a kill condition. They stay scored as gaps.
+2. **Marketplace asking-price sample and search attempt: done as far as read-only desk access allows.** Upwork and Fiverr still block read-only access (bot challenge and CAPTCHA, not bypassed). Substitute sources gave asking prices (Zapier directory minimums of $100–$1,000, median $250; community fix offers of $40–$150; fixed quotes of $95–$695) and buyer-posted budgets ($750–$3,000 for builds that include reliability requirements; $25–$50 per hour). Google Trends worked: the seller-side phrase peaked in May 2026, buyer-problem phrases are too small to measure, and the direction since July 2026 cannot be read with confidence.
+3. **New desk condition.** The research brief's $3,500 base price sits above every observed buyer budget. Before any re-score, a revised research brief (a new version, not an edit of the reviewed file) must reset the price hypothesis against the observed anchors and add the monitoring-tool-plus-cheap-fix substitute to the Canvas.
+4. **Re-score.** A fresh Reviewer A / Reviewer B pair re-scores the revised package. The amendment names the factors that may move (buyer and problem +1 possible; economics +1 only if the price is reset) and those that should not (audience, analogy, go-to-market). No factor may rise because field work was removed.
+5. **Owner promotion.** Still required after any re-score. Not recommended on the current package.
+
+### Current disposition
+
+Decision: **continue research** (re-score after a price revision; not ready for owner promotion review)
+
+Reason: The desk gaps named on 2026-09-03 are now mostly closed. The first observed price evidence is adverse to the modeled base price. The consequence mechanism is stronger, from primary platform documentation and an independent law-firm intake study, but automation-failure frequency and cost for the bounded buyer are still unmeasured. If the re-score of the revised package lands below 65 again, the next step is park.
+
+Editorial development authorized: no. This addendum is not a promotion record.
+
+## Addendum 2026-09-28 (2): re-score and park
+
+- Price reset: `../02-research/candidate-2026-09-03-workflow-reliability-service-amendment-02.md` / `068b7a3f96ee87f3389b23829bb857a1ad63d0755ff6528f987a7de6ef4f97e2`. The $3,500 sprint does not survive observed prices; viability rests on an unevidenced $300–$500/month retainer.
+- Reviewer A re-score: **69** (`candidate-2026-09-03-workflow-reliability-service-scorecard-02.md` / `733156713358bfc8d37bbaa7070bb58630a5133d2175616af9390d1eaba16049`). Recommends against owner override.
+- Reviewer B re-score: **62** (`candidate-2026-09-03-workflow-reliability-service-reviewer-b-adversarial-02.md` / `a34e67ff73b75f271056394970b55580c885f347847e01a8644e540483eba469`). Recommends park: near-duplicate of EP008's structure, commodity fix market, tool-plus-fix substitute wins below ~2 incidents a month, AI does no part of the delivery.
+- Both reviews were written by separate AI agents working independently; neither is an independent human review.
+- Per the first 2026-09-28 addendum, Reviewer B below 65 triggers park. Current decision: **parked**.
+
+Re-entry (desk evidence only): a buyer-posted budget or disclosed payment for ongoing automation maintenance or monitoring; evidence of failure frequency for one buyer segment; and a reframe in which AI does a material part of the delivery. The analogy map, Canvas gate and editorial review must be reissued against the current offer before any re-score.
