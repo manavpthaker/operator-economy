@@ -99,7 +99,8 @@ only, never buyer evidence.
 
 ## Capacity and handoff
 
-- Keep no more than five `shortlisted` leads at once. Five is a ceiling, not a target, and no test
+- Keep no more than ten `shortlisted` leads at once (raised from five 2026-10-13). Ten is a ceiling,
+  not a target, and no test
   may be relaxed to fill the pool.
 - Add no more than three materially new leads per scout run.
 - Continue or refresh existing leads before expanding the pool.

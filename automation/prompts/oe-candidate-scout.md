@@ -220,8 +220,9 @@ generic, or a duplicate; enough accessible evidence for the research bench to de
 Step 0 research is warranted.
 
 Do not assign a numeric score. Order shortlisted leads by editorial priority with the decisive
-reason in plain language. Keep no more than five shortlisted leads and add no more than three
-materially new leads per run. Five is a ceiling, not a target. A source-access failure is a
+reason in plain language. Keep no more than ten shortlisted leads (raised from five 2026-10-13: the bench will not use every
+shortlisted lead) and add no more than three materially new leads per run. Ten is a ceiling, not a
+target. A source-access failure is a
 limitation, not evidence of no interest.
 
 ## Re-screen queue (transition, from 2026-10-13)

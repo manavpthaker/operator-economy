@@ -56,6 +56,9 @@ An audit of the 21 scout runs from 2026-09-20 to 2026-10-13 found:
    bench models price from value at stake or old-way spend, labels it a modeled scenario, and makes
    price the viewer's first test. The gap is still scored as a gap. Candidates parked solely on a
    missing price or spend anchor may be reopened with a dated addendum.
+9. **Shortlist cap raised to ten** (owner, later the same day: "increase the cap to 10 because 5
+   doesn't mean we'll use all of them"). The scout may keep up to ten shortlisted leads; the limit
+   of three materially new leads per run and the bench's one admission per run are unchanged.
 
 ## Changed files
 

@@ -1,6 +1,8 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-13 ET, scout run 2 (first run under the 2026-10-13 rules, owner-requested):
+Updated: 2026-10-13 ET, owner decision: shortlist cap raised from five to ten (the bench will not use
+every shortlisted lead). New-lead limit per run (three) unchanged.
+Previous: 2026-10-13 ET, scout run 2 (first run under the 2026-10-13 rules, owner-requested):
 shortlists `DISC-2026-10-13-023` (always-on receivables desk for small B2B businesses, priority 1);
 holds `DISC-2026-10-13-024` (AI-native transaction coordination); re-screens and shortlists
 `DISC-2026-09-28-011` (admissions-consultant backend, priority 5) on new old-way-spend evidence;
