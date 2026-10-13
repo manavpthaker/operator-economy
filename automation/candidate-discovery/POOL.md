@@ -1,6 +1,12 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-13 ET, pool reconciled with `origin/main`: adds owner-proposed
+Updated: 2026-10-13 ET, scout run 2 (first run under the 2026-10-13 rules, owner-requested):
+shortlists `DISC-2026-10-13-023` (always-on receivables desk for small B2B businesses, priority 1);
+holds `DISC-2026-10-13-024` (AI-native transaction coordination); re-screens and shortlists
+`DISC-2026-09-28-011` (admissions-consultant backend, priority 5) on new old-way-spend evidence;
+re-screens grant writing (stays rejected: buyers draft with AI themselves); rejects outsourced
+certificate-of-insurance issuance. Shortlist now 5. Full record: `runs/2026-10-13.md`, run 2.
+Previous: 2026-10-13 ET, pool reconciled with `origin/main`: adds owner-proposed
 `DISC-2026-09-28-011` (AI prep backend for private-school admissions consultants, held, re-screen
 queue), which existed only upstream. Closes the divergence flagged since 2026-09-29.
 Previous: 2026-10-13 ET, owner decision: discovery reset. The scout now starts from buyer-side
@@ -77,9 +83,104 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
 
+### `DISC-2026-10-13-023` — always-on receivables desk for small B2B businesses
+
+- Status: `shortlisted` (2026-10-13 scout run 2; priority 1 of 5)
+- First seen / last checked: 2026-10-13 / 2026-10-13 ET
+- Lane: C (always-on agent work), with lane A buyer evidence.
+- **Origin observation:** 2026 part-time accounts-receivable postings whose whole job is chasing
+  past-due invoices: Area Temps, Akron OH, March 2026, $17/hr, 20–25 h/week, "chasing past-due
+  balances", collection calls and emails; Robert Half, Thornton CO, June 2026, $27–30/hr, about 20
+  h/week, overdue invoices and aging reports; Robert Half, Bethlehem PA, July–August 2026, 5–8
+  h/week, following up commercial customers on overdue invoices; a remote 15 h/week collections role
+  (June 2026); Expansa, Houston, June 2026, 25 h/week. All from search-result summaries
+  (ihireaccounting.com, hireheroesusa.org, virtualvocations.com, ziprecruiter.com); posting pages
+  returned 403. Several came through staffing firms, so the end employer's size is unknown.
+- Exact question: small businesses that invoice other businesses carry overdue invoices and either
+  pay someone part-time to chase them, chase them themselves when they remember, or wait until a
+  collection agency takes 25–50%. Can one operator, running agents that follow up every day, keep a
+  few dozen businesses' receivables moving for a small share of what is collected?
+- Sources: Intuit QuickBooks late-payments report via Stacker/KEYT, 2026-07-20 (read): 59% of US
+  small businesses have invoices 30+ days overdue, up from 47% a year earlier; average $17,700 owed;
+  38% of owners with overdue invoices relied more on credit cards
+  <https://keyt.com/stacker-small-business/2026/07/20/report-finds-more-small-businesses-are-carrying-overdue-invoices-than-last-year/>;
+  Bluevine survey of 1,052 owners, February 2026 (summary): nearly 3 in 10 delayed paying themselves
+  because customers paid late; UK government study 2025 (summary): 86 staff hours a year chasing late
+  payments; Indie Hackers threads March–September 2026 (summaries; mostly posted by people building
+  reminder tools): the first reminder is easy, the second and third get avoided
+  <https://www.indiehackers.com/post/5-invoice-chasing-threads-later-the-same-problem-keeps-showing-up-4c0f697aca>;
+  Google Trends US 5 years: "unpaid invoices" at a five-year high in mid-2026 (low absolute volume;
+  "accounts receivable outsourcing" near zero). Full ledger: `runs/2026-10-13.md`, run 2.
+- Signal types: buyer behavior (job postings), problem cost, search direction, capability.
+- Who cares / decision: owners of service firms, trades, agencies, distributors and manufacturers
+  that invoice on terms, deciding whether to keep chasing themselves, hire a part-time clerk, or hand
+  old invoices to an agency.
+- Buyer / costly problem: cash stuck in overdue invoices (about $17.7k on average among those
+  affected), owners covering the gap with credit cards or by skipping their own pay, and follow-up
+  that stops after the first reminder because it feels personal.
+- Potential offer / observable outcome: a monthly receivables desk run under the client's own name:
+  every open invoice followed up on a schedule until paid, disputes found and fixed, promises to pay
+  logged, a weekly aging report; priced as a small retainer or a small share of overdue cash
+  collected. Outcome: days-sales-outstanding and the 30+ day balance, before and after.
+- What AI and agents do / what the operator does: agents read the aging report and each customer's
+  email thread, write and send each follow-up in the client's voice, read replies, spot disputes
+  (wrong PO, missing W-9, wrong billing address), log payment promises, and call where appropriate;
+  the operator sets each client's rules, handles escalations and sensitive accounts, and owns the
+  weekly report. Before AI: a part-time clerk's hours per client, or nothing until a collection
+  agency at 90+ days.
+- **Unit economics sketch (modeled scenario):** fee of $300–$500 a month, or 3–5% of overdue cash
+  collected; one operator with agents serving about 30 clients would gross roughly $9,000–$15,000 a
+  month. Compare the old way from the postings: $17–30/hr for 5–25 hours a week, about $350–$3,000 a
+  month per business. Plausible for one person.
+- Why now: the overdue share rose sharply in a year (QuickBooks 2026); agents can now hold a
+  multi-week email and phone follow-up per invoice without staff.
+- Strongest existing answer / gap: free automated reminders in QuickBooks, Xero and other invoicing
+  software; AR-automation software sold to the business (listing summaries, September 2026: Paidnice
+  about $19–$69 a month; Chaser from about $259; Upflow free tier, then $440); virtual-assistant services; collection
+  agencies at 25–50% contingency after 90 days (Patriot Software and vcita explainers, context).
+  What they miss: the second and third message, dispute handling, and someone accountable for the
+  cash (Indie Hackers comment, September 2026: tools "already show what's overdue"; people avoid the
+  follow-up).
+- Possible OE point of view: late payment is hidden labor the owner avoids because it feels personal;
+  an outside operator makes it routine and impersonal, and gets paid on cash that actually arrives.
+  Showable with a synthetic aging report and an agent's follow-up log.
+- **Test 1, real buyer and problem: passes.** Five independent 2026 postings paying for the job plus
+  a 2026 owner survey with problem cost.
+- **Test 2, one person with AI: passes.** See mechanism and economics above.
+- **Test 3, delivery boundary: passes, with a state check.** The FDCPA covers consumer debts only;
+  this lead is business-to-business. State licensing varies: Florida licenses commercial collection
+  agencies; Washington covers anyone collecting claims owed to another; Illinois, from 2026-01-01,
+  exempts "persons under contract to notify a creditor's debtors of a debt using only the
+  creditor's name" (Mayer Brown, 2026-01-05, read
+  <https://www.mayerbrown.com/en/insights/publications/2026/01/illinois-revamps-the-scope-of-its-collection-agency-licensing-law>).
+  Residual: follow-up under the client's name only, on invoices not yet placed for collection, with
+  no threats, legal action, or consumer debts. The episode must say the state check is the viewer's
+  to make.
+- **Test 4, substitutes: passes.** Free reminders exist, yet the overdue share rose; no buyer-side
+  evidence that small firms get the outcome from reminder software alone. Agencies at 25–50% and
+  part-time clerks are both beatable by one operator.
+- **Test 5, showable and fit: passes.** No guest; no duplicate in candidates, episodes, research or
+  the pool (repository search for receivable, overdue/unpaid invoice, collections, payment
+  reminder).
+- **Problem-value signals:** `old-way spend` (part-time AR clerk postings, 2026); `problem cost`
+  (QuickBooks 2026, Bluevine 2026, UK 2025); `demand signal` (Indie Hackers, Trends; weak).
+- **Payment evidence:** found — `old-way spend` (employers pay clerks for this job). A buyer paying an
+  independent provider for pre-collection follow-up: unknown — viewer's first test.
+- Switching question: why move clerk hours to an outside operator rather than to software reminders
+  or the owner's own staff? Because the need is part-time and lumpy, and software sends the first
+  reminder but not the escalation and dispute work.
+- Strongest invalidating question: will owners let an outsider contact their customers about money,
+  and pay for it when software reminders are free?
+- Evidence still needed: a state-by-state check of the creditor's-name exemption (Illinois found;
+  Florida and Washington need reading); any small business paying an outside provider for
+  pre-collection follow-up, with price; client size behind the staffing-firm postings.
+- Disposition: shortlisted. Decisive reason: the strongest buyer evidence of any lead this cycle,
+  a large buyer base across industries, and work that always-on agents change directly. Recheck
+  2026-10-28; expires 2027-04-30. Step 0 candidate ID: none.
+
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
-- Status: `shortlisted` (2026-09-28 scout; priority 1 of 3)
+- Status: `shortlisted` (2026-09-28 scout; priority 2 of 5 since 2026-10-13)
 - First seen / last checked: 2026-09-28 / 2026-09-28 ET
 - Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
   often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
@@ -127,7 +228,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
-- Status: `shortlisted` (2026-09-30 scout; priority 2 of 3)
+- Status: `shortlisted` (2026-09-30 scout; priority 3 of 5 since 2026-10-13)
 - First seen / last checked: 2026-09-30 / 2026-10-01 ET
 - Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
   HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
@@ -189,8 +290,9 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 3 of 3 since
-  2026-09-30, below the IEP lead because WISeR's survival past 2026-12-11 is uncertain)
+- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 4 of 5 since
+  2026-10-13; below the IEP lead since 2026-09-30 because WISeR's survival past 2026-12-11 is
+  uncertain)
 - First seen / last checked: 2026-09-27 / 2026-09-28 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
   authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
@@ -264,15 +366,31 @@ lead into formal Operator Blueprint V2 Step 0.
   licence-free residual, and a first-party wage for the old way. Recheck 2026-10-25; expires
   2027-01-01 unless expansion is confirmed. Step 0 candidate ID: none.
 
-## New
-
-None.
-
-## Held
-
 ### `DISC-2026-09-28-011` — AI prep backend for private-school admissions consultants
 
-- Status: `held`
+- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 5 of 5)
+- **Re-screen 2026-10-13 (five tests):** fresh buyer-side observations: admissions firms pay outside
+  contract coaches for this exact work — StudyPoint "online admissions consultant", March 2026,
+  $75–100/hr, school lists, interview prep and essays (search summary; page 403); Crimson Education
+  contract "interview mentor" for US boarding and day schools, March 2026 (summary); Leland contract
+  "Private High School Admissions Coach", about August 2026, coaches set their own rates (read)
+  <https://remotive.com/remote/jobs/education/private-high-school-admissions-coach-5277446>.
+  Google Trends US 5y: "admissions consultant" peaked 2026-06-28 (100), now 19; "private school
+  admissions consultant" too rare to register.
+  - Test 1 passes: `old-way spend` — consultancies pay contractors by the hour for school lists,
+    essays and interview prep. Payment by an independent consultant to a backend: unknown — viewer's
+    first test.
+  - Test 2 passes: AI drafts the school list, calendar and first-pass essay feedback and runs mock
+    interviews; the operator checks and delivers to the consultancy. Modeled: $250–$400 per family
+    file, 80–120 files a K-12 season ($20,000–$48,000), more if college admissions firms (a larger
+    group) buy the same work. Seasonal; plausible for one person only with the college segment.
+  - Test 3 passes (no licence; coach, do not ghostwrite).
+  - Test 4 passes under the 2026-10-13 rule: chatbots and $99 family courses are tools; contract
+    coaches at $75–100/hr are beatable; no buyer-side evidence that consultancies self-serve.
+  - Test 5 passes (synthetic family file; owner-proposed; no owner admissions experience claimed).
+  - New strongest invalidating question: the firms seen paying (Crimson, Leland, StudyPoint) sell
+    human admissions experience; would they or independent consultants buy AI-produced work?
+  - Priority 5: evidence is from venture-backed platforms, not the solo consultants in the offer.
 - Merge note 2026-10-13: this lead existed only on `origin/main` (owner PRs #13 and #15, 2026-09-28)
   and is merged into the local pool unchanged. It was held on the retired willingness-to-pay test,
   so it joins the re-screen queue under the 2026-10-13 five tests. Its family-side precursor is
@@ -342,7 +460,46 @@ None.
   rejected work.
 - Disposition / reopening condition: held. Reopen when one consultant is found paying an outside
   provider for per-client prep work, with scope and price. The season closes mid-December, so a live
-  test with one consultant must start before then. Recheck 2026-10-28. Step 0 candidate ID: none.
+  test with one consultant must start before then. Recheck 2026-10-28. Step 0 candidate ID: none. (Superseded by the 2026-10-13 re-screen above: shortlisted.)
+
+## New
+
+None.
+
+## Held
+
+### `DISC-2026-10-13-024` — AI-native transaction coordination for real-estate agents
+
+- Status: `held`
+- First seen / last checked: 2026-10-13 / 2026-10-13 ET
+- Lane: C (always-on agent work: deadline and document chasing), lane A buyer evidence.
+- **Origin observation:** 2026 transaction-coordinator postings (search-result summaries): RE/MAX
+  Connect, May 2026, $45,000–$55,000, contract-to-close files for several agents; Century 21
+  Northwest, April 2026, remote; Transactly/PLACE, February 2026, remote; Homexa Team, July 2026,
+  offshore VA coordinator at $5–7/hr.
+- Question: independent coordinators charge agents about $300–$500 per side per file (HousingWire
+  column by a broker who founded an automated-coordination company, 2026-09-25, read — seller,
+  context). AI tools (ListedKit, about $22–30 a file in credits, sold to coordinators and agents; its
+  own claim: one coordinator goes from 15–20 files to 40+) let one person run many more files. Can an
+  AI-native coordinator serve agents at a lower price with agents doing the chasing?
+- Unit economics sketch (modeled): 40 files a month at $250–$350 is $10,000–$14,000 a month.
+- Delivery boundary: coordinators do not negotiate or represent a party; which tasks need a licence
+  varies by state. Residual: contract-to-close timelines, document collection, scheduling and
+  reminders.
+- Substitutes: offshore VA coordinators at $5–7/hr used by agent teams (buyer-side posting); US
+  per-file coordinators; AI tools sold direct to agents; courses teaching solo agents to use ChatGPT
+  as a coordinator. Starting a coordination business is already heavily covered (Paperless Pipeline
+  guides, Udemy courses).
+- Agent voice found (old): BAM article 2023-05-25 (read) with 14 agent comments; most say the agent
+  hires and pays the TC ("worth every penny"), one passes the fee to clients about 75% of the time.
+  Shows agents paid per-file TCs in 2023, not what solo agents choose in 2026.
+- Why held: one named missing condition — buyer-side evidence that solo agents in 2026 choose a
+  per-file US coordinator over offshore VAs and self-serve AI tools. If they do, the AI-native
+  coordinator passes test 4; if teams have moved to $5–7/hr VAs and solo agents to tools, it fails.
+- Strongest invalidating question: after commission compression, will agents pay per file for
+  coordination at all?
+- Reopening condition: a 2026 agent-side thread, survey or posting showing solo agents paying a
+  per-file coordinator, with price. Recheck 2026-10-28; expires 2027-03-31.
 
 ### `DISC-2026-10-10-022` — No Surprises Act arbitration (IDR) desk for small out-of-network practices
 
@@ -1512,8 +1669,17 @@ None.
   exemption evidence is clinician-written, states verify from data and six already use AI).
   Reopening conditions in `runs/2026-10-13.md`.
 
+- 2026-10-13 (scout run 2, new rules) — Outsourced certificate-of-insurance issuance for small
+  insurance agencies: rejected; offshore done-for-you services (ResourcePro pay-per-use, SelectSys)
+  already deliver it at prices one operator cannot beat, and endorsement changes need a licensed
+  person. Re-screen of nonprofit grant writing (rejected 2026-10-02): stays rejected; fresh 2026
+  hourly postings exist ($20–$50/hr), but the Instrumentl survey shows even organisations raising
+  under $10,000 draft with AI themselves (49%; 61% of small organisations use it for drafting), and
+  foundations' acceptance of AI-drafted proposals is unclear. Reopening conditions in
+  `runs/2026-10-13.md`, run 2.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2).
