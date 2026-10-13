@@ -1,6 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-12 ET, scout run: rejects estate settlement for executors, property tax appeals for
+Updated: 2026-10-13 ET, scout run: rejects cost-plus distributor invoice audits for independent
+restaurants (GPOs, invoice software and contingency auditors already serve it; no current buyer
+voice) and Medicaid work-requirement help (no private buyer; clinical evidence is licensed and
+verification is state-run); shortlist unchanged. Full record: `runs/2026-10-13.md`.
+Previous: 2026-10-12 ET, scout run: rejects estate settlement for executors, property tax appeals for
 small commercial owners, and Amazon suspension appeals (AI tools or services already sell each to
 the buyer); adds a WISeR status note (GAO rule finding 2026-05-12; 13 of 15 services in scope);
 shortlist unchanged. Full record: `runs/2026-10-12.md`.
@@ -1419,8 +1423,15 @@ None.
   from $100, consultants $1,500–$2,500, free AI skills; the business exists unchanged). Reopening
   conditions in `runs/2026-10-12.md`.
 
+- 2026-10-13 (scout) — Two ideas rejected: cost-plus distributor invoice audits for independent
+  restaurant groups (Buyers Edge GPO is rebate-funded and free to join, MarginEdge-type tools alert on
+  price changes, contingency auditors exist; overcharge data is 2015–2018 seller analysis and no
+  2025–26 buyer voice was found) and Medicaid work-requirement compliance help (enrollees cannot pay,
+  exemption evidence is clinician-written, states verify from data and six already use AI).
+  Reopening conditions in `runs/2026-10-13.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md`.
