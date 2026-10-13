@@ -50,6 +50,18 @@ can answer goes into the validation plan as the viewer's first test, with a succ
 condition. Missing desk evidence is still a reason to continue research. Scores, hard gates, and
 owner promotion are unchanged.
 
+## Price anchors (owner decision 2026-10-13)
+
+Applies the coaching standard to pricing. A missing buyer-side price anchor or spend record is not,
+by itself, a reason to park a candidate. When no anchor is found after a bounded desk search, model
+the price from the value at stake (a share of money recovered, saved, earned, or risk removed) or
+from old-way spend, label it a modeled scenario, and make price the viewer's first test with a
+success signal and a kill condition. The gap is still scored as a gap (coaching standard rule 5);
+this only removes it as a stand-alone park reason. Candidates parked solely for a missing price or
+spend anchor may be reopened under this rule; record the reopening as a dated disposition addendum.
+Industry size is not a gate: judge whether one operator can serve enough buyers, not how big the
+category is. Source: `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-13-DISCOVERY-RESET.md`.
+
 ## Preflight
 
 1. Resolve the current Eastern date.

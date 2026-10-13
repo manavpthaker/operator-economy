@@ -1,6 +1,11 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-13 ET, scout run: rejects cost-plus distributor invoice audits for independent
+Updated: 2026-10-13 ET, owner decision: discovery reset. The scout now starts from buyer-side
+observations, looks for problems one person can solve with AI and always-on agents, uses five tests
+instead of nine (a tool sold to buyers no longer fails the substitute test), and runs Wednesday and
+Sunday. Ideas rejected on the old substitute check are queued for re-screening. Record:
+`../../operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-13-DISCOVERY-RESET.md`.
+Previous: 2026-10-13 ET, scout run: rejects cost-plus distributor invoice audits for independent
 restaurants (GPOs, invoice software and contingency auditors already serve it; no current buyer
 voice) and Medicaid work-requirement help (no private buyer; clinical evidence is licensed and
 verification is state-run); shortlist unchanged. Full record: `runs/2026-10-13.md`.
