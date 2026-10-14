@@ -1,6 +1,11 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-13 ET, owner decision: shortlist cap raised from five to ten (the bench will not use
+Updated: 2026-10-14 ET, scout run (Wednesday): holds `DISC-2026-10-14-025` (supplier follow-up desk
+for small manufacturers); re-screens owner-operator dispatch and subcontractor submittals (both stay
+rejected); rejects landlord maintenance coordination (RentRedi/Latchel already sells it at $15–25 per
+unit) and trades estimate follow-up (near-duplicate of the parked inbound-call-coverage candidate).
+Shortlist unchanged at 5. Full record: `runs/2026-10-14.md`.
+Previous: 2026-10-13 ET, owner decision: shortlist cap raised from five to ten (the bench will not use
 every shortlisted lead). New-lead limit per run (three) unchanged.
 Previous: 2026-10-13 ET, scout run 2 (first run under the 2026-10-13 rules, owner-requested):
 shortlists `DISC-2026-10-13-023` (always-on receivables desk for small B2B businesses, priority 1);
@@ -469,6 +474,54 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-10-14-025` — supplier follow-up (expediting) desk for small manufacturers
+
+- Status: `held`
+- First seen / last checked: 2026-10-14 / 2026-10-14 ET
+- Lane: C (always-on agent work: chasing suppliers), lane A buyer evidence.
+- **Origin observation:** 2026 buyer/expediter postings (search-result summaries): DCX-CHOL
+  Enterprises, Pekin IL, a self-described small manufacturer, 2026-05-13 and 2026-08-12, $20–25/hr,
+  "timely flow of materials" and vendor communication; Robert Half for a Mason OH employer, temporary
+  purchasing expeditor, $26–27/hr; Arden Hills MN contract buyer, $32–36/hr, resolve past-due POs;
+  San Diego buyer, "past-due and unconfirmed PO lines" a core duty; Amphenol, Nashua NH (large).
+  Shop voice: Modern Machine Shop column by a machine-shop GM, 2018-01-22 (read): his top supplier
+  complaint is learning of a late shipment on the due day, and only by calling.
+- Question: small manufacturers place POs, then someone has to get each supplier to confirm a ship
+  date and chase the late ones before the line waits. Can one operator, running agents that
+  confirm every open PO and chase every slipping one daily, do this for a couple of dozen shops?
+- What AI and agents do / what the operator does: agents read the open-PO and past-due report,
+  email each supplier for confirmation, read replies and acknowledgments, update promised dates,
+  re-chase on schedule, and flag shortages against the production schedule; the operator sets each
+  client's rules, calls suppliers on critical parts, and owns a weekly exception report. Before AI:
+  part of a full-time buyer/expediter's day, or nobody until the part is missing.
+- **Unit economics sketch (modeled scenario):** $500–$900 a month per shop; about 20 shops per
+  operator is $10,000–$18,000 a month. Old way: a share of a $20–36/hr buyer's week.
+- Why now: agents can hold a multi-week email thread per PO line and parse supplier replies without
+  a person reading each one.
+- Strongest existing answer / gap: in-house buyers; ERP reminders and supplier-collaboration
+  software (SourceDay, Fishbowl add-ons) sold to the buyer; SGS and Applus desk and field
+  expediting for large projects only (seller pages, context). No outside desk for small shops found.
+- Possible OE point of view: supplier chasing is hidden labor buried in a buyer's job; an
+  accountable outside desk makes it routine and measurable (on-time confirmations, shortages
+  caught early). Showable with a synthetic open-PO report and an agent's chase log; no guest.
+- Test 1: passes on two or more independent 2026 postings (`old-way spend`); `problem cost` only from
+  a 2018 column. Payment evidence: `old-way spend` found; an outside provider paid for this: unknown.
+- Test 2: passes (above). Test 3: passes; no licence. Defence and ITAR suppliers (DCX-CHOL is one)
+  may bar outside access to POs, so the viewer's buyer should be commercial.
+- Test 4: passes; no done-for-you service for small shops found; software is sold to the buyer.
+- Test 5: passes; no duplicate in candidates, episodes, research or the pool.
+- Switching question: why move supplier chasing out of the buyer's job to an outsider, rather than to
+  ERP reminders?
+- Why held: one named missing condition — buyer-side evidence that a small manufacturer would hand
+  supplier follow-up to an outside party (a part-time or contract expediting posting at a small
+  shop, or a buyer question about it). All postings found bundle chasing into a full-time buying
+  role, so the work may not be separable.
+- Strongest invalidating question: will a shop let an outsider speak to its suppliers about its
+  orders, and is chasing separable from buying?
+- Google Trends US 5y (2026-10-14): "expediter" steady with a 2026 high point; "supplier
+  expediting" near zero; "purchase order follow up" sporadic.
+- Reopening condition: as above. Recheck 2026-10-28; expires 2027-04-30.
 
 ### `DISC-2026-10-13-024` — AI-native transaction coordination for real-estate agents
 
@@ -1680,8 +1733,16 @@ None.
   foundations' acceptance of AI-drafted proposals is unclear. Reopening conditions in
   `runs/2026-10-13.md`, run 2.
 
+- 2026-10-14 (scout) — Landlord maintenance coordination for self-managing landlords: rejected on
+  test 4(a); RentRedi sells Latchel-run coordination month to month at $15–25 per unit and offshore
+  coordinators cost $5/hr. Trades estimate follow-up and lead reactivation: rejected as a
+  near-duplicate of parked `candidate-2026-09-03-ai-phone-answering-service`. Re-screens:
+  owner-operator dispatch stays rejected (buyers self-dispatch; flat $250/week services) and
+  subcontractor submittals stay rejected (no small sub paying outside help). Reopening conditions in
+  `runs/2026-10-14.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2).
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`.
