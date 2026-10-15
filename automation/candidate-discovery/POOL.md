@@ -1,6 +1,10 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-14 ET, scout run (Wednesday): holds `DISC-2026-10-14-025` (supplier follow-up desk
+Updated: 2026-10-15 ET, Thursday bench: admits `DISC-2026-10-13-023` (always-on receivables desk) as
+`candidate-2026-10-15-receivables-desk`; decision `continue research`. Shortlist now 4; remaining
+priorities each move up one (CAM review is now priority 1). Record:
+`../runs/oe-weekly-research/2026-10-15.md`.
+Previous: 2026-10-14 ET, scout run (Wednesday): holds `DISC-2026-10-14-025` (supplier follow-up desk
 for small manufacturers); re-screens owner-operator dispatch and subcontractor submittals (both stay
 rejected); rejects landlord maintenance coordination (RentRedi/Latchel already sells it at $15–25 per
 unit) and trades estimate follow-up (near-duplicate of the parked inbound-call-coverage candidate).
@@ -89,101 +93,6 @@ Authority: noncanonical. See `README.md`. Only the Monday research bench may adm
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
-
-### `DISC-2026-10-13-023` — always-on receivables desk for small B2B businesses
-
-- Status: `shortlisted` (2026-10-13 scout run 2; priority 1 of 5)
-- First seen / last checked: 2026-10-13 / 2026-10-13 ET
-- Lane: C (always-on agent work), with lane A buyer evidence.
-- **Origin observation:** 2026 part-time accounts-receivable postings whose whole job is chasing
-  past-due invoices: Area Temps, Akron OH, March 2026, $17/hr, 20–25 h/week, "chasing past-due
-  balances", collection calls and emails; Robert Half, Thornton CO, June 2026, $27–30/hr, about 20
-  h/week, overdue invoices and aging reports; Robert Half, Bethlehem PA, July–August 2026, 5–8
-  h/week, following up commercial customers on overdue invoices; a remote 15 h/week collections role
-  (June 2026); Expansa, Houston, June 2026, 25 h/week. All from search-result summaries
-  (ihireaccounting.com, hireheroesusa.org, virtualvocations.com, ziprecruiter.com); posting pages
-  returned 403. Several came through staffing firms, so the end employer's size is unknown.
-- Exact question: small businesses that invoice other businesses carry overdue invoices and either
-  pay someone part-time to chase them, chase them themselves when they remember, or wait until a
-  collection agency takes 25–50%. Can one operator, running agents that follow up every day, keep a
-  few dozen businesses' receivables moving for a small share of what is collected?
-- Sources: Intuit QuickBooks late-payments report via Stacker/KEYT, 2026-07-20 (read): 59% of US
-  small businesses have invoices 30+ days overdue, up from 47% a year earlier; average $17,700 owed;
-  38% of owners with overdue invoices relied more on credit cards
-  <https://keyt.com/stacker-small-business/2026/07/20/report-finds-more-small-businesses-are-carrying-overdue-invoices-than-last-year/>;
-  Bluevine survey of 1,052 owners, February 2026 (summary): nearly 3 in 10 delayed paying themselves
-  because customers paid late; UK government study 2025 (summary): 86 staff hours a year chasing late
-  payments; Indie Hackers threads March–September 2026 (summaries; mostly posted by people building
-  reminder tools): the first reminder is easy, the second and third get avoided
-  <https://www.indiehackers.com/post/5-invoice-chasing-threads-later-the-same-problem-keeps-showing-up-4c0f697aca>;
-  Google Trends US 5 years: "unpaid invoices" at a five-year high in mid-2026 (low absolute volume;
-  "accounts receivable outsourcing" near zero). Full ledger: `runs/2026-10-13.md`, run 2.
-- Signal types: buyer behavior (job postings), problem cost, search direction, capability.
-- Who cares / decision: owners of service firms, trades, agencies, distributors and manufacturers
-  that invoice on terms, deciding whether to keep chasing themselves, hire a part-time clerk, or hand
-  old invoices to an agency.
-- Buyer / costly problem: cash stuck in overdue invoices (about $17.7k on average among those
-  affected), owners covering the gap with credit cards or by skipping their own pay, and follow-up
-  that stops after the first reminder because it feels personal.
-- Potential offer / observable outcome: a monthly receivables desk run under the client's own name:
-  every open invoice followed up on a schedule until paid, disputes found and fixed, promises to pay
-  logged, a weekly aging report; priced as a small retainer or a small share of overdue cash
-  collected. Outcome: days-sales-outstanding and the 30+ day balance, before and after.
-- What AI and agents do / what the operator does: agents read the aging report and each customer's
-  email thread, write and send each follow-up in the client's voice, read replies, spot disputes
-  (wrong PO, missing W-9, wrong billing address), log payment promises, and call where appropriate;
-  the operator sets each client's rules, handles escalations and sensitive accounts, and owns the
-  weekly report. Before AI: a part-time clerk's hours per client, or nothing until a collection
-  agency at 90+ days.
-- **Unit economics sketch (modeled scenario):** fee of $300–$500 a month, or 3–5% of overdue cash
-  collected; one operator with agents serving about 30 clients would gross roughly $9,000–$15,000 a
-  month. Compare the old way from the postings: $17–30/hr for 5–25 hours a week, about $350–$3,000 a
-  month per business. Plausible for one person.
-- Why now: the overdue share rose sharply in a year (QuickBooks 2026); agents can now hold a
-  multi-week email and phone follow-up per invoice without staff.
-- Strongest existing answer / gap: free automated reminders in QuickBooks, Xero and other invoicing
-  software; AR-automation software sold to the business (listing summaries, September 2026: Paidnice
-  about $19–$69 a month; Chaser from about $259; Upflow free tier, then $440); virtual-assistant services; collection
-  agencies at 25–50% contingency after 90 days (Patriot Software and vcita explainers, context).
-  What they miss: the second and third message, dispute handling, and someone accountable for the
-  cash (Indie Hackers comment, September 2026: tools "already show what's overdue"; people avoid the
-  follow-up).
-- Possible OE point of view: late payment is hidden labor the owner avoids because it feels personal;
-  an outside operator makes it routine and impersonal, and gets paid on cash that actually arrives.
-  Showable with a synthetic aging report and an agent's follow-up log.
-- **Test 1, real buyer and problem: passes.** Five independent 2026 postings paying for the job plus
-  a 2026 owner survey with problem cost.
-- **Test 2, one person with AI: passes.** See mechanism and economics above.
-- **Test 3, delivery boundary: passes, with a state check.** The FDCPA covers consumer debts only;
-  this lead is business-to-business. State licensing varies: Florida licenses commercial collection
-  agencies; Washington covers anyone collecting claims owed to another; Illinois, from 2026-01-01,
-  exempts "persons under contract to notify a creditor's debtors of a debt using only the
-  creditor's name" (Mayer Brown, 2026-01-05, read
-  <https://www.mayerbrown.com/en/insights/publications/2026/01/illinois-revamps-the-scope-of-its-collection-agency-licensing-law>).
-  Residual: follow-up under the client's name only, on invoices not yet placed for collection, with
-  no threats, legal action, or consumer debts. The episode must say the state check is the viewer's
-  to make.
-- **Test 4, substitutes: passes.** Free reminders exist, yet the overdue share rose; no buyer-side
-  evidence that small firms get the outcome from reminder software alone. Agencies at 25–50% and
-  part-time clerks are both beatable by one operator.
-- **Test 5, showable and fit: passes.** No guest; no duplicate in candidates, episodes, research or
-  the pool (repository search for receivable, overdue/unpaid invoice, collections, payment
-  reminder).
-- **Problem-value signals:** `old-way spend` (part-time AR clerk postings, 2026); `problem cost`
-  (QuickBooks 2026, Bluevine 2026, UK 2025); `demand signal` (Indie Hackers, Trends; weak).
-- **Payment evidence:** found — `old-way spend` (employers pay clerks for this job). A buyer paying an
-  independent provider for pre-collection follow-up: unknown — viewer's first test.
-- Switching question: why move clerk hours to an outside operator rather than to software reminders
-  or the owner's own staff? Because the need is part-time and lumpy, and software sends the first
-  reminder but not the escalation and dispute work.
-- Strongest invalidating question: will owners let an outsider contact their customers about money,
-  and pay for it when software reminders are free?
-- Evidence still needed: a state-by-state check of the creditor's-name exemption (Illinois found;
-  Florida and Washington need reading); any small business paying an outside provider for
-  pre-collection follow-up, with price; client size behind the staffing-firm postings.
-- Disposition: shortlisted. Decisive reason: the strongest buyer evidence of any lead this cycle,
-  a large buyer base across industries, and work that always-on agents change directly. Recheck
-  2026-10-28; expires 2027-04-30. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
@@ -1143,6 +1052,106 @@ None.
   candidate ID: none.
 
 ## Admitted to Step 0
+
+### `DISC-2026-10-13-023` — always-on receivables desk for small B2B businesses
+
+- Status: `admitted` (Thursday bench 2026-10-15; was `shortlisted`, 2026-10-13 scout run 2, priority 1)
+- Step 0 candidate: `candidate-2026-10-15-receivables-desk` (candidate brief, research brief, and
+  disposition `continue research` committed with this admission). Bench recheck: Florida (Fla. Stat.
+  559.543–.544) and Washington (RCW 19.16.100) plausibly reach third-party follow-up on commercial
+  claims; CollBox (human-staffed, $599–$1,399/month, small law and accounting firms) is the observed
+  model. Admission is not eligibility or promotion.
+- First seen / last checked: 2026-10-13 / 2026-10-13 ET
+- Lane: C (always-on agent work), with lane A buyer evidence.
+- **Origin observation:** 2026 part-time accounts-receivable postings whose whole job is chasing
+  past-due invoices: Area Temps, Akron OH, March 2026, $17/hr, 20–25 h/week, "chasing past-due
+  balances", collection calls and emails; Robert Half, Thornton CO, June 2026, $27–30/hr, about 20
+  h/week, overdue invoices and aging reports; Robert Half, Bethlehem PA, July–August 2026, 5–8
+  h/week, following up commercial customers on overdue invoices; a remote 15 h/week collections role
+  (June 2026); Expansa, Houston, June 2026, 25 h/week. All from search-result summaries
+  (ihireaccounting.com, hireheroesusa.org, virtualvocations.com, ziprecruiter.com); posting pages
+  returned 403. Several came through staffing firms, so the end employer's size is unknown.
+- Exact question: small businesses that invoice other businesses carry overdue invoices and either
+  pay someone part-time to chase them, chase them themselves when they remember, or wait until a
+  collection agency takes 25–50%. Can one operator, running agents that follow up every day, keep a
+  few dozen businesses' receivables moving for a small share of what is collected?
+- Sources: Intuit QuickBooks late-payments report via Stacker/KEYT, 2026-07-20 (read): 59% of US
+  small businesses have invoices 30+ days overdue, up from 47% a year earlier; average $17,700 owed;
+  38% of owners with overdue invoices relied more on credit cards
+  <https://keyt.com/stacker-small-business/2026/07/20/report-finds-more-small-businesses-are-carrying-overdue-invoices-than-last-year/>;
+  Bluevine survey of 1,052 owners, February 2026 (summary): nearly 3 in 10 delayed paying themselves
+  because customers paid late; UK government study 2025 (summary): 86 staff hours a year chasing late
+  payments; Indie Hackers threads March–September 2026 (summaries; mostly posted by people building
+  reminder tools): the first reminder is easy, the second and third get avoided
+  <https://www.indiehackers.com/post/5-invoice-chasing-threads-later-the-same-problem-keeps-showing-up-4c0f697aca>;
+  Google Trends US 5 years: "unpaid invoices" at a five-year high in mid-2026 (low absolute volume;
+  "accounts receivable outsourcing" near zero). Full ledger: `runs/2026-10-13.md`, run 2.
+- Signal types: buyer behavior (job postings), problem cost, search direction, capability.
+- Who cares / decision: owners of service firms, trades, agencies, distributors and manufacturers
+  that invoice on terms, deciding whether to keep chasing themselves, hire a part-time clerk, or hand
+  old invoices to an agency.
+- Buyer / costly problem: cash stuck in overdue invoices (about $17.7k on average among those
+  affected), owners covering the gap with credit cards or by skipping their own pay, and follow-up
+  that stops after the first reminder because it feels personal.
+- Potential offer / observable outcome: a monthly receivables desk run under the client's own name:
+  every open invoice followed up on a schedule until paid, disputes found and fixed, promises to pay
+  logged, a weekly aging report; priced as a small retainer or a small share of overdue cash
+  collected. Outcome: days-sales-outstanding and the 30+ day balance, before and after.
+- What AI and agents do / what the operator does: agents read the aging report and each customer's
+  email thread, write and send each follow-up in the client's voice, read replies, spot disputes
+  (wrong PO, missing W-9, wrong billing address), log payment promises, and call where appropriate;
+  the operator sets each client's rules, handles escalations and sensitive accounts, and owns the
+  weekly report. Before AI: a part-time clerk's hours per client, or nothing until a collection
+  agency at 90+ days.
+- **Unit economics sketch (modeled scenario):** fee of $300–$500 a month, or 3–5% of overdue cash
+  collected; one operator with agents serving about 30 clients would gross roughly $9,000–$15,000 a
+  month. Compare the old way from the postings: $17–30/hr for 5–25 hours a week, about $350–$3,000 a
+  month per business. Plausible for one person.
+- Why now: the overdue share rose sharply in a year (QuickBooks 2026); agents can now hold a
+  multi-week email and phone follow-up per invoice without staff.
+- Strongest existing answer / gap: free automated reminders in QuickBooks, Xero and other invoicing
+  software; AR-automation software sold to the business (listing summaries, September 2026: Paidnice
+  about $19–$69 a month; Chaser from about $259; Upflow free tier, then $440); virtual-assistant services; collection
+  agencies at 25–50% contingency after 90 days (Patriot Software and vcita explainers, context).
+  What they miss: the second and third message, dispute handling, and someone accountable for the
+  cash (Indie Hackers comment, September 2026: tools "already show what's overdue"; people avoid the
+  follow-up).
+- Possible OE point of view: late payment is hidden labor the owner avoids because it feels personal;
+  an outside operator makes it routine and impersonal, and gets paid on cash that actually arrives.
+  Showable with a synthetic aging report and an agent's follow-up log.
+- **Test 1, real buyer and problem: passes.** Five independent 2026 postings paying for the job plus
+  a 2026 owner survey with problem cost.
+- **Test 2, one person with AI: passes.** See mechanism and economics above.
+- **Test 3, delivery boundary: passes, with a state check.** The FDCPA covers consumer debts only;
+  this lead is business-to-business. State licensing varies: Florida licenses commercial collection
+  agencies; Washington covers anyone collecting claims owed to another; Illinois, from 2026-01-01,
+  exempts "persons under contract to notify a creditor's debtors of a debt using only the
+  creditor's name" (Mayer Brown, 2026-01-05, read
+  <https://www.mayerbrown.com/en/insights/publications/2026/01/illinois-revamps-the-scope-of-its-collection-agency-licensing-law>).
+  Residual: follow-up under the client's name only, on invoices not yet placed for collection, with
+  no threats, legal action, or consumer debts. The episode must say the state check is the viewer's
+  to make.
+- **Test 4, substitutes: passes.** Free reminders exist, yet the overdue share rose; no buyer-side
+  evidence that small firms get the outcome from reminder software alone. Agencies at 25–50% and
+  part-time clerks are both beatable by one operator.
+- **Test 5, showable and fit: passes.** No guest; no duplicate in candidates, episodes, research or
+  the pool (repository search for receivable, overdue/unpaid invoice, collections, payment
+  reminder).
+- **Problem-value signals:** `old-way spend` (part-time AR clerk postings, 2026); `problem cost`
+  (QuickBooks 2026, Bluevine 2026, UK 2025); `demand signal` (Indie Hackers, Trends; weak).
+- **Payment evidence:** found — `old-way spend` (employers pay clerks for this job). A buyer paying an
+  independent provider for pre-collection follow-up: unknown — viewer's first test.
+- Switching question: why move clerk hours to an outside operator rather than to software reminders
+  or the owner's own staff? Because the need is part-time and lumpy, and software sends the first
+  reminder but not the escalation and dispute work.
+- Strongest invalidating question: will owners let an outsider contact their customers about money,
+  and pay for it when software reminders are free?
+- Evidence still needed: a state-by-state check of the creditor's-name exemption (Illinois found;
+  Florida and Washington need reading); any small business paying an outside provider for
+  pre-collection follow-up, with price; client size behind the staffing-firm postings.
+- Disposition: shortlisted. Decisive reason: the strongest buyer evidence of any lead this cycle,
+  a large buyer base across industries, and work that always-on agents change directly. Recheck
+  2026-10-28; expires 2027-04-30. Step 0 candidate ID: `candidate-2026-10-15-receivables-desk`.
 
 ### `DISC-2026-09-28-010` — admissions and enrollment analysis for small private schools
 

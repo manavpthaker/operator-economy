@@ -1,0 +1,99 @@
+# Step 0 early disposition record: Always-on receivables desk for small B2B businesses
+
+Template status: approved V2 Step 0.2 template; locked 2026-08-21.
+
+Template version: `operator-blueprint-v2-step0.2`
+
+Candidate ID: `candidate-2026-10-15-receivables-desk`
+
+Discovery lead: `DISC-2026-10-13-023` (Thursday bench admission 2026-10-15)
+
+Decision date: 2026-10-15
+
+Decision stage: research
+
+Decision: **continue research** (one bounded desk pass, then analogy map and scorecard)
+
+## Reviewed artifacts
+
+- Candidate brief: `../01-candidates/candidate-2026-10-15-receivables-desk.md` / `6aa08857621de2e834411aac197020247e55606d08e2e3b0ecc5ff59fb0803db`
+- Research brief: `../02-research/candidate-2026-10-15-receivables-desk-research.md` / `18a51f336478c9e988f3564b5d25a011fabab1e15dcc2d95a4197fcd24c15872`
+- Preliminary analogy review: not created. The legal boundary decides which states the episode can
+  describe, so the map waits one pass.
+
+## Evidence pass
+
+Performed by the same agent as the adversarial pass; not an independent review.
+
+- Buyer problem: verified from the QuickBooks 2026 survey (CLM-001 to CLM-003); one vendor's survey,
+  medium confidence.
+- Old-way spend: 2026 clerk postings (CLM-004), read only as search summaries; acceptable as
+  `old-way spend`, not as price for an outside provider.
+- Observed model: CollBox sells this exact service to small professional firms at $599–$1,399 a month
+  (CLM-005). Seller terms via a third-party review with no page date. Context for price, not proof
+  that buyers pay.
+- Payment evidence: `old-way spend` found; a buyer paying an outside provider: unknown — viewer's
+  first test.
+- Boundary: primary statute text read for Florida (CLM-010) and Washington (CLM-011); law-firm
+  analysis for Illinois (CLM-009). Florida and Washington plausibly reach this desk. The scout's
+  boundary result ("passes, with a state check") holds only if the episode treats the state check
+  as a precondition, not a footnote.
+- Prohibited inferences: no collection-rate claims; no "no licence needed"; Daylit's figures stay
+  vendor claims.
+
+## Adversarial editorial finding
+
+- Strongest alternative explanation: the gap is not labor but willingness. Owners skip the second
+  email because they fear losing the customer; an outside sender may make that worse, not better.
+- Strongest disconfirming evidence: funded AR agents (Daylit) and a human-staffed service (CollBox)
+  already exist, so the operator is squeezed from both sides: a tool the owner runs and a service at
+  a known price. Per the 2026-10-13 substitute rule, neither alone rejects the lead (CollBox is
+  beatable on price and limited to professional firms; no buyer-side evidence that small owners run
+  AR agents themselves), but the episode must show why the operator beats both.
+- Weak causal link: the overdue rise may reflect customers' cash stress, which follow-up cannot fix.
+- Hidden operator labor: onboarding mailbox access, client-specific tone and lock rules, dispute
+  hand-offs, state registration and bonds.
+- Platform and recourse: deliverability and calling rules; a wrong send to a locked account or on a
+  paid invoice harms the client relationship.
+- Duplication: none in candidates, episodes, research, or validation (repository search for
+  receivable, overdue or unpaid invoice, dunning, collections). Closest pool lead is held
+  `DISC-2026-10-14-025` (supplier follow-up for manufacturers: buyer chases its suppliers, not its
+  customers); different buyer job.
+- If the most attractive claim (59% overdue) is removed: still a job employers pay clerks to do and
+  a service already sold. Survives.
+- Original POV credit: not yet earned. A sourced finding absent from coverage would be the
+  state-by-state boundary for third-party B2B follow-up; that is the next pass.
+
+## Re-entry
+
+Re-entry allowed: yes (remains in research)
+
+Under `../OWNER-DECISION-2026-09-28-COACHING-STANDARD.md` and the 2026-10-13 discovery reset, no
+owner interviews, pilots, outreach, or rehearsals are conditions. Price, trust, and results are the
+viewer's first test in the research brief.
+
+Desk conditions for the next bench:
+
+1. Licensing: read the commercial-claim coverage of collection-agency law in California, Texas, New
+   York, Georgia, and Pennsylvania, and record which reach third-party follow-up under the
+   creditor's name.
+2. Substitute: published pricing or minimums for AR agents sold to firms under 20 staff.
+3. Buyer side: any buyer record of paying CollBox or a similar service (review with company size,
+   testimonial, or firm disclosure). Not required to advance; a missing record stays the viewer's
+   first test and is scored as a gap.
+
+Advance to the analogy map, scorecard, Canvas gate, and editorial-potential review after item 1 and
+item 2 are recorded. Park only if item 1 shows that most large states require a licence the solo
+operator cannot reasonably obtain.
+
+Destination: remain in research.
+
+## Boundary
+
+Editorial development authorized: no
+
+Episode number: unassigned
+
+This record is not a promotion record and cannot create an active queue row. If the candidate
+re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the
+decision history.
