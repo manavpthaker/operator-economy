@@ -73,6 +73,21 @@ Each run is a deep pass, not a skim:
 
 Record what was actually read. A search summary is cited as a summary, never as a read page.
 
+Search and read through brownbot's scout first (content-os `outreach/research-sources.md`, D-262),
+with `--routine oe-candidate-scout` on every Exa call; WebSearch and WebFetch are the fallback.
+`BB="npm --prefix /Users/brownmanbrain/GitHub/brownbot run -s"`:
+
+- `$BB scout -- exa --q "<query>" --text --routine oe-candidate-scout` returns full page text, so
+  each result with text counts as a page read; `$BB scout -- contents --urls <url,…>` reads pages
+  a search found elsewhere;
+- `$BB scout -- youtube --q "<how-to query>" --days 365`, then `$BB scout -- youtube-comments
+  --video <id> --terms "how do I,gave up,anyone know,who do I hire"` for viewer questions;
+- `$BB scout -- hn --q "<query>" --kind comment` for practitioner complaints; and
+- `$BB scout -- jobs --board greenhouse|lever|ashby --company <token>` when a lane names employers.
+
+Each call counts toward the search budget above. Log the command and the source URL in the run
+record, and cite a page read through Exa as such.
+
 ## Step 1: buyer observation ledger (always first)
 
 Before forming any idea, collect raw buyer-side observations and log each in the run record with
@@ -97,9 +112,12 @@ Seller pages, vendor blogs, press releases, cost-explainer marketing, and direct
 buyer-side observations. They may be recorded later as context or as substitutes.
 
 Reddit: as of 2026-09-21 the domain is refused by the browser pane, the Chrome extension, WebFetch,
-and domain-scoped search, and returns HTTP 403 to `curl` (test matrix in `runs/2026-09-21.md`). Use
-only what Google's result page renders (thread title, subreddit, age, comment count, visible snippet)
-and cite it as a SERP observation. Retest one Reddit URL per run and record the result. Quora pages
+and domain-scoped search, and returns HTTP 403 to `curl` (test matrix in `runs/2026-09-21.md`).
+Reddit's own API is gated, so there is no key. Try Exa first: `$BB scout -- exa --q "<query>"
+--domains reddit.com --text --routine oe-candidate-scout`. A thread whose text comes back is a page
+read and its posts are buyer-side observations; record in the run log whether text came back.
+Otherwise use only what Google's result page renders (thread title, subreddit, age, comment count,
+visible snippet) and cite it as a SERP observation. Quora pages
 return 403; `site:quora.com` titles are usable as SERP observations. Upwork returns 403 directly.
 
 ## Step 2: where to look (lanes)
