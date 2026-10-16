@@ -3,6 +3,8 @@
 ## Current state
 
 > **2026-09-24:** long-form sourcing now runs through `studio/scripts/originate/source_footage.py`. It searches Pexels, Pixabay, Storyblocks and public-domain archives by footage role, and registers press-kit files by hand. Routing and rights rules are in `docs/blueprint-cinema.md` (Evidence, Footage, and Synthetic Media). The Pexels-only statements below describe the earlier state.
+>
+> **2026-10-16:** the same search adds NASA video and keyless stills (Wikimedia Commons, the Met, the Art Institute of Chicago, NASA), each rendered into an 8-second push-in with the original kept beside it. B-roll no longer depends on a Pexels or Pixabay key.
 
 The Shorts pipeline has an operational B-roll path: clip selection proposes timestamped queries, `fetch_broll.py` searches Pexels, `broll.json` supports approve/reject/swap review, `prepare_render.py` remaps timings, and `BRollOverlay.tsx` inserts muted full-frame footage.
 

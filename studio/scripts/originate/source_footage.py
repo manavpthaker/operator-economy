@@ -3,9 +3,15 @@
 
 Sources, by footage role (see docs/blueprint-cinema.md, Evidence, Footage, and Synthetic Media):
 
-  human_context, outcome  pexels, pixabay, storyblocks, internet_archive, wikimedia
-  market_force            internet_archive, wikimedia, plus manually added press kits
+  human_context, outcome  pexels, pixabay, storyblocks, internet_archive, wikimedia, nasa,
+                          plus stills (wikimedia_stills, met, artic, nasa_stills)
+  market_force            internet_archive, wikimedia, nasa, the stills, plus manually added press kits
   proof, process          never searched; original capture or source evidence only
+
+Stills are photographs and artworks from open collections. Each one is kept as the
+original image (`still_path`, for HyperFrames builds that move it themselves) and
+rendered into an 8-second 1920x1080 push-in (`local_path`), so review, approve,
+validate and the Remotion B-roll scene treat it like any other clip.
 
 API providers run only when their keys are set (PEXELS_API_KEY, PIXABAY_API_KEY,
 STORYBLOCKS_PUBLIC_KEY + STORYBLOCKS_PRIVATE_KEY + STORYBLOCKS_USER_ID +
@@ -24,8 +30,10 @@ import argparse
 import hashlib
 import hmac
 import html
+import http.client
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -50,10 +58,22 @@ STORYBLOCKS_API = "https://api.storyblocks.com"
 STORYBLOCKS_LICENSE = "https://www.storyblocks.com/license"
 ARCHIVE_SEARCH = "https://archive.org/advancedsearch.php"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+NASA_API = "https://images-api.nasa.gov/search"
+NASA_TERMS = "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+MET_SEARCH = "https://collectionapi.metmuseum.org/public/collection/v1.1/search"
+MET_OBJECT = "https://collectionapi.metmuseum.org/public/collection/v1/objects/"
+ARTIC_SEARCH = "https://api.artic.edu/api/v1/artworks/search"
+CC0_URL = "https://creativecommons.org/publicdomain/zero/1.0/"
 USER_AGENT = "OperatorEconomy/1.0 (+https://theoperatoreconomy.com)"
+STILL_SECONDS = 8
+STILL_FPS = 30
+NASA_RIGHTS_NOTE = ("NASA media is not copyrighted, but NASA insignia may not appear, "
+                    "identifiable people may not imply endorsement, and any third-party "
+                    "credit in the description is not covered.")
 
-STOCK_PROVIDERS = ["pexels", "pixabay", "storyblocks", "internet_archive", "wikimedia"]
-ARCHIVAL_PROVIDERS = ["internet_archive", "wikimedia"]
+STILL_PROVIDERS = ["wikimedia_stills", "met", "artic", "nasa_stills"]
+ARCHIVAL_PROVIDERS = ["internet_archive", "wikimedia", "nasa"] + STILL_PROVIDERS
+STOCK_PROVIDERS = ["pexels", "pixabay", "storyblocks"] + ARCHIVAL_PROVIDERS
 ROLE_PROVIDERS = {
     "human_context": STOCK_PROVIDERS,
     "outcome": STOCK_PROVIDERS,
@@ -247,6 +267,11 @@ def search_internet_archive(query: str, per_page: int = 10) -> list[dict]:
     return results
 
 
+def plain_text(value: str) -> str:
+    """Commons metadata is HTML (artist links, bdi tags); keep the words."""
+    return html.unescape(re.sub(r"<[^>]+>", "", value or "")).strip() or "Unknown"
+
+
 def search_wikimedia(query: str, per_page: int = 10) -> list[dict]:
     payload = get_json(COMMONS_API + "?" + urllib.parse.urlencode({
         "action": "query", "format": "json", "generator": "search",
@@ -260,7 +285,7 @@ def search_wikimedia(query: str, per_page: int = 10) -> list[dict]:
             "Public domain" if meta.get("License", {}).get("value", "") in {"pd", "cc0"} else None)
         if not license_name or not info.get("url"):
             continue
-        artist = html.unescape(meta.get("Artist", {}).get("value", "Unknown"))
+        artist = plain_text(meta.get("Artist", {}).get("value", "Unknown"))
         results.append({
             "candidate_id": f"wikimedia-{page['pageid']}",
             "provider": "wikimedia",
@@ -279,6 +304,156 @@ def search_wikimedia(query: str, per_page: int = 10) -> list[dict]:
     return results
 
 
+def search_wikimedia_stills(query: str, per_page: int = 10) -> list[dict]:
+    payload = get_json(COMMONS_API + "?" + urllib.parse.urlencode({
+        "action": "query", "format": "json", "generator": "search",
+        "gsrsearch": f"filetype:bitmap filew:>1599 {query}", "gsrnamespace": 6, "gsrlimit": per_page,
+        "prop": "imageinfo", "iiprop": "url|size|extmetadata|mime", "iiurlwidth": 1920}))
+    results = []
+    for page in payload.get("query", {}).get("pages", {}).values():
+        info = (page.get("imageinfo") or [{}])[0]
+        meta = info.get("extmetadata", {})
+        license_name = open_license(meta.get("LicenseUrl", {}).get("value", "")) or (
+            "Public domain" if meta.get("License", {}).get("value", "") in {"pd", "cc0"} else None)
+        if not license_name or not info.get("url"):
+            continue
+        artist = plain_text(meta.get("Artist", {}).get("value", "Unknown"))
+        restrictions = meta.get("Restrictions", {}).get("value", "")
+        results.append(still_candidate(
+            f"wikimedia-still-{page['pageid']}", "wikimedia_stills", page["title"],
+            info.get("descriptionurl", ""), artist[:200], license_name,
+            meta.get("LicenseUrl", {}).get("value", ""), info.get("width", 0), info.get("height", 0),
+            info.get("thumburl") or info["url"],
+            f"Restrictions named on the source page: {restrictions}" if restrictions else ""))
+    return results
+
+
+def search_met(query: str, per_page: int = 8) -> list[dict]:
+    """The Met's open-access objects: public domain works only, released as CC0."""
+    payload = get_json(MET_SEARCH + "?" + urllib.parse.urlencode(
+        {"q": query, "hasImages": "true", "limit": per_page * 2}))
+    results = []
+    for object_id in (payload.get("objectIDs") or [])[:per_page * 2]:
+        try:
+            obj = get_json(f"{MET_OBJECT}{object_id}")
+        except (OSError, ValueError):
+            continue
+        if not obj.get("isPublicDomain") or not obj.get("primaryImage"):
+            continue
+        creator = obj.get("artistDisplayName") or obj.get("culture") or "The Metropolitan Museum of Art"
+        results.append(still_candidate(
+            f"met-{object_id}", "met", str(object_id),
+            obj.get("objectURL") or f"https://www.metmuseum.org/art/collection/search/{object_id}",
+            f"{creator}, {obj.get('title', 'Untitled')} ({obj.get('objectDate', 'n.d.')})"[:200],
+            "CC0 1.0", CC0_URL, 0, 0, obj["primaryImage"]))
+        if len(results) >= per_page:
+            break
+    return results
+
+
+def search_artic(query: str, per_page: int = 8) -> list[dict]:
+    """Art Institute of Chicago: public domain works, released as CC0."""
+    params = {"query": {"bool": {
+        "must": [{"multi_match": {"query": query, "type": "cross_fields", "operator": "and",
+                                  "fields": ["title^3", "subject_titles^2", "term_titles^2",
+                                             "classification_titles", "place_of_origin"]}}],
+        "filter": [{"term": {"is_public_domain": True}}, {"exists": {"field": "image_id"}}]}},
+        "fields": ["id", "title", "artist_display", "date_display", "image_id",
+                   "is_public_domain", "thumbnail"], "limit": per_page}
+    payload = get_json(ARTIC_SEARCH + "?" + urllib.parse.urlencode({"params": json.dumps(params)}),
+                       headers={"AIC-User-Agent": USER_AGENT})
+    iiif = (payload.get("config") or {}).get("iiif_url", "https://www.artic.edu/iiif/2")
+    results = []
+    for item in payload.get("data", []):
+        if not item.get("image_id") or item.get("is_public_domain") is False:
+            continue
+        thumb = item.get("thumbnail") or {}
+        width = min(int(thumb.get("width") or 1686), 1686)
+        height = round(int(thumb.get("height") or 0) * width / int(thumb.get("width") or 1)) if thumb.get("height") else 0
+        artist = str(item.get("artist_display") or "Unknown").split("\n")[0]
+        results.append(still_candidate(
+            f"artic-{item['id']}", "artic", str(item["id"]),
+            f"https://www.artic.edu/artworks/{item['id']}",
+            f"{artist}, {item.get('title', 'Untitled')} ({item.get('date_display', 'n.d.')})"[:200],
+            "CC0 1.0", CC0_URL, width, height,
+            f"{iiif}/{item['image_id']}/full/{width},/0/default.jpg"))
+    return results
+
+
+def nasa_items(query: str, media_type: str, per_page: int) -> list[tuple[dict, list[str]]]:
+    payload = get_json(NASA_API + "?" + urllib.parse.urlencode(
+        {"q": query, "media_type": media_type, "page_size": per_page}))
+    items = []
+    for item in payload.get("collection", {}).get("items", []):
+        data = (item.get("data") or [{}])[0]
+        text = " ".join(str(data.get(k, "")) for k in ("description", "secondary_creator", "photographer"))
+        if "©" in text or "copyright" in text.lower():
+            continue  # third-party material inside NASA's library is not NASA's to release
+        try:
+            files = get_json(nasa_url(item["href"]))
+        except (OSError, ValueError, KeyError, http.client.HTTPException):
+            continue
+        items.append((data, [nasa_url(f) for f in files]))
+    return items
+
+
+def nasa_url(url: str) -> str:
+    """NASA's asset paths carry raw spaces; keep existing escapes, encode the rest."""
+    return urllib.parse.quote(str(url).replace("http://", "https://", 1), safe=":/~%?=&")
+
+
+def nasa_credit(data: dict) -> str:
+    return (data.get("photographer") or data.get("secondary_creator")
+            or f"NASA {data.get('center', '')}".strip())[:200]
+
+
+def search_nasa(query: str, per_page: int = 6) -> list[dict]:
+    results = []
+    for data, files in nasa_items(query, "video", per_page):
+        mp4 = next((f for suffix in ("~large.mp4", "~orig.mp4", "~medium.mp4")
+                    for f in files if f.endswith(suffix)), None)
+        if not mp4:
+            continue
+        results.append({
+            "candidate_id": f"nasa-{data['nasa_id']}", "provider": "nasa",
+            "asset_id": data["nasa_id"], "title": data.get("title", ""),
+            "page_url": f"https://images.nasa.gov/details/{urllib.parse.quote(data['nasa_id'])}",
+            "creator": nasa_credit(data), "license": "Public domain (NASA media guidelines)",
+            "license_url": NASA_TERMS, "attribution_required": False,
+            "rights_notes": NASA_RIGHTS_NOTE, "duration_seconds": 0, "width": 0, "height": 0,
+            "download_url": mp4,
+        })
+    return results
+
+
+def search_nasa_stills(query: str, per_page: int = 6) -> list[dict]:
+    results = []
+    for data, files in nasa_items(query, "image", per_page):
+        jpg = next((f for suffix in ("~large.jpg", "~orig.jpg", "~medium.jpg")
+                    for f in files if f.endswith(suffix)), None)
+        if not jpg:
+            continue
+        results.append(still_candidate(
+            f"nasa-still-{data['nasa_id']}", "nasa_stills", data["nasa_id"],
+            f"https://images.nasa.gov/details/{urllib.parse.quote(data['nasa_id'])}",
+            nasa_credit(data), "Public domain (NASA media guidelines)", NASA_TERMS, 0, 0, jpg,
+            NASA_RIGHTS_NOTE))
+    return results
+
+
+def still_candidate(candidate_id: str, provider: str, asset_id: str, page_url: str, creator: str,
+                    license_name: str, license_url: str, width: int, height: int,
+                    image_url: str, rights_notes: str = "") -> dict:
+    return {
+        "candidate_id": candidate_id, "provider": provider, "asset_id": asset_id,
+        "media_kind": "still", "page_url": page_url, "creator": creator,
+        "license": license_name, "license_url": license_url,
+        "attribution_required": license_name == "CC BY",
+        "rights_notes": rights_notes, "duration_seconds": STILL_SECONDS,
+        "width": width, "height": height, "download_url": image_url,
+    }
+
+
 def provider_search(provider: str, query: str) -> list[dict]:
     if provider == "pexels":
         key = env_key("PEXELS_API_KEY")
@@ -293,11 +468,27 @@ def provider_search(provider: str, query: str) -> list[dict]:
         return search_internet_archive(query)
     if provider == "wikimedia":
         return search_wikimedia(query)
+    if provider == "wikimedia_stills":
+        return search_wikimedia_stills(query)
+    if provider == "met":
+        return search_met(query)
+    if provider == "artic":
+        return search_artic(query)
+    if provider == "nasa":
+        return search_nasa(query)
+    if provider == "nasa_stills":
+        return search_nasa_stills(query)
     raise SystemExit(f"Unknown provider {provider}")
 
 
 def fetch_candidate(candidate: dict, destination: Path) -> None:
     """Download a candidate to an H.264 .mp4 the review page and edit can read."""
+    if candidate.get("media_kind") == "still":
+        still = still_path_for(destination)
+        if not still.exists():
+            download(candidate["download_url"], still)
+        render_push_in(still, destination)
+        return
     if not candidate.get("needs_transcode"):
         download(candidate["download_url"], destination)
         return
@@ -309,8 +500,30 @@ def fetch_candidate(candidate: dict, destination: Path) -> None:
     source.unlink()
 
 
+def still_path_for(clip: Path) -> Path:
+    return clip.with_name(clip.stem + "--still.jpg")
+
+
+def render_push_in(still: Path, destination: Path) -> None:
+    """A slow 8% push-in over STILL_SECONDS, cropped to fill 16:9.
+
+    A tall picture is cropped from its upper third, where faces and horizons sit,
+    and rendered at twice the output size first so the zoom does not step."""
+    frames = STILL_SECONDS * STILL_FPS
+    zoom = f"zoompan=z='1+0.08*on/{frames}':d={frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+    subprocess.run([
+        "ffmpeg", "-y", "-loglevel", "error", "-i", str(still), "-vf",
+        "scale=3840:2160:force_original_aspect_ratio=increase,crop=3840:2160:(iw-3840)/2:(ih-2160)/3,"
+        f"{zoom}:s=1920x1080:fps={STILL_FPS},format=yuv420p",
+        "-frames:v", str(frames), "-c:v", "libx264", "-crf", "16", "-an", str(destination)],
+        check=True)
+
+
 def download(url: str, destination: Path) -> None:
-    request = urllib.request.Request(url, headers={"User-Agent": "OperatorEconomy/1.0"})
+    headers = {"User-Agent": USER_AGENT}
+    if urllib.parse.urlparse(url).hostname == "www.artic.edu":
+        headers["AIC-User-Agent"] = USER_AGENT  # its image server refuses requests without it
+    request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request, timeout=90) as response, destination.open("wb") as out:
         shutil.copyfileobj(response, out)
 
@@ -335,9 +548,12 @@ def write_review(ledger: dict, episode_dir: Path, script_path: Path) -> Path:
             command = (f"python scripts/originate/source_footage.py approve {script_path} "
                        f"{group['manifest_id']} {candidate['candidate_id']} "
                        "--faces-review cleared --source-in 0 --source-out SECONDS")
+            kind = " · still, push-in" if candidate.get("media_kind") == "still" else ""
+            notes = (f"<p class='route'>{html.escape(candidate['rights_notes'])}</p>"
+                     if candidate.get("rights_notes") else "")
             candidates.append(
                 f"<article><video controls muted preload='metadata' src='{src}'></video>"
-                f"<h3>{html.escape(candidate['candidate_id'])}</h3>"
+                f"<h3>{html.escape(candidate['candidate_id'])}{kind}</h3>{notes}"
                 f"<p>{html.escape(candidate.get('creator',''))} · "
                 f"{candidate.get('width')}×{candidate.get('height')} · "
                 f"{candidate.get('duration_seconds')}s</p>"
@@ -413,6 +629,10 @@ def search(script_path: Path, limit: int, providers: list[str] | None) -> None:
                 print(f"Download failed for {candidate['candidate_id']}: {error}", file=sys.stderr)
                 continue
             candidate["local_path"] = str(destination.relative_to(episode_dir))
+            if candidate.get("media_kind") == "still":
+                candidate["still_path"] = str(still_path_for(destination).relative_to(episode_dir))
+            elif not candidate.get("duration_seconds"):
+                candidate["duration_seconds"] = round(media_duration(destination), 1)
             candidate["sha256"] = file_sha256(destination)
             candidate["downloaded_at"] = now_iso()
             candidate.pop("download_url", None)
@@ -519,10 +739,16 @@ def approve(script_path: Path, manifest_id: str, candidate_id: str,
         "local_path": candidate["local_path"],
         "sha256": candidate["sha256"],
         "attribution_required": candidate.get("attribution_required", False),
+        "media_kind": candidate.get("media_kind", "video"),
         "faces_review": faces_review,
         "source_in": source_in,
         "source_out": round(selected_out, 3),
     })
+    for key in ("still_path", "rights_notes"):
+        if candidate.get(key):
+            entry[key] = candidate[key]
+        else:
+            entry.pop(key, None)
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     print(f"Approved {candidate_id} for {manifest_id}; run footage_manifest.py validate")
 
