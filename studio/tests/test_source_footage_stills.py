@@ -73,6 +73,31 @@ class StillProviderTests(unittest.TestCase):
             self.assertEqual((1920, 1080), (probe["streams"][0]["width"], probe["streams"][0]["height"]))
             self.assertAlmostEqual(sf.STILL_SECONDS, float(probe["format"]["duration"]), delta=0.1)
 
+    @unittest.skipUnless(shutil.which("ffmpeg"), "needs ffmpeg")
+    def test_approve_rerenders_a_still_to_fill_a_longer_screen(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ep = Path(tmp)
+            cand = ep / "footage" / "candidates"
+            cand.mkdir(parents=True)
+            still = cand / "beat--met-1--still.jpg"
+            subprocess.run(["ffmpeg", "-loglevel", "error", "-f", "lavfi", "-i",
+                            "testsrc=size=1600x900", "-frames:v", "1", str(still)], check=True)
+            clip = cand / "beat--met-1.mp4"
+            sf.fetch_candidate({"media_kind": "still", "download_url": "unused"}, clip)
+            candidate = {"candidate_id": "met-1", "provider": "met", "asset_id": "1",
+                         "media_kind": "still", "page_url": "https://met/1", "creator": "A",
+                         "license": "CC0 1.0", "license_url": "", "downloaded_at": "now",
+                         "local_path": str(clip.relative_to(ep)),
+                         "still_path": str(still.relative_to(ep)), "sha256": "old"}
+            (ep / "footage_manifest.json").write_text(json.dumps({"entries": [{"id": "beat"}]}))
+            (ep / "footage_candidates.json").write_text(json.dumps(
+                {"entries": [{"manifest_id": "beat", "candidates": [candidate]}]}))
+            sf.approve(ep / "script.json", "beat", "met-1", "not_applicable", 0, 15.5)
+            entry = json.loads((ep / "footage_manifest.json").read_text())["entries"][0]
+            self.assertEqual(15.5, entry["source_out"])
+            self.assertAlmostEqual(15.5, sf.media_duration(clip), delta=0.1)
+            self.assertEqual(sf.file_sha256(clip), entry["sha256"])
+
 
 if __name__ == "__main__":
     unittest.main()

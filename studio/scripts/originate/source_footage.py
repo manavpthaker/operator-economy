@@ -32,6 +32,7 @@ import hmac
 import html
 import http.client
 import json
+import math
 import os
 import re
 import shutil
@@ -504,12 +505,12 @@ def still_path_for(clip: Path) -> Path:
     return clip.with_name(clip.stem + "--still.jpg")
 
 
-def render_push_in(still: Path, destination: Path) -> None:
-    """A slow 8% push-in over STILL_SECONDS, cropped to fill 16:9.
+def render_push_in(still: Path, destination: Path, seconds: float = STILL_SECONDS) -> None:
+    """A slow 8% push-in over `seconds`, cropped to fill 16:9.
 
     A tall picture is cropped from its upper third, where faces and horizons sit,
     and rendered at twice the output size first so the zoom does not step."""
-    frames = STILL_SECONDS * STILL_FPS
+    frames = math.ceil(seconds * STILL_FPS)
     zoom = f"zoompan=z='1+0.08*on/{frames}':d={frames}:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error", "-i", str(still), "-vf",
@@ -723,6 +724,14 @@ def approve(script_path: Path, manifest_id: str, candidate_id: str,
         candidates_path.write_text(json.dumps(ledger, indent=2) + "\n")
     local_path = episode_dir / candidate["local_path"]
     duration = media_duration(local_path)
+    still = episode_dir / candidate["still_path"] if candidate.get("still_path") else None
+    if source_out is not None and source_out > duration + 0.05 and still and still.exists():
+        # A long-form screen can outlast the 8-second preview; re-render the
+        # push-in at the requested length so the screen never falls to black.
+        render_push_in(still, local_path, source_out)
+        duration = media_duration(local_path)
+        candidate.update({"sha256": file_sha256(local_path), "duration_seconds": round(duration, 3)})
+        candidates_path.write_text(json.dumps(ledger, indent=2) + "\n")
     selected_out = duration if source_out is None else source_out
     if source_in < 0 or selected_out <= source_in or selected_out > duration + 0.05:
         raise SystemExit(f"Invalid source range for {duration:.2f}s candidate")
