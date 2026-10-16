@@ -97,13 +97,15 @@ Every footage ticket has exactly one role: `human_context`, `market_force`, `pro
 
 `studio/scripts/originate/source_footage.py` does the sourcing. `search` routes each ticket by role:
 
-- **human context and outcome:** Pexels, Pixabay, Storyblocks (subscription), and public-domain archives (Internet Archive, Wikimedia Commons).
-- **market force:** the public-domain archives only.
+- **human context and outcome:** Pexels, Pixabay, Storyblocks (subscription), and the public archives below.
+- **market force:** the public archives only: Internet Archive, Wikimedia Commons and NASA video, plus stills from Wikimedia Commons, the Met, the Art Institute of Chicago and NASA.
 - **proof and process:** never searched.
 
 `add` registers files downloaded by hand, with their page, rights holder and terms: company press-kit footage for market force, human context or outcome beats, and Storyblocks web downloads. They then go through the same review and `approve`.
 
 Storyblocks candidates are previews. Only an approved select spends a subscription download.
+
+Stills are photographs and artworks. Each is kept as the original image (`still_path`, for HyperFrames builds that move it themselves) and rendered into an 8-second 1920x1080 push-in (`local_path`), so review, approval, validation and the Remotion B-roll scene treat it as a clip. The Met and the Art Institute release only their public-domain works, as CC0. NASA media is not copyrighted, but NASA insignia may not appear, identifiable people may not imply endorsement, and items crediting a third party are skipped; the candidate carries that note as `rights_notes`.
 
 Archive licenses are uploader-asserted. The search takes only items marked public domain from the Internet Archive, and only public domain, CC0 or CC BY from Commons. The license is still checked by a person at approval.
 
