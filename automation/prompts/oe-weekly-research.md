@@ -112,7 +112,11 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    source establishes, methodology or population when relevant, known limitation, and allowed
    inference. Separate verified fact, observed model, adjacent transfer, modeled scenario,
    hypothesis, and unknown. Never upgrade seller copy, a weak directory, or an inaccessible source
-   into market proof.
+   into market proof. Find and read sources through brownbot's scout first (content-os
+   `outreach/research-sources.md`, D-262): `$BB scout -- exa --q "<query>" --text --routine
+   oe-research-bench` and `$BB scout -- contents --urls <url,…> --routine oe-research-bench`, where
+   `BB="npm --prefix /Users/brownmanbrain/GitHub/brownbot run -s"`. WebSearch and WebFetch are the
+   fallback. A page read through Exa is cited by its own URL, with "read via Exa" in the locator.
 5. Identify the strongest existing coverage and the strongest alternative explanation. State what
    would falsify the opportunity, what evidence would change the decision, and which attractive
    claims were rejected. A careful summary is not an original Operator Economy point of view. Any
