@@ -117,6 +117,13 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    oe-research-bench` and `$BB scout -- contents --urls <url,…> --routine oe-research-bench`, where
    `BB="npm --prefix /Users/brownmanbrain/GitHub/brownbot run -s"`. WebSearch and WebFetch are the
    fallback. A page read through Exa is cited by its own URL, with "read via Exa" in the locator.
+   Exa budget (owner decision 2026-10-17,
+   `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-17-EXA-RESEARCH.md`): use it to read and
+   check sources (`contents`; `exa --category news --since <date>` for recent changes to the lead;
+   `company` for a named substitute's current offer), never for broad topic discovery. At most
+   $0.20 of Exa a run. Run `$BB scout -- status` first; if the month's shared total is $15 or more,
+   use no Exa this run. Stop Exa at $0.20 or when a call is refused, and record the Exa commands and
+   the run's Exa spend in the run record.
 5. Identify the strongest existing coverage and the strongest alternative explanation. State what
    would falsify the opportunity, what evidence would change the decision, and which attractive
    claims were rejected. A careful summary is not an original Operator Economy point of view. Any
@@ -189,7 +196,8 @@ required independent or owner review pending rather than forging it.
 - Push only when the scoped commit can be pushed without carrying unrelated unpublished ancestor
   commits. Otherwise keep the scoped commit local and state why it was not pushed.
 - Never publish, upload, schedule distribution, send outreach, spend money, or modify Content OS
-  release state.
+  release state. The one exception is Exa within the run cap in Lane A step 4 (owner decision
+  2026-10-17); the Step 1 rule against spending credits on voice or other providers stands.
 
 ## Success and output
 

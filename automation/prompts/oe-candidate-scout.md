@@ -42,6 +42,8 @@ Read these before acting:
 4. `operator-blueprint-v2/00-intake/README.md`, `AUTHORITY-MAP.md`,
    `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`, and the owner decisions in that folder only to
    understand what the scout must not pre-empt.
+5. `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-17-EXA-RESEARCH.md` for the Exa budget
+   below.
 
 When the checked-out branch is not `main`, read this prompt, the README, `POOL.md`, and the run
 records from local `main` (`git show main:<path>`); that is where scout commits land.
@@ -87,6 +89,24 @@ with `--routine oe-candidate-scout` on every Exa call; WebSearch and WebFetch ar
 
 Each call counts toward the search budget above. Log the command and the source URL in the run
 record, and cite a page read through Exa as such.
+
+**Exa budget and steering (owner decision 2026-10-17).** Exa is the one thing this job may spend
+money on:
+
+- At most $0.40 of Exa a run (about $0.007 a search, $0.001 a page read). Run `$BB scout -- status`
+  first; if the month's total (shared with Content OS routines) is $15 or more, use no Exa this run.
+  Stop Exa when the run reaches $0.40 or a call is refused, and go on with the free commands and
+  WebSearch.
+- Write queries as a buyer would say the problem ("who do I hire to chase unpaid invoices", "we
+  bought X and nobody runs it"), not as a category. Steer with `--domains` (reddit.com, or a forum,
+  review or job site such as biggerpockets.com, contractortalk.com, community.shopify.com,
+  trustpilot.com, g2.com, capterra.com, upwork.com), `--since <date>` for recent posts, and
+  `--exclude` for vendor domains that crowd the results. Do not use `--category company` or
+  `people` for observations: they return sellers.
+- Exa is not a source. Seller pages it returns are still never buyer-side observations. A result
+  with only a title and snippet is a search summary.
+- Record each Exa query with how many usable observations it gave, and the run's Exa spend, so
+  later runs rotate queries instead of repeating them.
 
 ## Step 1: buyer observation ledger (always first)
 
@@ -269,13 +289,14 @@ boundary and AI-change rejections are not re-screened unless their own reopening
 5. Push only when the scoped commit can be pushed without carrying unrelated unpublished ancestor
    commits. Otherwise keep the scoped commit local and report why.
 6. Never publish, upload, schedule distribution, send outreach, spend money, or modify Content OS
-   release state.
+   release state. The one exception is Exa within the run cap above (owner decision 2026-10-17).
 
 ## Output
 
 Return a compact digest containing:
 
-1. surfaces inspected, searches run, pages read, and observations logged;
+1. surfaces inspected, searches run, pages read, and observations logged, with the Exa queries,
+   their yield, and the run's Exa spend;
 2. buyer types covered this run;
 3. leads added, changed, re-screened, held, rejected, or expired;
 4. the ordered shortlist, with one-line rationale and strongest invalidating question for each;
