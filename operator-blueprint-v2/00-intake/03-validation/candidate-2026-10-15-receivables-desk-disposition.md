@@ -97,3 +97,29 @@ Episode number: unassigned
 This record is not a promotion record and cannot create an active queue row. If the candidate
 re-enters, preserve this disposition and issue a new reviewed package rather than overwriting the
 decision history.
+
+## Addendum 2026-10-19 (Monday bench)
+
+Decision: **continue research** (desk items 1 and 2 recorded; analogy map done; scorecard next)
+
+Updated artifacts:
+
+- Research brief: `../02-research/candidate-2026-10-15-receivables-desk-research.md` / `5a0b5dffa6aa9168e69f602cc89994751d7fcef2636a9058e1aa05833a7b0ccc` (CLM-012 to CLM-018 added)
+- Analogy map: `candidate-2026-10-15-receivables-desk-analogy-map.md` (new; evidence floor passes, go to market weak)
+
+Desk condition results:
+
+1. Licensing (done). California, Texas, New York (state and New York City), Georgia, and
+   Pennsylvania license or regulate consumer debt only, or nothing, on the texts read (CLM-012 to
+   CLM-016). With Florida and Washington against and Illinois for, the park condition ("most large
+   states require a licence the solo operator cannot reasonably obtain") is not met. Non-lawyer
+   reading; the state check stays a precondition in the episode.
+2. Substitute (done). Chaser publishes $259 a month for its self-run tool and $1,199 for tool plus
+   a dedicated specialist (CLM-017); Upflow and Daylit publish no price and sell to finance teams
+   on ERPs (CLM-018). The squeeze is real but leaves a band between $259 and $599.
+3. Buyer payment record: not searched this run. Stays a gap and the viewer's first test.
+
+Next bench: Canvas feasibility gate and editorial-potential review, then the scorecard with every
+hard gate. No owner input needed.
+
+Editorial development authorized: no

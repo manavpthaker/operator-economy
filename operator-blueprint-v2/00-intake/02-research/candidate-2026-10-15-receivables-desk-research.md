@@ -12,7 +12,7 @@ Candidate brief: `../01-candidates/candidate-2026-10-15-receivables-desk.md`
 
 Candidate brief SHA-256: `6aa08857621de2e834411aac197020247e55606d08e2e3b0ecc5ff59fb0803db`
 
-Research cutoff: 2026-10-15
+Research cutoff: 2026-10-19 (licensing and substitute pass added 2026-10-19; first pass 2026-10-15)
 
 Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, state law sessions)
 
@@ -25,10 +25,14 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
 - Main reason: The buyer problem is current and large (QuickBooks 2026), employers already pay
   part-time clerks for exactly this job (2026 postings), and a human-staffed done-for-you service
   already sells the offer to small professional firms (CollBox). Agents lower the delivery cost
-  enough that one operator could serve other niches below CollBox's entry price.
-- Largest unresolved question: in which states can a third party follow up on another business's
-  past-due invoices, under the client's name, without registering or licensing as a commercial
-  collection agency? Florida and Washington read against the operator; Illinois reads for it.
+  enough that one operator could serve other niches below CollBox's entry price and well below
+  Chaser's tool-plus-specialist price (CLM-017).
+- Largest unresolved question (narrowed 2026-10-19): the licensing line is state by state. Of eight
+  states read, Florida and Washington plausibly reach third-party follow-up on business invoices;
+  California, Texas, New York (state and New York City), Georgia, and Pennsylvania license or
+  regulate consumer debt only, or not at all, on the texts read (CLM-012 to CLM-016); Illinois
+  exempts creditor's-name notice. No legal conclusion; the viewer's state check stays a
+  precondition. Remaining unknowns: buyer trust and price.
 - Required public framing: QuickBooks figures are verified survey findings from one vendor's
   survey; CollBox and AR-platform terms are seller terms; all economics are a modeled scenario;
   client trust, price acceptance, and collection results are the viewer's first test; the
@@ -43,8 +47,11 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
 - Consequence and frequency: 59% of small businesses report invoices 30+ days overdue, up from 47%;
   average $17,700 owed among those waiting; 38% of firms with overdue invoices report growing
   reliance on credit cards versus 21% without (CLM-001 to CLM-003).
-- Existing alternatives or budget: free reminders in invoicing software; AR platforms; CollBox;
-  part-time clerks; contingency agencies after about 90 days (CLM-004, CLM-005, CLM-007, CLM-008).
+- Existing alternatives or budget: free reminders in invoicing software; AR platforms (Chaser
+  Compact $259 a month for firms under $5M revenue; Upflow and Daylit unpriced, aimed at finance
+  teams); done-for-you services (CollBox $599+; Chaser Compact plus Care, a dedicated AR specialist
+  with calls and disputes, $1,199 a month); part-time clerks; contingency agencies after about 90
+  days (CLM-004, CLM-005, CLM-007, CLM-008, CLM-017, CLM-018).
 - Why now: the one-year jump in the overdue share (CLM-001) and 2026 AR agents that send email,
   calls, and texts on their own (CLM-008).
 
@@ -95,6 +102,11 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
   AR-agent vendor content (Kolleno, Gaviti, Daylit coverage) aimed at finance teams.
 - Information gap: nobody covers a solo operator selling the outcome to small firms, the
   hand-back and lock rules, and the state licensing line.
+- Candidate original finding (2026-10-19, synthesis credit not yet scored): commercial invoice
+  follow-up sits outside most consumer debt-collection licensing, but a few states (Florida,
+  Washington) define collection to include business claims. Vendor and AR-agent coverage read
+  this run does not mention the line. Limit: statute text read by a non-lawyer, eight states only,
+  no regulator guidance or case law; it tells the viewer where to check, not what is allowed.
 
 ## Proposed synthesis
 
@@ -124,7 +136,9 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
   registration or licence where required (unknown per state).
 - Go-to-market path: one niche (for example, small agencies or trades suppliers) through
   bookkeepers and fractional CFOs who already see the aging reports (hypothesis).
-- Pricing model: modeled scenario; flat monthly fee anchored below CollBox's $599 entry tier.
+- Pricing model: modeled scenario; flat monthly fee anchored below CollBox's $599 entry tier and
+  Chaser Compact plus Care at $1,199 (CLM-017), above Chaser's self-run $259 tool. The pitch is the
+  outcome of the specialist service at close to the price of the tool.
 - Defensibility: niche templates, dispute patterns, and accountable reporting; not tool resale.
 
 ## Modeled economics
@@ -138,7 +152,7 @@ Every number in this section is an internal Step 0 input until it is approved un
 | Client capacity | about 30 clients | Agent handles drafting and classification; operator handles escalations | modeled | Depends on invoices per client and escalation rate |
 | Delivery hours | about 1–1.5 h per client per week | Review queue, escalations, weekly report | modeled | Unmeasured; viewer's first test |
 | Loaded labor cost | operator's own time | n/a | modeled | Owner compensation excluded |
-| Software and contractors | about $1,000–$2,500 per month | Agent, calling, mailbox, and accounting connectors | modeled | AR-platform pricing not published (CLM-008) |
+| Software and contractors | about $1,000–$2,500 per month | Agent, calling, mailbox, and accounting connectors; one published AR-tool price is $259 a month per firm (CLM-017), so the operator needs shared or multi-client tooling, not one seat per client | modeled | Upflow and Daylit unpriced (CLM-018) |
 | Acquisition and overhead | about $500–$1,000 per month | Referral partners, registration or bond where required | modeled | State costs unknown |
 
 Capacity case formula: `$400 x 30 clients x 12 months = $144,000 gross revenue`
@@ -176,8 +190,13 @@ Disclosure: `Modeled scenario, not observed performance or an earnings forecast.
   collection-agency definition covers any claim, not only consumer debts; its exemption for
   preparing or mailing statements ends when "other collection efforts" are made (CLM-011).
   Illinois exempts contracted notice using only the creditor's name from 2026-01-01 (CLM-009).
-  FDCPA applies to consumer debts only (scout record; not re-read this run). No legal conclusion is
-  made here.
+  California's licensing act excludes covered commercial debt, and its covered commercial debt is
+  owed to lenders, financing providers, or debt buyers and excludes trade credit (CLM-012). Texas
+  chapter 392 covers consumer debt (CLM-013). New York has no state licence; New York City's
+  licence covers consumer-purpose debt (CLM-014). Georgia's banking department regulates no
+  collection agencies (CLM-015). Pennsylvania's collection-practices act covers consumer debt; no
+  Pennsylvania licensing statute was found, which is not proof none applies (CLM-016). FDCPA
+  applies to consumer debts only (scout record; not re-read). No legal conclusion is made here.
 - Permissions, privacy, or guest dependency: client customer data and mailbox access; no guest.
 - Platform or vendor dependency: accounting-system APIs, email deliverability, calling rules.
 - Ethical failure mode: harassment, impersonation, or threats; agents sending to locked accounts;
@@ -219,14 +238,22 @@ Every load-bearing claim must meet `../03-validation/EVIDENCE-STANDARD.md`.
 | CLM-009 | Illinois exempts persons under contract to notify a creditor's debtors using only the creditor's name, effective 2026-01-01 (SB 2457); verified | Mayer Brown <https://www.mayerbrown.com/en/insights/publications/2026/01/illinois-revamps-the-scope-of-its-collection-agency-licensing-law> | Exemptions list | 2026-01-05 / 2026-10-15 | not captured | law-firm analysis; high | direct (boundary) | 2027-01-15 | Does not say whether the Act reaches commercial debts |
 | CLM-010 | Florida: "commercial collection agency" means anyone whose primary or secondary business is collecting commercial claims owed to another; registration required; exemptions do not include acting in the creditor's name; verified | Fla. Stat. 559.543(2), 559.544(1), (5) <https://www.flsenate.gov/Laws/Statutes/2025/559.543>; <https://www.flsenate.gov/Laws/Statutes/2025/559.544> | Subsections cited | 2025 statutes / 2026-10-15 | not captured | primary; high | direct (boundary) | 2027-07-01 | Registration, not a licence; bond and cost not read |
 | CLM-011 | Washington: "claim" covers any obligation for payment; collection agency includes anyone soliciting claims for collection; exemption (5)(d) for preparing or mailing statements applies only if payments go to the creditor and no other collection efforts are made; verified | RCW 19.16.100(2), (4), (5) <https://app.leg.wa.gov/RCW/default.aspx?cite=19.16.100> | Subsections cited | current RCW / 2026-10-15 | not captured | primary; high | direct (boundary) | 2027-07-01 | Whether follow-up emails are "other collection efforts" is a legal question |
+| CLM-012 | California: the Debt Collection Licensing Act does not apply to the collection of covered commercial debt (Fin. Code 100001(c), as amended by SB 1286, effective 2025-01-01); covered commercial debt is owed by a natural person to a lender, commercial financing provider, or debt buyer, up to $500,000, and excludes trade credit (Civ. Code 1788.2(n)–(p)); verified | Cal. Fin. Code 100001 <https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=FIN&sectionNum=100001> (read via Exa); Cal. Civ. Code 1788.2, FindLaw copy current as of 2026-01-01 <https://codes.findlaw.com/ca/civil-code/civ-sect-1788-2/> | 100001(a), (c); 1788.2(h)(2), (n), (o), (p) | current code / 2026-10-19 | not captured | primary (official site) and code copy; high | direct (boundary) | 2027-07-01 | An agency invoicing a business client is not a lender; non-lawyer reading; Rosenthal conduct rules may still reach guarantors of covered commercial credit |
+| CLM-013 | Texas: Finance Code chapter 392 defines consumer debt as an obligation primarily for personal, family, or household purposes, and the third-party debt collector bond attaches to that chapter; verified (definitions) | Tex. Fin. Code 392.001, Public.Law copy <https://texas.public.law/statutes/tex._fin._code_section_392.001> | 392.001 definitions | current / 2026-10-19 | not captured | primary-law copy; medium-high | direct (boundary) | 2027-07-01 | Official site returned an index only; 392.101 bond text not re-read |
+| CLM-014 | New York: no state-level debt collection licence; Buffalo, Yonkers, and New York City license locally; New York City's code defines debt as consumer-purpose, excluding commercial collectors; verified | Mayer Brown <https://www.mayerbrown.com/en/insights/publications/2024/12/new-york-city-overhauls-debt-collection-rules-and-proposes-new-debt-collector-definition> (read via Exa) | "Regulation and Licensing of Debt Collection in New York" | 2024-12 / 2026-10-19 | not captured | law-firm analysis; high | direct (boundary) | 2027-01-15 | Buffalo and Yonkers scope not read; pending state bills not checked |
+| CLM-015 | Georgia: the Department of Banking and Finance "does NOT regulate collection agencies, debt collectors, or other entities or individuals collecting debts"; verified | Georgia DBF, Debt Collection <https://dbf.georgia.gov/node/14341> (read via Exa) | Opening statement | undated / 2026-10-19 | not captured | state agency; high | direct (boundary) | 2027-07-01 | Fair Business Practices Act conduct rules still apply |
+| CLM-016 | Pennsylvania: the Fair Credit Extension Uniformity Act (Act 7 of 2000) defines debt as an obligation for personal, family, or household purposes; no Pennsylvania collection-agency licensing statute was found; verified (definition), unknown (licensing) | Act 7 of 2000, Pa. General Assembly <https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/2000/0/0007..HTM> (read via Exa) | Section 3, "Debt", "Debt collector" | 2000 act / 2026-10-19 | not captured | primary; high for definition | direct (boundary) | 2027-07-01 | Secondary sources conflict on licensing; absence not proven |
+| CLM-017 | Chaser pricing: Compact $259 a month (revenue under $5M, 4 users); Core $779; Care add-on with dedicated AR specialist, payment follow-ups, phone calls, inbox management, and dispute handling; Compact plus Care $1,199 a month; no stated minimum term; verified as seller terms | Chaser pricing <https://www.chaserhq.com/pricing> | Plan table and Care description | page © 2026, undated / 2026-10-19 | not captured | seller page; medium | substitute (context) | 2027-01-15 | Seller terms; not buyer payment; plan feature mapping for AI and calls not shown |
+| CLM-018 | Upflow Starter covers up to $10M invoiced revenue and 40,000 invoices a year with email, SMS, call, and letter reminders, price not shown; Daylit sells AR agents to finance teams on NetSuite, Sage Intacct, and Dynamics, "200+ enterprises", price not shown; verified as seller terms | Upflow pricing <https://upflow.io/pricing>; Daylit <https://www.daylit.com/> (both read via Exa) | Plan list; home page | undated / 2026-10-19 | not captured | seller pages; medium | substitute (context) | 2027-01-15 | No published price; aggregator listings unverified |
 
 ## Unresolved questions
 
-- Licensing: commercial-claim coverage in the next five largest small-business states (California,
-  Texas, New York, Georgia, Pennsylvania). Desk; next bench.
+- Licensing: done for eight states (2026-10-19). Remaining: Buffalo and Yonkers scope; Florida bond
+  and fee; other states with commercial collection registration. Not needed to advance; the
+  episode names the check, not a map of all fifty states.
 - Buyer payment: any buyer-side record (review with company size, testimonial with outcome, firm
   disclosure) of paying CollBox or a similar service. Desk; next bench. Otherwise the viewer's first
   test.
-- Substitute: AR-platform pricing and minimums for firms under 20 staff (Daylit, Chaser, Upflow).
-  Desk; next bench.
+- Substitute: recorded 2026-10-19 (CLM-017, CLM-018). Chaser publishes $259 (tool) and $1,199
+  (tool plus specialist); Upflow and Daylit publish no price and aim at finance teams on ERPs.
 - Trust and price acceptance: viewer's first test.
