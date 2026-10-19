@@ -1,6 +1,11 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-15 ET, Thursday bench: admits `DISC-2026-10-13-023` (always-on receivables desk) as
+Updated: 2026-10-19 ET, scout run (Sunday run, done Monday): shortlists `DISC-2026-10-19-026` (remote
+money desk for families of aging parents, priority 2); re-screens CPG distributor deductions and
+back-of-book indexing (both stay rejected); rejects home care after-hours call-off coverage and HVAC
+rebate filing (done-for-you services already sell both). Shortlist 4 to 5; order: CAM review, money
+desk, IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-10-19.md`.
+Previous: 2026-10-15 ET, Thursday bench: admits `DISC-2026-10-13-023` (always-on receivables desk) as
 `candidate-2026-10-15-receivables-desk`; decision `continue research`. Shortlist now 4; remaining
 priorities each move up one (CAM review is now priority 1). Record:
 `../runs/oe-weekly-research/2026-10-15.md`.
@@ -141,6 +146,79 @@ lead into formal Operator Blueprint V2 Step 0.
 - Semantic deduplication: no match in the repository or pool.
 - Disposition: shortlisted. Decisive reason: private-sector buyer, AI plainly changes the economics,
   two independent conversation surfaces. Recheck 2026-10-28; expires 2027-03-31. Step 0 candidate ID: none.
+
+### `DISC-2026-10-19-026`: remote money desk for families of aging parents
+
+- Status: `shortlisted` (2026-10-19 scout; priority 2 of 5)
+- First seen / last checked: 2026-10-19 / 2026-10-19 ET
+- Lane: A (households: adult children of aging parents), with lane C always-on monitoring.
+- **Origin observation:** AgingCare question 498253, 2026-03-28 (read): an adult child far from a
+  sibling with early dementia who lives alone asks "How can I find assistance with reading incoming
+  mail, identifying issues and actions that need to be taken (e.g., paying a bill)?"
+  <https://www.agingcare.com/questions/how-can-i-find-assistance-with-reading-incoming-mail-identifying-issues-and-actions-that-need-to-be--498253.htm>
+- Supporting buyer observations (run ledger #13–#20): AgingCare 496696 (2025-10, mother pays bills
+  twice or not at all, read); 497474 (2025-12, mother overwhelmed by bills, read); 494649, 497024,
+  496662, 497693 (2025-07 to 2026-01, parents losing money to scams, summaries); 466765 (2021, a
+  family hired a bank that let health and life insurance lapse, read); family testimonials for paid
+  daily money managers (DMMs) from long-distance children (seller-hosted); a 2026-08-14 household
+  posting for a part-time paperwork assistant for a 97-year-old in Manhattan.
+- Signal types: conversation, buyer behavior, spend.
+- Who appears to care / decision: adult children (often out of state) deciding whether to take over
+  a parent's bills themselves, hire someone, or move the parent into assisted living.
+- Buyer / costly problem: a parent who can no longer keep up misses or double-pays bills, lets
+  insurance lapse, and loses money to scams; the child finds out late, from statements.
+- Potential offer / observable outcome: a monthly desk per household: the parent's mail is scanned
+  and statements are routed to the desk; agents read every item, list what needs action, prepare
+  payments for the family's approval, watch every account daily for unusual charges and scam
+  patterns, and chase billing errors; the family gets a weekly one-page report and an alert the
+  same day something looks wrong. Outcome: no missed bills, no lapsed policies, scams caught in days.
+- What AI and agents do / what the operator does: agents read mail scans and statements, match
+  bills to accounts, flag duplicates and anomalies, draft dispute letters and calls lists, and keep
+  watching around the clock; the operator sets each household's rules with the family, makes the
+  calls, approves anything unusual, and is accountable. Before AI: a local DMM visiting in person at
+  $75–$150 an hour, serving perhaps 15–25 households, or the child doing it at night.
+- **Unit economics sketch (modeled scenario):** $200–$350 a month per household (an hourly DMM at
+  3–5 hours a month is $225–$750); with agents doing the reading and watching, one operator might
+  serve 60–80 households: $12,000–$28,000 a month. Value at stake per household: missed premiums,
+  late fees, double payments and scam losses (one AgingCare family lost a pension lump sum).
+- Why now: agents can read unstructured mail and statements reliably and watch accounts every day,
+  which makes a remote, monthly-priced version of an in-person hourly job possible.
+- **Delivery boundary:** DMMs are not licensed (Clear Money Guide 2026-08-03, context); bonding and
+  insurance are customary (AADMM). The operator acts under the family's or parent's authority (POA
+  or the parent's written consent and account access) and gives no investment, tax or legal advice;
+  Medicaid planning stays with elder-law attorneys, tax returns with preparers.
+- **Substitutes:** local DMMs ($75–$150/hr, in person; done-for-you, but hourly and local); Golden
+  ($20/month alerts plus a care specialist; the family still does the work); account-monitoring
+  tools (Carefull, EverSafe; monitoring only); free nonprofit money-management programs for
+  low-income seniors (LifePath, Senior Resource Center); bank bill pay and autopay set up by the
+  child (the forums' default advice). None found that reads the mail, pays and watches as one
+  remote monthly service.
+- Test 1: passes; independent buyer questions on one forum from unrelated families across
+  2025–2026 plus paid-DMM testimonials and a household posting. Problem-value signals: `demand
+  signal` (#11, #13, #14), `problem cost` (#15–#17), `old-way spend` (paid DMMs, household
+  assistant posting). Payment evidence: `found`: families pay DMMs (testimonials, NYT 2026-03-25
+  summary); remote monthly price unknown, viewer's first test.
+- Test 2: passes; agents are what let one person cover many households remotely at a monthly price.
+- Test 3: passes (above).
+- Test 4: passes under the 2026-10-13 rule; tools sold to families show the problem is real; DMMs
+  are beatable on price for remote work; the strongest counter is 4(b): forum replies tell children
+  to do it themselves (#12, #18), but the people asking are those who cannot.
+- Test 5: passes; showable with a synthetic household (a month of mail scans, two statements, a
+  planted scam charge and a double-paid bill) and the agent's log; no guest; no duplicate.
+- Switching question: why would a child pay a remote operator instead of setting up autopay and
+  checking the accounts at night, or paying a local DMM by the hour?
+- Possible OE point of view: accountability for money is the job; agents make the watching cheap,
+  but the family needs a named person who answers when something is paid wrongly. Recourse and
+  trust are the episode, not the software.
+- Strongest invalidating question: will an adult child trust a remote stranger and agents with a
+  parent's accounts, when caregiver forums say never to delegate?
+- Evidence still needed: a family paying a remote (not local) money manager, with price; how DMMs
+  price per month today; any state rule on bill-paying for vulnerable adults.
+- Google Trends US 5y (2026-10-19): "daily money manager" low but measurable; "elderly parent
+  bills" under 1; weekly values not extractable.
+- Semantic deduplication: no match in candidates, episodes, research or the pool.
+- Disposition: shortlisted, priority 2 (behind CAM review on evidence depth; ahead of IEP on
+  freshness of buyer voice). Recheck 2026-11-02; expires 2027-04-30. Step 0 candidate ID: none.
 
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
@@ -1750,8 +1828,16 @@ None.
   subcontractor submittals stay rejected (no small sub paying outside help). Reopening conditions in
   `runs/2026-10-14.md`.
 
+- 2026-10-19 (scout): Home care after-hours call-off coverage: rejected on test 4(a); after-hours
+  services (AnswerConnect about $350/month, BOSS, Staffingly) and AI tools (HeyHomeCare, Acrion)
+  already sell it to small agencies. HVAC rebate filing and chasing: rejected on test 4(a); Resolv
+  ($125–$145 per project), WorkHero, Effy and Eli already sell it. Re-screens: CPG distributor
+  deductions stay rejected (Glimpse runs the whole process for emerging brands, fee plus
+  commission) and back-of-book indexing stays rejected (authors build indexes with AI themselves).
+  Reopening conditions in `runs/2026-10-19.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`.
