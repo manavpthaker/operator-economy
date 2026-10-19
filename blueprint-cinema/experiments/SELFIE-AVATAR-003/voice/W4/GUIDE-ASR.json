@@ -1,0 +1,36 @@
+{
+  "stage": "guide",
+  "candidate": "W4",
+  "at": "2026-09-23T17:00:52.045519+00:00",
+  "source_sha256": "ed1010cce9fcd7914834040ec2c0920c5bb5f499b17cc1a1f54f815ca685b89b",
+  "script_sha256": "878fd0861184cfadedf7f45dd68d1e0f014a1164b3520860e8d200e222b58a2d",
+  "duration_seconds": 53.610958333333336,
+  "expected_word_count": 191,
+  "asr_word_count": 186,
+  "normalized_exact_match": false,
+  "engine": "faster-whisper small.en; beam5; VAD; no previous-text conditioning; no initial prompt",
+  "normalization": "Punctuation/case/apostrophe style only. No omission or paraphrase allowance; contractions remain required.",
+  "differences": [
+    {
+      "kind": "contraction_expansion",
+      "after": "and she tells him",
+      "script": "she's",
+      "spoken": "she"
+    },
+    {
+      "kind": "omission",
+      "after": "in their life who",
+      "script": "does bedtime, who",
+      "spoken": ""
+    },
+    {
+      "kind": "wrong_words",
+      "after": "one child, and never",
+      "script": "printed",
+      "spoken": "print it"
+    }
+  ],
+  "transferred": false,
+  "reason_not_transferred": "Guide does not reproduce the locked script. Under the W2 precedent a failed guide is preserved and one corrected guide requires explicit authorization.",
+  "perceptual_review": "Not performed. ASR supports words, not naturalness or identity acceptance."
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 3, take the guest's position. f372-422, 2.083s. silent_graphic.
+         Role: externalDependency (steel). Motion binding: trace, route.
+         "The current route is shown fairly before it is interrupted or supplemented."
+         U-09: represent the current route fairly. The site is not a villain. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "BL Supreme";
+          src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500;
+          font-display: block;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #f5f0e6;
+          overflow: hidden;
+        }
+        /* SHARED GEOMETRY v2, frames 2 to 5. Composed for portrait across the whole
+           safe area: bottom 300px and right 180px stay clear for platform UI.
+           v1 put everything in the top 45% and left the lower half empty. */
+        .stage {
+          position: absolute;
+          left: 80px;
+          top: 196px;
+          width: 800px;
+          height: 466px;
+        }
+        .band-rule {
+          position: absolute;
+          left: 80px;
+          top: 716px;
+          height: 2px;
+          width: 300px;
+          background: #c4b99e;
+        }
+        .band {
+          position: absolute;
+          left: 80px;
+          top: 738px;
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 34px;
+          letter-spacing: 0.26em;
+          text-transform: uppercase;
+          color: #566461;
+        }
+        .routes {
+          position: absolute;
+          left: 80px;
+          top: 860px;
+          width: 800px;
+          height: 440px;
+        }
+        .panel {
+          position: absolute;
+          left: 80px;
+          top: 1352px;
+          width: 800px;
+        }
+
+        .inn,
+        .routefield {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        .inn [data-ink] {
+          fill: none;
+          stroke: #19201f;
+          stroke-width: 3.2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .inn [data-sill] {
+          fill: none;
+          stroke: #566461;
+          stroke-width: 2.4;
+          stroke-linecap: round;
+        }
+        /* Perimeter steel: rented capability and the current route through it. */
+        .routefield [data-steel] {
+          fill: none;
+          stroke: #586d74;
+          stroke-width: 4;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        .routefield [data-steel-node] {
+          fill: #f5f0e6;
+          stroke: #586d74;
+          stroke-width: 4;
+        }
+        .routefield [data-mark] {
+          fill: #566461;
+          stroke: none;
+        }
+        .cap {
+          font-family: "BL Supreme", system-ui, sans-serif;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          fill: #566461;
+        }
+      </style>
+
+      <div id="root" data-composition-id="f03-guest-position" data-width="1080" data-height="1920">
+        <!-- continuity anchor: the same inn, same box, already settled. Nothing redraws. -->
+        <div class="stage">
+          <svg class="inn" viewBox="0 0 720 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <path data-ink d="M 24 352 L 696 350" />
+            <path data-ink d="M 92 352 L 92 150 L 360 96 L 628 150 L 628 352" />
+            <path data-ink d="M 78 156 L 360 100 L 642 156" />
+            <path data-ink d="M 336 352 L 336 268 L 384 268 L 384 352" />
+            <g>
+              <path data-sill d="M 136 212 L 196 212" />
+              <path data-sill d="M 232 206 L 292 206" />
+              <path data-sill d="M 328 202 L 388 202" />
+              <path data-sill d="M 424 206 L 484 206" />
+              <path data-sill d="M 520 212 L 580 212" />
+              <path data-sill d="M 136 286 L 196 286" />
+              <path data-sill d="M 232 286 L 292 286" />
+              <path data-sill d="M 424 286 L 484 286" />
+              <path data-sill d="M 520 286 L 580 286" />
+            </g>
+          </svg>
+        </div>
+        <div class="band-rule"></div>
+        <div class="band">20 to 40 rooms</div>
+
+        <div class="routes">
+          <svg class="routefield" viewBox="0 0 720 396" xmlns="http://www.w3.org/2000/svg">
+            <!-- the guest, at the start of their own journey. Label above the node, so the
+                 oxide path that leaves it downward in frame 4 can never cross this text. -->
+            <g id="f03-guest" opacity="0">
+              <text class="cap" x="34" y="30">guest</text>
+              <circle data-mark cx="60" cy="62" r="13" />
+            </g>
+            <path data-steel id="f03-leg-a" d="M 84 62 L 300 62" />
+            <g id="f03-site" opacity="0">
+              <rect data-steel-node x="300" y="24" width="152" height="76" rx="6" />
+              <text class="cap" x="312" y="70">the site</text>
+            </g>
+            <path data-steel id="f03-leg-b" d="M 452 62 L 668 62" />
+            <path data-steel id="f03-up" d="M 668 62 L 668 0" />
+          </svg>
+        </div>
+      </div>
+
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const root = document.querySelector('[data-composition-id="f03-guest-position"]');
+          root.querySelectorAll("#f03-leg-a, #f03-leg-b, #f03-up").forEach((p) => {
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            p.style.strokeDashoffset = `${len}`;
+          });
+
+          // One operation only, in 2.083s: the viewer is moved to where a guest starts,
+          // and the route they actually travel is traced to the inn. trace, then route.
+          tl.to("#f03-guest", { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+          tl.to("#f03-leg-a", { strokeDashoffset: 0, duration: 0.45, ease: "none" }, 0.3);
+          tl.to("#f03-site", { opacity: 1, duration: 0.28, ease: "power2.out" }, 0.7);
+          tl.to("#f03-leg-b", { strokeDashoffset: 0, duration: 0.45, ease: "none" }, 0.95);
+          tl.to("#f03-up", { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" }, 1.35);
+          // settle: ~0.4s of stillness into the cut. The route is left standing, fairly.
+          window.__timelines["f03-guest-position"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

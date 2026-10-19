@@ -1,0 +1,59 @@
+{
+ "record_type": "owner_feedback_source",
+ "episode": "EP009-direct-booking-recovery",
+ "captured_at_utc": "2026-10-08T00:00:00Z",
+ "source": "current Claude Code session, owner instruction after the script lock and picture-grammar ruling",
+ "verbatim": "run the narration",
+ "prompt_context": "Narration had been reported as paid and unauthorized three times in this session: at the proposal, at the script lock and at the picture-grammar ruling. The owner's instruction follows the third of those reports.",
+ "bounded_interpretation": "Authorize the exact capped two-stage narration batch in NARRATION-CAPTURE-PROPOSAL-V1.json for the four owner-locked EP009 companion-Short scripts: four Google gemini-2.5-pro-tts Algieba acted-guide calls at the candidate-C4 register, then four ElevenLabs Voice Changer transfers onto the saved Original C voice, with no automatic retries.",
+ "authorized": {
+  "locked_script_count": 4,
+  "google_guide_calls_max": 4,
+  "elevenlabs_transfer_calls_max": 4,
+  "provider_calls_max": 8,
+  "automatic_retries": 0,
+  "google_spend_cap_usd": 0.2,
+  "elevenlabs_credit_cap": 4000,
+  "guide_model": "gemini-2.5-pro-tts",
+  "guide_voice": "Algieba",
+  "guide_register": "candidate-C4",
+  "transfer_model": "eleven_multilingual_sts_v2",
+  "transfer_voice": "Original C",
+  "transfer_voice_id": "scMbPZwQjr40V1MzL3Nj",
+  "outputs": [
+   "four immutable guide WAVs and receipts",
+   "four immutable Original C WAVs and receipts",
+   "exact-copy and technical QC records",
+   "a batch summary with measured spend"
+  ]
+ },
+ "cap_note": "The ElevenLabs cap is 4000 rather than EP007's 3200, and the Google cap 0.20 USD rather than 0.15, because EP009's four scripts total 534 words against EP007's 459 and each guide call also carries the 955 character candidate-C4 prompt. Forecast is 0.1119 USD and 3506 credits. The higher caps cover four calls with headroom; they do not permit a fifth call or any retry.",
+ "not_authorized": [
+  "automatic or manual retry without fresh owner authority",
+  "a fifth Google guide call",
+  "a fifth ElevenLabs transfer call",
+  "spend above either cap",
+  "presenter or avatar generation",
+  "lip sync",
+  "music or sound effects",
+  "storyboard, composition or render",
+  "Content OS release",
+  "upload",
+  "publication",
+  "an episode URL",
+  "any change to the owner-locked spoken words"
+ ],
+ "valid_only_for": {
+  "proposal_path": "studio/originate/direct-booking-practice/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V1.json",
+  "proposal_sha256": "36a39426f9661b6a485a511b18a0673f853c622d0ae6c3a87fd49f3042747066",
+  "spoken_text_path": "studio/originate/direct-booking-practice/shorts-net-new/SPOKEN-TEXT-V1.json",
+  "spoken_text_sha256": "2cab291e05e4aa2b4816a76399b72b1fb165d37bda8033102087fe98f60188f8",
+  "script_lock_event": "ep009-shorts-netnew-scripts-accepted-v1"
+ },
+ "failure_policy": "Stop and report after any uncertain or failed provider attempt. Do not retry. Do not transfer a guide that fails the tail-energy or exact-copy gate.",
+ "not_inferred": [
+  "This does not approve the resulting audio. Owner listening remains the open check.",
+  "This does not shorten any script or change any locked word.",
+  "This does not approve the beat assignment in PICTURE-GRAMMAR-V1.md."
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "record_type": "ep009_guide_tail_repair",
+ "at_utc": "2026-10-08T15:29:50Z",
+ "status": "pass_selected_source_preserved_and_mechanical_tail_gate_repaired",
+ "provider_call": false,
+ "cost": "none; local and deterministic",
+ "precedent": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/DERIVED-GUIDE-REPAIR.json",
+ "owner_authority": {
+  "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-10-08-owner-select-03-take.json",
+  "sha256": "10db04c8cf4da97bc65c9b7776398ce2ccec8b8da7dac7111b735a7ef0690966",
+  "verbatim": "the second one finishes the sentence we can use that"
+ },
+ "source": {
+  "path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v3/03-the-guest-book/media/guide.wav",
+  "sha256": "893c46c310c7e05c2eefaab3e6a312125f799a7c3bd40afe30282eae7bba557e",
+  "pcm_sha256": "b966323a4de70ff5c907aa71e8086e3a4d4a3746c8ab43f9c41fc0758ccf2fa2",
+  "sample_frames": 1031303,
+  "duration_seconds": 42.971,
+  "tail_energy": 0.1626,
+  "source_overwritten": false
+ },
+ "operation": {
+  "type": "append_digital_silence_to_derived_copy",
+  "appended_frames": 12000,
+  "sample_rate_hz": 24000,
+  "channels": 1,
+  "sample_width_bits": 16,
+  "appended_duration_seconds": 0.5
+ },
+ "derived": {
+  "path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v3/03-the-guest-book/media/guide-derived-pad500ms.wav",
+  "sha256": "1840b520adf3604d70483e1be222fa287b3679cba236a4a7183530c67edffb4d",
+  "pcm_sha256": "a63d2e2c727bb9007bdc5a471dd042ee855dae545715ffc4f9adcef230d1456b",
+  "sample_frames": 1043303,
+  "duration_seconds": 43.471,
+  "source_prefix_pcm_sha256": "b966323a4de70ff5c907aa71e8086e3a4d4a3746c8ab43f9c41fc0758ccf2fa2",
+  "source_prefix_verified": true,
+  "appended_frames_all_zero": true,
+  "tail_energy": 0.0,
+  "tail_energy_threshold_exclusive": 0.02,
+  "ends_in_silence": true
+ },
+ "limitation": "This deterministic derivative repairs the mechanical tail-silence gate. It does not recreate a missing phoneme. The owner selected this source take after listening to its ending, and the local exact-copy check separately verifies the complete locked word sequence. Neither establishes voice match, performance or register."
+}

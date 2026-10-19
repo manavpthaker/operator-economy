@@ -1,0 +1,120 @@
+{
+ "schema": "oe-presenter-route-correction-v1",
+ "at_utc": "2026-10-09T00:00:00Z",
+ "episode": "EP009",
+ "prompted_by": "owner: 'No it's not just the closeup it's the angle should be on the phone. Look at the content package for next week and see the video and phone in hand angle'",
+ "source": {
+  "package": "/Users/brownmanbrain/GitHub/content-os-w7gate/content-packages/week-of-2026-10-12",
+  "asset": "assets/wednesday-video-v1",
+  "build": "blueprint-cinema/experiments/WEDNESDAY-W7-001",
+  "piece": "Wednesday week-7 signed video, week of 2026-10-14, 'We were worried about the wrong side of the desk'",
+  "status": "owner accepted at render v4, 2026-10-06: 'caption approved, lock it and schedule'"
+ },
+ "what_i_had_wrong": [
+  {
+   "item": "the angle",
+   "mine": "locked-off camera on a seated subject, then a tight close-up at eye level",
+   "accepted": "handheld front-camera selfie, phone held close, just above eye level and angled slightly down, face filling most of the frame, shoulders and top of chest only, no arm in frame, with the gentle natural sway of a hand-held phone",
+   "note": "The owner already rejected a too-distant selfie once on this format, on 2026-10-06: 'im not happy with this look. it looks odd. i dont think i'd be that far away doing a selfie'. My seated medium shot is that same mistake."
+  },
+  {
+   "item": "the audio reference",
+   "mine": "generate picture, then lip sync as a separate paid pass",
+   "accepted": "the voice slice is passed into the same generation as an audio_reference, so it drives words, cadence and pauses, with 'lip sync is the priority' stated in the prompt"
+  },
+  {
+   "item": "the behaviour references",
+   "mine": "none",
+   "accepted": "two video_references, one supplying connected public-facing articulation to the lens and one supplying relaxed listening stillness and ordinary blinks, declared as behaviour only"
+  },
+  {
+   "item": "the repair pass",
+   "mine": "not planned",
+   "accepted": "fal-ai/sync-lipsync/react-1 run over each accepted take, which is what the react1 naming in EP009's own presenter-regen folder refers to"
+  },
+  {
+   "item": "the prompt's negative list",
+   "mine": "loose",
+   "accepted": "explicit: no finger point, head shake, wink, smirk, raised-brow performance, theatrical surprise, cut, zoom, caption, title, logo, music, extra person or object; and follow the audio at original speed, do not stretch speech to fill the clip"
+  }
+ ],
+ "what_i_had_right": {
+  "provider": "seedance_2_5 omni_reference via the same tool",
+  "rate": "144 credits for a 12 second 1080p 9:16 take is 12 credits per second, exactly the rate I measured by preflight",
+  "format": "1080x1920 at 24fps"
+ },
+ "format_shape": {
+  "duration_s": 53.0,
+  "render": "720x1280 for LinkedIn",
+  "assets": "1080x1920",
+  "scenes": {
+   "t1": [
+    0.0,
+    10.833
+   ],
+   "b1_host_stand": [
+    10.833,
+    14.0
+   ],
+   "t2": [
+    14.0,
+    23.292
+   ],
+   "t3": [
+    23.292,
+    33.083
+   ],
+   "b2_front_desk": [
+    33.083,
+    37.917
+   ],
+   "t4": [
+    37.917,
+    49.5
+   ],
+   "end": [
+    49.5,
+    53.0
+   ]
+  },
+  "presenter_share": 0.783,
+  "cutaways": "two short illustrative photographic cutaways, a host-stand phone and an empty hotel front desk",
+  "screens": "none. The build file states it plainly: 'No screens: the script makes no build claim.'"
+ },
+ "the_real_question_this_raises": "This is a different format from what EP009's Shorts are built as, not just a different angle. Wednesday is 78 percent presenter with two photographic cutaways and no designed screens. EP009's four Shorts are 44 percent presenter with designed schematic screens carrying the mechanism. Changing the angle is cheap and I can do it now. Changing the format would retire most of the screens work built this week and would need the beat assignment reopened.",
+ "economics_unchanged": {
+  "balance": 769,
+  "full_set_1080p_credits": 996,
+  "full_set_720p_credits": 581,
+  "note": "The accepted route confirms 12 credits per second at 1080p, so 1080p for all eight spans remains unaffordable."
+ },
+ "status": "Agent reading of an owner-accepted package in another repo. Nothing here changes an EP009 lock.",
+ "selfie_angle_test": {
+  "purpose": "Apply the exact accepted selfie-angle language from the Wednesday look-v2 take requests to EP009's own locked chambray look.",
+  "job_id": "138a8048-2a1b-4881-801a-f61974638038",
+  "credits_charged": 18,
+  "delivered": "480x854, 24fps, 145 frames, 6.042s",
+  "media": {
+   "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/draft-test/draft-selfie-angle-test.mp4",
+   "sha256": "8600868cf0f7364b69f2f0e6902d559949d10c96d6f2c4868f5956553b052447"
+  },
+  "result": "partial",
+  "gained": [
+   "tighter than the previous close-up, face fills more of the frame",
+   "chambray, likeness and the inn room all hold"
+  ],
+  "not_achieved": [
+   "the camera still reads as level, not held above eye level and angled down",
+   "there is headroom above the crown and the crop sits at the shoulders, where the accepted Wednesday takes crop the top of the head and put the chin near centre, which is what makes them read as a phone held up"
+  ],
+  "diagnosis": "The prompt alone cannot move the angle, because the IMAGE reference anchors framing. EP009's locked still, L3-chambray, is a landscape camera-level shot of him seated at a table. The Wednesday takes work because their reference still, E2-office-charcoal-groomed, was itself generated at the selfie angle, and their prompt then says 'lighting and framing exactly as in the IMAGE'.",
+  "implied_next_step": "Generate EP009 look candidates at the phone-above-eye-level angle, keeping the locked chambray and inn, and have the owner pick one the way they picked E2. That still then becomes the image reference for all eight takes. It is a look-lock step, so it is the owner's pick, not mine.",
+  "limitation": "480p draft, six seconds, no audio, no behaviour references. Framing only."
+ },
+ "spend_so_far": {
+  "drafts": 3,
+  "credits": 54,
+  "balance_after": 711.25,
+  "note": "18 credits each for the seated medium, the close-up and the selfie-angle attempt."
+ }
+}

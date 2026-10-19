@@ -8,6 +8,10 @@ type Filter = 'all' | 'canvas' | 'legacy_blueprint';
 
 export function BusinessList({ operations }: { operations: Operation[] }) {
   const [filter, setFilter] = useState<Filter>('all');
+  const mixed = useMemo(
+    () => new Set(operations.map((operation) => operation.artifact)).size > 1,
+    [operations]
+  );
   const visible = useMemo(
     () => filter === 'all' ? operations : operations.filter((operation) => operation.artifact === filter),
     [filter, operations]
@@ -15,11 +19,15 @@ export function BusinessList({ operations }: { operations: Operation[] }) {
 
   return (
     <>
-      {new Set(operations.map((operation) => operation.artifact)).size > 1 && <div className="oe-filters" role="group" aria-label="Filter businesses">
-        <button type="button" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>All</button>
-        <button type="button" aria-pressed={filter === 'canvas'} onClick={() => setFilter('canvas')}>Canvases</button>
-        <button type="button" aria-pressed={filter === 'legacy_blueprint'} onClick={() => setFilter('legacy_blueprint')}>Legacy</button>
-      </div>}
+      {/* Offer a format filter only while both formats are present. With the V1
+          Blueprints withdrawn, a Legacy button could only ever return zero rows. */}
+      {mixed ? (
+        <div className="oe-filters" role="group" aria-label="Filter businesses">
+          <button type="button" aria-pressed={filter === 'all'} onClick={() => setFilter('all')}>All</button>
+          <button type="button" aria-pressed={filter === 'canvas'} onClick={() => setFilter('canvas')}>Canvases</button>
+          <button type="button" aria-pressed={filter === 'legacy_blueprint'} onClick={() => setFilter('legacy_blueprint')}>Legacy</button>
+        </div>
+      ) : null}
 
       <p className="bl-chapter__number oe-library-count" aria-live="polite">
         {visible.length} {visible.length === 1 ? 'business' : 'businesses'}
@@ -35,7 +43,7 @@ export function BusinessList({ operations }: { operations: Operation[] }) {
                 <small>
                   {operation.summary}
                   <span className="oe-record">
-                    {operation.artifact === 'canvas' ? `Episode + Operator Canvas · ${operation.published}` : `Episode + Legacy Blueprint · ${operation.sources} sources · ${operation.published}`}
+                    {operation.artifact === 'canvas' ? 'Episode + Canvas' : 'Episode + Legacy Blueprint'} · {operation.sources} sources · {operation.published}
                   </span>
                 </small>
               </span>
@@ -45,8 +53,8 @@ export function BusinessList({ operations }: { operations: Operation[] }) {
         </div>
       ) : (
         <aside className="bl-disclosure oe-empty-state">
-          <strong>No Canvas is live yet.</strong>
-          <span>The library will add its first Canvas only after a V2 model passes its editorial lock and publication gate.</span>
+          <strong>Nothing in this format is live.</strong>
+          <span>The library only lists work whose model, evidence, and publication state are locked. Choose All to see what is published.</span>
         </aside>
       )}
     </>

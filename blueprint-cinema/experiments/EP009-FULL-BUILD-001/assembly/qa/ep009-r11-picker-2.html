@@ -1,0 +1,26 @@
+<!doctype html><meta name=viewport content="width=device-width,initial-scale=1"><title>EP009 r11 movement picker, round 2</title><style>body{font:15px/1.4 -apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#111;color:#eee}h1{font-size:18px}
+.take{border-top:1px solid #333;padding:12px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+video{width:100%;border-radius:6px;background:#000}label{display:block;padding:6px;border:1px solid #444;border-radius:6px;margin-top:4px;cursor:pointer}
+input:checked+span{color:#7fd67f;font-weight:600}.q{color:#aaa;font-style:italic}button{font-size:16px;padding:10px 16px;margin:12px 0}textarea{width:100%;height:100px;background:#222;color:#eee}</style>
+<h1>EP009 · movement picker, round 2</h1><p>New candidates for the three takes where none fit, plus seg021 (which only had one). Ignore the mouth; pick the one whose gestures fit the words, or "none".</p>
+<div class=take><b>seg028</b> <span class=q>“Fair question here. If the parts to fix this are cheap, why doesn&#x27;t the inn just do it?”</span><div class=grid>
+<div><video src="r11-picker/seg028-D.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg028 value=D><span> D</span></label></div>
+<div><video src="r11-picker/seg028-E.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg028 value=E><span> E</span></label></div>
+<div><video src="r11-picker/seg028-F.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg028 value=F><span> F</span></label></div>
+</div><label><input type=radio name=seg028 value=none><span> none of these</span></label></div>
+<div class=take><b>seg072</b> <span class=q>“What I&#x27;m not saying is that a twenty room inn will pay you. Nobody knows that yet, including me. You&#x27;ll know by day thirty.”</span><div class=grid>
+<div><video src="r11-picker/seg072-D.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg072 value=D><span> D</span></label></div>
+<div><video src="r11-picker/seg072-E.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg072 value=E><span> E</span></label></div>
+<div><video src="r11-picker/seg072-F.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg072 value=F><span> F</span></label></div>
+</div><label><input type=radio name=seg072 value=none><span> none of these</span></label></div>
+<div class=take><b>seg075</b> <span class=q>“If you want more businesses worked all the way down to the number that decides them, leave a like, and subscribe for the next one.”</span><div class=grid>
+<div><video src="r11-picker/seg075-D.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg075 value=D><span> D</span></label></div>
+<div><video src="r11-picker/seg075-E.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg075 value=E><span> E</span></label></div>
+<div><video src="r11-picker/seg075-F.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg075 value=F><span> F</span></label></div>
+</div><label><input type=radio name=seg075 value=none><span> none of these</span></label></div>
+<div class=take><b>seg021</b> <span class=q>“I think it can be sold from outside. But only for what it recovers, and what it recovers is a number. By the end you&#x27;ll be able to compute it for any inn.”</span><div class=grid>
+<div><video src="r11-picker/seg021-D.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg021 value=D><span> D</span></label></div>
+<div><video src="r11-picker/seg021-E.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg021 value=E><span> E</span></label></div>
+<div><video src="r11-picker/seg021-F.mp4" controls playsinline preload=metadata></video><label><input type=radio name=seg021 value=F><span> F</span></label></div>
+</div><label><input type=radio name=seg021 value=none><span> none of these</span></label></div>
+<button onclick="c()">Copy picks</button><textarea id=o></textarea><script>function c(){const n=[...new Set([...document.querySelectorAll("input[type=radio]")].map(e=>e.name))];const s="r11b picks: "+n.map(k=>{const v=document.querySelector(`input[name=${k}]:checked`);return k+"="+(v?v.value:"-")}).join(", ");const o=document.getElementById("o");o.value=s;o.select();navigator.clipboard&&navigator.clipboard.writeText(s)}</script>

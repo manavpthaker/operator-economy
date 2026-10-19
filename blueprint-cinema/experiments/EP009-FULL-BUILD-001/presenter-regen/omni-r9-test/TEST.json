@@ -1,0 +1,85 @@
+{
+ "record_type": "presenter_c3_route_segment_test",
+ "at": "2026-09-28",
+ "owner_request": "Test one or two more segments first",
+ "route": "OmniHuman 1.5 (arm A prompt) from the locked still with the exact segment slice, then react-1 face mode 0.5; conform 1920x1080/24",
+ "segments": {
+  "seg021": {
+   "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/eec64dd8-338b-4908-935c-3eda38341c77.mp3",
+   "frames": 242,
+   "omni_args": {
+    "image_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/a31716b3-cf81-4788-837f-abdd97a0f2c2.png",
+    "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/eec64dd8-338b-4908-935c-3eda38341c77.mp3",
+    "prompt": "The man speaks directly to the camera, seated at the wooden table, relaxed and engaged like a real conversation. Natural eye contact with the lens, lively eyes with ordinary blinks and small brow lifts on stressed words. Natural head movement with emphasis, breathing visible in the chest and shoulders, small shoulder shifts, and one or two small natural hand gestures that lift off the table and settle again. Fixed camera, same wide framing. No exaggerated expressions, no finger pointing.",
+    "resolution": "1080p"
+   }
+  },
+  "seg071": {
+   "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/211d1e90-6514-4ba3-bf9b-71cb811720a5.mp3",
+   "frames": 514,
+   "omni_args": {
+    "image_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/a31716b3-cf81-4788-837f-abdd97a0f2c2.png",
+    "audio_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/211d1e90-6514-4ba3-bf9b-71cb811720a5.mp3",
+    "prompt": "The man speaks directly to the camera, seated at the wooden table, relaxed and engaged like a real conversation. Natural eye contact with the lens, lively eyes with ordinary blinks and small brow lifts on stressed words. Natural head movement with emphasis, breathing visible in the chest and shoulders, small shoulder shifts, and one or two small natural hand gestures that lift off the table and settle again. Fixed camera, same wide framing. No exaggerated expressions, no finger pointing.",
+    "resolution": "1080p"
+   },
+   "react_split": {
+    "at_frame": 230,
+    "a_audio": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/a0c9e696-b740-4857-8ea5-b7314ef6c22c.mp3",
+    "b_audio": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/92954d86-da66-4ca2-9e75-c9f15c645f6e.mp3"
+   }
+  }
+ },
+ "results": {
+  "seg021": {
+   "segment": "seg021",
+   "parts": [
+    {
+     "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/generated/r9t-seg021-all-react1face.mp4",
+     "sha256": "fa8865c772f880150fa6f9607ab18977bfaaabcb15ede16112d1bf817f102491",
+     "frames": 242
+    }
+   ],
+   "final": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/omni-r9-test/seg021/final.mp4",
+    "sha256": "d9dc31af7bfc29b3cdff6794c23f3a76253b42a47b38e7e7846481aae15460f4",
+    "frames": 242,
+    "slice_frames": 242,
+    "full_decode_ok": true
+   }
+  },
+  "seg071": {
+   "segment": "seg071",
+   "parts": [
+    {
+     "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/generated/r9t-seg071-a-react1face.mp4",
+     "sha256": "7ed75ba647f8fd4264b84da40b50dbccf1a45fc6ec5dfb708a8446769bd88551",
+     "frames": 230
+    },
+    {
+     "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter/generated/r9t-seg071-b-react1face.mp4",
+     "sha256": "70730ef27ea89a81e26bdba40376dd69a77a26c292d219485c9949f65b405cbe",
+     "frames": 284
+    }
+   ],
+   "final": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-regen/omni-r9-test/seg071/final.mp4",
+    "sha256": "4e8e0119e35b8de7acf56b45e8e2b8bf3085721ea284535965a7b0aa40a3b88b",
+    "frames": 514,
+    "slice_frames": 514,
+    "full_decode_ok": true
+   }
+  }
+ },
+ "checks": {
+  "speech_alignment": "OmniHuman output speech starts at the same time as the narration slice (silence edges match within 5 ms); extra 0.2-0.4 s is trailing hold, trimmed in the conform",
+  "seg071_join": "face-region frame change at the react-1 join (frame 229->230) 2.27 vs median 2.07 and 95th percentile 4.63; face red channel shifts about 2 levels, less than natural drift across the shot"
+ },
+ "comparison_video": "sent to owner: left r8 (from the r8 cut), right C3 route; seg021 then seg071; narration audio; not in git",
+ "owner_verdict": {
+  "at": "2026-09-28",
+  "verbatim": "the lip sync and mouth movement on the c3 is all off",
+  "verdict": "reject",
+  "reading": "C3 route (OmniHuman + react-1 face) fails on mouth and sync on real segments; r8 mouth remains the baseline."
+ }
+}

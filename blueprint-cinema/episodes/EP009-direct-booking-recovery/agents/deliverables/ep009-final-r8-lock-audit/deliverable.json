@@ -1,0 +1,88 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-final-r8-lock-audit",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-final-episode-lock-and-shorts-start.json",
+      "sha256": "a7d0bf1e03bd6c8ba67caaee88cdaedf3a58cecdf27a73b4c58fb2fe31b7b8f2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-DECISION-EVENT-r8.json",
+      "sha256": "2f1c55a43729e94299daff6e42afd8dc2b5acaa7b1c84b62e3c889dce263b1ab"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-OWNER-FEEDBACK-r8.json",
+      "sha256": "261afc94d7993d84ea9547f9d37d25761b8687ee21d80999cac3f3affe092908"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/decisions/events.jsonl",
+      "sha256": "80ebba0fbc3242e0482a632d874dcc85320008f75050470d19483126ec3755ff"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-final-r8-lock-audit/report.md",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-final-r8-lock-audit/audit.json",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-final-r8-lock-audit/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute SHA-256 for all six issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "Validate the 211-event EP009 decision log with the oe-video-direction hash-chain helper",
+      "outcome": "pass"
+    },
+    {
+      "command": "Compare standalone final decision and owner-feedback payloads with decision-log lines 210 and 211",
+      "outcome": "pass"
+    },
+    {
+      "command": "Recompute all 26 path/hash bindings in the final decision, lock and owner-feedback artifacts",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe -count_frames on the exact r8 carrier",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffmpeg loudnorm measurement on the exact r8 carrier audio",
+      "outcome": "pass"
+    },
+    {
+      "command": "Draft 2020-12 jsonschema validation of deliverable.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "oe-cinema validate-deliverable",
+      "outcome": "not_run"
+    }
+  ],
+  "sources_and_provenance": [
+    "The owner source record preserves the exact final-lock and Shorts-start message and limits the interpretation to picture lock plus local derivatives.",
+    "The exact carrier, lock manifest, decision payload, owner-feedback payload and complete decision log were used only at their issued hashes.",
+    "Independent probe and loudness checks were run against the exact carrier bytes rather than inferred from the manifest.",
+    "No canonical record, decision-log event, source, carrier or experiment artifact was modified by this audit."
+  ],
+  "assumptions": [],
+  "unresolved_questions": [
+    "Each 9:16 Short still requires its own exact render review and owner disposition before any upload or publication."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

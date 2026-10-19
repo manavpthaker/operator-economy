@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Presenter open. 1 accepted take(s), 01-open 11.625s sha256 3bdb89b2. Total 11.625s against the 11.625s the root allots. Muted: the root plays the accepted narration. Scaled from 720x1280 by object-fit cover. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #173530; overflow: hidden; }
+        .take { position: absolute; inset: 0; width: 1080px; height: 1920px;
+                 object-fit: cover; object-position: center; }
+      </style>
+      <div id="root" data-composition-id="f01-presenter-open" data-width="1080" data-height="1920">
+        <video id="presenter-open" class="take" src="assets/video/presenter-open.mp4" muted
+               data-start="0.0" data-duration="11.625" data-track-index="1"></video>
+      </div>
+      <script>
+        (() => {
+          // No motion of its own. The performance is the motion; a tween here would
+          // move the frame the performance was generated into.
+          const tl = gsap.timeline({ paused: true });
+          window.__timelines["f01-presenter-open"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

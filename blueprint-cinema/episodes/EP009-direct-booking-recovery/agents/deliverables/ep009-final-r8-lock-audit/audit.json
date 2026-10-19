@@ -1,0 +1,113 @@
+{
+  "record_type": "ep009_final_r8_lock_audit",
+  "work_order_id": "ep009-final-r8-lock-audit",
+  "episode_id": "EP009-direct-booking-recovery",
+  "audited_at": "2026-09-19T20:58:41Z",
+  "status": "pass",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-final-episode-lock-and-shorts-start.json",
+      "expected_sha256": "a7d0bf1e03bd6c8ba67caaee88cdaedf3a58cecdf27a73b4c58fb2fe31b7b8f2",
+      "actual_sha256": "a7d0bf1e03bd6c8ba67caaee88cdaedf3a58cecdf27a73b4c58fb2fe31b7b8f2",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-DECISION-EVENT-r8.json",
+      "expected_sha256": "2f1c55a43729e94299daff6e42afd8dc2b5acaa7b1c84b62e3c889dce263b1ab",
+      "actual_sha256": "2f1c55a43729e94299daff6e42afd8dc2b5acaa7b1c84b62e3c889dce263b1ab",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "expected_sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "actual_sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-OWNER-FEEDBACK-r8.json",
+      "expected_sha256": "261afc94d7993d84ea9547f9d37d25761b8687ee21d80999cac3f3affe092908",
+      "actual_sha256": "261afc94d7993d84ea9547f9d37d25761b8687ee21d80999cac3f3affe092908",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/decisions/events.jsonl",
+      "expected_sha256": "80ebba0fbc3242e0482a632d874dcc85320008f75050470d19483126ec3755ff",
+      "actual_sha256": "80ebba0fbc3242e0482a632d874dcc85320008f75050470d19483126ec3755ff",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "expected_sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "actual_sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "match": true
+    }
+  ],
+  "carrier": {
+    "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+    "width": 1280,
+    "height": 720,
+    "fps": 24,
+    "decoded_frames": 29323,
+    "duration_seconds": 1221.791667,
+    "audio_sample_rate": 48000,
+    "audio_channels": 2,
+    "integrated_lufs": -19.49,
+    "loudness_range_lu": 3.7,
+    "true_peak_dbtp": -5.69,
+    "matches_lock_manifest": true
+  },
+  "bindings": {
+    "path_hash_occurrences_checked": 26,
+    "unique_files_checked": 13,
+    "all_current": true,
+    "r3_narration_master_bound": true,
+    "r3_word_transcript_bound": true,
+    "r3_brand_and_experience_lock_bound": true,
+    "r4_avatar_opening_lock_bound": true,
+    "s13_native_tool_lock_bound": true,
+    "p08_picture_source_bound": true,
+    "p08_editorial_review_bound": true
+  },
+  "decision_log": {
+    "chain_valid": true,
+    "event_count": 211,
+    "decision": {
+      "line": 210,
+      "event_id": "ep009-final-episode-r8-selected",
+      "event_hash": "2889c78c2e5edd83d10076b980dffc32985f088e8e04c4170aa391e83da683e9",
+      "standalone_payload_exact": true
+    },
+    "owner_feedback": {
+      "line": 211,
+      "event_id": "ep009-owner-final-episode-lock-r8",
+      "event_hash": "edafe419c01b8fdfa1f43b791b06e7ea588a8ae2e897d9a87c72b0ae782b66be",
+      "previous_hash_matches_decision": true,
+      "standalone_payload_exact": true,
+      "review_state": "owner_accept_recorded"
+    },
+    "canonical_approval": false
+  },
+  "scope_assessment": {
+    "full_picture_lock_sound": true,
+    "locked_scope": "Exact r8 carrier frames [0,29323) and unchanged r3 narration master.",
+    "shorts_authorization_correctly_bounded": true,
+    "shorts_scope": "Local 9:16 derivative production from exact r8 words, picture and existing hash-bound component media, with separate review for every derivative.",
+    "longform_mutation_authorized": false,
+    "new_claims_authorized": false,
+    "paid_or_external_generation_authorized": false,
+    "upload_authorized": false,
+    "publication_authorized": false,
+    "release_cleared": false
+  },
+  "findings": {
+    "blocking": [],
+    "missing_fields": [],
+    "overreaching_fields": [],
+    "false_release_claims": [],
+    "observations": [
+      "Pre-lock build and component records retain their historical owner_accepted false fields; final owner acceptance is separately bound to the exact r8 carrier.",
+      "The lock is a picture and narration assembly lock, not a delivery-master or publication approval.",
+      "The full oe-cinema packet validator is unavailable because this EP009 folder has no episode.json or production-state.json; direct schema and packet checks passed."
+    ]
+  }
+}

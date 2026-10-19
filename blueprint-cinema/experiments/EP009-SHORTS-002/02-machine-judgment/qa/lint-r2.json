@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "errorCount": 0,
+  "warningCount": 1,
+  "infoCount": 0,
+  "findings": [
+    {
+      "code": "nested_media_start_basis_ambiguous",
+      "severity": "warning",
+      "message": "<video id=\"hook-human\"> has data-start=\"1.5\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+      "elementId": "hook-human",
+      "fixHint": "Keep data-start=\"1.5\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start.",
+      "snippet": "<video id=\"hook-human\" class=\"clip\" src=\"assets/locked-carrier.mp4\" data-start=\"1.5\" data-duration=\"0.875\" data-media-start=\"728.9166666666666\" data-track-index=\"10\" muted playsinline>",
+      "file": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/compositions/scene-01-hook.html"
+    }
+  ],
+  "filesScanned": 10,
+  "_meta": {
+    "version": "0.8.51",
+    "latestVersion": "0.8.51",
+    "updateAvailable": false
+  }
+}

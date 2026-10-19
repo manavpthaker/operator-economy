@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 02a, one person holds all of it. f249-396, 6.125s. silent_graphic.
+         Role: humanContext. Motion: establish, settle. The jobs are real jobs from the
+         locked editorial, not invented chores. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500; font-display: block; }
+        #root { position: absolute; inset: 0; background: #f5f0e6; overflow: hidden; }
+        /* SHARED GEOMETRY v2. Portrait safe area: bottom 300px, right 180px stay clear. */
+        .head { position: absolute; left: 80px; top: 200px; width: 800px; }
+        .kick { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 26px;
+          letter-spacing: 0.24em; text-transform: uppercase; color: #566461; }
+        .ledger { position: absolute; left: 80px; top: 300px; width: 800px; }
+        .row { display: grid; grid-template-columns: 1fr 250px; align-items: center;
+          border-bottom: 1px solid #d8cfb9; padding: 42px 0 38px; }
+        .job { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 44px;
+          line-height: 1.2; color: #19201f; }
+        .who { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 25px;
+          letter-spacing: 0.16em; text-transform: uppercase; text-align: right; }
+        .who.empty { color: #303b39; }
+        .who.tool { color: #586d74; }
+        .who.yours { color: #87341f; }
+        .colhead { display: grid; grid-template-columns: 1fr 250px; padding-bottom: 14px;
+          border-bottom: 2px solid #c4b99e; }
+        .colhead div { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 24px;
+          letter-spacing: 0.2em; text-transform: uppercase; color: #566461; }
+        .colhead .r { text-align: right; }
+        .foot { position: absolute; left: 80px; top: 1210px; width: 800px;
+          font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 40px;
+          line-height: 1.3; color: #19201f; }
+
+      </style>
+      <div id="root" data-composition-id="f02a-one-person" data-width="1080" data-height="1920">
+        <div class="head"><div class="kick">at a twenty room inn</div></div>
+        <div class="ledger">
+          <div class="colhead"><div>the job</div><div class="r">who does it</div></div>
+          <div class="row" id="row-f1">
+            <div class="job">Write the thank you</div>
+            <div class="who empty" id="who-f1">the front desk</div>
+          </div>
+          <div class="row" id="row-f2">
+            <div class="job">Check the direct rate</div>
+            <div class="who empty" id="who-f2">the front desk</div>
+          </div>
+          <div class="row" id="row-f3">
+            <div class="job">Keep the free listing live</div>
+            <div class="who empty" id="who-f3">the front desk</div>
+          </div>
+          <div class="row" id="row-f4">
+            <div class="job">Read the reservation report</div>
+            <div class="who empty" id="who-f4">the front desk</div>
+          </div>
+          <div class="row" id="row-f5">
+            <div class="job">Decide who gets a message</div>
+            <div class="who empty" id="who-f5">the front desk</div>
+          </div>
+          <div class="row" id="row-f6">
+            <div class="job">Tell the owner what moved</div>
+            <div class="who empty" id="who-f6">the front desk</div>
+          </div>
+        </div>
+        <div class="foot" id="f02a-foot" style="opacity:0">The same person is checking in a guest and finding a plumber.</div>
+      </div>
+      <script>
+        (() => { const tl = gsap.timeline({ paused: true });
+          // establish: the jobs arrive as a list, then the one answer to "who" repeats.
+          tl.from("#row-f1,#row-f2,#row-f3,#row-f4,#row-f5,#row-f6",
+            { opacity: 0, y: 18, duration: 0.4, ease: "power2.out", stagger: 0.26 }, 0.1);
+          tl.from("#who-f1,#who-f2,#who-f3,#who-f4,#who-f5,#who-f6",
+            { opacity: 0, duration: 0.3, ease: "power1.out", stagger: 0.26 }, 0.42);
+          tl.to("#f02a-foot", { opacity: 1, duration: 0.45, ease: "power2.out" }, 4.3);
+          window.__timelines["f02a-one-person"] = tl; })();
+      </script>
+    </template>
+  </body>
+</html>

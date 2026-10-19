@@ -1,0 +1,156 @@
+{
+  "schema": "oe-ep009-short-audio-source-comparison-v1",
+  "status": "pass",
+  "method": {
+    "decode": "ffmpeg PCM signed 16-bit, mono, 8000 Hz",
+    "expected": "five SOURCE-EDL source ranges trimmed from the locked r8 carrier and concatenated without crossfades",
+    "alignmentSearch": {
+      "minimumMs": -50,
+      "maximumMs": 50,
+      "coarseStrideSamples": 8,
+      "fineRadiusSamples": 4
+    },
+    "metric": "Pearson waveform correlation after best integer-sample alignment; residual SNR after least-squares gain and DC fit"
+  },
+  "files": {
+    "sourceCarrier": "assets/episode-r8.mp4",
+    "expectedPcm": "review/qa/expected-source-8k-mono.wav",
+    "renderedMp4": "review/ep009-short03-guest-book-hook-REVIEW.mp4",
+    "renderedPcm": "review/qa/rendered-audio-8k-mono.wav"
+  },
+  "sampleRateHz": 8000,
+  "expected": {
+    "sampleCount": 161667,
+    "durationSeconds": 20.208375,
+    "nominalFrameDurationSeconds": 20.208333333333332
+  },
+  "rendered": {
+    "sampleCount": 181760,
+    "decodedDurationSeconds": 22.72,
+    "nominalVideoDurationSeconds": 22.708333333333332
+  },
+  "alignment": {
+    "bestLagSamples": -2,
+    "bestLagMs": -0.25,
+    "convention": "positive means rendered audio starts later than expected",
+    "pearsonCorrelation": 0.9661782402050337,
+    "fittedGain": 0.9637219701412946,
+    "fittedDcOffset": -0.00002765692485652907,
+    "residualRmse": 0.021552506382824722,
+    "residualSnrDb": 11.473011487271883,
+    "comparedSamples": 161665
+  },
+  "segments": [
+    {
+      "id": "served-no-email",
+      "frames": [
+        8148,
+        8232
+      ],
+      "sourceSeconds": [
+        339.5,
+        343
+      ],
+      "expectedTimelineSeconds": [
+        0,
+        3.5
+      ],
+      "sampleCount": 28000,
+      "correlationAtWholeEditLag": 0.9284103881954644,
+      "independentBestLagSamples": 0,
+      "independentBestLagMs": 0,
+      "independentPearsonCorrelation": 0.9997681037015149
+    },
+    {
+      "id": "guest-book-at-site",
+      "frames": [
+        8070,
+        8141
+      ],
+      "sourceSeconds": [
+        336.25,
+        339.208333333333
+      ],
+      "expectedTimelineSeconds": [
+        3.5,
+        6.458375
+      ],
+      "sampleCount": 23667,
+      "correlationAtWholeEditLag": 0.9133948821498015,
+      "independentBestLagSamples": 0,
+      "independentBestLagMs": 0,
+      "independentPearsonCorrelation": 0.9997693974696205
+    },
+    {
+      "id": "constraint-before-tool",
+      "frames": [
+        8250,
+        8361
+      ],
+      "sourceSeconds": [
+        343.75,
+        348.375
+      ],
+      "expectedTimelineSeconds": [
+        6.458375,
+        11.083375
+      ],
+      "sampleCount": 37000,
+      "correlationAtWholeEditLag": 0.986708410397854,
+      "independentBestLagSamples": -3,
+      "independentBestLagMs": -0.375,
+      "independentPearsonCorrelation": 0.9964143681969556
+    },
+    {
+      "id": "relay-rule-boundary",
+      "frames": [
+        8373,
+        8520
+      ],
+      "sourceSeconds": [
+        348.875,
+        355
+      ],
+      "expectedTimelineSeconds": [
+        11.083375,
+        17.208375
+      ],
+      "sampleCount": 49000,
+      "correlationAtWholeEditLag": 0.9864165241775967,
+      "independentBestLagSamples": -3,
+      "independentBestLagMs": -0.375,
+      "independentPearsonCorrelation": 0.9962879024776459
+    },
+    {
+      "id": "not-email-tool",
+      "frames": [
+        8520,
+        8592
+      ],
+      "sourceSeconds": [
+        355,
+        358
+      ],
+      "expectedTimelineSeconds": [
+        17.208375,
+        20.208375
+      ],
+      "sampleCount": 24000,
+      "correlationAtWholeEditLag": 0.9881980172507672,
+      "independentBestLagSamples": -3,
+      "independentBestLagMs": -0.375,
+      "independentPearsonCorrelation": 0.996905851470702
+    }
+  ],
+  "silentCta": {
+    "nominalStartSample": 161667,
+    "nominalStartSeconds": 20.208333333333332,
+    "decodedTailSamples": 20093,
+    "decodedTailDurationSeconds": 2.511625,
+    "rms": 0.0000072754644819149144,
+    "peak": 0.000732421875,
+    "silencedetectEvidence": "review/qa/silencedetect.log",
+    "silencedetectStartSeconds": 20.208
+  },
+  "conclusion": "Decoded waveform evidence is consistent with all five SOURCE-EDL source ranges appearing in the stated order. Tiny cut-local offsets are reported per segment and are consistent with independent AAC decode/resample boundaries. The remaining tail is the intentionally silent CTA."
+}

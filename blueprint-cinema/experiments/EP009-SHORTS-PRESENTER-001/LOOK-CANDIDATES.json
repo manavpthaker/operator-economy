@@ -1,0 +1,77 @@
+{
+ "schema": "oe-look-candidates-v1",
+ "at_utc": "2026-10-09T00:00:00Z",
+ "episode": "EP009",
+ "purpose": "Presenter look candidates for the four companion Shorts, at the phone-selfie angle the owner asked for.",
+ "owner_instruction": "Need the angle from the Wednesday video",
+ "method": {
+  "model": "gpt_image_2_5",
+  "aspect_ratio": "9:16",
+  "count": 4,
+  "credits": 0.25,
+  "references": [
+   {
+    "role": "identity, outfit, setting",
+    "source": "EP009 LOOK-LOCK still L3-chambray",
+    "media_id": "d4fefebe-7460-4169-b0cd-69dcee2c177c",
+    "sha256": "0b529748f457774986e661dcfe31e916ad9507c8f7cf4803171cb602a012d7c5"
+   },
+   {
+    "role": "camera angle, framing, crop",
+    "source": "frame at 7.5s from the accepted Wednesday take T1",
+    "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/angle-ref/w7-angle-frame.png",
+    "origin": "blueprint-cinema/experiments/WEDNESDAY-W7-001/build/assets/t1.mp4",
+    "media_id": "59225f14-9928-4028-bf44-6e0f20e66685"
+   }
+  ],
+  "why_two_references": "The previous three video drafts showed that prompt language alone cannot move the angle, because the image reference anchors framing. Supplying the Wednesday frame as a second reference moves it."
+ },
+ "what_carried": {
+  "from_ep009_lock": [
+   "identity and face",
+   "clear-framed glasses",
+   "light blue chambray button-down",
+   "country inn breakfast room, wooden table, daylight window"
+  ],
+  "from_wednesday": [
+   "phone-selfie angle, held close and just above eye level, angled slightly down",
+   "top of the head cropped by the upper edge",
+   "chin near the centre of the frame",
+   "face filling most of the tall frame, shoulders and top of chest only",
+   "no arm or hand in frame",
+   "background softly out of focus"
+  ]
+ },
+ "candidates": {
+  "P1": {
+   "path": "look-candidates/P1.png",
+   "sha256": "7b08bd3a9bb6ec2dcde2b5c6d77d5064a7b2004216d332a7900b4559e5234c55",
+   "job_id": "ee871c9c-d5aa-4dcf-88dd-83489e77b656"
+  },
+  "P2": {
+   "path": "look-candidates/P2.png",
+   "sha256": "e800a3c793fc62068531558cd7c9a32aea472e73d6e0207995bfa7ea5f2f6ade",
+   "job_id": "8d5093e1-4a1a-405d-85d8-f8951d0cd5e2"
+  },
+  "P3": {
+   "path": "look-candidates/P3.png",
+   "sha256": "4a312f8d12f3079de20b220fd9886f2868b4398dbca19ff2a93c80dc27ce4b0a",
+   "job_id": "9d4adfbf-4153-49e7-aa62-3b68be1bbb94"
+  },
+  "P4": {
+   "path": "look-candidates/P4.png",
+   "sha256": "143ec7aade76e7687a0655826eb5b0e491c031ee98078d62d4f92e1cc4a3ed8d",
+   "job_id": "788fc931-e470-4947-b3e4-c36afdd90b55"
+  }
+ },
+ "comparison_strip": {
+  "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/look-candidates/candidates.jpg",
+  "order": "P1, P2, P3, P4, then the Wednesday angle reference for comparison"
+ },
+ "status": "Candidates for the owner's pick. This is a look-lock step and the pick is the owner's, the same way E2 was picked for the Wednesday format on 2026-10-06. Nothing is locked here.",
+ "next_if_picked": "The picked still replaces L3-chambray as the image reference for all eight presenter takes, and the take prompts adopt the accepted Wednesday structure: audio reference driving words and cadence, two behaviour video references, the explicit negative list, then a fal-ai/sync-lipsync/react-1 repair pass.",
+ "unchanged": {
+  "outfit_and_setting": "EP009's own, per the standing rule that each episode gets a new location and outfit",
+  "economics": "full set still 996 credits at 1080p against a 711 balance, 581 at 720p"
+ }
+}

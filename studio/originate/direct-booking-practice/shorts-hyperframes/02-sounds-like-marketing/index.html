@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>EP009 Short 02 — It Sounds Like Marketing. It's Operations.</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f5f0e6; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .clip { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <!--
+      EP009 Short 02 — It Sounds Like Marketing. It's Operations.. 1080x1920, 24 fps, 1061 frames, 44.208333s.
+
+      Three movements and a bridge, per the owner-ruled EP007 clean-frame grammar:
+      presenter opens, full-screen designed proof owns the mechanism, presenter returns
+      to land the conclusion, then a 2.0s silent episode bridge.
+
+      Every boundary is measured against the owner-accepted narration, not chosen. Each
+      cut lands on a 24 fps frame at the incoming word's onset, so no outgoing word is
+      clipped. Presenter frames are placeholders: that generation is not authorized.
+
+      Audio is the owner-accepted Original C narration, 42.214s. LOCKED.
+    -->
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-fps="24"
+      data-duration="44.208333"
+    >
+      <audio
+        id="narration"
+        src="assets/audio/narration.wav"
+        data-start="0"
+        data-duration="42.214"
+        data-track-index="0"
+      ></audio>
+
+      <div
+        class="clip"
+        id="clip-f021-presenter-open"
+        data-composition-id="f021-presenter-open"
+        data-composition-src="compositions/01-presenter-open.html"
+        data-start="0"
+        data-duration="10.375"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f02a-one-person"
+        data-composition-id="f02a-one-person"
+        data-composition-src="compositions/02a-one-person.html"
+        data-start="10.375"
+        data-duration="6.125"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f02b-the-list"
+        data-composition-id="f02b-the-list"
+        data-composition-src="compositions/02b-the-list.html"
+        data-start="16.5"
+        data-duration="6.25"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f02c-cheap-parts"
+        data-composition-id="f02c-cheap-parts"
+        data-composition-src="compositions/02c-cheap-parts.html"
+        data-start="22.75"
+        data-duration="5.416667"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f02d-the-judgment"
+        data-composition-id="f02d-the-judgment"
+        data-composition-src="compositions/02d-the-judgment.html"
+        data-start="28.166667"
+        data-duration="4.208333"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f026-presenter-close"
+        data-composition-id="f026-presenter-close"
+        data-composition-src="compositions/06-presenter-close.html"
+        data-start="32.375"
+        data-duration="9.833333"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+      <div
+        class="clip"
+        id="clip-f027-episode-bridge"
+        data-composition-id="f027-episode-bridge"
+        data-composition-src="compositions/07-episode-bridge.html"
+        data-start="42.208333"
+        data-duration="2.0"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+    </div>
+
+    <script>
+      // The root carries no motion: every frame owns its timeline and the boundaries are
+      // hard cuts. A root tween here would animate across a cut.
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

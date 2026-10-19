@@ -1,0 +1,101 @@
+{
+  "record_type": "ep009_r8_tool_clarity_screen_conform",
+  "status": "prepared_for_private_review",
+  "output": {
+    "path": "software-demo/capture/node-red-editor-r8/screen-r8-tool-clarity-706.mp4",
+    "sha256": "452e905fb1e8a947798ae61e0ba6eff1193b87022597eb4d395d60ba127959d5"
+  },
+  "output_probe": {
+    "codec_type": "video",
+    "width": 1280,
+    "height": 720,
+    "pix_fmt": "yuv420p",
+    "r_frame_rate": "24/1",
+    "nb_read_frames": "706"
+  },
+  "decoded_frame_sequence_sha256": "8f3eff60195321fb86040af2d437116837eea7c7050194a1b628a8f0ab3c5fa4",
+  "source_edit_manifest": {
+    "path": "software-demo/capture/node-red-editor-r8/GUIDED-SCREEN-EDIT-MANIFEST-r8.json",
+    "sha256": "a5d9d6a3a1d59d0d6bc311b6fb645f1358c3666a2a49581d439ca9c49472ee7a"
+  },
+  "source_r7_focus_plate": {
+    "path": "software-demo/capture/node-red-editor-r7/screen-r7-tool-focus-706.mp4",
+    "sha256": "7294f161c26c8540334515bb8886bcf58ef28e87cc998f1aa5bd8f45bedc5221"
+  },
+  "source_r7_screen_conform": {
+    "path": "software-demo/capture/node-red-editor-r7/SCREEN-R7-CONFORM.json",
+    "sha256": "98137956aa5e7d51a350b10e3d11d67e6e8b3d7a18f32a4a05e4ccd8b371b818"
+  },
+  "source_r7_screen_review": {
+    "path": "software-demo/capture/node-red-editor-r7/SCREEN-REVIEW.json",
+    "sha256": "566a73828ae20be4e91b812eee552ae5817e3935f9777e87d1f7b8bed40d3aea"
+  },
+  "source_native_capture": {
+    "path": "software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+    "sha256": "8ba50cc182d598d72a586f27ea794829ab5b68da56ef31bf3f21f75eacf36bf6"
+  },
+  "source_native_capture_provenance": {
+    "path": "software-demo/capture/node-red-editor-r7/NATIVE-CAPTURE-PROVENANCE.json",
+    "sha256": "509be45e005505a3e32996f231b372ce3e728adb18750e0032f3a313b7593513"
+  },
+  "r7_pixel_preservation": {
+    "method": "sha256 decoded yuv420p frames in order",
+    "retained_output_frames": [
+      [
+        0,
+        42
+      ],
+      [
+        102,
+        706
+      ]
+    ],
+    "changed_output_frames": [
+      42,
+      102
+    ],
+    "all_retained_ranges_identical": true
+  },
+  "encode_command": [
+    "ffmpeg",
+    "-nostdin",
+    "-n",
+    "-v",
+    "error",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r7/screen-r7-tool-focus-706.mp4",
+    "-loop",
+    "1",
+    "-framerate",
+    "24",
+    "-i",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r7/raw/native-node-red-editor-2560x1440.png",
+    "-filter_complex",
+    "[0:v]trim=start_frame=0:end_frame=42,setpts=PTS-STARTPTS[prefix];[1:v]crop=640:360:480:240,scale=1280:720:flags=lanczos,setsar=1,trim=start_frame=0:end_frame=60,setpts=PTS-STARTPTS[tight];[0:v]trim=start_frame=102:end_frame=706,setpts=PTS-STARTPTS[suffix];[prefix][tight][suffix]concat=n=3:v=1:a=0,format=yuv420p[out]",
+    "-map",
+    "[out]",
+    "-frames:v",
+    "706",
+    "-an",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "0",
+    "-pix_fmt",
+    "yuv420p",
+    "-r",
+    "24",
+    "-video_track_timescale",
+    "24",
+    "-movflags",
+    "+faststart",
+    "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/capture/node-red-editor-r8/screen-r8-tool-clarity-706.mp4"
+  ],
+  "limits": [
+    "Fictional Maya Chen and Alder House Inn test only.",
+    "The Node-RED editor is the actual local tool surface. The workflow used the OpenAI Responses API, not an OpenAI graphical dashboard.",
+    "The r8 plate changes only the 60-frame request beat. It does not show a new execution, send, customer result, consent, capacity, or release claim."
+  ]
+}

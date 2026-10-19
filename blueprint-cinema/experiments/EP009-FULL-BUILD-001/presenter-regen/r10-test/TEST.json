@@ -1,0 +1,163 @@
+{
+ "record_type": "presenter_r10_fix_test",
+ "at": "2026-09-29",
+ "owner_feedback": "there's too much head movement overall. arm movement is choppy. feels like its shot in a different frame rate. the eyes also are a bit flat not a lot of expression",
+ "owner_approval": "yes run it",
+ "diagnosis": {
+  "choppy": "OmniHuman renders 25 fps; the r9 conform to 24 fps dropped a frame each second. Hand-region held-frame stutters per 100 frames: r8 native 0.1, raw OmniHuman 0.0, r9 reference 0.4, r9 native 0.3; relative jerk 0.35 / 0.35 / 0.38 / 0.41.",
+  "head": "prompt told Seedance to move the head as in the reference",
+  "eyes": "no eye-expression wording"
+ },
+ "changes": [
+  "reference kept at native 25 fps (crop only, trimmed to the slice), no frame dropping",
+  "reference used for shoulders, breathing and hands only",
+  "head movement about half of the reference",
+  "warm, expressive eyes wording; stillness wording narrowed to mouth and jaw"
+ ],
+ "substitutions": [
+  [
+   "follow it for body language only, with its timing: head movement, engaged eyes and brows, breathing, shoulder shifts and hand gestures.",
+   "follow it for shoulders, breathing and hand gestures only, with its timing."
+  ],
+  [
+   "Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face.",
+   "Keep relaxed conversational settling and comfortable stillness in the mouth and jaw."
+  ],
+  [
+   "The eyes stay engaged with the lens.",
+   "The eyes stay engaged with the lens and are warm and expressive: they respond to the words, with small brow lifts and slight squints on emphasis, and ordinary blinks."
+  ],
+  [
+   "The head faces the lens and moves as in the second VIDEO; no repeated nod.",
+   "The head faces the lens with small, natural movement, about half as much as the second VIDEO; no sway and no repeated nod."
+  ]
+ ],
+ "takes": {
+  "seg009": {
+   "ref": {
+    "path": "r10-test/seg009/omni-ref-25fps.mp4",
+    "sha256": "c82361cc0342808882c92fca611beae3f2594f908159b23667d8be6adfbf7996",
+    "fps": "25/1",
+    "media_id": "cf693cda-cde6-4cdb-a642-7d3718cb49ac",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/cf693cda-cde6-4cdb-a642-7d3718cb49ac.mp4",
+    "verified": true
+   },
+   "request": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 11,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "prompt": "One continuous eleven-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO is this same man delivering these exact words: follow it for shoulders, breathing and hand gestures only, with its timing. They are behavior references only. Do not copy the second VIDEO's mouth shapes, jaw movement, framing or lighting. Do not copy the first VIDEO's clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational settling and comfortable stillness in the mouth and jaw. Below the neck the body moves as in the second VIDEO: breathing visible in the chest and shoulders, shoulder shifts with emphasis, and the hands lifting off the table for natural gestures, then settling. The eyes stay engaged with the lens and are warm and expressive: they respond to the words, with small brow lifts and slight squints on emphasis, and ordinary blinks. Follow the second VIDEO's body language at a gentler, smaller scale. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 9.166667-second AUDIO reference: \"I couldn't find anyone selling it who'd done that arithmetic. So what did that second stay actually cost her, and who gets paid to stop it?\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. The head faces the lens with small, natural movement, about half as much as the second VIDEO; no sway and no repeated nod. After the last word the face holds its relaxed rest and the body settles, with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+    "medias": [
+     {
+      "role": "image",
+      "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+     },
+     {
+      "role": "audio",
+      "value": "ddaf4d42-b896-4cd7-ba6f-6189468c4e65"
+     },
+     {
+      "role": "video",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video",
+      "value": "cf693cda-cde6-4cdb-a642-7d3718cb49ac"
+     }
+    ]
+   },
+   "job_id": "db1ffda6-f4dd-44d1-916f-678035815aee"
+  },
+  "seg044": {
+   "ref": {
+    "path": "r10-test/seg044/omni-ref-25fps.mp4",
+    "sha256": "ec7f66fd7500a32914dec3645429e01a7364f9ffd5f82a41fcafee51141c84e1",
+    "fps": "25/1",
+    "media_id": "f255fed7-8fa9-46d5-b963-85a39b09184b",
+    "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/f255fed7-8fa9-46d5-b963-85a39b09184b.mp4",
+    "verified": true
+   },
+   "request": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 15,
+    "resolution": "1080p",
+    "aspect_ratio": "16:9",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "prompt": "One continuous fifteen-second eye-level fixed-camera seated wide shot of the man in the IMAGE reference. Preserve his identity, clear-framed glasses, light blue chambray button-down with the sleeves rolled to the forearm, the small country inn breakfast room with its wooden tables and chairs, soft daylight from the side window, lighting and framing with both forearms and complete hands visible on the wooden table. He sits naturally and relaxed, shoulders easy, neither stiff and upright nor slouched.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO is this same man delivering these exact words: follow it for shoulders, breathing and hand gestures only, with its timing. They are behavior references only. Do not copy the second VIDEO's mouth shapes, jaw movement, framing or lighting. Do not copy the first VIDEO's clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational settling and comfortable stillness in the mouth and jaw. Below the neck the body moves as in the second VIDEO: breathing visible in the chest and shoulders, shoulder shifts with emphasis, and the hands lifting off the table for natural gestures, then settling. The eyes stay engaged with the lens and are warm and expressive: they respond to the words, with small brow lifts and slight squints on emphasis, and ordinary blinks. Follow the second VIDEO's body language at a gentler, smaller scale. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nSpeak only the exact 14.291667-second AUDIO reference: \"I spent ten years in hospitality, including Ace Hotel and Standard Hotels. I know this business from the inside out. I haven't sold this particular service, though. What a thirty room inn will pay for it is still something I'd have to test.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. The head faces the lens with small, natural movement, about half as much as the second VIDEO; no sway and no repeated nod. After the last word the face holds its relaxed rest and the body settles, with no extra words.\n\nNo finger point, head shake, smirk, raised-brow performance or theatrical surprise. Keep the camera fixed and wide. No camera move, cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends, then hold the existing resting pose for the remaining picture duration with no extra words. Do not stretch the speech to fill the generated clip.\n",
+    "medias": [
+     {
+      "role": "image",
+      "value": "eb9cdb1e-a6c2-44cb-bb06-a097b8432a30"
+     },
+     {
+      "role": "audio",
+      "value": "b8d96fc8-4762-49f5-b338-abe0651733ab"
+     },
+     {
+      "role": "video",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video",
+      "value": "f255fed7-8fa9-46d5-b963-85a39b09184b"
+     }
+    ]
+   },
+   "job_id": "0ff437c5-3acc-4161-a7ac-6544c9745779"
+  }
+ },
+ "finding": {
+  "at": "2026-09-29",
+  "result": "The test takes are near-copies of the r9 takes: mean luma difference 2-4 levels per frame, same gestures at the same times; head/torso/hand motion within 1% of r9.",
+  "measured": {
+   "seg009": {
+    "r8": {
+     "head": 2.7,
+     "torso": 0.96,
+     "hands": 1.44
+    },
+    "r9": {
+     "head": 3.97,
+     "torso": 2.04,
+     "hands": 1.85
+    },
+    "test": {
+     "head": 3.96,
+     "torso": 2.04,
+     "hands": 1.85
+    }
+   },
+   "seg044": {
+    "r8": {
+     "head": 2.0,
+     "torso": 0.72,
+     "hands": 0.85
+    },
+    "r9": {
+     "head": 4.55,
+     "torso": 2.64,
+     "hands": 2.02
+    },
+    "test": {
+     "head": 4.59,
+     "torso": 2.68,
+     "hands": 2.06
+    },
+    "hand_stutter_per_100_frames": {
+     "r8": 0.5,
+     "r9": 1.4,
+     "test": 0.9
+    }
+   }
+  },
+  "conclusion": "With the OmniHuman take as a video reference, Seedance follows the reference motion almost exactly and the prompt wording (head scale, eyes, gentler) has negligible effect. The 25 fps reference reduced seg044 hand stutter (1.4 -> 0.9) but not to r8 level. Head movement, eye expression and arm motion have to be controlled through the reference itself."
+ }
+}

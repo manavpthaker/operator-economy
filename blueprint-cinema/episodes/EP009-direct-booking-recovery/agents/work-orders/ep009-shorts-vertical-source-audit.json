@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-shorts-vertical-source-audit",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "role": "qa_reviewer",
+  "objective": "Map the exact locked EP009 r8 picture and its existing component media into a truthful 1080 by 1920 production strategy, identifying which shots can be reframed from the final carrier, which should use higher-resolution component sources, and where graphics or captions need authored vertical recomposition.",
+  "required_gate": "greybox_ready",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-BUILD.json",
+      "sha256": "8fe2c44e1b96c3af0a044f6af94220ef74e470ee792dca715db56628c1171ddf"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+      "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/SEGMENTS-r1.json",
+      "sha256": "cc083d44e146e41ea1712e2dcd7af2ebd51fae613359fa1cb900579483560791"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/FULL-REVIEW-SELECTIONS-r1.json",
+      "sha256": "6749421f0add1b83f92a7a8cd25ef95041eea7729ec18252883a6267da8f98b6"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json",
+      "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-vertical-source-audit/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "studio/originate/direct-booking-recovery",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/review"
+  ],
+  "dependencies": [],
+  "acceptance_checks": [
+    "Recompute every issued input hash before using it.",
+    "Report the locked carrier dimensions, cadence and audio identity, then define a 1080 by 1920 vertical safe area and presenter headroom rules.",
+    "Identify reusable high-resolution component sources and any shots where a center crop would hide the decisive evidence or software-tool state.",
+    "Recommend deterministic reframing or authored recomposition without fabricating UI, evidence, customer results or new presenter performance.",
+    "Write vertical-source-map.json, report.md and a schema-valid deliverable.json only inside the owned deliverable directory."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop and mark any missing source path rather than substituting unbound media.",
+    "Do not render, edit canonical media, append the decision log or claim owner acceptance."
+  ],
+  "status": "closed"
+}

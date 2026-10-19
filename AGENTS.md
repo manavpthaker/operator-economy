@@ -127,7 +127,7 @@ These aren't style preferences — they're enforced by evals and will fail the p
 - **Every money claim needs a source or an explicit estimate marker**, and weak sources must be hedged aloud in `vo_text` ("reported / unverified"), not just footnoted. Public tool pricing is exempted.
 - **Evidence must span low end AND high end** (solo/side operator + venture-scale version). Enforced by `eval_script.py`.
 - **AI-disclosure box must be checked on upload** (Jan 2026 policy). This is a human step at Gate 3; `containsSyntheticMedia` will also be set on the API upload path when built.
-- **Shorts must have cliffhanger_line + pinned_comment**; complete-answer Shorts are a kill-list item. Enforced in the derive step's eval re-run.
+- **Shorts must orient a cold viewer and deliver a complete narrow answer.** New briefs require `cold_viewer_context`, exact `hook_line`/`last_line` anchors, `standalone_payoff`, and `pinned_comment`; an optional `episode_extension` may add broader depth but cannot supply the missing answer. Net-new exact-copy manifests additionally bind an exact `payoff_line` and closing anchor. `studio/scripts/originate/shorts_contract.py` is the shared validator used by the derive-step eval and direct manifests. `cliffhanger_line` is retired from the new schema. Trailer information-gap rules remain separate.
 
 ## Where to read next
 

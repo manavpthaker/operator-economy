@@ -1,50 +1,173 @@
 {
-  "record_type": "spend_ledger",
-  "episode": "EP009-direct-booking-recovery",
-  "authorization_source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-16-owner-build-scope.json",
-  "caps": {
-    "higgsfield_credits": 2000,
-    "fal_usd": 40.0
+ "record_type": "spend_ledger",
+ "episode": "EP009-direct-booking-recovery",
+ "authorization_source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-16-owner-build-scope.json",
+ "caps": {
+  "higgsfield_credits": 9100,
+  "fal_usd": 410.0
+ },
+ "lane_allocations": {
+  "presenter": {
+   "higgsfield_credits": 8980,
+   "fal_usd": 400.0
   },
-  "lane_allocations": {
+  "film": {
+   "higgsfield_credits": 120,
+   "fal_usd": 10.0
+  }
+ },
+ "higgsfield_balance_at_start": 3802,
+ "rules": [
+  "Each lane appends ONLY to its own file: ledger/presenter.jsonl or ledger/film.jsonl (one JSON object per line). Never edit SPEND-LEDGER.json.",
+  "Before every paid call append {\"at\",\"lane\",\"item\",\"provider\",\"model\",\"est_credits\",\"est_usd\",\"reason\",\"status\":\"intent\"}; after it append the same item with \"status\":\"done\" or \"failed\" and actual_credits/actual_usd (Higgsfield: balance before/after).",
+  "Sum your lane file (intent entries without a matching done/failed count at estimate) before each call; never exceed the lane allocation in this file. Stop and report instead.",
+  "No retry of an identical seeded request. A regeneration is a new intent entry with its own reason."
+ ],
+ "entries": [],
+ "amendments": [
+  {
+   "at": "2026-09-17T12:18:52.386029+00:00",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-17-owner-presenter-regen-scope.json",
+   "added": {
+    "higgsfield_credits": 1800,
+    "fal_usd": 30.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 3800,
+    "fal_usd": 70.0
+   },
+   "lane_allocations_added": {
+    "presenter-regen": {
+     "higgsfield_credits": 1800,
+     "fal_usd": 30.0,
+     "includes": "look-candidate stills and all regenerated presenter takes and restorations"
+    }
+   },
+   "ledger_file": "ledger/presenter-regen.jsonl",
+   "note": "Account balance 1,910 credits at authorization; the balance is also a hard limit."
+  },
+  {
+   "at": "2026-09-24",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-24-owner-presenter-react1-regen-scope.json",
+   "source_sha256": "b1b46d64774c612f9b6ed9bfcf567efa3940576b2283410ddcfdd38a6f797b36",
+   "added": {
+    "higgsfield_credits": 2400,
+    "fal_usd": 35.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 4400,
+    "fal_usd": 75.0
+   },
+   "lane_allocations_changed": {
     "presenter": {
-      "higgsfield_credits": 1880,
-      "fal_usd": 30.0
-    },
-    "film": {
-      "higgsfield_credits": 120,
-      "fal_usd": 10.0
+     "higgsfield_credits": 4280,
+     "fal_usd": 65.0
     }
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "React-1 presenter regeneration. Balance 4,353 credits at authorization; the balance is also a hard limit."
   },
-  "higgsfield_balance_at_start": 3802,
-  "rules": [
-    "Each lane appends ONLY to its own file: ledger/presenter.jsonl or ledger/film.jsonl (one JSON object per line). Never edit SPEND-LEDGER.json.",
-    "Before every paid call append {\"at\",\"lane\",\"item\",\"provider\",\"model\",\"est_credits\",\"est_usd\",\"reason\",\"status\":\"intent\"}; after it append the same item with \"status\":\"done\" or \"failed\" and actual_credits/actual_usd (Higgsfield: balance before/after).",
-    "Sum your lane file (intent entries without a matching done/failed count at estimate) before each call; never exceed the lane allocation in this file. Stop and report instead.",
-    "No retry of an identical seeded request. A regeneration is a new intent entry with its own reason."
-  ],
-  "entries": [],
-  "amendments": [
-    {
-      "at": "2026-09-17T12:18:52.386029+00:00",
-      "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-17-owner-presenter-regen-scope.json",
-      "added": {
-        "higgsfield_credits": 1800,
-        "fal_usd": 30.0
-      },
-      "new_caps": {
-        "higgsfield_credits": 3800,
-        "fal_usd": 70.0
-      },
-      "lane_allocations_added": {
-        "presenter-regen": {
-          "higgsfield_credits": 1800,
-          "fal_usd": 30.0,
-          "includes": "look-candidate stills and all regenerated presenter takes and restorations"
-        }
-      },
-      "ledger_file": "ledger/presenter-regen.jsonl",
-      "note": "Account balance 1,910 credits at authorization; the balance is also a hard limit."
+  {
+   "at": "2026-09-25",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-25-owner-L3b-pass-and-regen-scope.json",
+   "source_sha256": "e265a7abd03c4773af7ce7425d292800d4af7c36136bd3d615dd2bd7f6ec58ec",
+   "added": {
+    "higgsfield_credits": 2400,
+    "fal_usd": 35.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 6800,
+    "fal_usd": 110.0
+   },
+   "lane_allocations_changed": {
+    "presenter": {
+     "higgsfield_credits": 6680,
+     "fal_usd": 100.0
     }
-  ]
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "L3b body-movement regeneration. Balance 5,660 credits at authorization."
+  },
+  {
+   "at": "2026-09-27",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-27-owner-audio-driven-avatar-test.json",
+   "source_sha256": "bb2d66cce5ed29e2547b19130ff2792c44e0658ad352b29582d971998fad4f9b",
+   "added": {
+    "fal_usd": 50.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 6800,
+    "fal_usd": 160.0
+   },
+   "lane_allocations_changed": {
+    "presenter": {
+     "higgsfield_credits": 6680,
+     "fal_usd": 150.0
+    }
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "Audio-driven avatar test (OmniHuman 1.5, Kling Avatar v2 Pro) and a possible regeneration."
+  },
+  {
+   "at": "2026-09-28",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-28-owner-omniref-r9-regen.json",
+   "source_sha256": "0470fe4b363f51d27bfbd9ce97c0162e499ed346abe6deebd85715eb0e1b7218",
+   "added": {
+    "fal_usd": 60.0,
+    "higgsfield_credits": 2300
+   },
+   "new_caps": {
+    "higgsfield_credits": 9100,
+    "fal_usd": 220.0
+   },
+   "lane_allocations_changed": {
+    "presenter": {
+     "higgsfield_credits": 8980,
+     "fal_usd": 210.0
+    }
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "r9 OmniHuman-reference regeneration."
+  },
+  {
+   "at": "2026-09-29",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-29-owner-refpick-cap-raise.json",
+   "source_sha256": "7428ba551c7d08cfaaa7ee3ae676eed6de2cba682e54c176dec8a2ef4f44da02",
+   "added": {
+    "fal_usd": 150.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 9100,
+    "fal_usd": 370.0
+   },
+   "lane_allocations_changed": {
+    "presenter": {
+     "higgsfield_credits": 8980,
+     "fal_usd": 360.0
+    }
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "Reference-pick route: finish seg044/seg009 check, then the remaining takes."
+  },
+  {
+   "at": "2026-09-29",
+   "source": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-29-owner-r11-keep-and-cap.json",
+   "source_sha256": "2953cf5febe26a46339c52f7b6bcfbb341fa9ca4f7615a37d9cac39b5d393748",
+   "added": {
+    "fal_usd": 40.0
+   },
+   "new_caps": {
+    "higgsfield_credits": 9100,
+    "fal_usd": 410.0
+   },
+   "lane_allocations_changed": {
+    "presenter": {
+     "higgsfield_credits": 8980,
+     "fal_usd": 400.0
+    }
+   },
+   "ledger_file": "ledger/presenter.jsonl",
+   "note": "r11 new reference candidates."
+  }
+ ]
 }

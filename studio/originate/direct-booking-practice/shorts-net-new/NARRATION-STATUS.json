@@ -1,0 +1,80 @@
+{
+ "_warning": "LIVING FILE. Do not bind this path as evidence or an artifact hash in the decision log. It is a reporting surface that is rewritten whenever narration state changes, so any binding to it goes stale by design. Bind the immutable per-short records instead: GOOGLE-RECEIPT.json, DERIVED-GUIDE-REPAIR.json, GUIDE-ASR / SOURCE-ASR / FINAL-ASR records, ELEVEN-RECEIPT.json, or narration-v4/NARRATION-FINAL.json.",
+ "schema": "oe-narration-status-v1",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-practice",
+ "stage": "narration complete and owner accepted",
+ "aggregate_provider_state": {
+  "google_guide_calls": 7,
+  "elevenlabs_transfer_calls": 0,
+  "automatic_retries": 0,
+  "measured_google_usd": 0.145691,
+  "google_spend_cap_usd": 0.2,
+  "elevenlabs_credits_charged": 0
+ },
+ "guides": {
+  "01": {
+   "run": "narration-v1",
+   "seconds": 43.291,
+   "tail_energy": 0.0002,
+   "tail": "pass natively",
+   "exact_copy": "exact at small.en, 125/125, no allowance needed",
+   "state": "OWNER ACCEPTED"
+  },
+  "02": {
+   "run": "narration-v2",
+   "seconds": 41.691,
+   "tail_energy": 0.0224,
+   "tail": "fail by 0.0024",
+   "exact_copy": "exact at medium.en, 134/134, no allowance needed",
+   "state": "OWNER ACCEPTED",
+   "unblock": "listen to the ending; if complete, the append-silence repair clears it with no provider call",
+   "context": "0.0224 sits inside the 0.0295 to 0.0594 band of all four EP007 sources that were successfully repaired"
+  },
+  "03": {
+   "run": "narration-v3",
+   "seconds": 42.971,
+   "tail_energy": 0.1626,
+   "tail": "repaired to 0.0 on a derived copy after owner listening",
+   "derived": "studio/originate/direct-booking-practice/shorts-net-new/narration-v3/03-the-guest-book/media/guide-derived-pad500ms.wav",
+   "derived_seconds": 43.471,
+   "derived_sha256": "1840b520adf3604d70483e1be222fa287b3679cba236a4a7183530c67edffb4d",
+   "exact_copy": "exact at medium.en on the repaired derivative, 138/138, no allowance needed",
+   "state": "OWNER ACCEPTED"
+  },
+  "04": {
+   "run": "narration-v1",
+   "seconds": 47.771,
+   "tail_energy": 0.0116,
+   "tail": "pass natively",
+   "exact_copy": "no clean single-model read; resolved by owner listening to the full sentence ('the sentence file is good'), with the two-model corroboration recorded alongside",
+   "state": "OWNER ACCEPTED",
+   "unblock": "accept the two-model corroboration, or listen to the word 'band' at 15.8 s",
+   "resolution_record": "studio/originate/direct-booking-practice/shorts-net-new/04-EXACT-COPY-RESOLUTION.json"
+  }
+ },
+ "ready_to_transfer": [],
+ "blocked": [],
+ "blocked_are_free_to_resolve": true,
+ "note": "Narration is done and accepted. The next gate is presenter performance matched to these four narrations, which is paid provider work and needs the picture-grammar beat assignment settled first.",
+ "gate_normalizer_state": "The exact-copy comparator now declares five orthography classes by name: number form, currency symbol, percent symbol, the spoken 'dot' written as a domain period, and the inn/in homophone, plus a wifi token-split normalization. Eleven self-tests cover it, including that a wrong number, a wrong word, a band/ban substitution and a genuinely missing 'dot' all still fail. Under it, 01, 02 and 03 are exact with no allowance invoked at all.",
+ "not_changed": [
+  "the owner-locked spoken words",
+  "the picture grammar",
+  "the pinned 0.02 tail threshold",
+  "narration-v1 and narration-v2, both read-only",
+  "the locked EP009 long-form carrier"
+ ],
+ "final_record": "studio/originate/direct-booking-practice/shorts-net-new/narration-v4/NARRATION-FINAL.json",
+ "owner_acceptance": {
+  "verbatim": "all approved",
+  "record": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-10-08-owner-accept-narration.json",
+  "closes": [
+   "voice match",
+   "performance",
+   "register",
+   "normal-speed listening"
+  ]
+ }
+}

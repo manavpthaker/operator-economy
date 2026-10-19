@@ -1,0 +1,116 @@
+{
+  "record_type": "owner_full_episode_picture_lock",
+  "episode_id": "EP009-direct-booking-recovery",
+  "version": "r8-tool-clarity",
+  "status": "locked_by_owner",
+  "locked_at": "2026-09-19T20:50:41Z",
+  "owner_accepted": true,
+  "picture_locked": true,
+  "narration_locked": true,
+  "release_cleared": false,
+  "publication_approved": false,
+  "source": {
+    "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-final-episode-lock-and-shorts-start.json",
+    "sha256": "a7d0bf1e03bd6c8ba67caaee88cdaedf3a58cecdf27a73b4c58fb2fe31b7b8f2"
+  },
+  "decision": {
+    "event_id": "ep009-final-episode-r8-selected",
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-DECISION-EVENT-r8.json",
+    "sha256": "2f1c55a43729e94299daff6e42afd8dc2b5acaa7b1c84b62e3c889dce263b1ab"
+  },
+  "acceptance_scope": "The entire exact r8 full-episode carrier, all output frames [0,29323), and the unchanged r3 narration master used by that carrier.",
+  "final_carrier": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+    "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+    "video": {
+      "width": 1280,
+      "height": 720,
+      "fps": 24,
+      "frames": 29323,
+      "duration_seconds": 1221.791667
+    },
+    "audio": {
+      "sample_rate": 48000,
+      "channels": 2,
+      "integrated_lufs": -19.5,
+      "loudness_range_lu": 3.7,
+      "true_peak_dbtp": -5.7
+    }
+  },
+  "build": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-BUILD.json",
+    "sha256": "8fe2c44e1b96c3af0a044f6af94220ef74e470ee792dca715db56628c1171ddf"
+  },
+  "verification": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+    "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106",
+    "result": "technical_checks_passed",
+    "errors": []
+  },
+  "narration": {
+    "master": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+    },
+    "word_transcript": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+    }
+  },
+  "carried_acceptances": [
+    {
+      "scope": "Shortened Operator Economy brand pause and corrected hospitality wording and timing.",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r3-owner-revisions/OWNER-LOCK.json",
+      "sha256": "bd909cde46ba8df22270af122e3f878edd1505d48c5ed3892cfe8525a0c351a7"
+    },
+    {
+      "scope": "Avatar-first opening.",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/r4-owner-opening-lock/OWNER-LOCK.json",
+      "sha256": "15ed7aae6de2255e55a88ab3bb93fff24b9f6412321c1b65669aba6128b057c9"
+    },
+    {
+      "scope": "Final S13 native-tool workflow and tightened request-path focus.",
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/OWNER-LOCK-r8.json",
+      "sha256": "1407c1f7bc2e940c049a4277d9ba13eaa905f0a0514c554aea43f8ec357896fa"
+    }
+  ],
+  "p08_resolution": {
+    "scope": "Corrected-experience moving picture at output frames [15920,16263), 663.333333-677.625 seconds.",
+    "picture_source": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r2/seg044.mp4",
+      "sha256": "7c6c7e8e7d926af364ad91a4492ddfa89a072f7e12c7689567c8edab43a49c55"
+    },
+    "editorial_review": {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/P08-corrected/final-r2/EDITORIAL-REVIEW-r8.json",
+      "sha256": "70b5947eaed219811daec301c22009305cd07e83822ca2d7bfcfce0c455c4cc5",
+      "verdict": "pass"
+    },
+    "owner_disposition": "Accepted as part of the exact full r8 carrier lock. Prior diagnostic records remain historical and are not rewritten."
+  },
+  "shorts_authorization": {
+    "status": "authorized_to_begin_local_derivative_production",
+    "format": "9:16",
+    "allowed": [
+      "Select word-accurate excerpts from the locked narration.",
+      "Cut and reframe the exact r8 carrier.",
+      "Reuse hash-bound higher-resolution component picture where it preserves the same event and timing.",
+      "Author vertical layouts, captions and evidence crops that remain faithful to the locked episode."
+    ],
+    "requires_separate_review": true,
+    "does_not_modify_longform_lock": true
+  },
+  "protected": [
+    "Do not modify or replace the exact r8 carrier under this lock.",
+    "Do not change the r3 narration master or locked words and timing.",
+    "Do not substitute alternate presenter performances, software states, evidence or workflow outcomes without reopening the affected scope.",
+    "Keep the software demonstration fictional and no-send; it does not establish a customer result, consent, delivery, legal compliance or operating capacity.",
+    "Keep every Short traceable to exact r8 words and picture sources."
+  ],
+  "not_authorized": [
+    "Upload or publication of the episode or any Short.",
+    "New factual claims, rewritten narration or synthetic customer evidence.",
+    "Paid generation or external provider calls for the Shorts.",
+    "Automatic acceptance of any derivative merely because its source episode is locked."
+  ],
+  "production_instruction": "Treat the exact r8 carrier hash as the final long-form source. All finishing and derivative work must reference this lock. Any later long-form byte change requires a new version, verification and scoped owner review."
+}

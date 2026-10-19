@@ -1,0 +1,55 @@
+{
+ "record_type": "owner_feedback_source",
+ "episode": "EP009-direct-booking-recovery",
+ "captured_at_utc": "2026-10-08T00:00:00Z",
+ "source": "current Claude Code session, owner listening to the Short 02 ending clip",
+ "surface": "studio/originate/direct-booking-practice/shorts-net-new/narration-v2/02-sounds-like-marketing/diagnostic/ending-3s.wav",
+ "verbatim": "02 sounds fine, run the repair and the transfers",
+ "bounded_interpretation": "Two things. First, the owner judges Short 02's ending audibly complete, which is the precondition for the local append-silence repair and authorizes it on that take. Second, the owner authorizes stage 2: four ElevenLabs Voice Changer transfers onto the saved Original C voice, one per short, with no automatic retries.",
+ "authorized": {
+  "append_silence_repair": {
+   "shorts": [
+    "02"
+   ],
+   "provider_calls": 0,
+   "cost": "none"
+  },
+  "elevenlabs_transfers": {
+   "calls": 4,
+   "shorts": [
+    "01",
+    "02",
+    "03",
+    "04"
+   ],
+   "model": "eleven_multilingual_sts_v2",
+   "target_voice": "Original C",
+   "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+   "automatic_retries": 0,
+   "forecast_credits_per_short": {
+    "01": 722,
+    "02": 704,
+    "03": 725,
+    "04": 797
+   },
+   "forecast_credits_total": 2948,
+   "credit_cap": 3400
+  },
+  "google_guide_calls": 0
+ },
+ "transfer_sources": {
+  "01": "narration-v1/01-book-your-own-room/media/guide.wav, native tail pass at 0.0002",
+  "02": "the append-silence derivative of narration-v2/02-sounds-like-marketing/media/guide.wav, authorized here",
+  "03": "narration-v3/03-the-guest-book/media/guide-derived-pad500ms.wav, already repaired and gated",
+  "04": "narration-v1/04-four-numbers/media/guide.wav, native tail pass at 0.0116"
+ },
+ "cap_basis": "Credits are charged by audio duration at 1000 per minute. The four measured source durations forecast 2948 credits, so the cap is 3400. It covers four single-shot calls with headroom and does not permit a retry, which would be pointless anyway because the Voice Changer stage is seeded and returns identical audio (finding N4B-3).",
+ "not_inferred": [
+  "This does not accept the resulting Original C audio. Voice match, performance and register are owner judgements on the transferred audio, and it does not exist yet.",
+  "This does not authorize a retry at either stage, or any further Google guide call.",
+  "This does not authorize presenter or avatar generation, lip sync, music, sound effects, storyboard or render.",
+  "This does not authorize Content OS release, upload, publication or an episode URL.",
+  "This does not change the owner-locked spoken words, the picture grammar or the pinned 0.02 tail threshold."
+ ],
+ "failure_policy": "Stop and report after any uncertain or failed outcome. Do not retry."
+}

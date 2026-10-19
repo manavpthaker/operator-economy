@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><body><template>
+  <style>
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#204440;color:#fbf8f1;font-family:Montserrat,Arial,sans-serif}
+    .eyebrow{position:absolute;top:112px;left:70px;right:150px;color:#d6e0dc;font:700 24px/1.1 'IBM Plex Mono','Courier New',monospace;letter-spacing:.09em;text-transform:uppercase}
+    .question{position:absolute;top:340px;left:70px;width:860px;margin:0;font:700 106px/.94 Georgia,'Times New Roman',serif;letter-spacing:-.045em;text-wrap:balance;will-change:transform,opacity}
+    .rule{position:absolute;top:1072px;left:70px;width:860px;height:8px;background:#b5482f;transform-origin:left center;will-change:transform}
+    .episode{position:absolute;top:1150px;left:70px;width:860px;color:#fbf8f1;font-size:58px;font-weight:800;line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;will-change:transform,opacity}
+    .tap{position:absolute;top:1362px;left:70px;display:inline-flex;align-items:center;min-height:112px;padding:0 36px;border:3px solid #fbf8f1;background:#b5482f;color:#fff;font-size:39px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;will-change:transform,opacity}
+  </style>
+  <div id="root" data-composition-id="scene-09-cta" data-width="1080" data-height="1920" data-duration="3">
+    <div class="eyebrow">The human half stays unresolved</div>
+    <h1 id="cta-question" class="question">What makes the message hospitality?</h1>
+    <div id="cta-rule" class="rule"></div>
+    <div id="cta-episode" class="episode">Full workflow in EP009</div>
+    <div id="cta-tap" class="tap">Tap the related video</div>
+    <script>
+      window.__timelines=window.__timelines||{};
+      const tl=gsap.timeline({paused:true});
+      tl.fromTo('#cta-question',{opacity:0,y:38},{opacity:1,y:0,duration:.32,ease:'power2.out'},0);
+      tl.fromTo('#cta-rule',{scaleX:0},{scaleX:1,duration:.32,ease:'power2.out'},.28);
+      tl.fromTo('#cta-episode',{opacity:0,y:22},{opacity:1,y:0,duration:.24,ease:'power2.out'},.58);
+      tl.fromTo('#cta-tap',{opacity:0,y:20},{opacity:1,y:0,duration:.24,ease:'power2.out'},.9);
+      window.__timelines['scene-09-cta']=tl;
+    </script>
+  </div>
+</template></body></html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920" />
+  <title>EP009 Short 04 r2 · The wrong number</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    @font-face { font-family:"BL Zodiak"; src:url("assets/fonts/zodiak-700.woff2") format("woff2"); font-weight:700; }
+    @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-400.woff2") format("woff2"); font-weight:400; }
+    @font-face { font-family:"BL Supreme"; src:url("assets/fonts/supreme-500.woff2") format("woff2"); font-weight:500; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html,body { width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; }
+    #root { position:relative; width:1080px; height:1920px; overflow:hidden; background:#F5F0E6; color:#19201F; font-family:"BL Supreme",system-ui,sans-serif; }
+    .clip { position:absolute; }
+    .paper { position:absolute; inset:0; background:#F5F0E6; }
+    .paper::after { content:""; position:absolute; inset:0; opacity:.24; background-image:linear-gradient(rgba(32,68,64,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(32,68,64,.05) 1px,transparent 1px); background-size:54px 54px; }
+    .header-back { position:absolute; z-index:69; left:0; top:0; width:1080px; height:116px; background:#F5F0E6; }
+    .brand { position:absolute; z-index:70; left:54px; top:44px; font:500 22px/1 "BL Supreme",sans-serif; letter-spacing:.14em; color:#204440; }
+    .episode { position:absolute; z-index:70; right:54px; top:44px; font:500 20px/1 ui-monospace,monospace; letter-spacing:.08em; color:#586D74; }
+    .top-rule { position:absolute; z-index:70; left:54px; right:54px; top:96px; height:2px; background:#C4B99E; }
+    .presenter { z-index:2; left:0; width:1080px; height:920px; object-fit:cover; object-position:50% 48%; filter:saturate(.95) contrast(1.02); }
+    #presenter-open { top:405px; }
+    #presenter-question { top:385px; }
+    .scene { z-index:5; inset:0; width:1080px; height:1920px; overflow:hidden; }
+    .kicker { color:#586D74; font:500 23px/1.15 "BL Supreme",sans-serif; letter-spacing:.13em; text-transform:uppercase; }
+    .hero-number { position:absolute; left:54px; top:142px; width:972px; color:#173530; font:700 142px/.88 "BL Zodiak",Georgia,serif; letter-spacing:-.055em; white-space:nowrap; transform-origin:0 50%; }
+    .hero-label { position:absolute; left:60px; top:292px; padding:12px 18px; background:#173530; color:#F5F0E6; font:500 27px/1 "BL Supreme",sans-serif; letter-spacing:.08em; }
+    .hero-rule { position:absolute; left:54px; top:358px; width:972px; height:9px; background:#B5482F; transform-origin:0 50%; }
+    .not-recoverable { position:absolute; z-index:6; right:54px; top:1212px; padding:15px 18px; border:3px solid #B5482F; background:#F5F0E6; color:#B5482F; font:500 24px/1 "BL Supreme",sans-serif; letter-spacing:.06em; }
+    .needs-sites { position:absolute; z-index:6; left:54px; top:1248px; padding:18px 22px; background:#173530; color:#F5F0E6; font:500 34px/1 "BL Supreme",sans-serif; letter-spacing:.04em; }
+    .model-scene { background:#F0EBDD; }
+    .model-kicker { position:absolute; left:60px; top:156px; }
+    .range-title { position:absolute; left:60px; top:220px; width:960px; font:700 88px/.94 "BL Zodiak",serif; letter-spacing:-.035em; color:#173530; }
+    .range-numbers { position:absolute; left:60px; right:60px; top:510px; display:grid; grid-template-columns:1fr 120px 1fr; align-items:center; }
+    .range-numbers strong { font:700 190px/.86 "BL Zodiak",serif; letter-spacing:-.055em; color:#173530; text-align:center; }
+    .range-numbers span { font:500 70px/1 "BL Supreme",sans-serif; color:#B5482F; text-align:center; }
+    .range-track { position:absolute; left:110px; right:110px; top:780px; height:18px; background:#C4B99E; }
+    .range-track i { display:block; width:100%; height:18px; background:#B5482F; transform-origin:0 50%; }
+    .qualifier { position:absolute; left:78px; right:78px; top:870px; padding:30px 34px; border-left:9px solid #B5482F; background:#F5F0E6; color:#173530; font:500 42px/1.15 "BL Supreme",sans-serif; }
+    .total-scene { background:#173530; color:#F5F0E6; }
+    .total-kicker { position:absolute; left:60px; top:156px; color:#C4B99E; }
+    .total-number { position:absolute; left:54px; top:338px; width:972px; font:700 154px/.88 "BL Zodiak",serif; letter-spacing:-.06em; color:#F5F0E6; text-align:center; transform-origin:50% 50%; }
+    .total-label { position:absolute; left:160px; right:160px; top:720px; padding:24px; border-top:3px solid #B5482F; border-bottom:3px solid #B5482F; text-align:center; font:500 38px/1.12 "BL Supreme",sans-serif; letter-spacing:.05em; }
+    .total-warning { position:absolute; left:110px; right:110px; top:930px; padding:25px; background:#F5F0E6; color:#B5482F; text-align:center; font:500 29px/1.1 "BL Supreme",sans-serif; letter-spacing:.07em; }
+    .stop-scene { display:grid; place-items:center; padding:130px 64px 360px; background:#F5F0E6; }
+    .stop-card { position:relative; width:950px; min-height:930px; display:flex; flex-direction:column; justify-content:center; padding:70px 64px; border:5px solid #173530; background:#F0EBDD; overflow:hidden; }
+    .stop-card h2 { position:relative; z-index:2; font:700 120px/.9 "BL Zodiak",serif; letter-spacing:-.055em; color:#173530; }
+    .stop-card p { position:relative; z-index:2; margin-top:56px; max-width:760px; font:500 46px/1.12 "BL Supreme",sans-serif; color:#586D74; }
+    .stop-slash { position:absolute; z-index:1; right:-100px; top:150px; width:500px; height:28px; opacity:.26; background:#B5482F; transform:rotate(-50deg); transform-origin:50% 50%; }
+    .question-heading { position:absolute; left:54px; top:148px; z-index:6; color:#586D74; font:500 26px/1 "BL Supreme",sans-serif; letter-spacing:.13em; }
+    .question-lockup { position:absolute; left:54px; right:54px; top:245px; z-index:6; padding:24px 30px; background:#173530; color:#F5F0E6; font:700 82px/.92 "BL Zodiak",serif; letter-spacing:-.04em; }
+    .focus-bar { position:absolute; left:54px; top:346px; z-index:6; width:430px; height:10px; background:#B5482F; transform-origin:0 50%; }
+    .caption { z-index:80; left:70px; top:1410px; width:860px; min-height:120px; display:block; padding:22px 28px 25px; background:#173530; color:#F5F0E6; font:500 64px/1.04 "BL Supreme",sans-serif; letter-spacing:-.025em; box-shadow:0 10px 28px rgba(23,53,48,.18); }
+    .caption .em { color:#FB8B69; }
+    .progress { position:absolute; z-index:75; left:70px; right:70px; bottom:136px; height:6px; background:#D8CFB9; overflow:hidden; }
+    #progress-fill { width:100%; height:100%; background:#B5482F; transform-origin:0 50%; }
+    .cta-scene { z-index:90; inset:0; width:1080px; height:1920px; display:flex; flex-direction:column; justify-content:center; padding:150px 74px 220px; background:#173530; color:#F5F0E6; }
+    .cta-kicker { color:#FB8B69; font:500 26px/1 "BL Supreme",sans-serif; letter-spacing:.13em; }
+    .cta-question { margin-top:44px; font:700 106px/.91 "BL Zodiak",serif; letter-spacing:-.052em; }
+    .cta-rule { margin-top:54px; width:100%; height:10px; background:#B5482F; transform-origin:0 50%; }
+    .cta-payoff { margin-top:48px; font:500 43px/1.1 "BL Supreme",sans-serif; }
+    .cta-action { margin-top:34px; align-self:flex-start; padding:20px 24px; background:#F5F0E6; color:#173530; font:500 32px/1 "BL Supreme",sans-serif; letter-spacing:.06em; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="23.708333" data-width="1080" data-height="1920" data-fps="24">
+    <div class="paper"></div>
+    <div id="header-back" class="clip header-back" data-start="0" data-duration="21.458333" data-track-index="70"></div>
+    <div id="brand-bug" class="clip brand" data-start="0" data-duration="21.458333" data-track-index="71">THE OPERATOR ECONOMY</div>
+    <div id="episode-bug" class="clip episode" data-start="0" data-duration="21.458333" data-track-index="71">EP009 · SHORT 04</div>
+    <div id="header-rule" class="clip top-rule" data-start="0" data-duration="21.458333" data-track-index="71"></div>
+
+    <video id="presenter-open" class="clip presenter" src="assets/locked-carrier.mp4" data-start="0" data-duration="5.125000" data-media-start="520.625000" data-track-index="0" muted playsinline></video>
+    <section id="scene-cold-open" class="clip scene" data-start="0" data-duration="5.125000" data-track-index="1">
+      <div id="hero-number" class="hero-number">$105K–$130K</div>
+      <div class="hero-label">ILLUSTRATIVE TOTAL · PER YEAR</div>
+      <div id="hero-rule" class="hero-rule"></div>
+      <div class="not-recoverable">NOT THE RECOVERABLE AMOUNT</div>
+      <div id="needs-sites" class="needs-sites">THE INN NEEDS THE SITES</div>
+    </section>
+
+    <section id="scene-range" class="clip scene model-scene" data-start="5.125000" data-duration="5.625000" data-track-index="1">
+      <div class="kicker model-kicker">ILLUSTRATIVE MODEL · SPOKEN QUALIFICATION</div>
+      <h2 class="range-title">All-in commission assumption</h2>
+      <div id="range-numbers" class="range-numbers"><strong>18%</strong><span>TO</span><strong>22%</strong></div>
+      <div class="range-track"><i id="range-fill"></i></div>
+      <div id="range-qualifier" class="qualifier">MY ASSUMPTION FROM THE REPORTED BANDS</div>
+    </section>
+
+    <section id="scene-total" class="clip scene total-scene" data-start="10.750000" data-duration="5.166667" data-track-index="1">
+      <div class="kicker total-kicker">WHAT THE INN PAYS THE SITES · MODELED</div>
+      <div id="total-number" class="total-number">$105K–<br>$130K</div>
+      <div class="total-label">TOTAL SITE COMMISSION<br>PER YEAR</div>
+      <div id="total-warning" class="total-warning">THIS IS NOT WHAT A RECOVERY SERVICE CAN SHIFT</div>
+    </section>
+
+    <section id="scene-stop" class="clip scene stop-scene" data-start="15.916667" data-duration="2.541667" data-track-index="1">
+      <div class="stop-card" data-layout-allow-overflow><h2>THE OLD<br>ARGUMENT<br>STOPS HERE.</h2><p>THE INN WILL NEVER MOVE ALL OF IT.</p><div id="stop-slash" class="stop-slash" data-layout-allow-overflow></div></div>
+    </section>
+
+    <video id="presenter-question" class="clip presenter" src="assets/locked-carrier.mp4" data-start="18.458334" data-duration="3.000000" data-media-start="525.750000" data-track-index="0" muted playsinline></video>
+    <section id="scene-question" class="clip scene" data-start="18.458334" data-duration="3.000000" data-track-index="1">
+      <div class="question-heading">THE REAL QUESTION</div>
+      <div class="question-lockup">WHAT CAN<br>ACTUALLY SHIFT?</div>
+      <div id="focus-bar" class="focus-bar"></div>
+    </section>
+
+        <audio class="clip source-audio" id="audio-01" src="assets/locked-carrier.mp4" data-start="0.000000" data-duration="5.124000" data-media-start="520.625000" data-track-index="10"></audio>
+    <audio class="clip source-audio" id="audio-02" src="assets/locked-carrier.mp4" data-start="5.125000" data-duration="10.790667" data-media-start="506.250000" data-track-index="10"></audio>
+    <audio class="clip source-audio" id="audio-03" src="assets/locked-carrier.mp4" data-start="15.916667" data-duration="2.540667" data-media-start="517.750000" data-track-index="10"></audio>
+    <audio class="clip source-audio" id="audio-04" src="assets/locked-carrier.mp4" data-start="18.458333" data-duration="2.999000" data-media-start="525.750000" data-track-index="10"></audio>
+        <p id="caption-00" class="clip caption" data-caption-layer="fg" data-start="0.005000" data-duration="0.890000" data-track-index="20">It&#x27;s the <span class="em">wrong</span> <span class="em">number,</span></p>
+    <p id="caption-01" class="clip caption" data-caption-layer="fg" data-start="1.145000" data-duration="2.480000" data-track-index="20">because the inn is never going to move all of it.</p>
+    <p id="caption-02" class="clip caption" data-caption-layer="fg" data-start="3.685000" data-duration="1.420000" data-track-index="20">It needs the <span class="em">sites.</span></p>
+    <p id="caption-03" class="clip caption" data-caption-layer="fg" data-start="5.165000" data-duration="1.220000" data-track-index="20">At an all in commission of</p>
+    <p id="caption-04" class="clip caption" data-caption-layer="fg" data-start="6.445000" data-duration="1.880000" data-track-index="20"><span class="em">eighteen</span> to <span class="em">twenty</span> two <span class="em">percent,</span></p>
+    <p id="caption-05" class="clip caption" data-caption-layer="fg" data-start="8.745000" data-duration="2.000000" data-track-index="20">my assumption from the reported bands,</p>
+    <p id="caption-06" class="clip caption" data-caption-layer="fg" data-start="11.225000" data-duration="1.840000" data-track-index="20">the inn is paying the sites roughly</p>
+    <p id="caption-07" class="clip caption" data-caption-layer="fg" data-start="13.145000" data-duration="2.769000" data-track-index="20">a <span class="em">hundred</span> and five to a <span class="em">hundred</span> and thirty <span class="em">thousand</span> <span class="em">dollars</span> a year.</p>
+    <p id="caption-08" class="clip caption" data-caption-layer="fg" data-start="15.936667" data-duration="2.500000" data-track-index="20">That&#x27;s where the old version of this argument stops.</p>
+    <p id="caption-09" class="clip caption" data-caption-layer="fg" data-start="18.478333" data-duration="2.940000" data-track-index="20">The real question is what a recovery service can <span class="em">shift.</span></p>
+
+    <div class="progress"><div id="progress-fill"></div></div>
+
+    <section id="scene-cta" class="clip cta-scene" data-start="21.458334" data-duration="2.250000" data-track-index="100">
+      <div id="cta-kicker" class="cta-kicker">THE UNANSWERED NUMBER</div>
+      <h2 id="cta-question" class="cta-question">What can this inn actually afford?</h2>
+      <div id="cta-rule" class="cta-rule"></div>
+      <p id="cta-payoff" class="cta-payoff">The full calculation in EP009</p>
+      <div id="cta-action" class="cta-action">TAP THE RELATED VIDEO</div>
+    </section>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused:true });
+    tl.fromTo("#hero-number", { scale:1.055 }, { scale:1, duration:.42, ease:"power3.out" }, 0);
+    tl.fromTo("#hero-rule", { scaleX:0 }, { scaleX:1, duration:.38, ease:"power3.out" }, 0);
+    tl.fromTo("#needs-sites", { opacity:0, y:24 }, { opacity:1, y:0, duration:.34, ease:"power3.out" }, 3.55);
+    tl.fromTo("#range-numbers", { opacity:.2, y:34 }, { opacity:1, y:0, duration:.42, ease:"power3.out" }, 5.18);
+    tl.fromTo("#range-fill", { scaleX:0 }, { scaleX:1, duration:.72, ease:"power3.inOut" }, 6.15);
+    tl.fromTo("#range-qualifier", { opacity:0, x:-34 }, { opacity:1, x:0, duration:.36, ease:"power3.out" }, 8.68);
+    tl.fromTo("#total-number", { opacity:.2, scale:.90 }, { opacity:1, scale:1, duration:.46, ease:"power3.out" }, 10.77);
+    tl.fromTo("#total-warning", { opacity:0, y:24 }, { opacity:1, y:0, duration:.34, ease:"power3.out" }, 13.82);
+    tl.fromTo("#stop-slash", { scaleX:0 }, { scaleX:1, duration:.34, ease:"power3.out" }, 16.10);
+    tl.fromTo("#focus-bar", { scaleX:0 }, { scaleX:1, duration:.30, ease:"power3.out" }, 18.50);
+    tl.fromTo("#cta-kicker", { opacity:0, y:22 }, { opacity:1, y:0, duration:.18, ease:"power3.out" }, 21.458334);
+    tl.fromTo("#cta-question", { opacity:0, y:34 }, { opacity:1, y:0, duration:.28, ease:"power3.out" }, 21.53);
+    tl.fromTo("#cta-rule", { scaleX:0 }, { scaleX:1, duration:.30, ease:"power3.out" }, 21.67);
+    tl.fromTo("#cta-payoff", { opacity:0, y:20 }, { opacity:1, y:0, duration:.24, ease:"power3.out" }, 21.82);
+    tl.fromTo("#cta-action", { opacity:0, y:18 }, { opacity:1, y:0, duration:.22, ease:"power3.out" }, 22.04);
+    tl.fromTo("#progress-fill", { scaleX:0 }, { scaleX:1, duration:23.708333, ease:"none" }, 0);
+    window.__timelines.main = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

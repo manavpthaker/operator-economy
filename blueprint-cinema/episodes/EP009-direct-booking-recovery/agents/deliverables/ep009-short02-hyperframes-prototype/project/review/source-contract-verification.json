@@ -1,0 +1,177 @@
+{
+  "$schema": "ep009-short02-source-contract-verification-v1",
+  "status": "pass",
+  "checks": {
+    "all_input_hashes_match": true,
+    "carrier_symlink_resolves_to_locked_input": true,
+    "source_frame_range_exact": true,
+    "source_frame_count_exact": true,
+    "duration_exact_at_24fps": true,
+    "scenes_contiguous_and_frame_exact": true,
+    "word_range_exact_and_contiguous": true,
+    "caption_groups_cover_range_without_gaps": true,
+    "caption_text_all_verbatim": true,
+    "caption_timing_all_exact": true,
+    "first_audio_word_inside_source": true,
+    "last_audio_word_inside_source": true
+  },
+  "input_hashes": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "expected_sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "actual_sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "expected_sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "actual_sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/shorts-map.json",
+      "expected_sha256": "378037269b14a198fe21771536b29d7701f9ff862df0ffe4ce715f8e43058fe0",
+      "actual_sha256": "378037269b14a198fe21771536b29d7701f9ff862df0ffe4ce715f8e43058fe0",
+      "match": true
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "expected_sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "actual_sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2",
+      "match": true
+    },
+    {
+      "path": "design-system/boundary-ledger/audio-led-clips.md",
+      "expected_sha256": "060295e6ca411192c7d06aa5c9eda27f1c7da698fc69a36d992b7a5c9172e151",
+      "actual_sha256": "060295e6ca411192c7d06aa5c9eda27f1c7da698fc69a36d992b7a5c9172e151",
+      "match": true
+    },
+    {
+      "path": "design-system/boundary-ledger/tokens.css",
+      "expected_sha256": "d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522",
+      "actual_sha256": "d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522",
+      "match": true
+    }
+  ],
+  "scene_checks": [
+    {
+      "id": "scene-01-question",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 85
+    },
+    {
+      "id": "scene-02-operator",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 48
+    },
+    {
+      "id": "scene-03-workflow-overview",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 42
+    },
+    {
+      "id": "scene-04-draft-path",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 60
+    },
+    {
+      "id": "scene-05-returned-draft",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 60
+    },
+    {
+      "id": "scene-06-schedule-gates",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 48
+    },
+    {
+      "id": "scene-07-human-judgment",
+      "contiguous_source": true,
+      "contiguous_timeline": true,
+      "duration_matches_frames_at_24fps": true,
+      "frame_count": 149
+    }
+  ],
+  "caption_checks": [
+    {
+      "id": "caption-01",
+      "first_word": "W002001",
+      "last_word": "W002011",
+      "word_count": 11,
+      "verbatim_text_match": true,
+      "expected_text": "What does the machine do, then, and what do you do?",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    },
+    {
+      "id": "caption-02",
+      "first_word": "W002012",
+      "last_word": "W002017",
+      "word_count": 6,
+      "verbatim_text_match": true,
+      "expected_text": "The software does the repetitive half.",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    },
+    {
+      "id": "caption-03",
+      "first_word": "W002018",
+      "last_word": "W002024",
+      "word_count": 7,
+      "verbatim_text_match": true,
+      "expected_text": "A language model drafts the thank you,",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    },
+    {
+      "id": "caption-04",
+      "first_word": "W002025",
+      "last_word": "W002035",
+      "word_count": 11,
+      "verbatim_text_match": true,
+      "expected_text": "the review request, the note about the trail in the fall.",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    },
+    {
+      "id": "caption-05",
+      "first_word": "W002036",
+      "last_word": "W002044",
+      "word_count": 9,
+      "verbatim_text_match": true,
+      "expected_text": "An automation tool schedules them off the checkout date.",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    },
+    {
+      "id": "caption-06",
+      "first_word": "W002045",
+      "last_word": "W002053",
+      "word_count": 9,
+      "verbatim_text_match": true,
+      "expected_text": "You do the half that decides whether it's hospitality.",
+      "timing_start_match": true,
+      "timing_duration_match": true
+    }
+  ],
+  "source": {
+    "in_frame": 16619,
+    "out_frame_inclusive": 17110,
+    "out_frame_exclusive": 17111,
+    "fps": 24,
+    "duration_seconds": 20.5,
+    "word_range": "W002001-W002053"
+  }
+}

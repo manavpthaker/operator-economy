@@ -1,0 +1,35 @@
+{
+ "record_type": "owner_feedback_source",
+ "episode": "EP009-direct-booking-recovery",
+ "captured_at_utc": "2026-10-08T00:00:00Z",
+ "source": "current Claude Code session, owner reply to the narration batch hold",
+ "surface": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/BATCH-HOLD.json",
+ "verbatim": "rerun 02 and 03",
+ "bounded_interpretation": "Authorize exactly two replacement Google Algieba guide calls, for Short 02 and Short 03, whose first guides failed the tail gate with a clipped closing phoneme. Aggregate Google calls become six; the 0.20 USD aggregate spend cap is unchanged. narration-v1 is preserved untouched.",
+ "authorized": {
+  "replacement_google_guide_calls": 2,
+  "shorts": [
+   "02",
+   "03"
+  ],
+  "aggregate_google_guide_calls_max": 6,
+  "aggregate_google_spend_cap_usd": 0.2,
+  "elevenlabs_transfer_calls": 0,
+  "automatic_retries": 0
+ },
+ "not_inferred": [
+  "This does not authorize any ElevenLabs transfer. Stage 2 remains ungated.",
+  "This does not decide guide 04, whose exact-copy question is still open.",
+  "This does not accept guide 01 or any resulting audio; owner listening remains the check.",
+  "This does not authorize a third attempt at 02 or 03 if a replacement also fails.",
+  "This does not authorize presenter generation, lip sync, render, release, upload or publication."
+ ],
+ "valid_only_for": {
+  "proposal_path": "studio/originate/direct-booking-practice/shorts-net-new/NARRATION-CAPTURE-PROPOSAL-V2.json",
+  "proposal_sha256": "6be490f32db395da34bf7c2d43589a7515786a6f0e3095187eec23e03fd9266e",
+  "spoken_text_path": "studio/originate/direct-booking-practice/shorts-net-new/SPOKEN-TEXT-V1.json",
+  "spoken_text_sha256": "2cab291e05e4aa2b4816a76399b72b1fb165d37bda8033102087fe98f60188f8",
+  "prior_hold_event": "ep009-shorts-narration-batch-hold-v1"
+ },
+ "failure_policy": "Stop and report after any uncertain or failed outcome. Do not retry."
+}

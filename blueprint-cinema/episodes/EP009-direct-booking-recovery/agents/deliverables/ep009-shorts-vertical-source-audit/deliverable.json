@@ -1,0 +1,98 @@
+{
+  "$schema": "../../../../../schemas/agent-deliverable.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-shorts-vertical-source-audit",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "input_hashes_used": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-BUILD.json",
+      "sha256": "8fe2c44e1b96c3af0a044f6af94220ef74e470ee792dca715db56628c1171ddf"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+      "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/SEGMENTS-r1.json",
+      "sha256": "cc083d44e146e41ea1712e2dcd7af2ebd51fae613359fa1cb900579483560791"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/presenter-look-transfer/FULL-REVIEW-SELECTIONS-r1.json",
+      "sha256": "6749421f0add1b83f92a7a8cd25ef95041eea7729ec18252883a6267da8f98b6"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/direction/SHOT-PLAN.json",
+      "sha256": "39e862ca066cdb168a22d371aa0a02c286ff5826dc8a0d9d3b42ffa865b1ebe9"
+    }
+  ],
+  "files_produced": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-vertical-source-audit/vertical-source-map.json",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-vertical-source-audit/report.md",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-vertical-source-audit/deliverable.json"
+  ],
+  "checks": [
+    {
+      "command": "Recompute SHA-256 for all six issued work-order inputs",
+      "outcome": "pass"
+    },
+    {
+      "command": "Recompute SHA-256 and ffprobe every source in r8 BUILD.json sources[]",
+      "outcome": "pass"
+    },
+    {
+      "command": "Verify all 21 current HyperFrames index.html hashes against the matching exact-render build manifests",
+      "outcome": "pass"
+    },
+    {
+      "command": "ffprobe locked r8 carrier and hash-pinned r3 narration master",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 -m json.tool vertical-source-map.json deliverable.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "Ajv 2020 validation against agent-deliverable.schema.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "Blueprint Cinema oe-cinema validate-deliverable",
+      "outcome": "not_run"
+    },
+    {
+      "command": "Manual owned-path, forbidden-path and no-render audit",
+      "outcome": "pass"
+    }
+  ],
+  "sources_and_provenance": [
+    "The six hash-pinned inputs named by the issued work order.",
+    "Every exact picture source and source range named by the r8 build manifest; all 53 bound source hashes passed.",
+    "The hash-pinned r3 narration master and r8 technical audio-identity verification.",
+    "The r7 and r8 guided Node-RED edit manifests, native 2560x1440 Node-RED capture, and retained fictional test-run recording named by the r8 build source basis.",
+    "The existing HyperFrames index.html and build manifests corresponding to each bound designed-scene render.",
+    "No external source, network retrieval, generated media, new capture or provider call was used."
+  ],
+  "assumptions": [
+    "Shorts will retain the r8 24 fps frame clock and either the carrier audio or a sample-aligned excerpt of the hash-pinned r3 master.",
+    "Portrait scenes will use Boundary Ledger brand surfaces already authorized for EP009; this packet does not invent a new vertical visual system.",
+    "The project-defined social safe areas are conservative review margins and require platform-specific export checks before publication.",
+    "A component source may be reused only at the exact path, hash and frame range recorded in vertical-source-map.json."
+  ],
+  "unresolved_questions": [
+    "The canonical episode workspace lacks README.md, episode.json, input-lock.json and production-state.json, so the semantic oe-cinema packet validator cannot resolve the required gate for this custom work order.",
+    "The issued work order uses repository-relative paths prefixed with blueprint-cinema rather than the Blueprint-root-relative paths expected by the current oe-cinema semantic validator; schema validation and manual ownership validation were used instead.",
+    "The short scripts, claim selections and final in/out points remain to be authored in a separate shorts production packet.",
+    "YouTube Shorts and Instagram interface overlays require device-level review of the actual exports."
+  ],
+  "external_writes": false,
+  "paid_services": false,
+  "synthetic_generation": false,
+  "approval_claimed": false,
+  "production_state_changed": false,
+  "status": "complete"
+}

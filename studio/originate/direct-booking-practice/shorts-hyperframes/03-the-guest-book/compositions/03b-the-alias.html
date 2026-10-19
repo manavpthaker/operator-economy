@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Frame 03b, what stands in the address field. f284-458, 7.25s. silent_graphic.
+         Role: externalDependency, in steel. The alias is a rented route to the guest, not a
+         villain: U-09 and C007's prohibited inference both apply. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500; font-display: block; }
+        #root { position: absolute; inset: 0; background: #f5f0e6; overflow: hidden; }
+        /* SHARED GEOMETRY v2. Portrait safe area: bottom 300px, right 180px stay clear. */
+        .head { position: absolute; left: 80px; top: 200px; width: 800px; }
+        .kick { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 26px;
+          letter-spacing: 0.24em; text-transform: uppercase; color: #566461; }
+        .body { position: absolute; left: 80px; top: 300px; width: 800px; }
+        .foot { position: absolute; left: 80px; top: 1210px; width: 800px;
+          font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 42px;
+          line-height: 1.3; color: #19201f; }
+        .record { background: #204440; padding: 38px 40px 40px; }
+        .record-k { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 24px;
+          letter-spacing: 0.24em; text-transform: uppercase; color: rgba(245,240,230,0.56); }
+        .record-v { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 44px;
+          line-height: 1.3; color: #f5f0e6; margin-top: 16px; }
+        .record-src { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 23px;
+          letter-spacing: 0.1em; color: rgba(245,240,230,0.72); margin-top: 22px; padding-top: 18px;
+          border-top: 1px solid rgba(245,240,230,0.22); }
+        .field { display: grid; grid-template-columns: 300px 1fr; align-items: baseline;
+          border-bottom: 1px solid #d8cfb9; padding: 34px 0 30px; }
+        .fk { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 25px;
+          letter-spacing: 0.18em; text-transform: uppercase; color: #566461; }
+        .fv { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 40px;
+          color: #19201f; word-break: break-word; }
+        .fv.alias { color: #33464c; }
+        .fv.absent { color: #566461; }
+        .fv.mine { color: #87341f; }
+
+      </style>
+      <div id="root" data-composition-id="f03b-the-alias" data-width="1080" data-height="1920">
+        <div class="head"><div class="kick">what the inn actually holds</div></div>
+        <div class="body">
+          <div class="field" id="f03b-r1"><div class="fk">guest</div><div class="fv">a name the inn knows</div></div>
+          <div class="field" id="f03b-r2"><div class="fk">address on file</div><div class="fv alias" id="f03b-alias">an alias ending at guest.booking.com</div></div>
+          <div class="field" id="f03b-r3"><div class="fk">their own address</div><div class="fv absent" id="f03b-absent">not shared</div></div>
+        </div>
+        <div class="foot" id="f03b-foot" style="opacity:0">Partners are asked to keep the conversation on the platform.</div>
+      </div>
+      <script>
+        (() => { const tl = gsap.timeline({ paused: true });
+          // trace: the field the inn does hold, then the one it does not.
+          tl.from("#f03b-r1", { opacity: 0, y: 16, duration: 0.4, ease: "power2.out" }, 0.1);
+          tl.from("#f03b-r2", { opacity: 0, y: 16, duration: 0.4, ease: "power2.out" }, 1.3);
+          tl.from("#f03b-alias", { opacity: 0, duration: 0.5, ease: "power2.out" }, 1.6);
+          tl.from("#f03b-r3", { opacity: 0, y: 16, duration: 0.4, ease: "power2.out" }, 3.1);
+          tl.to("#f03b-foot", { opacity: 1, duration: 0.45, ease: "power2.out" }, 4.6);
+          window.__timelines["f03b-the-alias"] = tl; })();
+      </script>
+    </template>
+  </body>
+</html>

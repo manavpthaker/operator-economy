@@ -1,0 +1,75 @@
+{
+  "$schema": "../../../../schemas/agent-work-order.schema.json",
+  "schema_version": "1.0.0",
+  "workflow_version": "blueprint-cinema-1.0",
+  "work_order_id": "ep009-short02-hyperframes-prototype",
+  "episode_folder": "EP009-direct-booking-recovery",
+  "role": "renderer_implementer",
+  "objective": "Build a private-review 1080 by 1920 HyperFrames prototype for the locked EP009 machine-versus-judgment excerpt, using the exact r8 source range and word timings while making the real software state readable on a phone.",
+  "required_gate": "greybox_ready",
+  "inputs": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+      "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709"
+    },
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-shorts-editorial-map/shorts-map.json",
+      "sha256": "378037269b14a198fe21771536b29d7701f9ff862df0ffe4ce715f8e43058fe0"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/FINAL-EPISODE-LOCK-r8.json",
+      "sha256": "b9d107718c0d760e388c1a5167bcaf7e06ebfb29504ed469fac385aa2aa54cd2"
+    },
+    {
+      "path": "design-system/boundary-ledger/audio-led-clips.md",
+      "sha256": "060295e6ca411192c7d06aa5c9eda27f1c7da698fc69a36d992b7a5c9172e151"
+    },
+    {
+      "path": "design-system/boundary-ledger/tokens.css",
+      "sha256": "d46f7af89baef4f2c6fd70c0dfa598f01ae1e8eb9775eaf92d1a56cbeacf5522"
+    }
+  ],
+  "owned_output_paths": [
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/agents/deliverables/ep009-short02-hyperframes-prototype/"
+  ],
+  "forbidden_paths": [
+    ".agents",
+    "design-system",
+    "studio/originate/direct-booking-recovery",
+    "blueprint-cinema/experiments/EP009-FULL-BUILD-001",
+    "blueprint-cinema/experiments/EP009-SHORTS-001",
+    "blueprint-cinema/episodes/EP009-direct-booking-recovery/review"
+  ],
+  "dependencies": [
+    "ep009-shorts-editorial-map"
+  ],
+  "time_range": {
+    "in": 692.458333,
+    "out": 712.958333
+  },
+  "acceptance_checks": [
+    "Recompute every issued input hash before using it and stop on any mismatch.",
+    "Use exactly frames 16619 through 17110 from the locked carrier with matching separate audio and no rewritten narration.",
+    "Author 1080 by 1920 composition and phone-readable source framing; do not obtain the result by a single blind center crop.",
+    "Show the Node-RED and returned-draft states at a readable scale and retain the fictional-fixture and no-send truth boundary.",
+    "Use a quiet verbatim caption rail derived from W002001 through W002053, with no new claims or public copy.",
+    "Run HyperFrames check and create an inspected contact sheet; do not render or publish a final MP4 before owner preview approval.",
+    "Write project files, report.md and schema-valid deliverable.json only inside the owned deliverable directory."
+  ],
+  "permissions": {
+    "external_writes": false,
+    "paid_services": false,
+    "synthetic_generation": false,
+    "canonical_state_changes": false
+  },
+  "retry_limit": 1,
+  "stopping_conditions": [
+    "Stop if the exact carrier, transcript, editorial map or lock manifest hash differs from the work order.",
+    "Do not alter the long-form carrier, append the decision log, claim Short approval, upload, publish or invoke a paid provider."
+  ],
+  "status": "closed"
+}

@@ -1,0 +1,123 @@
+{
+  "event_id": "ep009-s13-native-tool-focus-r8",
+  "decision_id": "ep009-s13-real-software-demo",
+  "event_type": "decision",
+  "supersedes": "ep009-s13-real-software-demo-r1",
+  "tags": [
+    "software-demo",
+    "native-tool",
+    "attention-direction",
+    "human-judgment",
+    "locked-narration",
+    "phone-review"
+  ],
+  "data": {
+    "context": {
+      "narrative_job": "Make the machine concrete by showing the actual workflow tool and directing attention to the exact request path before returning to the human review states.",
+      "viewer_before": "The workflow was present, but the native request nodes were too small to read comfortably at phone review size.",
+      "viewer_after": "The viewer first sees the native Node-RED workflow, then a readable close-up of the fictional-fixture request and OpenAI draft node, then the retained draft, queue, edit, approval, exclusion and human-control states."
+    },
+    "choice": "Retain the established S13 timing and causal sequence, but replace r7 output frames [16794,16854) with a static 640 by 360 crop from the clean native Node-RED editor capture, scaled to the 1280 by 720 episode frame.",
+    "reason": "The closer native view identifies the actual tool and makes the two relevant nodes readable at delivery size without fabricating vendor UI, implying a new provider execution, or changing the locked narration.",
+    "alternatives": [
+      {
+        "choice": "Keep the wider native workflow view throughout the request beat.",
+        "reason_not_selected": "It establishes the tool but leaves the relevant node labels too small at phone review size."
+      },
+      {
+        "choice": "Add a custom explanatory overlay instead of enlarging the native surface.",
+        "reason_not_selected": "An overlay could guide attention, but it would provide weaker evidence of what is actually configured in the tool."
+      }
+    ],
+    "reuse": {
+      "kind": "conditional_precedent",
+      "applies_when": "A named workflow tool is part of the claim and its decisive control or state is unreadable at the intended delivery size.",
+      "avoid_when": "A native surface is unavailable, sensitive, misleading, or would imply an execution or result that did not occur."
+    },
+    "nuance": {
+      "source_basis": "Owner revision request captured on 2026-09-19 and the verified r7 technical base.",
+      "picture_map": [
+        {
+          "output_frames": [16704, 16752],
+          "visible_state": "Retained F03 illustrative establish."
+        },
+        {
+          "output_frames": [16752, 16794],
+          "visible_state": "Native Node-RED overview."
+        },
+        {
+          "output_frames": [16794, 16854],
+          "visible_state": "Tight native crop on the fictional-fixture request path and OpenAI draft node."
+        },
+        {
+          "output_frames": [16854, 16914],
+          "visible_state": "Retained r2 returned fictional draft."
+        },
+        {
+          "output_frames": [16914, 16962],
+          "visible_state": "Native checkout-to-next-day rule."
+        },
+        {
+          "output_frames": [16962, 17013],
+          "visible_state": "Retained queued human-review state."
+        },
+        {
+          "output_frames": [17013, 17152],
+          "visible_state": "Retained human voice edit."
+        },
+        {
+          "output_frames": [17152, 17304],
+          "visible_state": "Retained one-draft approval."
+        },
+        {
+          "output_frames": [17304, 17374],
+          "visible_state": "Retained seasonal exclusion."
+        },
+        {
+          "output_frames": [17374, 17458],
+          "visible_state": "Native human-control boundary."
+        }
+      ],
+      "revision_scope": {
+        "r8_vs_r7": [16794, 16854],
+        "r8_vs_r6": [16752, 17458],
+        "established_s13_revision_vs_r5": [16704, 17458]
+      },
+      "protected": [
+        "The r3 narration master and word timing remain unchanged.",
+        "The r6 F03 illustration remains [16704,16752).",
+        "The r7 source is pixel-retained outside local source frames [42,102).",
+        "All r5 picture outside the established S13 revision remains unchanged.",
+        "The P08 corrected-experience lip-sync concern remains open."
+      ],
+      "false_inference": "The later local Node-RED configuration view is not a replay of a new provider call. Maya Chen and Alder House Inn are fictional. The queued draft is not sent, and the picture does not establish consent, delivery, capacity or customer results."
+    }
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-s13-native-tool-focus.json",
+      "sha256": "817615da0a5864f8016bd1230b6dd0ab8e3d09a9b0e1d327ddbce04135192ec2",
+      "locator": "Owner request for clearer actual-tool footage and intentional zoom."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/DIRECTION-r8.json",
+      "sha256": "7efe790661cbffacabb64be3ea6999e44e3f096b00a702046d393e3d752124f9",
+      "locator": "Selected r8 framing, protected scope and limitations."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/TIMING-CONTRACT.json",
+      "sha256": "59f284bdf9de77bcf021eabca2e6f146d842da74d88dea24013e819880334db4",
+      "locator": "Established S13 entry, exit and locked-picture timing."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/word-transcript-r3.json",
+      "sha256": "0b5175dea2cbb1ac7682cd69b9ab032bc8c544131aae82575140e90ae0d76709",
+      "locator": "Locked spoken-word timing for the machine passage."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+      "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85",
+      "locator": "Unchanged narration master protected by the revision."
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+ "schema": "oe-presenter-batch-state-v1",
+ "at_utc": "2026-10-09T08:45:00Z",
+ "episode": "EP009",
+ "authorization": "owner, 2026-10-09: 'Angle' and '720'",
+ "scope_settled": {
+  "format": "angle only. The three-movement grammar and the built designed screens stand. The wider Wednesday shape, 78 percent presenter with no screens, was not adopted.",
+  "resolution": "720p"
+ },
+ "batch_plan": {
+  "takes": 9,
+  "note": "Short 04's close split at 42.083s; each take generated one second longer than its span for trim headroom, as the accepted Wednesday takes were.",
+  "credits_total": 651,
+  "per_take": {
+   "01-open": 91,
+   "01-close": 84,
+   "02-open": 84,
+   "02-close": 77,
+   "03-open": 56,
+   "03-close": 63,
+   "04-open": 56,
+   "04-close-a": 91,
+   "04-close-b": 49
+  }
+ },
+ "first_take": {
+  "span": "03-open",
+  "seconds_needed": 6.542,
+  "generated": 8,
+  "resolution": "720p",
+  "job_id": "ebd84aac-008a-4bd2-a231-7b07c622fb49",
+  "charged_credits": 56,
+  "charged_at": "2026-10-09T08:07:34Z",
+  "status": "in_progress at 08:45, about 38 minutes after submission",
+  "references": {
+   "image": "P1, the owner-picked selfie-angle still",
+   "audio": "the accepted narration sliced 0.0 to 6.542s of Short 03"
+  },
+  "chosen_first_because": "cheapest take in the batch, so the chain is proven before the remaining 595 credits are committed, and it is a take the batch needs regardless",
+  "result": "fail",
+  "fault": {
+   "what": "The take stretched the speech to fill the clip instead of finishing when the audio reference ended.",
+   "measured": "Words are exactly right. A medium.en read of the take puts the last word ending at 8.00s inside an 8.064s clip, against a 6.542s audio slice. That is +1.46s, about 22 percent slow.",
+   "consequence": "Unusable as is. Placed over the accepted narration the lips would drift progressively to about 1.46s out by the end, worse than the 1.5s drift that failed this episode's long form.",
+   "prompt_did_not_prevent_it": "The prompt carried the Wednesday line 'Do not stretch the speech to fill the generated clip'. It was not enough on its own."
+  }
+ },
+ "cost_model_correction": {
+  "what_i_said": "A balance drop of 163 after one take, implying the take cost 163 and the batch was about three times my estimate.",
+  "what_is_true": "The take cost exactly 56, as preflighted. The transaction ledger shows it as a single -56 Seedance charge at 08:07:34. My 7 credits per second figure for 720p was right and the 651 batch estimate stands.",
+  "why_i_misread_it": "I inferred the take's cost by differencing the account balance, and this account is also being spent from outside this session. The same ledger window shows a -98 Seedance charge at 07:56:43 and GPT Image charges of -2.75 three times and -4.5 twice that none of my calls made, about 115 credits in total. Differencing a shared balance is not a cost measurement.",
+  "method_lesson": "Read the transaction ledger for what a call cost. The balance only tells you what is left.",
+  "second_correction": "The look-candidate preflight returned 0.25 and I reported that as the batch price. The ledger shows four separate -0.25 charges, so 0.25 was per image and the batch was 1.0. Immaterial here, wrong as stated."
+ },
+ "affordability": {
+  "balance_at_0845": 548,
+  "remaining_8_takes": 595,
+  "short_by": 47,
+  "note": "The gap is caused by the concurrent spend, not by the batch price. It will widen if that spending continues."
+ },
+ "not_done": [
+  "the remaining eight takes, deliberately held until the first is seen",
+  "the fal-ai/sync-lipsync/react-1 repair pass",
+  "assembly of any take into the built Shorts"
+ ],
+ "fix": {
+  "found_in": "the accepted Wednesday take's SLICE.json",
+  "mechanism": "Wednesday pads its audio slice with silence to exactly the generated duration: T1 holds 10.7612s of speech inside a 12.0s slice for a 12s generation, with lead_zero_pad_s 0.05 and lead_silence_total_s 0.4. With the audio running the full clip length the model has nothing to stretch into.",
+  "mine_was": "6.542s of speech supplied against an 8s generation, so the model filled the gap by slowing down.",
+  "correction": "Pad every slice to its exact generation length, lead pad plus speech plus trailing silence.",
+  "side_benefit": "The trailing silence is the trim headroom, so takes no longer need the extra second of generation. Generating at ceil(speech) instead of ceil(speech)+1 cuts the batch from 651 to 588."
+ },
+ "batch_plan_v2": {
+  "takes": 9,
+  "credits_total": 588,
+  "per_take": [
+   {
+    "short": "01",
+    "span": "open",
+    "speech_s": 11.625,
+    "generate_s": 12,
+    "slice_pad_s": 0.375,
+    "credits": 84
+   },
+   {
+    "short": "01",
+    "span": "close",
+    "speech_s": 10.292,
+    "generate_s": 11,
+    "slice_pad_s": 0.708,
+    "credits": 77
+   },
+   {
+    "short": "02",
+    "span": "open",
+    "speech_s": 10.375,
+    "generate_s": 11,
+    "slice_pad_s": 0.625,
+    "credits": 77
+   },
+   {
+    "short": "02",
+    "span": "close",
+    "speech_s": 9.833,
+    "generate_s": 10,
+    "slice_pad_s": 0.167,
+    "credits": 70
+   },
+   {
+    "short": "03",
+    "span": "open",
+    "speech_s": 6.542,
+    "generate_s": 7,
+    "slice_pad_s": 0.458,
+    "credits": 49
+   },
+   {
+    "short": "03",
+    "span": "close",
+    "speech_s": 7.333,
+    "generate_s": 8,
+    "slice_pad_s": 0.667,
+    "credits": 56
+   },
+   {
+    "short": "04",
+    "span": "open",
+    "speech_s": 6.125,
+    "generate_s": 7,
+    "slice_pad_s": 0.875,
+    "credits": 49
+   },
+   {
+    "short": "04",
+    "span": "close-a",
+    "speech_s": 11.291,
+    "generate_s": 12,
+    "slice_pad_s": 0.709,
+    "credits": 84
+   },
+   {
+    "short": "04",
+    "span": "close-b",
+    "speech_s": 5.709,
+    "generate_s": 6,
+    "slice_pad_s": 0.291,
+    "credits": 42
+   }
+  ],
+  "change": "generate at ceil(speech seconds), with the audio slice padded to the same length"
+ },
+ "affordability_v2": {
+  "balance": 548,
+  "batch_v2": 588,
+  "short_by": 40,
+  "spent_on_the_failed_take": 56,
+  "note": "The gap is still driven by the roughly 115 credits of spend on this account from outside this session, not by the batch price."
+ },
+ "held": "No further take submitted. The fix is verified in the Wednesday package but not yet proved on an EP009 take, and the account cannot cover the batch either way.",
+ "measurement_correction": {
+  "at_utc": "2026-10-09T14:30:00Z",
+  "what_i_reported": "Take 1 stretched its speech by +1.46s, about 22 percent, worse than the drift that failed this episode's long form.",
+  "what_is_true": "Measured directly from the audio envelope in 20ms windows, take 1's speech runs 0.50 to 7.38, a 6.88s span against the reference slice's 6.44s. The real stretch is +0.44s, about 7 percent.",
+  "why_i_was_wrong": "I took the figure from Whisper word timings. On take 1 it put the last word at 8.00s, and on take 2 it put the last word at 8.32s inside a 7.07s clip, which is impossible. Whisper's word-end timings overrun file boundaries and are not a timing measurement. This is the second time in this session that the same artifact has misled me: it also produced the false end-overrun reading on the narration guides.",
+  "method_lesson": "For speech timing, measure the audio envelope. ASR establishes words, not when they happen.",
+  "cost_of_the_error": "49 credits on a second take designed to fix an overstated fault."
+ },
+ "second_take": {
+  "job_id": "df6778ab-ac05-4b3d-904e-b24c99ad7de7",
+  "credits": 49,
+  "generated_s": 7,
+  "slice": "0.4s lead silence, 6.542s speech, 0.058s trail, padded to exactly 7.000s",
+  "measured": "speech 0.94 to 6.46, a 5.52s span",
+  "result": "fail, in the opposite direction",
+  "finding": "Padding did not remove the timing error, it reversed its sign. Take 2 starts 0.44s late and speaks 0.92s fast, about 14 percent compressed, against take 1's 0.44s slow. The model does not follow the audio reference's timing closely in either configuration."
+ },
+ "revised_reading": {
+  "take_1_may_be_usable": "At +0.44s over a 6.44s span, take 1 sits inside the sub-0.7s drift band that EP007's accepted takes held. I called it unusable on a measurement that was wrong.",
+  "untested_step": "The accepted Wednesday route runs fal-ai/sync-lipsync/react-1 over every take. That pass exists to absorb exactly this residual drift, and I have not run it. Judging either take before it is judging an unfinished stage.",
+  "honest_position": "Neither take is proven good or bad yet, and the padding hypothesis is disproved."
+ },
+ "balance_note": {
+  "observed_at_1430": 4490.75,
+  "comment": "The balance rose well above anything this session spent, so the account was topped up or credited from outside this session. The batch is no longer budget constrained, but I did not do this and am not treating it as authorization."
+ }
+}

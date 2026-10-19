@@ -1,0 +1,125 @@
+{
+ "guide": "04-four-numbers",
+ "expected_tokens": 134,
+ "reads": {
+  "small.en": {
+   "tokens": 135,
+   "declared": [
+    {
+     "kind": "homophone",
+     "expected": [
+      "inn"
+     ],
+     "actual": [
+      "in"
+     ]
+    },
+    {
+     "kind": "currency_symbol",
+     "expected": [],
+     "actual": [
+      "$"
+     ]
+    },
+    {
+     "kind": "percent_symbol",
+     "expected": [
+      "percent"
+     ],
+     "actual": [
+      "%"
+     ]
+    },
+    {
+     "kind": "currency_symbol",
+     "expected": [],
+     "actual": [
+      "$"
+     ]
+    },
+    {
+     "kind": "currency_symbol",
+     "expected": [
+      "dollars"
+     ],
+     "actual": []
+    }
+   ],
+   "undeclared": [
+    {
+     "op": "replace",
+     "index": 44,
+     "expected": [
+      "band"
+     ],
+     "actual": [
+      "ban"
+     ]
+    }
+   ]
+  },
+  "medium.en": {
+   "tokens": 134,
+   "declared": [
+    {
+     "kind": "homophone",
+     "expected": [
+      "inn"
+     ],
+     "actual": [
+      "in"
+     ]
+    },
+    {
+     "kind": "currency_symbol",
+     "expected": [],
+     "actual": [
+      "$"
+     ]
+    }
+   ],
+   "undeclared": [
+    {
+     "op": "delete",
+     "index": 110,
+     "expected": [
+      "percent"
+     ],
+     "actual": []
+    }
+   ]
+  }
+ },
+ "cross_corroboration": {
+  "per_token": {
+   "band": {
+    "failed_in": [
+     "small.en"
+    ],
+    "attested_by": [
+     "medium.en"
+    ]
+   },
+   "percent": {
+    "failed_in": [
+     "medium.en"
+    ],
+    "attested_by": [
+     "small.en"
+    ]
+   }
+  },
+  "tokens_unattested_by_any_model": []
+ },
+ "conclusion": "Every expected token is attested by at least one of the two independent local reads, and the two reads fail on different single tokens. That is consistent with exact audio and two imperfect transcribers. It is not a gate pass: neither model produced a clean read on its own, and ASR cannot settle a single consonant. Owner listening is the remaining check.",
+ "tail": {
+  "tail_energy": 0.0116,
+  "threshold": 0.02,
+  "pass": true,
+  "last_200ms_rms": [
+   0.0117,
+   0.0031
+  ],
+  "reading": "the tail decays, so the audio is not truncated"
+ }
+}

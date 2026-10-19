@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Episode bridge. 2.0s, silent, declarative by rule: it states what the Short
+         resolved and names what the episode adds. The retired cliffhanger standard is
+         what put an unanswered question on the last card of every earlier EP009 Short.
+         Link boundary: no URL, no capsule, no button. Native Related Video is the click
+         path and EP009 has no launch/links.json, so nothing may be drawn as a link.
+         Enters on a shared-element match cut carrying the grouping rule. -->
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "BL Supreme"; src: url("assets/fonts/supreme-500.woff2") format("woff2");
+          font-weight: 500; font-display: block; }
+        #root { position: absolute; inset: 0; background: #173530; overflow: hidden; }
+        .bracket { position: absolute; left: 80px; top: 962px; width: 6px; height: 358px; background: #b5482f; }
+        .copy { position: absolute; left: 126px; top: 962px; width: 694px; }
+        .resolved { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 46px;
+          line-height: 1.3; color: #f5f0e6; }
+        .adds { font-family: "BL Supreme", system-ui, sans-serif; font-weight: 500; font-size: 28px;
+          line-height: 1.45; letter-spacing: 0.04em; color: rgba(245,240,230,0.72); margin-top: 26px;
+          padding-top: 20px; border-top: 1px solid rgba(245,240,230,0.22); }
+      </style>
+      <div id="root" data-composition-id="f047-episode-bridge" data-width="1080" data-height="1920">
+        <div class="bracket" id="bridge-bracket"></div>
+        <div class="copy">
+          <div class="resolved" id="bridge-resolved">Four numbers give you the ceiling, and your fee lives under it.</div>
+          <div class="adds" id="bridge-adds">The full episode runs the arithmetic end to end on an illustrative inn and shows what is left after the work.</div>
+        </div>
+      </div>
+      <script>
+        (() => { const tl = gsap.timeline({ paused: true });
+          tl.from("#bridge-bracket", { scaleY: 0, transformOrigin: "top center", duration: 0.34, ease: "power3.out" }, 0);
+          tl.from("#bridge-resolved", { opacity: 0, y: 24, duration: 0.4, ease: "power3.out" }, 0.06);
+          tl.from("#bridge-adds", { opacity: 0, y: 24, duration: 0.4, ease: "power3.out" }, 0.14);
+          window.__timelines["f047-episode-bridge"] = tl; })();
+      </script>
+    </template>
+  </body>
+</html>

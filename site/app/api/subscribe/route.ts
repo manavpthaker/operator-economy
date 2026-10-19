@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { randomBytes } from 'node:crypto';
 import { getEpisodeBySlug } from '../../components/LatestBlueprint';
 import { renderWelcomeEmail } from '../../lib/email-templates';
+import { syncNewsletterContact } from '../../lib/resend-contacts';
 
 export const runtime = 'nodejs';
 
@@ -214,8 +215,10 @@ export async function POST(req: Request) {
 
   const unsubscribeUrl = `${baseUrl(req)}/api/unsubscribe?token=${unsubscribeToken}`;
 
+  const resend = new Resend(resendKey);
+  if (tag === 'newsletter') await syncNewsletterContact(resend, email, false);
+
   try {
-    const resend = new Resend(resendKey);
     await sendWelcome({ resend, email, tag, unsubscribeUrl });
   } catch (err) {
     console.error('resend send failed', err);

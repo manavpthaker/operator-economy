@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; }
+        .scene { position:absolute; inset:0; }
+        .stage { position:absolute; top:278px; left:30px; width:1020px; height:870px; display:grid; place-items:center; }
+        .media-frame { position:relative; width:1020px; height:760px; overflow:hidden; border:2px solid #b5482f; background:#fff; box-shadow:0 24px 60px rgba(32,68,64,.12); }
+        .camera { position:absolute; inset:0; width:100%; height:100%; will-change:transform; }
+        video { display:block; width:100%; height:100%; object-fit:contain; object-position:50% 50%; background:#fff; }
+      </style>
+      <div id="root" data-composition-id="scene-06-schedule-gates" data-width="1080" data-height="1920" data-duration="2">
+        <section id="scene-06" class="scene">
+          <div class="stage">
+            <div class="media-frame">
+              <div class="camera" data-layout-allow-overflow>
+                <video id="scene-06-video" src="assets/locked-carrier.mp4" data-start="0" data-duration="2" data-media-start="704.75" data-track-index="10" muted playsinline></video>
+              </div>
+            </div>
+          </div>
+        </section>
+        <script>
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(".camera", { scale: 1.01 }, { scale: 1.055, duration: 1.35, ease: "power2.inOut" }, .35);
+          window.__timelines["scene-06-schedule-gates"] = tl;
+        </script>
+      </div>
+    </template>
+  </body>
+</html>

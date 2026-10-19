@@ -1,0 +1,180 @@
+{
+ "schema": "oe-narration-batch-hold-v1",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-practice",
+ "authorization": "2026-10-08-owner-narration-authorization.json",
+ "verdict": "hold",
+ "execution_state": {
+  "google_guide_calls": 4,
+  "google_guide_call_cap": 4,
+  "elevenlabs_transfer_calls": 0,
+  "elevenlabs_transfer_call_cap": 4,
+  "automatic_retries": 0,
+  "measured_google_usd": 0.09999,
+  "google_spend_cap_usd": 0.2,
+  "elevenlabs_credits_charged": 0,
+  "elevenlabs_credit_cap": 4000,
+  "within_caps": true,
+  "google_call_cap_reached": true
+ },
+ "shorts": [
+  {
+   "slug": "01-book-your-own-room",
+   "guide_seconds": 43.291,
+   "guide_sha256": "402652f8c65a0eab773d7736d7754ae627bca0e761ac22b9cc8180ef98a0bcd4",
+   "tail_energy": 0.0002,
+   "tail_pass": true,
+   "estimated_usd": 0.0232815,
+   "exact_copy_record": "GUIDE-ASR.json",
+   "exact_copy_pass": true,
+   "undeclared_differences": [],
+   "transfer_eligible": true
+  },
+  {
+   "slug": "02-sounds-like-marketing",
+   "guide_seconds": 44.411,
+   "guide_sha256": "6c52c00da9ffbd2f82fbef9c956a6425b91bd4578ebc9c2e2fae04436829d52b",
+   "tail_energy": 0.2408,
+   "tail_pass": false,
+   "estimated_usd": 0.0238765,
+   "exact_copy_record": null,
+   "exact_copy_pass": null,
+   "undeclared_differences": null,
+   "transfer_eligible": false
+  },
+  {
+   "slug": "03-the-guest-book",
+   "guide_seconds": 51.011,
+   "guide_sha256": "958b5e0c96c6a9554d0b7bfbcd6040c85059d27dc1f0e330377fec216c8fa5b4",
+   "tail_energy": 0.0775,
+   "tail_pass": false,
+   "estimated_usd": 0.0272045,
+   "exact_copy_record": null,
+   "exact_copy_pass": null,
+   "undeclared_differences": null,
+   "transfer_eligible": false
+  },
+  {
+   "slug": "04-four-numbers",
+   "guide_seconds": 47.771,
+   "guide_sha256": "57e9b56729b82cc4b0973583a0b72e7fbf6cacaeb73231420300dd3213f604e8",
+   "tail_energy": 0.0116,
+   "tail_pass": true,
+   "estimated_usd": 0.0256275,
+   "exact_copy_record": "GUIDE-ASR.medium.en.json",
+   "exact_copy_pass": false,
+   "undeclared_differences": [
+    {
+     "op": "delete",
+     "expected_index": 110,
+     "expected": [
+      "percent"
+     ],
+     "actual": [],
+     "declared": false,
+     "kind": null
+    }
+   ],
+   "transfer_eligible": false
+  }
+ ],
+ "findings": [
+  "01 passed both gates. Tail energy 0.0002, decaying to 0.0003 RMS in its final 100 ms, and a clean exact-copy read at the pinned small.en model.",
+  "02 and 03 failed the tail gate at 0.2408 and 0.0775. A diagnostic medium.en read shows both reach their final words: 02 ends on 'Rates and revenue management stay outside.' and 03 on 'Check your jurisdiction, this is not legal advice.' No script content is missing. What fails is the ending itself: the final 100 ms measures 0.1452 RMS on 02 with the profile still rising, and 0.0458 on 03 with speech ongoing, against 0.0003 on 01 and 0.0031 on 04. Both files stop while the last word is still sounding, so the closing phoneme is cut at the file edge.",
+  "04 passed the tail gate at 0.0116, decaying to 0.0031. It produced no clean exact-copy read on a single model: small.en wrote 'ban' for 'band', and the escalated medium.en read gets 'band' right but drops 'percent'. Every expected token is attested by one of the two reads and they fail on different single tokens, which is consistent with exact audio and two imperfect transcribers. It is not a gate pass.",
+  "The length hypothesis does not hold. Ordered by duration the tails are 43.291 s / 0.0002 pass, 44.411 s / 0.2408 fail, 47.771 s / 0.0116 pass, 51.011 s / 0.0775 fail. The longest guide is not the worst and the second shortest is, so whatever clips the final phoneme is not simply script length.",
+  "Correction to an earlier reading in this run: the transcriber's last-word end timestamp is not usable as clipping evidence. 01 overruns its file boundary by 0.539 s and still passes the tail gate at 0.0002, while 02 overruns by only 0.099 s and fails at 0.2408. Whisper's word-end times are too coarse for this. The 100 ms RMS profile at the file end is the direct measurement and is what the findings above rest on."
+ ],
+ "gate_tooling_corrections_made_during_the_run": [
+  "The exact-copy comparator first failed 01 on 'twenty' versus '20'. Numbers are now normalized to integer values, so an orthographic difference cannot fail the gate while a different spoken number still does. Seven self-tests cover this.",
+  "Differences are now classified against a declared allowance list (number form, currency symbol, percent symbol, and the inn/in homophone) and reported by name. Anything not on the list fails. The superseded records are kept.",
+  "A homophone allowance is a statement that ASR cannot decide the token, not evidence the audio is right."
+ ],
+ "policy_result": "The no-retry authorization stopped the batch. The Google guide call cap is reached, so 02 and 03 cannot be re-synthesized and 04 cannot be re-read at the provider without fresh owner authority.",
+ "no_transfer_reason": "Proposal gate 5 requires all four guides to pass both gates before any transfer is submitted. 01 is individually transfer-eligible; it was not submitted, so no ElevenLabs credits were spent on a batch that cannot complete.",
+ "options_for_the_owner": [
+  {
+   "option": "Listen to the four ending clips, then decide.",
+   "provider_calls": 0,
+   "note": "diagnostic/ending-3s.wav per short. For 02 and 03 the question is whether a clipped closing consonant on 'outside' and 'advice' is audible enough to matter. EP007's precedent was explicit: do not transfer a marginal guide without listening to its ending."
+  },
+  {
+   "option": "Authorize two replacement guides for 02 and 03, and accept 04 on the dual-model corroboration.",
+   "provider_calls": 2,
+   "forecast_google_usd": 0.051,
+   "note": "Re-synthesis is the only way to restore a clipped phoneme. Only the ElevenLabs stage is seeded, so a fresh Google guide will differ."
+  },
+  {
+   "option": "Accept all four as they stand and transfer.",
+   "provider_calls": 4,
+   "forecast_eleven_credits": 3100,
+   "note": "Only if listening says the clipped endings are inaudible. That overrides the tail gate deliberately rather than by accident and should be recorded as such."
+  },
+  {
+   "option": "Transfer 01 alone now.",
+   "provider_calls": 1,
+   "forecast_eleven_credits": 722,
+   "note": "The one guide that passed both gates unambiguously. Leaves the set incomplete."
+  }
+ ],
+ "limitations": "Local ASR cannot prove an unclipped final phoneme and does not replace owner listening. No claim is made about voice match, performance quality or register; those are owner judgments on the transferred audio, which does not exist yet.",
+ "not_changed": [
+  "the owner-locked spoken words",
+  "the picture grammar",
+  "the locked EP009 long-form carrier"
+ ],
+ "owner_listening_clips": {
+  "01": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/01-book-your-own-room/diagnostic/ending-3s.wav",
+  "02": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/02-sounds-like-marketing/diagnostic/ending-3s.wav",
+  "03": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/03-the-guest-book/diagnostic/ending-3s.wav",
+  "04": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/04-four-numbers/diagnostic/ending-3s.wav"
+ },
+ "tail_measurements": {
+  "01": {
+   "slug": "01-book-your-own-room",
+   "file_s": 43.291,
+   "tail_energy": 0.0002,
+   "tail_pass": true,
+   "last_word": "audit.",
+   "last_word_end_s": 43.83,
+   "end_overrun_s": 0.539,
+   "asr_model_used": "media",
+   "terminal_rms_100ms": 0.0003
+  },
+  "02": {
+   "slug": "02-sounds-like-marketing",
+   "file_s": 44.411,
+   "tail_energy": 0.2408,
+   "tail_pass": false,
+   "last_word": "outside.",
+   "last_word_end_s": 44.51,
+   "end_overrun_s": 0.099,
+   "asr_model_used": "diagnostic",
+   "terminal_rms_100ms": 0.1452
+  },
+  "03": {
+   "slug": "03-the-guest-book",
+   "file_s": 51.011,
+   "tail_energy": 0.0775,
+   "tail_pass": false,
+   "last_word": "advice.",
+   "last_word_end_s": 51.1,
+   "end_overrun_s": 0.089,
+   "asr_model_used": "diagnostic",
+   "terminal_rms_100ms": 0.0458
+  },
+  "04": {
+   "slug": "04-four-numbers",
+   "file_s": 47.771,
+   "tail_energy": 0.0116,
+   "tail_pass": true,
+   "last_word": "quote.",
+   "last_word_end_s": 47.6,
+   "end_overrun_s": -0.171,
+   "asr_model_used": "media",
+   "terminal_rms_100ms": 0.0031
+  }
+ },
+ "tail_measurements_note": "end_overrun_s is retained for completeness but carries no weight: see the correction in findings. terminal_rms_100ms is the discriminating measurement."
+}

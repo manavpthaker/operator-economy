@@ -1,0 +1,43 @@
+{
+  "ok": true,
+  "errorCount": 0,
+  "warningCount": 4,
+  "infoCount": 0,
+  "findings": [
+    {
+      "code": "timeline_track_too_dense",
+      "severity": "warning",
+      "message": "Track 40 has 5 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+      "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate.",
+      "file": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/index.html"
+    },
+    {
+      "code": "timeline_track_too_dense",
+      "severity": "warning",
+      "message": "Track 50 has 10 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+      "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate.",
+      "file": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/index.html"
+    },
+    {
+      "code": "duplicate_audio_track",
+      "severity": "warning",
+      "message": "Multiple <audio> elements on track 60 overlap (assets/locked-carrier.mp4 at 2.375-4.5s, assets/locked-carrier.mp4 at 4.458333333333333-9.6s). This causes layered audio playback.",
+      "fixHint": "Use non-overlapping time windows or different track indices."
+    },
+    {
+      "code": "nested_media_start_basis_ambiguous",
+      "severity": "warning",
+      "message": "<video id=\"hook-human\"> has data-start=\"1.5\" inside a sub-composition. Nested media timing is local to its composition by default; a nonzero value can be confused with a legacy root-global timestamp.",
+      "elementId": "hook-human",
+      "fixHint": "Keep data-start=\"1.5\" if it is composition-local. If this is a legacy root-global timestamp, add data-hf-media-start-basis=\"global\"; otherwise convert it to local time by subtracting the host start.",
+      "snippet": "<video id=\"hook-human\" class=\"clip\" src=\"assets/locked-carrier.mp4\" data-start=\"1.5\" data-duration=\"0.875\" data-media-start=\"728.9166666666666\" data-track-index=\"10\" muted playsinline>",
+      "file": "/Users/brownmanbrain/GitHub/operator-economy/blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/compositions/scene-01-hook.html"
+    }
+  ],
+  "filesScanned": 10,
+  "_meta": {
+    "version": "0.8.51",
+    "latestVersion": "0.8.51",
+    "updateAvailable": false
+  }
+}

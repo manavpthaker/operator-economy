@@ -1,0 +1,69 @@
+{
+  "event_id": "ep009-shorts-hook-recut-r2-verified",
+  "decision_id": "ep009-shorts-episode-hook-direction",
+  "event_type": "verification",
+  "tags": [
+    "shorts",
+    "episode-hook",
+    "r2",
+    "private-review"
+  ],
+  "data": {
+    "decision_event_id": "ep009-shorts-hook-recut-r2-directed",
+    "scope": "Four local 1080x1920 EP009 trailer review MP4s and private mobile review page.",
+    "artifact_hashes": [
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/renders/ep009-short02-machine-judgment-private-review-r2.mp4",
+        "sha256": "a8cf2031976cf8d7e0df8ba32689b6e0a856c7b01265c3c5416e7227069c9563"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/01-second-commission/review-r2.mp4",
+        "sha256": "ce95ffaf0e5d099756268908994de64f076aceb0e01f17bd1288873e655779a2"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/03-guest-book/review/ep009-short03-guest-book-hook-REVIEW.mp4",
+        "sha256": "130136d3b7b0acf0cff72387049bf556e895e318df288a19068e3f0d851838de"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/04-wrong-number/review/ep009-short04-wrong-number-hook-r2-review.mp4",
+        "sha256": "909a2f45672e3790c710201e75a9985051033212622fae7520c68f59a6d25aa3"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/02-machine-judgment/qa/check-final.json",
+        "sha256": "6092748423826ad1612d9604fe5e430e62896d2fd9cee2dc37ab4702b7cdaf8b"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/01-second-commission/check-final.json",
+        "sha256": "1ea2b39f8d1d6e03ed1a7d3aac815839b1e9245c458ec64c592f73ab72cf22f6"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/03-guest-book/check-final.json",
+        "sha256": "1779b6238662903c3c29b2f673ea14d8868a28e625d83a85c29a589cfbca1069"
+      },
+      {
+        "path": "blueprint-cinema/experiments/EP009-SHORTS-002/04-wrong-number/check-hook-r2.json",
+        "sha256": "450de8ced711b9fcf3384f30e19bfa67a6a2ff533dac499101937ef2096c8a56"
+      }
+    ],
+    "method": "Hash-bound source EDLs, HyperFrames lint/runtime/layout/motion/contrast checks, actual encoded-frame inspection, source audio comparison where recorded, Tailscale range responses and native-player playback through end at phone width.",
+    "result": "pass",
+    "limitations": "Private review only, without owner acceptance or release. Short04 has seven nonblocking structural lint warnings. Responsive browser testing is not physical-phone testing. Exact new EP009 Related Video attachment remains a release dependency; no measured conversion uplift."
+  },
+  "evidence": [
+    {
+      "path": "blueprint-cinema/experiments/EP009-SHORTS-002/BUILD.json",
+      "sha256": "af7956b9c92c00724b23c1894b237045ee63ae2f7eac1b001033124e9e8c8a42",
+      "locator": "Four exact private review MP4s and technical checks."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-SHORTS-002/WEB-REVIEW-VERIFICATION.json",
+      "sha256": "795afac8416fb61eb147ff7ea142e81d23cd82e3091dfc07549bf02edb6d19fb",
+      "locator": "All four videos played through over Tailscale at 390px browser width."
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP009-SHORTS-002/LOCK-PRESERVATION.json",
+      "sha256": "9c5f8b24380a794e6344820f10abc8425f6ccaa2254a676190bca4caa2634ac1",
+      "locator": "Final r8 carrier, owner lock and narration transcript unchanged."
+    }
+  ]
+}

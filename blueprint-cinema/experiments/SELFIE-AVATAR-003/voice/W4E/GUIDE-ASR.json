@@ -1,0 +1,38 @@
+{
+  "stage": "guide",
+  "candidate": "W4E",
+  "at": "2026-09-23T17:42:42.901934+00:00",
+  "source_sha256": "7c60c4898a7ec327302e4fc2d79afce212c89150a4b9e4cad8d3e23fc51b4d99",
+  "script_sha256": "f47407cb1b3cce94d4521e9bd28706a2143cae34f9c7b577a0fa4f763df83185",
+  "duration_seconds": 72.97095833333333,
+  "expected_word_count": 201,
+  "engines": [
+    "faster-whisper small.en",
+    "faster-whisper medium.en"
+  ],
+  "settings": "beam5; VAD; no previous-text conditioning; no initial prompt",
+  "normalized_exact_match": true,
+  "normalized_exact_match_basis": "medium.en reproduced all 201 words with zero differences; no difference appeared in both engines.",
+  "normalization": "Punctuation/case/apostrophe style; gotta/got to and wanna/want to. No omission or paraphrase allowance; contractions required.",
+  "single_engine_artifacts_not_counted": [
+    {
+      "engine": "small.en",
+      "heard": "mottos",
+      "script": "motos",
+      "note": "Spelling of an invented word absent from the model's lexicon. medium.en rendered it correctly."
+    }
+  ],
+  "fixed_from_W4D": [
+    {
+      "was": "He calls them motos",
+      "now": "Motos, he calls them",
+      "why": "Unstressed 'them' reduces to /əm/ and was swallowed before the /m/ of 'motos'. Sentence-final 'them' carries stress and survives."
+    },
+    {
+      "was": "Tell me about them.",
+      "now": "Tell me who they are.",
+      "why": "'about them' reduces to 'about’em', acoustically identical to 'about him'; both engines heard 'him'. A listener would too, which would have narrowed the offer to a boy. Stressed 'they' is unambiguous."
+    }
+  ],
+  "perceptual_review": "Not performed. ASR supports words, not naturalness or identity acceptance."
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <body>
+    <template>
+      <style>
+        #root { position:absolute; inset:0; width:1080px; height:1920px; overflow:hidden; }
+        .scene { position:absolute; inset:0; }
+        .window { position:absolute; left:40px; width:1000px; overflow:hidden; background:#fbf8f1; box-shadow:0 22px 54px rgba(32,68,64,.11); }
+        .top-window { top:156px; height:752px; border:2px solid #204440; }
+        .bottom-window { top:934px; height:338px; border:2px solid #204440; }
+        .camera { position:absolute; inset:0; width:100%; height:100%; will-change:transform; }
+        video { display:block; width:100%; height:100%; object-fit:cover; }
+        .top-window video { object-position:47% 38%; }
+        .bottom-window video { object-position:50% 88%; }
+        .focus-line { position:absolute; inset:0; z-index:3; border:5px solid #b5482f; pointer-events:none; will-change:opacity; }
+        .bottom-window .focus-line { opacity:0; }
+      </style>
+      <div id="root" data-composition-id="scene-07-human-judgment" data-width="1080" data-height="1920" data-duration="6.208333333333333">
+        <section id="scene-07" class="scene">
+          <div class="window top-window">
+            <div class="camera camera-top" data-layout-allow-overflow>
+              <video id="scene-07-video-top" src="assets/locked-carrier.mp4" data-start="0" data-duration="6.208333333333333" data-media-start="706.75" data-track-index="10" muted playsinline></video>
+            </div>
+            <div class="focus-line focus-top" aria-hidden="true"></div>
+          </div>
+          <div class="window bottom-window">
+            <div class="camera camera-bottom" data-layout-allow-overflow>
+              <video id="scene-07-video-bottom" src="assets/locked-carrier.mp4" data-start="0" data-duration="6.208333333333333" data-media-start="706.75" data-track-index="11" muted playsinline></video>
+            </div>
+            <div class="focus-line focus-bottom" aria-hidden="true"></div>
+          </div>
+        </section>
+        <script>
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo(".camera-top", { scale: 1.13, x: 12 }, { scale: 1.2, x: -26, duration: 6.208333333333333, ease: "none" }, 0);
+          tl.fromTo(".camera-bottom", { scale: 1.14 }, { scale: 1.2, duration: 2.136666666666667, ease: "power1.inOut" }, 0);
+          tl.to(".focus-top", { opacity: 0, duration: .22, ease: "power1.out" }, 2.136666666666667);
+          tl.to(".focus-bottom", { opacity: 1, duration: .22, ease: "power1.out" }, 2.136666666666667);
+          tl.to(".camera-bottom", { scale: 1.27, duration: .6, ease: "power2.out" }, 2.136666666666667);
+          window.__timelines["scene-07-human-judgment"] = tl;
+        </script>
+      </div>
+    </template>
+  </body>
+</html>

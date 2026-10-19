@@ -1,8 +1,5 @@
 export type OperationArtifact = 'canvas' | 'legacy_blueprint';
 
-// The 2026-10 relaunch starts the public count again: internal EP007 is public №001. The earlier
-// series is archived: its videos are private, so it is unlisted and its pages carry no watch link.
-// A live operation's watch link comes only from launch/links.json (lib/episode-links.ts), never from here.
 export type Operation = {
   number: number;
   slug: string;
@@ -10,122 +7,65 @@ export type Operation = {
   audience: string;
   offer: string;
   summary: string;
+  /** The decision question the home page asks on this operation's behalf. */
+  question: string;
   episodeTitle: string;
-  /** Earlier series only; the video is now private and the URL is kept for the record. */
-  youtubeUrl?: string;
-  sources?: number;
+  youtubeUrl: string;
+  sources: number;
   published: string;
   pdfUrl: string;
   artifact: OperationArtifact;
-  archived?: boolean;
-  /** Homepage docket question. */
-  question?: string;
-  thumbnail?: { src: string; width: number; height: number; alt: string };
 };
 
 export const OPERATIONS: Operation[] = [
+  // The relaunch of 2026-09-23 restarted public numbering and set every pre-EP007 video private.
+  // The five V1 businesses that used to sit here were removed on 2026-10-12 (owner decision): they
+  // all linked to videos nobody can watch, and they held the numbers the relaunch reassigned.
+  // Their slugs redirect to home in next.config.mjs so no live URL breaks.
+  {
+    number: 2,
+    slug: 'direct-booking-practice',
+    name: 'A Direct-Booking Practice',
+    audience: 'Independent hotels, 20 to 40 rooms',
+    offer: 'Fixed-fee audit, then a monthly retainer',
+    summary:
+      "Help a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again.",
+    question: "Could one operator get a small hotel's returning guests to book direct?",
+    episodeTitle: 'The One-Person Business That Gets Small Hotels Booking Direct',
+    // Only launch/links.json may originate an episode URL. Empty until the upload writes it.
+    youtubeUrl: 'https://youtu.be/vx25OoVALSA',
+    sources: 37,
+    published: 'Oct 2026',
+    pdfUrl: '/canvas/operator-canvas-002.pdf',
+    artifact: 'canvas',
+  },
   {
     number: 1,
     slug: 'exit-readiness-prep',
-    name: 'Sale-Readiness Practice',
-    audience: 'Owner-run businesses',
+    name: 'A Sale-Readiness Practice',
+    audience: 'Owner-run businesses preparing to sell',
     offer: 'Fixed-fee readiness engagement',
     summary:
-      'Get owner-run businesses ready to be inspected by a buyer, for a fixed fee that never depends on a sale.',
+      'Help an owner get a business ready to sell years before a buyer shows up, by finding what the business cannot do without them.',
+    question: 'Could one operator get a business ready to sell years before a buyer shows up?',
     episodeTitle: 'The One-Person Business That Gets Companies Ready for a Sale',
+    youtubeUrl: 'https://youtu.be/7juZ1KXdd04',
+    sources: 16,
     published: 'Oct 2026',
-    pdfUrl: '/blueprints/exit-readiness-prep.pdf',
+    pdfUrl: '/canvas/operator-canvas-001.pdf',
     artifact: 'canvas',
-    question: 'Could one operator get a business ready for a buyer, and be paid a fixed fee for it?',
-    thumbnail: {
-      src: '/episodes/exit-readiness-prep/thumbnail.jpg',
-      width: 1920,
-      height: 1080,
-      alt: 'Episode thumbnail. A business owner sits across a workshop table from a buyer holding a pen over a blank sheet, while the presenter points back at her. Headline: Help her sell.',
-    },
-  },
-  {
-    number: 6,
-    slug: 'direct-booking-recovery',
-    name: 'Direct Booking Recovery',
-    audience: 'Independent hotels',
-    offer: 'Recovery setup',
-    summary: 'Help independent hotels turn OTA guests into direct repeat customers.',
-    episodeTitle: 'Hotels pay 30% to book their own rooms',
-    youtubeUrl: 'https://youtu.be/pOoQLaSyUGQ',
-    sources: 9,
-    published: 'Aug 2026',
-    pdfUrl: '/blueprints/direct-booking-recovery.pdf',
-    artifact: 'legacy_blueprint',
-    archived: true,
-  },
-  {
-    number: 4,
-    slug: 'solo-design-agency',
-    name: 'Solo Design Studio',
-    audience: 'Specialist service buyers',
-    offer: 'Subscription design',
-    summary: 'Sell and deliver focused design work with a deliberately small operating model.',
-    episodeTitle: 'The solo design agency',
-    youtubeUrl: 'https://youtu.be/H8AmNEaKrfs',
-    sources: 12,
-    published: 'Aug 2026',
-    pdfUrl: '/blueprints/solo-design-agency.pdf',
-    artifact: 'legacy_blueprint',
-    archived: true,
-  },
-  {
-    number: 3,
-    slug: 'boring-automation-agency',
-    name: 'Workflow Automation Retainer',
-    audience: 'Small businesses',
-    offer: 'Managed workflow reliability',
-    summary: 'Build and maintain the workflows that move data between the systems a business already uses.',
-    episodeTitle: 'The boring-automation agency',
-    youtubeUrl: 'https://youtu.be/tvlVy6sIoYo',
-    sources: 6,
-    published: 'Jul 2026',
-    pdfUrl: '/blueprints/boring-automation-agency.pdf',
-    artifact: 'legacy_blueprint',
-    archived: true,
-  },
-  {
-    number: 2,
-    slug: 'voice-agent-agency',
-    name: 'Voice Booking Operator',
-    audience: 'Local service businesses',
-    offer: 'Missed-call recovery',
-    summary: 'Help local businesses capture missed calls and turn qualified conversations into appointments.',
-    episodeTitle: 'The voice-agent agency',
-    youtubeUrl: 'https://youtu.be/CFuVAwc2yzs',
-    sources: 11,
-    published: 'Jul 2026',
-    pdfUrl: '/blueprints/voice-agent-agency.pdf',
-    artifact: 'legacy_blueprint',
-    archived: true,
-  },
-  {
-    number: 1,
-    slug: 'ai-implementation-consulting',
-    name: 'AI Implementation Partner',
-    audience: 'One familiar vertical',
-    offer: 'Implementation service',
-    summary: 'Install a small set of useful AI tools inside a vertical you already understand.',
-    episodeTitle: 'AI implementation as a service',
-    youtubeUrl: 'https://youtu.be/cXC4lYRu_Gg',
-    sources: 8,
-    published: 'Jul 2026',
-    pdfUrl: '/blueprints/ai-implementation-consulting.pdf',
-    artifact: 'legacy_blueprint',
-    archived: true,
   },
 ];
 
-export const ARCHIVED_NOTE =
-  'This episode belongs to the earlier series and is no longer public on YouTube. The working document below remains available.';
-
-/** The current series: listed, featured and in the sitemap. */
-export const LIVE_OPERATIONS = OPERATIONS.filter((operation) => !operation.archived);
+// Slugs removed in the 2026-10-12 cleanup. next.config.mjs redirects each to home; kept here so a
+// reader of this file can see what the redirects are for without digging through the config.
+export const RETIRED_SLUGS = [
+  'ai-implementation-consulting',
+  'voice-agent-agency',
+  'boring-automation-agency',
+  'solo-design-agency',
+  'direct-booking-recovery',
+] as const;
 
 export function getOperation(slug: string): Operation | undefined {
   return OPERATIONS.find((operation) => operation.slug === slug);

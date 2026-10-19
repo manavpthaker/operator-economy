@@ -1,0 +1,6 @@
+python3 presenter-regen/react1-r7/finish_take.py seg071b https://d8j0ntlcm91z4.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/hf_20260925_030125_26c8a266-f01a-471e-8373-278afb428303.mp4 > presenter-regen/react1-r7/seg071b/finish.log 2>&1 &
+python3 presenter-regen/react1-r7/finish_take.py seg072 https://d8j0ntlcm91z4.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/hf_20260925_030125_a60a1187-8f8e-41d3-b91b-3c7a9786396c.mp4 > presenter-regen/react1-r7/seg072/finish.log 2>&1 &
+python3 presenter-regen/react1-r7/finish_take.py seg073 https://d8j0ntlcm91z4.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/hf_20260925_030125_2238988b-2ae4-4a06-b2c9-7e879ea2d416.mp4 > presenter-regen/react1-r7/seg073/finish.log 2>&1 &
+python3 presenter-regen/react1-r7/finish_take.py seg074 https://d8j0ntlcm91z4.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/hf_20260925_030125_ea7e2170-e71f-41e5-ab4a-2507ff5d14e2.mp4 > presenter-regen/react1-r7/seg074/finish.log 2>&1 &
+python3 presenter-regen/react1-r7/finish_take.py seg075 https://d8j0ntlcm91z4.cloudfront.net/user_3J3m5xtqP8Xv0MOsPutf0uV3maX/hf_20260925_030125_fcec093e-886e-4b48-9cd9-a69510af09f2.mp4 > presenter-regen/react1-r7/seg075/finish.log 2>&1 &
+wait

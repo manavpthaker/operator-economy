@@ -1,0 +1,97 @@
+{
+ "takes": [
+  {
+   "id": "01-open",
+   "short": "01",
+   "slug": "01-book-your-own-room",
+   "span": "open",
+   "from_s": 0.0,
+   "to_s": 11.625,
+   "speech_s": 11.625,
+   "generate_s": 13,
+   "credits": 91
+  },
+  {
+   "id": "01-close",
+   "short": "01",
+   "slug": "01-book-your-own-room",
+   "span": "close",
+   "from_s": 33.041667,
+   "to_s": 43.333333,
+   "speech_s": 10.292,
+   "generate_s": 12,
+   "credits": 84
+  },
+  {
+   "id": "02-open",
+   "short": "02",
+   "slug": "02-sounds-like-marketing",
+   "span": "open",
+   "from_s": 0.0,
+   "to_s": 10.375,
+   "speech_s": 10.375,
+   "generate_s": 12,
+   "credits": 84
+  },
+  {
+   "id": "02-close",
+   "short": "02",
+   "slug": "02-sounds-like-marketing",
+   "span": "close",
+   "from_s": 32.375,
+   "to_s": 42.208333,
+   "speech_s": 9.833,
+   "generate_s": 11,
+   "credits": 77
+  },
+  {
+   "id": "03-close",
+   "short": "03",
+   "slug": "03-the-guest-book",
+   "span": "close",
+   "from_s": 36.166667,
+   "to_s": 43.5,
+   "speech_s": 7.333,
+   "generate_s": 9,
+   "credits": 63
+  },
+  {
+   "id": "04-open",
+   "short": "04",
+   "slug": "04-four-numbers",
+   "span": "open",
+   "from_s": 0.0,
+   "to_s": 6.125,
+   "speech_s": 6.125,
+   "generate_s": 8,
+   "credits": 56
+  },
+  {
+   "id": "04-close-a",
+   "short": "04",
+   "slug": "04-four-numbers",
+   "span": "close-a",
+   "from_s": 30.791667,
+   "to_s": 42.083,
+   "speech_s": 11.291,
+   "generate_s": 13,
+   "credits": 91
+  },
+  {
+   "id": "04-close-b",
+   "short": "04",
+   "slug": "04-four-numbers",
+   "span": "close-b",
+   "from_s": 42.083,
+   "to_s": 47.791667,
+   "speech_s": 5.709,
+   "generate_s": 7,
+   "credits": 49
+  }
+ ],
+ "count": 8,
+ "credits": 595,
+ "recipe": "generate at ceil(speech)+1 seconds, 720p 9:16 omni_reference, P1 as image reference and the unpadded span slice as audio reference, then fal-ai/sync-lipsync/react-1 at cut_off with the same slice",
+ "why_plus_one": "react-1 trims to the audio, so the generation only has to be at least as long as the speech. The accepted take ran 7 percent slow, and at ceil(speech) exactly that overrun would push the last words past the clip end on the longer spans. The extra second is the margin for it.",
+ "padding_not_used": "The padded-slice variant was tried and failed in the opposite direction; the accepted take used an unpadded slice."
+}

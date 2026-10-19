@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><body><template>
+  <style>
+    #root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#204440;color:#fbf8f1;font-family:Montserrat,Arial,sans-serif}
+    .grid{position:absolute;inset:0;opacity:.13;background-image:linear-gradient(rgba(251,248,241,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(251,248,241,.35) 1px,transparent 1px);background-size:70px 70px}
+    .kicker{position:absolute;top:118px;left:70px;color:#d8cfb9;font:700 26px/1.1 'IBM Plex Mono','Courier New',monospace;letter-spacing:.09em;text-transform:uppercase}
+    .hook{position:absolute;top:255px;left:70px;width:900px;margin:0;font:800 118px/1.36 Georgia,'Times New Roman',serif;letter-spacing:-.055em;text-wrap:balance}
+    .hook span,.hook strong{display:block}.hook strong{color:#fb8b69;font-style:normal}
+    .rule{position:absolute;left:70px;top:1190px;width:860px;height:8px;background:#b5482f;transform-origin:left center}
+    .machine,.human{position:absolute;top:1280px;width:360px;padding:20px 24px;border:3px solid #d8cfb9;background:rgba(251,248,241,.06);font:700 26px/1.2 'IBM Plex Mono','Courier New',monospace;letter-spacing:.06em;text-align:center;text-transform:uppercase}
+    .machine{left:70px}.human{right:150px;border-color:#fb8b69;color:#fb8b69}
+  </style>
+  <div id="root" data-composition-id="scene-01-hook" data-width="1080" data-height="1920" data-duration="2.375">
+    <div class="grid"></div><div class="kicker">The machine / the human</div>
+    <h1 id="hook-title" class="hook"><span>The drafting got</span><strong>cheap.</strong><span>The judgment</span><strong>didn’t.</strong></h1>
+    <div id="hook-rule" class="rule"></div><div class="machine">Repetitive half</div><div class="human">Human half</div>
+    <script>
+      window.__timelines=window.__timelines||{};const tl=gsap.timeline({paused:true});
+      tl.fromTo('#hook-title',{opacity:0,y:34},{opacity:1,y:0,duration:.3,ease:'power2.out'},0);
+      tl.fromTo('#hook-rule',{scaleX:0},{scaleX:1,duration:.35,ease:'power2.out'},.35);
+      window.__timelines['scene-01-hook']=tl;
+    </script>
+  </div>
+</template></body></html>

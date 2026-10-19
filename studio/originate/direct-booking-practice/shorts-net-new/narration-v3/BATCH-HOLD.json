@@ -1,0 +1,111 @@
+{
+ "schema": "oe-narration-batch-hold-v3",
+ "at_utc": "2026-10-08T00:00:00Z",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-practice",
+ "authorization": "2026-10-08-owner-narration-rerun-03.json",
+ "proposal": "NARRATION-CAPTURE-PROPOSAL-V3.json",
+ "verdict": "hold",
+ "scope_reminder": "One Google guide call for 03 only. No transfer was in scope and none was submitted.",
+ "execution_state": {
+  "google_guide_calls_this_run": 1,
+  "google_guide_calls_aggregate": 7,
+  "aggregate_google_call_cap": 7,
+  "aggregate_call_cap_reached": true,
+  "measured_google_usd_this_run": 0.0231845,
+  "measured_google_usd_aggregate": 0.145691,
+  "google_spend_cap_usd": 0.2,
+  "within_caps": true,
+  "elevenlabs_transfer_calls": 0,
+  "elevenlabs_credits_charged": 0,
+  "automatic_retries": 0
+ },
+ "result": {
+  "short": "03",
+  "outcome": "tail_gate_fail_full_script_present",
+  "guide_seconds": 42.971,
+  "guide_sha256": "893c46c310c7e05c2eefaab3e6a312125f799a7c3bd40afe30282eae7bba557e",
+  "tail_energy": 0.1626,
+  "threshold": 0.02,
+  "tail_pass": false,
+  "exact_copy_diagnostic": {
+   "model": "medium.en",
+   "expected_tokens": 138,
+   "read_tokens": 136,
+   "differences": "three deleted 'dot' tokens where the transcriber writes the spoken domain as punctuation, and 'wifi' split into 'wi fi'. All orthographic; no word is missing.",
+   "ending_read": "for European guests. Check your jurisdiction, this is not legal advice."
+  }
+ },
+ "the_real_finding": "This is not an EP009 problem and more attempts will not fix it. All four EP007 Shorts needed a local append-silence repair because their Algieba guides also failed the 0.02 tail gate, at 0.0361, 0.0594, 0.0295 and 0.0516. EP007's Short 01 failed twice at 0.0357 and 0.0361, a second call changing nothing. The route simply does not leave trailing digital silence in its output, so the gate fails it as a matter of course. EP009's 01 and 04 passing natively at 0.0002 and 0.0116 is the exception, not the norm.",
+ "established_remedy": {
+  "name": "append-silence repair on a derived copy",
+  "precedent": "studio/originate/exit-readiness-prep/shorts-net-new/narration-v4/short-01-thirty-day-map/DERIVED-GUIDE-REPAIR.json",
+  "owner_authority_in_ep007": "ep007-short01-through-video-generation-authorized-v14",
+  "operation": "append 12000 all-zero frames, 0.5 s at 24 kHz, to a derived copy; the source is never overwritten and the derived file records the source PCM sha256 as its prefix, so it is provably the source plus zeros",
+  "provider_call": false,
+  "cost": "none, local and deterministic",
+  "effect": "tail energy becomes 0.0 and the mechanical gate passes",
+  "limitation": "It repairs the gate. It does not recreate a missing phoneme. In EP007 the owner selected the source take by listening first, and that ordering is the point: the ear settles whether the ending is complete, then the pad satisfies the machine.",
+  "precondition": "owner listening on the source take, then explicit authorization. Not applied here."
+ },
+ "the_two_03_candidates": {
+  "attempt_1": {
+   "run": "narration-v1",
+   "seconds": 51.011,
+   "tail_energy": 0.0775,
+   "terminal_rms_100ms": 0.0458,
+   "asr_note": "one real substitution beyond orthography: 'inn' read as 'end'",
+   "clip": "studio/originate/direct-booking-practice/shorts-net-new/narration-v1/03-the-guest-book/diagnostic/ending-3s.wav"
+  },
+  "attempt_3": {
+   "run": "narration-v3",
+   "seconds": 42.971,
+   "tail_energy": 0.1626,
+   "terminal_rms_100ms": 0.0428,
+   "asr_note": "orthographic differences only; lexically the cleaner read",
+   "clip": "studio/originate/direct-booking-practice/shorts-net-new/narration-v3/03-the-guest-book/diagnostic/ending-3s.wav"
+  },
+  "trade": "Attempt 1 has the lower tail energy; attempt 3 has the cleaner word read and a noticeably faster read at 43.0 s against 51.0 s. Both are above every EP007 source that was successfully repaired, and attempt 3's 0.1626 is well above. Which of the two is usable is a listening call, and it is possible neither is."
+ },
+ "corrected_hypothesis": "An earlier reading in this session guessed the failures tracked the final phoneme, with the two passing scripts ending in a /t/ stop. EP007 refutes it: 'engagement' also ends in /t/ and still needed the pad. The route not padding its own output explains the data without the phoneme theory.",
+ "policy_result": "The aggregate Google call cap of seven is reached. No further provider call is possible without fresh owner authority, and on this evidence another call for 03 is not the right next step.",
+ "open_decisions": [
+  "03: whether attempt 1 or attempt 3 is audibly complete, or neither",
+  "02: whether its 0.0224 ending is audibly complete, which sits inside EP007's repaired band",
+  "04: whether the two-model corroboration is acceptable",
+  "whether to authorize the append-silence repair as the standing remedy for this route"
+ ],
+ "options_for_the_owner": [
+  {
+   "option": "Listen to the three endings, then authorize the append-silence repair on whichever takes are complete.",
+   "provider_calls": 0,
+   "cost": "none",
+   "note": "The EP007 path exactly. If 01, 02, 04 and one of the 03 takes are audibly complete, all four guides become gate-passing without another provider call, and stage 2 is the only paid work left."
+  },
+  {
+   "option": "Authorize the repair plus the four ElevenLabs transfers in one authority.",
+   "provider_calls": 4,
+   "forecast_eleven_credits": 3000,
+   "note": "Fastest route to finished Original C narration, conditional on your listening."
+  },
+  {
+   "option": "Revise the generation method before spending again.",
+   "provider_calls": 0,
+   "note": "EP007's own recommendation when an ending is clipped rather than merely unpadded. Worth considering for 03 specifically, whose two takes are the worst-tailed of all seven calls."
+  },
+  {
+   "option": "Re-examine the pinned 0.02 threshold.",
+   "provider_calls": 0,
+   "note": "Eight of ten Algieba guides across two episodes have failed it and every one was resolved by padding rather than regeneration. The threshold lives in calibrate.py as a method-level choice and changing it is out of scope here; it would need its own decision."
+  }
+ ],
+ "limitations": "Local ASR cannot prove an unclipped final phoneme and does not replace owner listening. Nothing here speaks to voice match, performance or register, which are judgments on Original C audio that does not yet exist.",
+ "not_changed": [
+  "the owner-locked spoken words",
+  "the picture grammar",
+  "narration-v1",
+  "narration-v2",
+  "the pinned 0.02 threshold",
+  "the locked EP009 long-form carrier"
+ ]
+}

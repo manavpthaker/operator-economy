@@ -1,0 +1,69 @@
+{
+  "stage": "guide",
+  "candidate": "W4B",
+  "at": "2026-09-23T17:12:53.107459+00:00",
+  "source_sha256": "330e3760664ac360d9d10b236d36522fb535ef782c75562713d489f5cf1bcae7",
+  "script_sha256": "fa764d1f3e650949245373ede031ab5850669d332f53665fe4d0c72ba33739c9",
+  "duration_seconds": 60.930958333333336,
+  "expected_word_count": 189,
+  "engines": [
+    "faster-whisper small.en",
+    "faster-whisper medium.en"
+  ],
+  "settings": "beam5; VAD; no previous-text conditioning; no initial prompt",
+  "normalized_exact_match": true,
+  "fixed_from_W4": [
+    {
+      "script": "who does bedtime, who coaches",
+      "status": "now present in both engines"
+    },
+    {
+      "script": "never printed again",
+      "status": "now correct in both engines"
+    }
+  ],
+  "remaining_difference": {
+    "kind": "contraction_dropped",
+    "after": "and she tells him",
+    "script": "she's spent",
+    "spoken": "she spent",
+    "agreed_by": [
+      "small.en",
+      "medium.en"
+    ],
+    "isolated_reverification": "0.90s clip 20.30-21.20 re-transcribed with VAD disabled at beam 5 and beam 10 on both engines; all four reads returned 'she spent'. Treated as a genuine guide error, not an ASR artifact.",
+    "status": "accepted by owner under the 2026-09-23 rule extension"
+  },
+  "single_engine_artifacts_not_counted": [
+    {
+      "engine": "small.en",
+      "heard": "mottos",
+      "script": "motos"
+    },
+    {
+      "engine": "medium.en",
+      "heard": "Then it gets It was printed",
+      "script": "Then it gets printed"
+    }
+  ],
+  "accepted_by_normalization": [
+    {
+      "script": "want to",
+      "spoken": "wanna",
+      "rule": "gotta/got to and wanna/want to"
+    }
+  ],
+  "transferred": false,
+  "perceptual_review": "Not performed. ASR supports words, not naturalness or identity acceptance.",
+  "normalization": "Punctuation/case/apostrophe style; gotta/got to and wanna/want to; and, added 2026-09-23, contracted 's immediately before a word beginning with /s/ (she's spent -> she spent). No omission or paraphrase allowance; all other contractions remain required.",
+  "normalization_rule_extension": {
+    "added": "2026-09-23",
+    "class": "regressive sibilant assimilation across a word boundary (/z/ + /s/)",
+    "why": "Connected English merges the two sibilants into one [s], so a natural correct reading and an omitted contraction are acoustically the same. The check cannot separate them. This is the same phenomenon the existing wanna/want to and gotta/got to allowances already concede.",
+    "evidence": "Full-file small.en and medium.en both read 'she spent'; the isolated 0.90s clip (20.30-21.20, VAD off, beam 5 and beam 10, both engines) returned 'she spent' on all four reads.",
+    "accepted_by": "owner",
+    "owner_statement": "that's fine if it sounds like she and now she's",
+    "scope": "This homophone class only. Does not license contraction expansion (I'm -> I am), omission or paraphrase."
+  },
+  "normalized_exact_match_basis": "Exact under the amended normalization above; one difference falls inside the newly accepted class."
+}

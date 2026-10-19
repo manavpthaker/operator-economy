@@ -1,0 +1,86 @@
+{
+  "record_type": "owner_scoped_production_lock",
+  "status": "locked_by_owner",
+  "owner_accepted": true,
+  "release_cleared": false,
+  "source": {
+    "path": "blueprint-cinema/episodes/EP009-direct-booking-recovery/review/source-records/2026-09-19-owner-r8-native-tool-lock.json",
+    "sha256": "b389d8123d8a3675feb285833c2e7e05e503ecf530f95d144f03ec5a9ebb3afd"
+  },
+  "decision_event_id": "ep009-s13-native-tool-focus-r8",
+  "scope": "Exact r8 S13 picture treatment [16704,17458) in the reviewed full-episode carrier. The native-tool portion is [16752,17458), with the tightened request-path crop at [16794,16854).",
+  "full_review_carrier": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/qa/r8-tool-clarity/ep009-r8-tool-clarity-review-r1.mp4",
+    "sha256": "cc5805a990d10812b5349568e50a74dc0e21b09ed402b49250f9796640ed710e",
+    "acceptance_scope": "S13 picture treatment only; the carrier hash identifies the exact reviewed assembly."
+  },
+  "selected_picture": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/SELECTIONS-r8.json",
+    "sha256": "762e1dc462c5d499d491c1a16f8a9ef991ec1a417a59b33a201d227dcabd36f2",
+    "output_frames": [16704, 17458],
+    "fps": 24,
+    "picture_map": [
+      {
+        "output_frames": [16704, 16752],
+        "state": "Retained F03 illustrative establish."
+      },
+      {
+        "output_frames": [16752, 16794],
+        "state": "Native Node-RED overview."
+      },
+      {
+        "output_frames": [16794, 16854],
+        "state": "Tight native crop on the fictional-fixture request path and OpenAI draft node."
+      },
+      {
+        "output_frames": [16854, 16914],
+        "state": "Retained returned fictional draft."
+      },
+      {
+        "output_frames": [16914, 16962],
+        "state": "Native checkout-to-next-day rule."
+      },
+      {
+        "output_frames": [16962, 17013],
+        "state": "Retained queued human-review state."
+      },
+      {
+        "output_frames": [17013, 17152],
+        "state": "Retained human voice edit."
+      },
+      {
+        "output_frames": [17152, 17304],
+        "state": "Retained one-draft approval."
+      },
+      {
+        "output_frames": [17304, 17374],
+        "state": "Retained seasonal exclusion."
+      },
+      {
+        "output_frames": [17374, 17458],
+        "state": "Native human-control boundary."
+      }
+    ]
+  },
+  "direction": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/software-demo/r8-tool-clarity/DIRECTION-r8.json",
+    "sha256": "7efe790661cbffacabb64be3ea6999e44e3f096b00a702046d393e3d752124f9"
+  },
+  "verification": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r8-tool-clarity/ep009-r8-tool-clarity-review-r1-VERIFICATION.json",
+    "sha256": "4578369ecf133c00a8ba671d029785acb297f46844dba487c83fc5e15dc4b106",
+    "status": "technical_checks_passed_private_review_candidate"
+  },
+  "master": {
+    "path": "blueprint-cinema/experiments/EP009-FULL-BUILD-001/assembly/r3/narration-master-r3.wav",
+    "sha256": "0f0d5d326262813cb5ff5392fb263f15f6a8e871ad22e54c1274ff974037ca85"
+  },
+  "protected": [
+    "Retain the exact r8 picture assignments and timing for output frames [16704,17458).",
+    "Retain the unchanged r3 narration master and established S13 cut boundaries.",
+    "Do not substitute a generated dashboard, broader crop, new provider run or alternate workflow state without a new scoped owner review.",
+    "Keep the workflow fictional and no-send; this lock does not establish consent, delivery, capacity or customer results.",
+    "Keep the separate P08 corrected-experience lip-sync issue open."
+  ],
+  "production_instruction": "Carry these exact S13 picture assignments, narration and cut timing into later EP009 assemblies. Any change inside [16704,17458) requires a new scoped revision and owner review. This lock does not by itself clear the episode for release."
+}

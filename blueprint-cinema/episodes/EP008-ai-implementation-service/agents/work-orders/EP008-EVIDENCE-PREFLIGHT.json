@@ -1,0 +1,36 @@
+{
+  "work_order_id": "EP008-EVIDENCE-PREFLIGHT",
+  "episode": "EP008-ai-implementation-service",
+  "role": "evidence editor",
+  "inputs": [
+    {
+      "path": "operator-blueprint-v2/episodes/EP008-ai-implementation-service/01-editorial/claims-map.md",
+      "sha256": "a5d0693ed70115d2a5973c15ee1fb6d751c0d1ab9ed74c680631cfcf9a564e24"
+    },
+    {
+      "path": "blueprint-cinema/experiments/EP008-FULL-BUILD-001/inputs/PLANNING-INPUTS.json",
+      "sha256": "432db03521c2fe1c9141851e37d5849912c78773526802c6cf1c2364cb8a3eaa"
+    }
+  ],
+  "owned_output_path": "blueprint-cinema/episodes/EP008-ai-implementation-service/agents/deliverables/EP008-EVIDENCE-PREFLIGHT/",
+  "forbidden_paths": [
+    "upstream",
+    "canonical state",
+    "other deliverables"
+  ],
+  "dependencies": [
+    "locked narration"
+  ],
+  "required_gate": "private preparation only",
+  "acceptance_checks": [
+    "sources match claims",
+    "no silent refresh of locked narration",
+    "model arithmetic checked"
+  ],
+  "stopping_conditions": [
+    "no account creation",
+    "no wizard exercise in live store",
+    "no paid calls",
+    "no claim rewrite"
+  ]
+}

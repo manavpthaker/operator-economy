@@ -112,7 +112,7 @@ Return JSON:
   "newsletter_md": str,
   "linkedin_posts": [{{"theme": str, "post": str, "comment": str}}],
   "repost_blurbs": [str, str],
-  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cliffhanger_line": str, "pinned_comment": str, "why": str}}]{trailer_schema}
+  "shorts_briefs": [{{"title": str, "section": str, "first_beat": int, "last_beat": int, "hook_line": str, "cold_viewer_context": str, "last_line": str, "standalone_payoff": str, "episode_extension": str, "pinned_comment": str, "why": str}}]{trailer_schema}
 }}
 
 Trailer segment rules (if trailer requested): `first_line`/`last_line` are EXACT

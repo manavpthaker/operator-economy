@@ -1,0 +1,147 @@
+{
+ "schema": "oe-narration-capture-proposal-v3",
+ "episode": "EP009",
+ "episode_slug": "direct-booking-practice",
+ "status": "proposed continuation; execution requires the 2026-10-08 third-attempt authorization it is bound to",
+ "chain": "n3-two-stage-acted-guide-v2",
+ "stage_1": {
+  "provider": "Google",
+  "endpoint": "https://us-texttospeech.googleapis.com/v1/text:synthesize",
+  "model": "gemini-2.5-pro-tts",
+  "voice": "Algieba",
+  "register": "candidate-C4",
+  "style_instructions": "operator-blueprint-v2/02-narration-production/prompts/NARRATOR-REGISTER.candidate-C4.google-gemini-tts.style-instructions.json",
+  "style_instructions_sha256": "b747d7b0afa4469b2be05c20eb16306a25bb5185b9fa8b12e2d4aa4ddd8d3efc",
+  "audio": {
+   "audioEncoding": "LINEAR16",
+   "sampleRateHertz": 24000
+  },
+  "advancedVoiceOptions": {
+   "enableTextnorm": false
+  },
+  "auth": "ADC bearer plus x-goog-user-project"
+ },
+ "stage_2": {
+  "provider": "ElevenLabs",
+  "endpoint": "https://api.elevenlabs.io/v1/speech-to-speech/scMbPZwQjr40V1MzL3Nj",
+  "model_id": "eleven_multilingual_sts_v2",
+  "target_voice": "Original C",
+  "target_voice_id": "scMbPZwQjr40V1MzL3Nj",
+  "output_format": "pcm_48000",
+  "seed": "2026082501",
+  "voice_settings": {
+   "similarity_boost": 0.8,
+   "speed": 1.0,
+   "stability": 0.4,
+   "style": 0.0,
+   "use_speaker_boost": true
+  },
+  "remove_background_noise": "false",
+  "file_format": "other"
+ },
+ "caps": {
+  "google_guide_calls_max": 7,
+  "elevenlabs_transfer_calls_max": 0,
+  "provider_calls_max": 7,
+  "automatic_retries": 0,
+  "google_spend_cap_usd": 0.2,
+  "elevenlabs_credit_cap": 0
+ },
+ "cap_basis": {
+  "call_caps": "EP007 ep007-owner-authorize-shorts-narration-20260922: four scripts, one call per stage, no retries.",
+  "google": "EP007's cap was 0.15 USD for 459 locked words. EP009's four total 534 words and each call also carries the 955 character candidate-C4 prompt, so the forecast is 0.111866 USD using EP007's own estimator. Under 0.15 that leaves only about 0.038 of headroom, enough for a longer-than-forecast guide to strand the batch after three calls. Raised to 0.20 to cover four calls with headroom, not to permit a fifth.",
+  "elevenlabs": "EP007 capped 3200 credits for 459 words. EP009's 534 words forecast 3506 credits at 1000 per minute, so the cap is 4000.",
+  "retries": "ElevenLabs Voice Changer is seeded, so a retry returns identical audio (finding N4B-3). Single shot, judged against the accepted guide.",
+  "estimator": "google_cost is EP007's exact function: output seconds at 25 tokens per second and 20 USD per million, plus prompt and text characters as input tokens one to one. An estimate, never an invoice."
+ },
+ "forecast": {
+  "per_short": [
+   {
+    "id": "03",
+    "slug": "03-the-guest-book",
+    "words": 137,
+    "forecast_seconds": 53.94,
+    "request_chars": 1699,
+    "forecast_google_usd": 0.028668,
+    "forecast_eleven_credits": 899
+   }
+  ],
+  "total_forecast_google_usd": 0.028668,
+  "aggregate_forecast_google_usd": 0.151174,
+  "google_spend_cap_usd": 0.2,
+  "note": "Aggregate forecast stays under the unchanged 0.20 cap."
+ },
+ "gates": [
+  "Written intent before every provider call, receipt or error after. An unresolved intent stops the batch.",
+  "Reverse-rendering gate at prepare: undoing the declared renderings must reproduce the owner-locked written words exactly.",
+  "Guide tail energy below 0.02 (calibrate.TAIL_ENERGY_THRESHOLD) or the batch stops, no retry.",
+  "Exact-copy ASR gate per guide: hyperframes@0.8.59 whisper small.en, normalized token sequence equal to the bound spoken text.",
+  "narration-v1 is read-only for this run. Its receipts and media must not change; the aggregate counters read them."
+ ],
+ "failure_policy": "Stop and report after any failed or uncertain provider outcome. No retry. Never transfer a guide that failed either gate.",
+ "outputs": [
+  "immutable guide WAV and receipt per short",
+  "immutable Original C WAV and receipt per short",
+  "exact-copy and technical QC records per short",
+  "a batch summary with measured spend"
+ ],
+ "not_authorized": [
+  "a second call in this run",
+  "any attempt at 01, 02 or 04",
+  "any ElevenLabs transfer",
+  "any retry",
+  "spend above the aggregate cap",
+  "a change to the pinned 0.02 tail threshold",
+  "presenter or avatar generation",
+  "lip sync",
+  "music or sound effects",
+  "storyboard or render",
+  "Content OS release",
+  "upload",
+  "publication",
+  "an episode URL",
+  "any change to the owner-locked spoken words"
+ ],
+ "bound_inputs": {
+  "spoken_text": {
+   "path": "studio/originate/direct-booking-practice/shorts-net-new/SPOKEN-TEXT-V1.json",
+   "sha256": "2cab291e05e4aa2b4816a76399b72b1fb165d37bda8033102087fe98f60188f8"
+  },
+  "script_lock": {
+   "path": "studio/originate/direct-booking-practice/shorts-net-new/accepted/STANDALONE-SCRIPTS-V1.accepted.json",
+   "sha256": "71c508a6fc2dcdb56be8561e9208438ebe7084cf3f2c4df9233876a77ab74a77"
+  },
+  "executor": {
+   "path": "studio/originate/direct-booking-practice/shorts-net-new/capture_narration.py",
+   "sha256": "04e2bd27f3fdb416f79934b65ff3b42f451efe476581ea47b61fa0bc9fa43115"
+  },
+  "prior_hold": {
+   "path": "studio/originate/direct-booking-practice/shorts-net-new/narration-v2/BATCH-HOLD.json",
+   "sha256": "ada06d72164007d30acf2a20360fbb58b046c8a4a8fd7251c6a3dab998d806c7"
+  }
+ },
+ "supersedes": "NARRATION-CAPTURE-PROPOSAL-V2.json",
+ "run_dir": "narration-v3",
+ "prior_runs": [
+  "narration-v1",
+  "narration-v2"
+ ],
+ "shorts_in_scope": [
+  "03"
+ ],
+ "scope": "Exactly one Google guide call for 03-the-guest-book, whose first guide failed the tail gate and whose second returned HTTP 502 with no audio. narration-v1 and narration-v2 are preserved untouched as immutable evidence. No transfer is in scope, and no decision about 02 or 04 is in scope.",
+ "caps_are_aggregate": "Call and spend caps count narration-v1, v2 and v3 together. Six Google calls are already spent, so the 7 cap permits exactly one more. The transfer cap is 0 because stage 2 is not authorized by this run.",
+ "prior_execution": {
+  "google_guide_calls": 6,
+  "measured_google_usd": 0.1225065,
+  "elevenlabs_transfer_calls": 0,
+  "elevenlabs_credits_charged": 0,
+  "03_attempt_1": "tail gate fail at 0.0775, closing phoneme clipped",
+  "03_attempt_2": "Google HTTP 502 server error, no audio returned, no cost recorded",
+  "02_best": "word exact at medium.en, tail 0.0224 against a 0.02 threshold, open listening call",
+  "01": "passed both gates",
+  "04": "tail pass, no clean single-model exact-copy read, open"
+ },
+ "why_a_rerun_can_differ": "The Google stage is not seeded, so an identical request can return different audio. That is the whole basis for re-running it. The ElevenLabs stage is seeded (finding N4B-3), which is why a retry would be pointless there and why stage 2 is excluded here.",
+ "why_a_third_attempt_is_reasonable": "Attempt 2 produced no audio at all. A 502 is a transient upstream failure, not a rejection of the request or a property of the script, so this is effectively the second real attempt at 03 rather than the third. The Google stage is not seeded, so the returned audio can differ."
+}

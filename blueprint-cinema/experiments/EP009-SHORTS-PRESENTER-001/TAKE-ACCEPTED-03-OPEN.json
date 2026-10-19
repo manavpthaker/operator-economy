@@ -1,0 +1,30 @@
+{
+ "record_type": "owner_feedback_source",
+ "episode": "EP009-direct-booking-recovery",
+ "captured_at_utc": "2026-10-09T15:00:00Z",
+ "source": "current Claude Code session, owner viewing the react-1 repaired take",
+ "surface": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/takes/03-open/take-react1.mp4",
+ "verbatim": "looks good",
+ "bounded_interpretation": "The owner accepts the lip sync of the react-1 repaired take for Short 03's opening span. That was the one open question the measurement tooling could not settle, so the presenter method is proven end to end: generate with the P1 still and the span's narration as an audio reference, then repair with fal-ai/sync-lipsync/react-1 at cut_off, which returns the exact span length with our narration muxed.",
+ "accepted_artifact": {
+  "path": "blueprint-cinema/experiments/EP009-SHORTS-PRESENTER-001/takes/03-open/take-react1.mp4",
+  "sha256": "9b8763b8ed0293dfac981e0436dc495c228381216578d1e7ef6a76a1eef8b27a",
+  "duration_s": 6.541667,
+  "frames": 157,
+  "pixels": "720x1280",
+  "span": "Short 03 presenter open, f0 to f157"
+ },
+ "what_this_proves": [
+  "P1's selfie angle holds in motion",
+  "the chambray and inn setting survive generation",
+  "the narration drives the words correctly",
+  "react-1 at cut_off returns the exact span length",
+  "the residual timing drift is absorbed by the repair pass rather than needing a generation-side fix"
+ ],
+ "not_inferred": [
+  "This accepts one take, not the eight still to be generated. Each is its own stochastic result and needs its own view.",
+  "This does not accept any assembled Short; none has a presenter in it yet.",
+  "This does not change the owner-locked scripts, the picture grammar, the beat assignment or the built screens.",
+  "This does not authorize render, release, upload or publication."
+ ]
+}

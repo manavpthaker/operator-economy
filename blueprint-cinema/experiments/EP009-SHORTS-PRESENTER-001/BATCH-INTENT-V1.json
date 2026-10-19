@@ -1,0 +1,318 @@
+{
+ "schema": "oe-presenter-batch-intent-v1",
+ "at_utc": "2026-10-09T14:40:00Z",
+ "episode": "EP009",
+ "authorization": "owner, 2026-10-09: 'looks good' on the repaired 03-open take, after 'Angle' and '720'",
+ "what": "The eight remaining presenter spans, submitted as one batch, on the route the accepted 03-open take proved.",
+ "route": "seedance_2_5 omni_reference, 720p 9:16 24fps, P1 as image_references, K01 + K08 as video_references, the unpadded span slice as audio_references; then fal-ai/sync-lipsync/react-1 {model_mode: lips, emotion: neutral, lipsync_mode: cut_off, temperature: 0.5} with the same slice.",
+ "cost": {
+  "credits_expected": 595,
+  "rate": "7 credits per second at 720p, measured",
+  "balance_before": 4474.25,
+  "method": "Read the per-call charge from the transaction ledger afterwards, not from the balance. The balance is also spent from outside this session.",
+  "ledger_confirmed": {
+   "method": "transactions ledger, not the balance",
+   "charges": [
+    -84,
+    -49,
+    -84,
+    -91,
+    -77,
+    -56,
+    -63,
+    -91
+   ],
+   "total": -595,
+   "at_utc": "2026-10-09T14:43:48Z to 14:43:50Z",
+   "matches_preflight": true,
+   "note": "The same ledger window shows four GPT Image 2.5 Flare charges of -2.75 at 14:18 and 14:36 that none of this session's calls made. They are not part of this batch."
+  }
+ },
+ "no_retry": "A take that fails is reported, not resubmitted. Each resubmission is new paid work and needs its own authorization.",
+ "duration_note": "generate_s is ceil(speech)+1. If the provider does not accept 13s it clamps to 12, which still exceeds both 13s takes' speech (11.625 and 11.291), so clamping is safe.",
+ "prompt_template": "One continuous {dw}-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact {speech}-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"{text}\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip.",
+ "prompt_derivation": "The accepted Wednesday T1 prompt verbatim, with three substitutions: the identity/setting sentence carries EP009's own chambray and inn breakfast room instead of Wednesday's charcoal sweater and home office; the duration and speech-length words; and the spoken line.",
+ "spoken_text_verified": "Each span's text was read back off its own cut slice with whisper medium.en and matches the text extracted from the owner-locked SPOKEN-TEXT-V1.json by first/last-word anchor. Short 04's close split at 42.083s falls on a sentence boundary: close-a ends at 'a month.', close-b begins at 'Some properties'.",
+ "requests": [
+  {
+   "index": 0,
+   "id": "01-open",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 13,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "ed5c50d3-01b5-465b-966b-d97ecfb56d29"
+     }
+    ],
+    "prompt": "One continuous thirteen-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 11.625-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"You can build a practice that helps a small hotel get its returning guests to book direct, instead of paying a booking site to meet them again. You can run the first piece tonight, on your phone.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "a71d4faf-750d-41ec-8258-f8b13c887035",
+   "note": "resubmitted 2026-10-09T16:10Z after the first job timed out and was refunded"
+  },
+  {
+   "index": 1,
+   "id": "01-close",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 12,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "30a6ac8f-40fa-4107-94c4-18d724e3f3ff"
+     }
+    ],
+    "prompt": "One continuous twelve-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 10.292-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"Whatever breaks is your finding. Not findable, not bookable, or a direct rate that costs the guest more. Ten minutes, and you have half an audit.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "96f1bdf5-51b5-4553-82dd-252d3a8156c3"
+  },
+  {
+   "index": 2,
+   "id": "02-open",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 12,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "c4e7c5c0-c40b-4ffe-9a75-9876ec2ce462"
+     }
+    ],
+    "prompt": "One continuous twelve-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 10.375-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"You can build a service that gets a small hotel's returning guests to book direct, instead of paying a booking site to meet them again. It sounds like marketing. The work is operations.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "e8622c1c-4f26-4fbe-a662-1767d6e0fd48"
+  },
+  {
+   "index": 3,
+   "id": "02-close",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 11,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "17ac08ff-4ce7-4667-b18c-70a329bf7825"
+     }
+    ],
+    "prompt": "One continuous eleven-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 9.833-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"So the qualification is not hotel marketing. It is owning a list of small recurring jobs in a business you do not own. Rates and revenue management stay outside.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "c91aca8e-3092-4772-b588-798bd23da603"
+  },
+  {
+   "index": 4,
+   "id": "03-close",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 9,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "9f61d23a-a8b6-4499-a153-b97752acf4d4"
+     }
+    ],
+    "prompt": "One continuous nine-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 7.333-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"That list runs under the American email law, and European rules for European guests. Check your jurisdiction. This is not legal advice.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "cd989e78-510b-4ff8-a633-09523e6abfb5"
+  },
+  {
+   "index": 5,
+   "id": "04-open",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 8,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "db92df71-4133-4ad9-bade-09c12287db20"
+     }
+    ],
+    "prompt": "One continuous eight-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 6.125-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"You can build a direct-booking practice, and price it honestly off four numbers you ask the owner for.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "d79e7712-6b7d-4e84-90c3-d1e774a3dbdd"
+  },
+  {
+   "index": 6,
+   "id": "04-close-a",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 13,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "f0ebad0c-b1ae-488f-b619-18025fc6e119"
+     }
+    ],
+    "prompt": "One continuous thirteen-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 11.291-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"That is the ceiling, and your fee lives under it. On an illustrative twenty room inn at a hundred and eighty a night and seventy percent occupancy, it lands near a thousand to fourteen hundred dollars a month.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "43a7ce10-2f9d-42cd-89f8-4e33b00592af"
+  },
+  {
+   "index": 7,
+   "id": "04-close-b",
+   "params": {
+    "model": "seedance_2_5",
+    "mode": "omni_reference",
+    "duration": 7,
+    "resolution": "720p",
+    "aspect_ratio": "9:16",
+    "generate_audio": true,
+    "count": 1,
+    "use_unlim": false,
+    "medias": [
+     {
+      "role": "image_references",
+      "value": "1c40e976-5b15-4eb5-a06f-88c981edaa8e"
+     },
+     {
+      "role": "video_references",
+      "value": "b796a739-5036-4242-8fa9-cd61e9e19a0c"
+     },
+     {
+      "role": "video_references",
+      "value": "0f63cbdf-7579-46f9-aab5-ba7af28c85e4"
+     },
+     {
+      "role": "audio_references",
+      "value": "de1759e6-37c3-4dd0-8440-fcccea527288"
+     }
+    ],
+    "prompt": "One continuous seven-second vertical 9:16 handheld front-camera selfie video of the man in the IMAGE reference, filmed on a phone held close, just above eye level and angled slightly down; his face fills most of the frame and only his shoulders and the top of his chest show, with no arm or hand in frame. Preserve his identity, clear-framed glasses, neatly trimmed beard and short hair, light blue chambray button-down, the small country inn breakfast room with the wooden table edge running across the lower frame and the window to the right, lighting and framing exactly as in the IMAGE.\n\nThe first VIDEO supplies connected public-facing articulation to the lens. The second VIDEO supplies relaxed listening stillness and ordinary blinks. They are behavior references only. Do not copy their clothing, room, lighting, unrelated speech or mouth timing. Keep relaxed conversational facial settling, ordinary blinks and comfortable stillness in the face. Below the neck the body is alive and conversational: breathing visible in the shoulders and small shoulder shifts with emphasis. The frame has the gentle natural sway of a hand-held phone. The IMAGE controls identity and setting. The AUDIO controls words, voice, cadence and pauses.\n\nHe speaks only the exact 5.709-second AUDIO reference, candid and relaxed, like telling a colleague how the work actually goes: \"Some properties cannot fund this. The arithmetic tells you which, before you quote.\"\n\nLip sync is the priority: mouth shapes match every syllable of the AUDIO precisely and close fully on the pauses. Keep the head steady and facing the lens, with only the small movement that speech stress causes; no sway, tilt, turn or repeated nod. After the last word the face holds its relaxed rest, eyes on the lens, with no extra words until the picture ends.\n\nNo finger point, head shake, wink, smirk, raised-brow performance or theatrical surprise. Only the slight natural movement of a hand-held phone; no cut, zoom, caption, title, logo, music, additional person or extra objects.\n\nFollow the AUDIO reference at its original speed and cadence. Finish speaking when the AUDIO reference ends. Do not stretch the speech to fill the generated clip."
+   },
+   "job_id": "04de255e-c2d0-4351-a226-40d70deffd4e"
+  }
+ ],
+ "owner_gate": "Every take is a separate stochastic result and is shown for viewing before it is assembled. This batch buys pictures, it does not accept them.",
+ "submitted": {
+  "at_utc": "2026-10-09T14:45:00Z",
+  "count": 8,
+  "failed": 0,
+  "first_attempt": "The first batch call returned 0/8 submitted: the API offered a style preset ('IN THE DARK') in place of every job. Nothing was charged. Resubmitted identically with declined_preset_id."
+ }
+}

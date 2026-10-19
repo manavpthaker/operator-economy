@@ -68,4 +68,16 @@ Add one row before reusing any existing utility:
 
 ## External references
 
+### EP007 R74 legacy end-screen reference — superseded by R75
+
+R74 interpreted the request for the previous endings' logo, website download link and subscribe prompt as a visual-style exception. The owner explicitly corrected this: Boundary Ledger still governs the design. R74's legacy visual treatment is rejected, and the following rows are historical provenance only. R75 retains the functional content but restores Boundary Ledger institutional identity, canonical mineral/paper colors and typography; no grid or gold is carried forward. Exact correction and current direction: `experiments/EP007-NET-NEW-UNFINISHED-ANSWER-003/direction/r75-s26-boundary-close/`. No legacy scene routing, renderer or approvals are adopted.
+
+| Target | Source | Mode | Boundary and verification |
+|---|---|---|---|
+| R74 S26 end screen | `../studio/remotion/src/oe/scenes/Bookends.tsx`, `../studio/remotion/src/oe/theme.ts`, actual EP001/EP002 end frames identified in `episodes/EP007-exit-readiness-prep/agents/deliverables/R74-S26-LEGACY-REFERENCE/` | visual reference | New static HyperFrames source uses the established navy/grid, serif tagline, gold domain and CTA hierarchy. CTA copy is shortened and no weekly-cadence claim is imported. Actual rendered legacy source outranks later theme changes. Native rendered layout, contrast, frame counts and contextual playback checked. |
+| R74 S26 wordmark | R36 accepted `compositions/sting.html`; `../design-system/foundations/brand-wordmark.html` | reference | Existing typeset identity, with no invented logo symbol; larger than the legacy text footer for readability. Local Boska/Supreme files retained. |
+| R74 context assembly and technical QA | R73 `direction/r73-s26-close/finish.py` | copy with scoped path adapter | Only project paths change; no legacy pipeline dependency. Same149-frame scene,156-frame S25 lead,305-frame context, source EOF and1,481-sample PCM padding checks. |
+| R75 S26 Boundary Ledger close | `../design-system/boundary-ledger/{semantic-core.json,bindings/color.json,invariants.md,scene-contracts.md}` plus accepted R36 wordmark | canonical authority/reference | Restores institutional mineral/paper surface and publisher-first typography. Preserves only logo/download/site/subscribe functions from the owner's reference. No legacy grid, navy or gold. Strict and native rendered design-adherence review. |
+| R75 context assembly and QA | R74 `direction/r74-s26-legacy-close/finish.py` | copy with scoped path adapter | Project paths only; unchanged source PCM and frame boundaries. Rechecked149/305frames, exactsourceprefix andzero padding against master, encoded audioalignment and fullblankscan. |
+
 Creative inspirations and the four pinned film-direction method inputs are cataloged in `references/CREATIVE-REFERENCE-STACK.md`. They are behaviors to study, not templates, assets, runtimes, or substitute authorities. Exact local file hashes belong in the OE skills source lock; this map records repository identity, source path, reuse boundary, attribution, and license.
