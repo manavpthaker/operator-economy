@@ -26,8 +26,8 @@ Read these before acting:
    voice/rubric files if drafting public or spoken language.
 3. `operator-blueprint-v2/00-intake/AUTHORITY-MAP.md`, `README.md`,
    `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`,
-   `OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`, and every current template or gate used in
-   the run.
+   `OWNER-DECISION-2026-09-28-COACHING-STANDARD.md`, `OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`,
+   and every current template or gate used in the run.
 4. `automation/candidate-discovery/README.md`, `POOL.md`, and the current dated scout records for
    the upstream lead contract and evidence.
 5. `operator-blueprint-v2/01-editorial/` only after a current promotion explicitly authorizes
@@ -124,7 +124,13 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    $0.20 of Exa a run. Run `$BB scout -- status` first; if the month's shared total is $15 or more,
    use no Exa this run. Stop Exa at $0.20 or when a call is refused, and record the Exa commands and
    the run's Exa spend in the run record.
-5. Identify the strongest existing coverage and the strongest alternative explanation. State what
+5. Identify the strongest existing coverage and the strongest alternative explanation. Check
+   idealab.ai for the candidate (owner decision 2026-10-20,
+   `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`): at most 3
+   searches and 2 briefs a run through `python3 automation/tools/idealab.py`. Use a brief's
+   competitor list as a checklist of substitutes to verify and price on their own pages, and record
+   whether the idea already circulates as a pitched venture (a coverage and differentiation risk).
+   idealab's scores, market sizes, and revenue figures are never evidence. State what
    would falsify the opportunity, what evidence would change the decision, and which attractive
    claims were rejected. A careful summary is not an original Operator Economy point of view. Any
    Step 0.3 synthesis credit must name a specific sourced finding absent from the strongest existing

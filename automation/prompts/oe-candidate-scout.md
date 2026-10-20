@@ -43,7 +43,7 @@ Read these before acting:
    `STEP0.2-APPROVAL.md`, `STEP0.3-CHANGE-PROPOSAL.md`, and the owner decisions in that folder only to
    understand what the scout must not pre-empt.
 5. `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-17-EXA-RESEARCH.md` for the Exa budget
-   below.
+   below, and `OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md` for idealab.ai prompts.
 
 When the checked-out branch is not `main`, read this prompt, the README, `POOL.md`, and the run
 records from local `main` (`git show main:<path>`); that is where scout commits land.
@@ -177,6 +177,30 @@ matters most here.
 Ideas from the scout's own knowledge may be used only as **search prompts**: name the buyer and go
 look for their observations. An idea becomes a lead only when a logged buyer-side observation
 supports it, and the lead records the observation that generated it.
+
+### idealab.ai prompts (owner decision 2026-10-20)
+
+idealab.ai is a free database of about 1.2 million AI-written business ideas
+(`operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`). Its ideas assume a
+2–20 person software venture with $75,000+ to start and $12 million+ a year at success, rest on 1
+to 4 sources (often foreign news recast as a US problem), and score themselves. Treat an idealab
+idea exactly like the scout's own knowledge: a search prompt, never a lead or evidence.
+
+- At most **5 searches and 3 briefs a run**, through `python3 automation/tools/idealab.py`
+  (`search "<what the buyer needs>" --filters '<json>'`, `brief <id>`, `codes`). Useful filters:
+  `{"teamSize":["solo","team_2_5"],"buildType":["HS"],"capitalBand":["c0_10k","c10_50k","c50_100k"]}`
+  and `{"teamSize":["solo","team_2_5"],"evidenceType":["consumer_complaint","forum_post"]}`. Do not
+  create an account or start a new visitor session to get around the daily limits.
+- Restate each idea you pursue in the Operator Economy shape (one operator, AI and agents, the buyer
+  who pays, a share of value or fixed fee), and record in the run log the idealab ID, title, and
+  what it assumed beside the restatement.
+- Then run Step 1 for that buyer. A consumer complaint or forum post the brief cites may be followed
+  and read at its own URL; once read it can be a buyer-side observation. The brief itself cannot.
+- Use the brief's competitor list as a starting list for test 4; verify and price each substitute on
+  its own page before citing it.
+- idealab's scores, market sizes, revenue and capital figures, and why-now text are never evidence
+  or unit economics. At most one new lead a run may start from an idealab prompt; it counts toward
+  the lane its origin observation came from.
 
 ## Step 3: turn observations into leads
 

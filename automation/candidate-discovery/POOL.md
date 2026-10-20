@@ -1,6 +1,14 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-19 ET, scout run (Sunday run, done Monday): shortlists `DISC-2026-10-19-026` (remote
+Updated: 2026-10-20 ET, owner-requested source pass (idealab.ai): adds idealab.ai as a search-prompt
+and substitute-checklist source (owner decision
+`../../operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`); screens five
+idealab-prompted ideas and rejects all five (small medical-bill disputes, C.L.U.E. error correction,
+construction photo ledgers, household bill audits, travel-agency refund recovery); notes
+AccountsReceivable.ai's autonomous AR agent as the strongest substitute for the admitted receivables
+candidate. No buyer-side observations logged; shortlist unchanged at 5. Full record:
+`runs/2026-10-20.md`.
+Previous: 2026-10-19 ET, scout run (Sunday run, done Monday): shortlists `DISC-2026-10-19-026` (remote
 money desk for families of aging parents, priority 2); re-screens CPG distributor deductions and
 back-of-book indexing (both stay rejected); rejects home care after-hours call-off coverage and HVAC
 rebate filing (done-for-you services already sell both). Shortlist 4 to 5; order: CAM review, money
@@ -1836,8 +1844,16 @@ None.
   commission) and back-of-book indexing stays rejected (authors build indexes with AI themselves).
   Reopening conditions in `runs/2026-10-19.md`.
 
+- 2026-10-20 (owner-requested idealab.ai source pass) — Five idealab-prompted ideas, all rejected:
+  small medical-bill disputes for patients (test 4(a): Goodbill 20% with no minimum, mediloop $129
+  flat, free analyzers); C.L.U.E. claims-history error correction (free LexisNexis dispute and
+  no-fee FCRA counsel); construction photo ledgers (only source Japanese; no US buyer observation);
+  household bill audits (share-of-savings negotiators already serve households); travel-agency
+  supplier refund recovery (UK setting, no US buyer observation). Reopening conditions in
+  `runs/2026-10-20.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`.
