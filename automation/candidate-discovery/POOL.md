@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-20 ET, owner-requested source pass (idealab.ai): adds idealab.ai as a search-prompt
+Updated: 2026-10-21 ET, scout run (Wednesday): shortlists `DISC-2026-10-21-027` (child care subsidy
+billing and recovery desk for small centers and family child care homes, priority 3); re-screens
+ISNetworld/Avetta prequalification (stays rejected: done-for-you account management at $99–$425 a
+month) and AI board minutes (reopening condition met, still rejected: towns run AI minutes
+themselves); rejects a Section 8 lease-up paperwork desk and truck detention recovery. Shortlist 5
+to 6; order: CAM review, money desk, child care subsidy desk, IEP advocacy, WISeR desk, admissions
+backend. Full record: `runs/2026-10-21.md`.
+Previous: 2026-10-20 ET, owner-requested source pass (idealab.ai): adds idealab.ai as a search-prompt
 and substitute-checklist source (owner decision
 `../../operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`); screens five
 idealab-prompted ideas and rejects all five (small medical-bill disputes, C.L.U.E. error correction,
@@ -109,7 +116,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
-- Status: `shortlisted` (2026-09-28 scout; priority 2 of 5 since 2026-10-13)
+- Status: `shortlisted` (2026-09-28 scout; priority 1 of 6 since 2026-10-21; was 1 of 5 from 2026-10-15)
 - First seen / last checked: 2026-09-28 / 2026-09-28 ET
 - Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
   often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
@@ -157,7 +164,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-19-026`: remote money desk for families of aging parents
 
-- Status: `shortlisted` (2026-10-19 scout; priority 2 of 5)
+- Status: `shortlisted` (2026-10-19 scout; priority 2 of 6 since 2026-10-21)
 - First seen / last checked: 2026-10-19 / 2026-10-19 ET
 - Lane: A (households: adult children of aging parents), with lane C always-on monitoring.
 - **Origin observation:** AgingCare question 498253, 2026-03-28 (read): an adult child far from a
@@ -228,9 +235,112 @@ lead into formal Operator Blueprint V2 Step 0.
 - Disposition: shortlisted, priority 2 (behind CAM review on evidence depth; ahead of IEP on
   freshness of buyer voice). Recheck 2026-11-02; expires 2027-04-30. Step 0 candidate ID: none.
 
+### `DISC-2026-10-21-027`: child care subsidy billing and recovery desk for small centers and family child care homes
+
+- Status: `shortlisted` (2026-10-21 scout; priority 3 of 6)
+- First seen / last checked: 2026-10-21 / 2026-10-21 ET
+- Lane: C (always-on chasing and reconciling), with a lane D operating change (attendance-based
+  subsidy claims in Washington from 2026-10-01).
+- **Origin observation:** Betsey Grant, owner of Tiny Tikes Daycare in Trenton, Maine (Maine Monitor,
+  2025-03-09, read): it took months of emails and calls, plus three lawmakers, to collect about
+  $30,000 the state owed for foster children's care; the state said invoices were "missing specific
+  information"; "What would have happened to that money if I hadn't been nagging about it like
+  that?" <https://themainemonitor.org/childcare-reimbursements/>
+- Supporting buyer observations (run ledger #12–#21): The Treehouse child care center posts a
+  part-time billing specialist, 20 h/week, for "third-party subsidy claims" and follow-up on
+  "billing discrepancies" with "subsidy agencies" (2026-09-26, read); a three-site Maryland operator
+  posts a part-time food program (CACFP) coordinator to submit monthly claims (2026-04-20, read);
+  owners quoted in local news: Kids Cave Childcare, Montana (payments unpredictable since the
+  February 2026 system; "borrowing from myself to be able to make payroll"), Rising Sun Learning
+  Center, Missouri (about $49,000 owed, 2026-01-09), Creative Corner and Brilliant Brains, Nebraska
+  (a third of families awaiting approval; 3 hours 41 minutes on one reauthorization call,
+  2026-10-08), House of Joy and Angels of Essence, Detroit (missed and partial payments,
+  2025-09-10), Tiny Tots, Washington ("I would be receiving 0.5 of my reimbursement rate" under the
+  new rule, 2026-09-17).
+- Operating changes (context, dated): Washington SHB 2689: from 2026-10-01 centers claim subsidy
+  on attendance, limiting absent days; family homes from July 2027 (DCYF, 2026-09-30, read).
+  DC OSSE may recoup overpayments from audits, late terminations and calculation errors, effective
+  2025-10-01 (read). Federal justification requirements on Child Care and Development Fund draws
+  from January 2026 (Missouri Independent, read). Montana's new payment system (February 2026)
+  pays fast only on "timely, error-free invoices".
+- Signal types: buyer behavior, spend, conversation, operating change, regulation.
+- Who appears to care / decision: owners and directors of small centers and family child care
+  homes that take subsidy, deciding whether to keep taking subsidized children, hire billing help,
+  or carry the work themselves at night.
+- Buyer / costly problem: subsidy is often half or more of revenue; claims bounce on missing
+  details, authorizations lapse without notice, absent days go unbilled or are now unpaid, and
+  unpaid lines sit until someone chases them. Owners float payroll from savings or leave the
+  subsidy program.
+- Potential offer / observable outcome: a monthly desk per provider: agents match daily attendance
+  to each child's authorization and the state's rules, build the claim, flag a lapsing
+  authorization or a family's missing copay weeks ahead, compare every remittance with what was
+  billed, and chase each short or unpaid line with the agency until it is paid or explained.
+  Outcome: days from service to payment, unpaid balance older than 60 days, and claims rejected,
+  before and after.
+- What AI and agents do / what the operator does: agents read attendance exports, authorization
+  notices and remittance files, keep each child's ledger, draft corrections and follow-ups, and
+  watch every open item daily; the operator learns each state's rules and portal, makes the calls,
+  approves each claim, and answers to the owner. Before AI: a part-time billing person in each
+  center (#12), a full-time VA ($1,680 a month), or the owner after hours.
+- **Unit economics sketch (modeled scenario):** a center with 30 subsidized children at about
+  $900 a month each bills about $27,000 a month in subsidy; a fee of $350–$500 a month (or about
+  1.5% of subsidy billed) is below a 20 h/week billing employee. Agents doing the matching and
+  watching might let one operator serve 35–50 providers in one or two state systems:
+  $12,000–$25,000 a month. Value at stake per provider: unbilled or rejected days, lapsed
+  authorizations, recoupments, and weeks of float (one Maine provider was owed about $30,000; one
+  Missouri center about $49,000).
+- Why now: 2026 brought new payment systems (Montana), attendance-based claims (Washington), federal
+  draw justification and state recoupment policies, so a wrong or late claim now costs more; agents
+  can read each state's notices and remittances and watch every open line at a cost a small
+  provider can pay.
+- **Delivery boundary:** no licence is needed to prepare and track subsidy claims; centers hire
+  untrained billing staff for it (#12) and bookkeeping firms reconcile subsidy today. The operator
+  acts as the provider's agent; the provider certifies attendance and signs claims. Open question:
+  whether each state's provider portal allows a delegated user or only the provider's own login.
+- **Substitutes:** childcare software with subsidy modules (Playground, PebbleDesk, hayway, illumine,
+  Pie for Providers, Procare, Brightwheel; tools, the provider still runs them); childcare
+  bookkeeping firms that reconcile subsidy (Turnkey CFO, Tactivus, Finbryn, LedgerBPO; prices not
+  published; reconciliation, not chasing); childcare VAs (Childcare Management Solutions
+  $1,680/month for 40 h/week); the owner or a part-time employee. No US service found that bills,
+  watches authorizations and chases unpaid subsidy lines as one monthly service. idealab.ai search
+  (2026-10-21) showed no such idea in its top six.
+- Test 1: passes; independent buyer-side observations from a job posting and owners in five states
+  across 2025–2026, plus dated operating changes. Problem-value signals: `old-way spend` (#12 part-time
+  billing specialist; VA pricing, context), `problem cost` (#15, #16, #19, #21), `demand signal`
+  (#17, providers asking the state for help). Payment evidence: `found` as old-way spend (centers
+  pay staff for subsidy billing, #12); outside-operator price unknown, viewer's first test.
+- Test 2: passes; agents are what let one person keep many providers' claims, authorizations and
+  remittances current across state rules.
+- Test 3: passes (above), with the portal-access question as evidence still needed.
+- Test 4: passes; tools sold to providers show the problem is real; bookkeepers reconcile but do
+  not chase; a full-time VA costs several times the modeled fee. No buyer-side evidence found of
+  providers getting the outcome from a tool alone (Pie for Providers testimonials are seller-hosted).
+- Test 5: passes; showable with a synthetic center (a month of attendance, five authorizations, one
+  lapsing, a short remittance) and the agent's chase log; no guest; not a duplicate. Caution: in
+  2026 the subject is tied to fraud allegations (Minnesota, Washington); the episode must be about
+  getting honest providers paid correctly, not about fraud.
+- Switching question: why would an owner move this from a part-time employee or her own evenings to
+  an outside operator, rather than to the subsidy module in her childcare software?
+- Possible OE point of view: the state pays whoever is organised and persistent; the hidden labor of
+  getting paid for care already given falls on the smallest providers, and an accountable operator
+  with agents can carry it for many of them. Dependence and recourse: the provider still certifies,
+  the operator answers for the claim.
+- Strongest invalidating question: how much of the money is recoverable through better billing and
+  chasing, rather than agency delay or rate cuts that no operator can change?
+- Evidence still needed: a provider's own count of rejected, short or unbilled claims in a month;
+  whether state portals allow delegated access (start with Washington, Michigan, Illinois); prices
+  for childcare bookkeeping firms; a provider paying an outside person for subsidy billing.
+- Google Trends US 5y (2026-10-21): "child care subsidy" about 25–35 from 2021 to 2025, peaks of
+  80–100 in 2026, now about 28; "child care subsidy billing" too low to chart.
+- Semantic deduplication: no match in candidates, episodes, research or the pool; nearest is admitted
+  `DISC-2026-10-13-023` (receivables desk for B2B businesses), a different buyer, payer and job.
+- Disposition: shortlisted, priority 3 (behind the money desk because its buyer voices come mostly
+  through local news rather than the buyer's own posts; ahead of IEP on fresh evidence and a dated
+  operating change). Recheck 2026-11-04; expires 2027-04-30. Step 0 candidate ID: none.
+
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
-- Status: `shortlisted` (2026-09-30 scout; priority 3 of 5 since 2026-10-13)
+- Status: `shortlisted` (2026-09-30 scout; priority 4 of 6 since 2026-10-21)
 - First seen / last checked: 2026-09-30 / 2026-10-01 ET
 - Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
   HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
@@ -292,8 +402,8 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 4 of 5 since
-  2026-10-13; below the IEP lead since 2026-09-30 because WISeR's survival past 2026-12-11 is
+- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 5 of 6 since
+  2026-10-21; below the IEP lead since 2026-09-30 because WISeR's survival past 2026-12-11 is
   uncertain)
 - First seen / last checked: 2026-09-27 / 2026-09-28 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
@@ -370,7 +480,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-011` — AI prep backend for private-school admissions consultants
 
-- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 5 of 5)
+- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 6 of 6 since 2026-10-21)
 - **Re-screen 2026-10-13 (five tests):** fresh buyer-side observations: admissions firms pay outside
   contract coaches for this exact work — StudyPoint "online admissions consultant", March 2026,
   $75–100/hr, school lists, interview prep and essays (search summary; page 403); Crimson Education
@@ -1852,8 +1962,18 @@ None.
   supplier refund recovery (UK setting, no US buyer observation). Reopening conditions in
   `runs/2026-10-20.md`.
 
+- 2026-10-21 (scout): Section 8 lease-up and HAP paperwork desk for small landlords: rejected on
+  test 2 (the landlord-controlled delay is mostly physical inspection readiness; the rest is the
+  housing authority's queue). Detention pay recovery for owner-operator truckers: rejected on test
+  4(b) (carriers collect with ELD records and broker apps themselves; owner-operators do not hire
+  help). Re-screens: ISNetworld/Avetta prequalification stays rejected (done-for-you monthly account
+  management at $99–$425 a month from many firms) and AI board minutes stays rejected although its
+  reopening condition was met (towns pay outside minute takers $50–$150 a meeting, but Lyndeborough
+  NH and other towns now run AI minutes themselves, and one-person AI services sell at $59–$119 a
+  meeting). Reopening conditions in `runs/2026-10-21.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`.
