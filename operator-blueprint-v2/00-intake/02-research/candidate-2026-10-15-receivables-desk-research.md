@@ -12,7 +12,7 @@ Candidate brief: `../01-candidates/candidate-2026-10-15-receivables-desk.md`
 
 Candidate brief SHA-256: `6aa08857621de2e834411aac197020247e55606d08e2e3b0ecc5ff59fb0803db`
 
-Research cutoff: 2026-10-19 (licensing and substitute pass added 2026-10-19; first pass 2026-10-15)
+Research cutoff: 2026-10-22 (substitute, buyer-record, and channel pass added 2026-10-22; licensing and substitute pass 2026-10-19; first pass 2026-10-15)
 
 Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, state law sessions)
 
@@ -33,6 +33,14 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
   regulate consumer debt only, or not at all, on the texts read (CLM-012 to CLM-016); Illinois
   exempts creditor's-name notice. No legal conclusion; the viewer's state check stays a
   precondition. Remaining unknowns: buyer trust and price.
+- Strongest disconfirming evidence (added 2026-10-22): agent-only software now sells itself as
+  "the AR desk" for small businesses at a flat fee. AccountsReceivable.ai charges $299 a month
+  ($149 billed yearly) for email and text follow-up and $799 ($399 yearly) with AI phone calls
+  (CLM-020); ARPilot charges $99 a month after 10 free invoices (CLM-020). The operator's modeled
+  $300–$500 fee now sits at the software's price, so the operator must win on what software does
+  not do: human dispute and missing-document handling, relationship calls, and one accountable
+  person. CollBox, the human version, now lists $599 a month on a 12-month term ($729 month to
+  month) plus a $999 setup fee (CLM-019).
 - Required public framing: QuickBooks figures are verified survey findings from one vendor's
   survey; CollBox and AR-platform terms are seller terms; all economics are a modeled scenario;
   client trust, price acceptance, and collection results are the viewer's first test; the
@@ -47,11 +55,17 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
 - Consequence and frequency: 59% of small businesses report invoices 30+ days overdue, up from 47%;
   average $17,700 owed among those waiting; 38% of firms with overdue invoices report growing
   reliance on credit cards versus 21% without (CLM-001 to CLM-003).
-- Existing alternatives or budget: free reminders in invoicing software; AR platforms (Chaser
-  Compact $259 a month for firms under $5M revenue; Upflow and Daylit unpriced, aimed at finance
-  teams); done-for-you services (CollBox $599+; Chaser Compact plus Care, a dedicated AR specialist
-  with calls and disputes, $1,199 a month); part-time clerks; contingency agencies after about 90
-  days (CLM-004, CLM-005, CLM-007, CLM-008, CLM-017, CLM-018).
+- Existing alternatives or budget: free reminders in invoicing software; AR platforms (ARPilot
+  $99 a month; AccountsReceivable.ai $299–$799 a month; Chaser Compact $259 a month for firms
+  under $5M revenue; Upflow and Daylit unpriced, aimed at finance teams; Ramp added AR follow-up
+  drafting for single-entity QuickBooks Online and NetSuite firms on 2026-09-22); done-for-you
+  services (CollBox $599 a month yearly, $729 month to month, $999 setup; Chaser Compact plus Care,
+  a dedicated AR specialist with calls and disputes, $1,199 a month); part-time clerks; contingency
+  agencies after about 90 days (CLM-004, CLM-005, CLM-007, CLM-008, CLM-017 to CLM-020, CLM-022).
+- Buyer payment record (2026-10-22): found, seller-published. CollBox's own pages name paying
+  small law firms with owner quotes (Pinay Law, Trusler Legal, Pines Federal Employment, TAW Law)
+  and a May 2026 case study of a six-attorney firm, Ad Astra Law Group (CLM-019). Seller-chosen
+  testimonials: they show that some small firms pay a human desk, not how many or for how long.
 - Why now: the one-year jump in the overdue share (CLM-001) and 2026 AR agents that send email,
   calls, and texts on their own (CLM-008).
 
@@ -97,11 +111,22 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
 - Other demand signals: clerk postings (behavior); 26% of owners say their most useful digital tools
   help them chase money owed faster (CLM-003).
 - Independent signal count: 3 families (vendor survey; employer postings; forum threads). Forum
-  threads are partly posted by tool builders.
+  threads are partly posted by tool builders. Adjacent (2026-10-22): Atradius reports about seven
+  in ten US businesses face late B2B payments, about 23% of receivables affected, and Ramp calls
+  AR "a top request from our customers" (CLM-022; secondary and seller statements).
 - Strongest existing coverage: vendor guides (Xero, June 2026; QuickBooks) on chasing invoices;
   AR-agent vendor content (Kolleno, Gaviti, Daylit coverage) aimed at finance teams.
 - Information gap: nobody covers a solo operator selling the outcome to small firms, the
   hand-back and lock rules, and the state licensing line.
+- Pitched-venture check (idealab.ai, 2026-10-22; 1 search, 2 briefs): the idea already circulates
+  as a funded-team venture. Search "chase overdue B2B invoices for small businesses done-for-you"
+  returned at least six close ideas, including "Managed Receivables Desk for Small Businesses"
+  (idea 1544380, its own field check `crowded`) and "Receivables Autopilot for Bookkeeping Firms"
+  (idea 1551755, `contested`). Both assume 2–20 staff and $60,000–$120,000 to start. Coverage and
+  differentiation risk: the episode cannot claim the idea is new; its angle is the one-person
+  version, the price squeeze, and the licensing line. idealab's scores and revenue figures are not
+  used. Its competitor lists were checked on the vendors' own pages (CLM-020, CLM-021); Invoiced,
+  Paidnice, QLink-Pay, and Plooto were not opened this run.
 - Candidate original finding (2026-10-19, synthesis credit not yet scored): commercial invoice
   follow-up sits outside most consumer debt-collection licensing, but a few states (Florida,
   Washington) define collection to include business claims. Vendor and AR-agent coverage read
@@ -118,7 +143,7 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
   and accounting at a lower flat fee, with dispute triage included.
 - Primary transfer risk: legal status of a third party contacting another business's customers
   about past-due invoices (CLM-009 to CLM-011); buyer trust in agent-written messages.
-- Analogy map: not started.
+- Analogy map: `../03-validation/candidate-2026-10-15-receivables-desk-analogy-map.md` (2026-10-19; addendum 2026-10-22).
 
 ## Proposed Operator Blueprint
 
@@ -135,7 +160,13 @@ Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, sta
 - Required skills or credentials: AR or bookkeeping experience; judgment on relationships; state
   registration or licence where required (unknown per state).
 - Go-to-market path: one niche (for example, small agencies or trades suppliers) through
-  bookkeepers and fractional CFOs who already see the aging reports (hypothesis).
+  bookkeepers and fractional CFOs who already see the aging reports. Adjacent model (2026-10-22):
+  AR vendors sell collections to accounting firms as a service to resell or refer. Biller Genie
+  runs a partner program paying commissions to accounting firms that offer AR automation to
+  clients; AccountsReceivable.ai pitches accountants to "turn the aging report you already produce
+  into a service clients pay for" (CLM-021). Seller copy: it shows vendors invest in this channel,
+  not that bookkeepers refer outside desks. It also names the strongest rival: a bookkeeper who
+  adds the tool and keeps the client.
 - Pricing model: modeled scenario; flat monthly fee anchored below CollBox's $599 entry tier and
   Chaser Compact plus Care at $1,199 (CLM-017), above Chaser's self-run $259 tool. The pitch is the
   outcome of the specialist service at close to the price of the tool.
@@ -152,12 +183,18 @@ Every number in this section is an internal Step 0 input until it is approved un
 | Client capacity | about 30 clients | Agent handles drafting and classification; operator handles escalations | modeled | Depends on invoices per client and escalation rate |
 | Delivery hours | about 1–1.5 h per client per week | Review queue, escalations, weekly report | modeled | Unmeasured; viewer's first test |
 | Loaded labor cost | operator's own time | n/a | modeled | Owner compensation excluded |
-| Software and contractors | about $1,000–$2,500 per month | Agent, calling, mailbox, and accounting connectors; one published AR-tool price is $259 a month per firm (CLM-017), so the operator needs shared or multi-client tooling, not one seat per client | modeled | Upflow and Daylit unpriced (CLM-018) |
+| Software and contractors | about $1,000–$2,500 per month (base); $2,970–$4,470 per month (sensitivity) | Agent, calling, mailbox, and accounting connectors. Published per-business seats: ARPilot $99, AccountsReceivable.ai $149 (yearly) to $299 (monthly), Chaser $259 (CLM-017, CLM-020). AccountsReceivable.ai deploys one agent per client ledger for accounting firms but shows no multi-client price (CLM-021) | modeled | If the operator pays one seat per client at $99–$149, software is $2,970–$4,470 a month for 30 clients |
 | Acquisition and overhead | about $500–$1,000 per month | Referral partners, registration or bond where required | modeled | State costs unknown |
 
 Capacity case formula: `$400 x 30 clients x 12 months = $144,000 gross revenue`
 
 Contribution case formula: `$144,000 - $0 delivery labor (owner) - $21,000 software - $0 contractors - $9,000 acquisition and overhead = $114,000 contribution before owner compensation and tax`
+
+Sensitivity (2026-10-22): with one $99–$149 seat per client, software is about $35,640–$53,640 a
+year, and contribution falls to about `$144,000 - $35,640 to $53,640 - $9,000 = $81,360 to $99,360`
+before owner compensation and tax. At a $300 fee the same case is `$108,000 - $35,640 to $53,640 -
+$9,000 = $45,360 to $63,360`. The model stays positive but thin at the low price; price is the
+viewer's first test.
 
 Disclosure: `Modeled scenario, not observed performance or an earnings forecast.`
 
@@ -245,15 +282,21 @@ Every load-bearing claim must meet `../03-validation/EVIDENCE-STANDARD.md`.
 | CLM-016 | Pennsylvania: the Fair Credit Extension Uniformity Act (Act 7 of 2000) defines debt as an obligation for personal, family, or household purposes; no Pennsylvania collection-agency licensing statute was found; verified (definition), unknown (licensing) | Act 7 of 2000, Pa. General Assembly <https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/2000/0/0007..HTM> (read via Exa) | Section 3, "Debt", "Debt collector" | 2000 act / 2026-10-19 | not captured | primary; high for definition | direct (boundary) | 2027-07-01 | Secondary sources conflict on licensing; absence not proven |
 | CLM-017 | Chaser pricing: Compact $259 a month (revenue under $5M, 4 users); Core $779; Care add-on with dedicated AR specialist, payment follow-ups, phone calls, inbox management, and dispute handling; Compact plus Care $1,199 a month; no stated minimum term; verified as seller terms | Chaser pricing <https://www.chaserhq.com/pricing> | Plan table and Care description | page © 2026, undated / 2026-10-19 | not captured | seller page; medium | substitute (context) | 2027-01-15 | Seller terms; not buyer payment; plan feature mapping for AI and calls not shown |
 | CLM-018 | Upflow Starter covers up to $10M invoiced revenue and 40,000 invoices a year with email, SMS, call, and letter reminders, price not shown; Daylit sells AR agents to finance teams on NetSuite, Sage Intacct, and Dynamics, "200+ enterprises", price not shown; verified as seller terms | Upflow pricing <https://upflow.io/pricing>; Daylit <https://www.daylit.com/> (both read via Exa) | Plan list; home page | undated / 2026-10-19 | not captured | seller pages; medium | substitute (context) | 2027-01-15 | No published price; aggregator listings unverified |
+| CLM-019 | CollBox lists $599 a month on a 12-month term ($729 month to month) plus a one-time $999 setup fee; a dedicated US-based AR expert makes the calls; flat fee, never touches funds; unpaid after 90 days returned to the firm; "CollBox Collect" refers disputed or defaulted accounts to a vetted agency; named owner testimonials (Pinay Law, Trusler Legal, Pines Federal Employment, TAW Law) and a case study of Ad Astra Law Group, six attorneys, San Francisco; verified as seller terms and seller-published customer records | CollBox pricing <https://collbox.co/pricing/> (read via Exa); case study <https://collbox.co/blog/how-a-san-francisco-litigation-boutique-recovered-469000-in-ar-and-found-her-dream-car-along-the-way/> (read via Exa) | Plan box, FAQ, testimonials; case study "The Firm" and "The Diagnostic" | pricing undated; case study 2026-05-29 / 2026-10-22 | not captured | seller page; medium (terms), low-medium (customer records, seller-selected) | direct (observed model; buyer payment, seller-published) | 2027-01-15 | Seller's recovery figures ($66K a month average, 40% faster) are not used; testimonials are chosen by the seller |
+| CLM-020 | AccountsReceivable.ai sells an agent "AR desk" to small businesses: Starter $299 a month ($149 billed yearly), QuickBooks or Xero, email and text follow-up, cash application; Growth $799 ($399 yearly) adds live AI phone calls; flat fee, no share of collections. ARPilot: free on 10 invoices a month, then $99 a month, QuickBooks Online, email, text, and voice, dispute pauses. Dueflo: AI-written escalating email and text for QuickBooks, 14-day trial (price not read); verified as seller terms | AccountsReceivable.ai <https://accountsreceivable.ai/pricing>, <https://accountsreceivable.ai/accounts-receivable-software-for-small-business>; ARPilot <https://arpilot.ai/>; Dueflo <https://www.dueflo.com/> (all read via Exa) | Plan table; small-business page; "For small business" block; home page | undated / 2026-10-22 | not captured | seller pages; medium | substitute (strongest disconfirming) | 2027-01-15 | Seller terms; no buyer uptake; product quality unverified |
+| CLM-021 | Biller Genie markets AR automation to accounting and bookkeeping firms as a value-added client service with a multi-client dashboard and a partner program paying commissions per referred client subscription ("hundreds of accounting firms", seller claim); AccountsReceivable.ai pitches accountants to deploy one agent per client ledger and package collections as a paid service; no multi-client price shown; verified as seller copy | Biller Genie <https://billergenie.com/accountants/>; AccountsReceivable.ai <https://accountsreceivable.ai/accounts-receivable-software-for-accountants> (both read via Exa) | Partner Revenue Program; "One agent per client ledger" | undated / 2026-10-22 | not captured | seller pages; low-medium | adjacent (go-to-market model; substitute) | 2027-01-15 | Shows vendor investment in the channel, not bookkeeper referral behavior |
+| CLM-022 | Ramp launched AR on 2026-09-22 for US single-entity businesses on QuickBooks Online or NetSuite, drafting collections follow-ups and matching payments; Ramp called AR "a top request from our customers"; the article cites Atradius: about seven in ten US businesses face late payments, about 23% of B2B receivables affected; verified as reported | CFO Dive <https://www.cfodive.com/news/ramp-expands-accounts-receivable-cfos-seek-faster-cash-flow-ai/830994/> (read via Exa) | Dive Brief; Dive Insight | 2026-09-22 / 2026-10-22 | not captured | trade press of seller release and a survey; medium | substitute; adjacent demand | 2027-01-15 | Atradius figure read second-hand; Ramp customers skew larger than the target buyer |
 
 ## Unresolved questions
 
 - Licensing: done for eight states (2026-10-19). Remaining: Buffalo and Yonkers scope; Florida bond
   and fee; other states with commercial collection registration. Not needed to advance; the
   episode names the check, not a map of all fifty states.
-- Buyer payment: any buyer-side record (review with company size, testimonial with outcome, firm
-  disclosure) of paying CollBox or a similar service. Desk; next bench. Otherwise the viewer's first
+- Buyer payment: found 2026-10-22 as seller-published records (CLM-019): named small law firms
+  pay CollBox. Outside law, and for an outside operator rather than a known vendor: viewer's first
   test.
+- Tooling cost per client: published seats are $99–$299 per business (CLM-020); a multi-client
+  price is not shown (CLM-021). Viewer's first test: quote one multi-client plan before pricing.
 - Substitute: recorded 2026-10-19 (CLM-017, CLM-018). Chaser publishes $259 (tool) and $1,199
   (tool plus specialist); Upflow and Daylit publish no price and aim at finance teams on ERPs.
 - Trust and price acceptance: viewer's first test.

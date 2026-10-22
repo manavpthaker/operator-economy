@@ -123,3 +123,38 @@ Next bench: Canvas feasibility gate and editorial-potential review, then the sco
 hard gate. No owner input needed.
 
 Editorial development authorized: no
+
+## Addendum 2026-10-22 (Thursday bench)
+
+Decision: **continue research** (validation reached: score 68, calibration zone; all hard gates pass;
+owner override decision pending)
+
+Updated artifacts:
+
+- Research brief: `../02-research/candidate-2026-10-15-receivables-desk-research.md` / `77a4fb307f78d584bd47945e7cd342028b9eeae6b062a6cad77726d1d691c5cf` (CLM-019 to CLM-022)
+- Analogy map: `candidate-2026-10-15-receivables-desk-analogy-map.md` / `8b199a60f7bde10019004edace3deadf0ca5d04556e46a46b9dd7c5da7da01df` (ANA-009 to ANA-011; go to market now passes weak)
+- Canvas gate (new): `candidate-2026-10-15-receivables-desk-canvas-gate.md` / `94939d503aa72d3338dfdad2bba52ae32ab464fb215a7c4522ef3cc0f19b962c` (pass)
+- Editorial potential (new): `candidate-2026-10-15-receivables-desk-editorial-potential.md` / `92f576b99d6cdfdc4aec7754317e926b0cadb8d402631b7a7e13c07094f44e20` (pass)
+- Scorecard (new): `candidate-2026-10-15-receivables-desk-scorecard.md` / `5044d533d149e7f5343961166b392b3362649332668204b039bed6fc23d3b004` (68/100)
+
+Desk condition 3 (buyer payment record): found, seller-published (CLM-019). Scored as a partial gap.
+
+New disconfirming evidence: AccountsReceivable.ai ($149–$799) and ARPilot ($99) sell an agent
+"AR desk" to small businesses at or below the operator's modeled fee (CLM-020). Under the
+2026-10-13 rule a tool existing does not reject the lead; it moves the product to the human layer
+and is scored in economics and POV.
+
+Re-entry: allowed. Two paths, either sufficient:
+
+1. Owner override of the numeric threshold (65–69 rule), bound to the five hashes above, after
+   which a promotion record may be drafted for owner review.
+2. Desk work that honestly lifts the score: a published or quoted multi-client agent price, and a
+   buyer record of paying a human AR desk outside law. No owner interviews, pilots, outreach, or
+   rehearsals are conditions.
+
+Park condition: if the next refresh finds agent desks bundling a human specialist at or below
+$300–$500 a month, the human-layer wedge is gone; park with that as the reopening condition.
+
+Editorial development authorized: no
+
+Episode number: unassigned

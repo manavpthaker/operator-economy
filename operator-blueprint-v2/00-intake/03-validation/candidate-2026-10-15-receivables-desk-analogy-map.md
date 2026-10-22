@@ -70,3 +70,26 @@ Adjacent synthesis. The viewer must hear that CollBox and Chaser sell this servi
 prices, but no buyer record of paying them was found; that the solo-operator version is a modeled
 scenario; and that some states (Florida, Washington among those read) appear to treat this work as
 collection, so the state check comes before the first client.
+
+## Addendum 2026-10-22 (Thursday bench)
+
+Research brief: `../02-research/candidate-2026-10-15-receivables-desk-research.md` (CLM-019 to CLM-022 added; hash in the scorecard)
+
+New transfer records:
+
+| Analogy ID | Proposed-business component | Reference model | Source claim IDs | Relationship | Shared structure | Required adaptation | Does not prove | Break condition | Confidence | Verdict |
+|---|---|---|---|---|---|---|---|---|---|---|
+| ANA-009 | Go to market | AR vendors' accountant partner programs (Biller Genie commissions; AccountsReceivable.ai "service clients pay for") | CLM-021 | adjacent (seller-described channel) | The bookkeeper sees the aging report first and is the trusted path to the small owner | The operator partners with bookkeepers (referral fee) or is the bookkeeper; vendors pay commissions, so the operator competes with them for the same referral | That bookkeepers refer an outside desk, or that partner programs convert | Bookkeepers in the viewer's niche run the tool themselves and keep the client | low-medium | valid (weak) |
+| ANA-010 | Budget (buyer pays a human desk) | CollBox named customers | CLM-019 | direct (seller-published records) | Small firms pay a flat monthly fee for a human to chase past-due invoices | Outside law; an unknown operator instead of an award-winning vendor | How many pay, for how long, or outside law | CollBox drops the human expert or its named customers leave | low-medium | valid |
+| ANA-011 | Substitute (constraint on price) | Agent-only AR desks (AccountsReceivable.ai $149–$799; ARPilot $99; Ramp AR) | CLM-020, CLM-022 | substitute | Same follow-up, cash application, and dispute logging, run by software | The operator must add the human layer (disputes, missing documents, relationship calls, accountability) and price above the software | That owners actually run these tools well alone | Agent desks add a human specialist near $300–$500 | medium | valid (as a constraint) |
+
+Coverage-test change: go to market moves from **fail (weak)** to **pass (weak, adjacent seller-described
+model)** on ANA-009. Budget gains ANA-010. ANA-011 narrows the price band: the gap is no longer
+"$259 to $599" but "above $99–$299 software, below $599–$729 human desk."
+
+Evidence-floor verdict: unchanged, **pass**. Valid analogy count 8 (ANA-001 to ANA-005, ANA-007,
+ANA-009, ANA-010), plus two valid constraints (ANA-008, ANA-011). Source families: 8 (adds
+accountant-channel vendor pages and trade press).
+
+Disclosure addition: the viewer must hear that AI tools already sell "the AR desk" for $99 to $299
+a month, so the operator is paid for the human part, not the sending.
