@@ -158,3 +158,22 @@ $300–$500 a month, the human-layer wedge is gone; park with that as the reopen
 Editorial development authorized: no
 
 Episode number: unassigned
+
+## Addendum 2026-10-26 (Monday bench)
+
+Decision: **promotion record drafted for owner review** (owner override of the numeric threshold
+recorded; calibration-zone decision pending)
+
+- Owner override: brownbot approvals decision id 405 (`oe-research-bench`), approved 2026-10-22
+  15:26 ET, after the 2026-10-22 package was committed. The five validation hashes and the
+  candidate hash still match.
+- Draft: `../04-queue/candidate-2026-10-15-receivables-desk-promotion.md` (decision pending;
+  editorial development authorized: no; episode number unassigned).
+- Refresh check (Exa news since 2026-10-15, plus Invoice Butler pages): Invoice Butler sells free
+  AR follow-up emails and a custom-priced annual plan with human AR specialists and calls. Park
+  condition not met (no disclosed price at or below $300–$500 a month). Recorded as a carried
+  caveat in the draft, not in the bound research brief.
+
+Editorial development authorized: no
+
+Episode number: unassigned
