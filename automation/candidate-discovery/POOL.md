@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-21 ET, scout run (Wednesday): shortlists `DISC-2026-10-21-027` (child care subsidy
+Updated: 2026-10-28 ET, scout run (Wednesday): shortlists `DISC-2026-10-28-028` (post-award grant
+reporting desk for small nonprofits, priority 4); re-screens insurance credentialing for small
+practices (stays rejected: credentialing services and offshore staff at $15–$17 an hour) and roofing
+insurance supplements (stays rejected: crowded done-for-you supplement firms); rejects a self-storage
+back office for independent owners and USDA payment recovery for farms (Simplify USDA sells it at 5%
+of funds received). Shortlist 6 to 7; order: CAM review, money desk, child care subsidy desk, grant
+reporting desk, IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-10-28.md`.
+Previous: 2026-10-21 ET, scout run (Wednesday): shortlists `DISC-2026-10-21-027` (child care subsidy
 billing and recovery desk for small centers and family child care homes, priority 3); re-screens
 ISNetworld/Avetta prequalification (stays rejected: done-for-you account management at $99–$425 a
 month) and AI board minutes (reopening condition met, still rejected: towns run AI minutes
@@ -116,7 +123,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
-- Status: `shortlisted` (2026-09-28 scout; priority 1 of 6 since 2026-10-21; was 1 of 5 from 2026-10-15)
+- Status: `shortlisted` (2026-09-28 scout; priority 1 of 7 since 2026-10-28; was 1 of 6 from 2026-10-21)
 - First seen / last checked: 2026-09-28 / 2026-09-28 ET
 - Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
   often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
@@ -164,7 +171,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-19-026`: remote money desk for families of aging parents
 
-- Status: `shortlisted` (2026-10-19 scout; priority 2 of 6 since 2026-10-21)
+- Status: `shortlisted` (2026-10-19 scout; priority 2 of 7 since 2026-10-28)
 - First seen / last checked: 2026-10-19 / 2026-10-19 ET
 - Lane: A (households: adult children of aging parents), with lane C always-on monitoring.
 - **Origin observation:** AgingCare question 498253, 2026-03-28 (read): an adult child far from a
@@ -237,7 +244,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-21-027`: child care subsidy billing and recovery desk for small centers and family child care homes
 
-- Status: `shortlisted` (2026-10-21 scout; priority 3 of 6)
+- Status: `shortlisted` (2026-10-21 scout; priority 3 of 7 since 2026-10-28)
 - First seen / last checked: 2026-10-21 / 2026-10-21 ET
 - Lane: C (always-on chasing and reconciling), with a lane D operating change (attendance-based
   subsidy claims in Washington from 2026-10-01).
@@ -338,9 +345,112 @@ lead into formal Operator Blueprint V2 Step 0.
   through local news rather than the buyer's own posts; ahead of IEP on fresh evidence and a dated
   operating change). Recheck 2026-11-04; expires 2027-04-30. Step 0 candidate ID: none.
 
+### `DISC-2026-10-28-028`: post-award grant reporting desk for small nonprofits
+
+- Status: `shortlisted` (2026-10-28 scout; priority 4 of 7)
+- First seen / last checked: 2026-10-28 / 2026-10-28 ET
+- Lane: C (always-on deadline watching, evidence collection and reporting).
+- **Origin observation:** a bookkeeper ("tax_tina") for a nonprofit client, Beancount forum,
+  2026-03-29 (read): after a $50,000 foundation grant, the executive director said the compliance
+  requirements were "intense": monthly budget-vs-actual reports, timesheets for every staff member on
+  the program, receipts, quarterly narrative reports, indirect cost calculations and a final
+  reconciliation; the program director estimated "15-20 hours per month just on grant
+  administration".
+  <https://beancount.io/forum/t/grant-management-software-that-costs-more-than-the-grant-when-15k-tracking-overhead-eats-30-of-50k-funding/3330>
+- Supporting buyer observations (run ledger #13–#20): Recovery Café Longmont posts a part-time grants
+  coordinator at $43 an hour, up to 20 h/week, to keep a calendar of "reports, invoices, and renewals"
+  and "Monitor grant deliverables, deadlines, and performance requirements to reduce compliance risk"
+  (read); Latino Community Center's part-time grants manager description (May 2026) covers "award
+  management, compliance, reporting, and closeout" across all funders (read); Precious Blood Ministry
+  of Reconciliation (Chicago) posts a 24 h/week grants administrator to keep the calendar of
+  submissions and reports (read); part-time grant administrators in Omaha ($23–$27 an hour) and at the
+  Alzheimer's Association in Southfield MI (summaries); a small service organisation spent weeks and a
+  day of travel on a random audit of a $25,000 grant (Nonprofit Snapshot, read); the City of Charlotte
+  suspended Heal Charlotte's funding eligibility after finding about $1.2 million of expenses under a
+  $2.25 million grant without proper documentation (Charlotte Observer, 2025-11-14, read).
+- Signal types: buyer behavior, spend, conversation, consequence.
+- Who appears to care / decision: executive directors and development or program directors at
+  nonprofits with a few to a dozen active grants (foundation, county, state, some federal) and no
+  dedicated grants-compliance person, deciding whether to hire part-time grants staff, pay a
+  consultant, or carry the work themselves.
+- Buyer / costly problem: each award carries its own deadlines, budget lines, evidence and report
+  formats; the work lands on program staff (15–20 hours a month on one $50,000 grant, #18); a missed
+  report or missing documentation can stop payments, trigger repayment or suspend eligibility (#20);
+  audits cost days even when records are clean (#19).
+- Potential offer / observable outcome: a monthly desk per organisation: agents read each award
+  agreement into a calendar of deliverables and reports, pull spending from the accounting system
+  into budget-vs-actual by grant line, request and file evidence (timesheets, receipts, attendance)
+  as it arrives, draft progress and financial reports and drawdown requests for the director's
+  sign-off, and flag drift weeks ahead. Outcome: reports filed on time, budget variance caught before
+  the report, documentation complete at audit; hours the program staff spend on grant administration,
+  before and after.
+- What AI and agents do / what the operator does: agents read award terms, ledgers, program data and
+  funder portals, keep every grant's calendar and evidence list current, and draft reports and
+  variance notes; the operator sets up each award, checks every draft and number, talks to the
+  director and funders, and answers for the file. Before AI: a part-time grants coordinator in each
+  organisation (#13–#17, $23–$43 an hour), a consultant on retainer, or program staff after hours.
+- **Unit economics sketch (modeled scenario):** a nonprofit with 4–8 active grants totalling
+  $200,000–$1,000,000 pays a part-time grants coordinator about $3,400–$3,700 a month (20 h/week at
+  $40–$43) or a retainer of $1,250–$6,000 a month. A desk fee of $400–$900 a month is far below both.
+  With agents doing the reading, tracking and first drafts, one operator might keep 20–30
+  organisations current: $8,000–$27,000 a month. Value at stake per organisation: the grants
+  themselves (a stopped or repaid award), plus 15–20 staff hours a month per active grant.
+- Why now: agents can now read award agreements and ledgers and draft reports well enough for one
+  person to check many organisations' files; search interest in "grant compliance" and "grant
+  reporting" rose through 2025 and is still above the 2021–2024 level (Trends, cause not established);
+  city and state funders are visibly enforcing documentation (#20).
+- **Delivery boundary:** no licence is needed to track grants, collect evidence or draft funder
+  reports; nonprofits hire untrained part-time staff for it (#13–#17). Financial statement audits and
+  Single Audits must be done by an independent CPA, which the operator does not do; the nonprofit
+  stays the responsible party and signs certifications and reports.
+- **Substitutes:** grant management software (GrantConsole $79–$349 a month, TideWatch AI, 4granted,
+  Fundamentl, Instrumentl's deadline tracking; tools, the organisation still runs them; the origin
+  thread argues the software overhead itself is out of proportion for small grants); done-for-you
+  post-award retainers (GERC from $1,250 a month for one award, $2,500 for several or one federal
+  award; Shirame's Post-Award Reporting Desk $1,500–$6,000 a month; bookkeeping firms such as Bridge
+  The Gap Financial); the organisation's own part-time staff ($23–$43 an hour). idealab.ai's top
+  twenty matches (2026-10-28) were all SaaS concepts. No done-for-you desk found below $1,250 a month.
+- Test 1: passes; independent buyer-side observations from five postings, a bookkeeper's client
+  account and two consequence stories. Problem-value signals: `old-way spend` (#13–#17), `problem
+  cost` (#18–#20), `adjacent spend` (retainers and software, context). Payment evidence: `found` as
+  old-way spend (part-time grants staff); outside-operator price unknown, viewer's first test.
+- Test 2: passes; agents are what let one person keep many organisations' calendars, evidence and
+  drafts current; before, each organisation needed its own part-time person or a retainer at
+  $1,250 a month and up.
+- Test 3: passes (above).
+- Test 4: passes; tools sold to nonprofits show the problem is real; the done-for-you desks start at
+  $1,250–$1,500 a month, a price one operator with agents can undercut; no buyer-side evidence found
+  of small nonprofits getting the outcome from software alone.
+- Test 5: passes; showable with a synthetic nonprofit (three award letters, a ledger export, a
+  quarter of program data) and the agent's calendar, variance flags and draft report; no guest; not
+  a duplicate of the grant-writing rejection (pre-award drafting).
+- Switching question: why would a director move this from a part-time grants coordinator to an
+  outside operator, rather than to grant software run by existing staff? (Possible answers to test:
+  the role is part-time and turns over, taking grant memory with it; software still needs someone to
+  run it every week.)
+- Possible OE point of view: winning the grant is the easy part; the hidden labor of proving how the
+  money was spent falls on the smallest organisations, and an accountable operator with agents can
+  carry it for many of them at a fraction of a staff role. Dependence and recourse: the director
+  still signs, the operator answers for the file.
+- Strongest invalidating question: do small nonprofits with mostly foundation grants carry enough
+  reporting work to pay $400–$900 a month, or does the burden sit in government grants that need a
+  fuller retainer or a fund accountant?
+- Evidence still needed: an executive director's own words (not relayed) on reporting hours or a
+  missed report; a small nonprofit paying an outside provider specifically for post-award reporting,
+  with price; whether funders accept reports drafted with AI (the grant-writing rejection found
+  funder views on AI-drafted proposals unsettled).
+- Google Trends US 5y (2026-10-28): "grant reporting" and "grant compliance" both near 10 from 2021
+  to 2024, peaks of about 75 and 100 in 2025, now about 15–20.
+- Semantic deduplication: no match in candidates, episodes, research or the pool for post-award
+  reporting; nearest are the nonprofit grant-writing rejection (pre-award, buyers draft with AI) and
+  held `DISC-2026-10-07-020` (catch-up reconciliation for towns), a different buyer and job.
+- Disposition: shortlisted, priority 4 (behind the child care subsidy desk, whose buyers' own words
+  are stronger; ahead of IEP on fresh spend evidence and a clear price gap below the existing desks).
+  Recheck 2026-11-11; expires 2027-04-30. Step 0 candidate ID: none.
+
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
-- Status: `shortlisted` (2026-09-30 scout; priority 4 of 6 since 2026-10-21)
+- Status: `shortlisted` (2026-09-30 scout; priority 5 of 7 since 2026-10-28; was 4 of 6 from 2026-10-21)
 - First seen / last checked: 2026-09-30 / 2026-10-01 ET
 - Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
   HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
@@ -402,9 +512,9 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 5 of 6 since
-  2026-10-21; below the IEP lead since 2026-09-30 because WISeR's survival past 2026-12-11 is
-  uncertain)
+- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 6 of 7 since
+  2026-10-28, was 5 of 6 from 2026-10-21; below the IEP lead since 2026-09-30 because WISeR's
+  survival past 2026-12-11 is uncertain)
 - First seen / last checked: 2026-09-27 / 2026-09-28 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
   authorization to Original Medicare in Arizona, New Jersey, Ohio, Oklahoma, Texas and Washington
@@ -480,7 +590,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-011` — AI prep backend for private-school admissions consultants
 
-- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 6 of 6 since 2026-10-21)
+- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 7 of 7 since 2026-10-28; was 6 of 6 from 2026-10-21)
 - **Re-screen 2026-10-13 (five tests):** fresh buyer-side observations: admissions firms pay outside
   contract coaches for this exact work — StudyPoint "online admissions consultant", March 2026,
   $75–100/hr, school lists, interview prep and essays (search summary; page 403); Crimson Education
@@ -1972,8 +2082,19 @@ None.
   NH and other towns now run AI minutes themselves, and one-person AI services sell at $59–$119 a
   meeting). Reopening conditions in `runs/2026-10-21.md`.
 
+- 2026-10-28 (scout): Self-storage delinquency and remote back office for independent owners:
+  rejected on test 4(a); remote management and collections are already sold done-for-you (Overlock
+  Management outbound collections agents, Neon Link facility administrators, Storable remote
+  management), and buyer voice was thin. USDA program payment recovery for small and mid-size farms:
+  rejected on test 4(a); Simplify USDA prepares and submits every eligible application for 5% of funds
+  received, Crop Disaster Recovery works at 15%, Go Farm Connect is free. Re-screens: insurance
+  credentialing for small practices stays rejected (credentialing services from $1,200 for two payers;
+  offshore staff $15–$17 an hour) and roofing insurance supplements stay rejected (crowded
+  done-for-you supplement firms; carrier contact is public-adjusting territory). Reopening conditions
+  in `runs/2026-10-28.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`.
