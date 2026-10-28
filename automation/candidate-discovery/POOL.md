@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-28 ET, scout run (Wednesday): shortlists `DISC-2026-10-28-028` (post-award grant
+Updated: 2026-10-28 ET, scout rerun 2 (scheduled 17:00 Wednesday): shortlists `DISC-2026-10-28-029`
+(clinical research site invoicing and sponsor payment desk, priority 5); re-screens outsourced
+construction takeoffs (stays rejected: offshore takeoff estimators) and HazCom SDS updates (stays
+rejected: no fresh buyer observation); rejects beverage alcohol compliance reporting for small
+wineries and distilleries (AI is not the work; established compliance firms run it). Shortlist 7 to
+8; order: CAM review, money desk, child care subsidy desk, grant reporting desk, site invoicing desk,
+IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-10-28.md`, rerun 2.
+Previous: 2026-10-28 ET, scout run (Wednesday): shortlists `DISC-2026-10-28-028` (post-award grant
 reporting desk for small nonprofits, priority 4); re-screens insurance credentialing for small
 practices (stays rejected: credentialing services and offshore staff at $15–$17 an hour) and roofing
 insurance supplements (stays rejected: crowded done-for-you supplement firms); rejects a self-storage
@@ -123,7 +130,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
 
-- Status: `shortlisted` (2026-09-28 scout; priority 1 of 7 since 2026-10-28; was 1 of 6 from 2026-10-21)
+- Status: `shortlisted` (2026-09-28 scout; priority 1 of 8 since 2026-10-28 rerun 2; was 1 of 7 earlier 2026-10-28)
 - First seen / last checked: 2026-09-28 / 2026-09-28 ET
 - Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
   often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
@@ -171,7 +178,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-19-026`: remote money desk for families of aging parents
 
-- Status: `shortlisted` (2026-10-19 scout; priority 2 of 7 since 2026-10-28)
+- Status: `shortlisted` (2026-10-19 scout; priority 2 of 8 since 2026-10-28 rerun 2)
 - First seen / last checked: 2026-10-19 / 2026-10-19 ET
 - Lane: A (households: adult children of aging parents), with lane C always-on monitoring.
 - **Origin observation:** AgingCare question 498253, 2026-03-28 (read): an adult child far from a
@@ -244,7 +251,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-21-027`: child care subsidy billing and recovery desk for small centers and family child care homes
 
-- Status: `shortlisted` (2026-10-21 scout; priority 3 of 7 since 2026-10-28)
+- Status: `shortlisted` (2026-10-21 scout; priority 3 of 8 since 2026-10-28 rerun 2)
 - First seen / last checked: 2026-10-21 / 2026-10-21 ET
 - Lane: C (always-on chasing and reconciling), with a lane D operating change (attendance-based
   subsidy claims in Washington from 2026-10-01).
@@ -347,7 +354,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-10-28-028`: post-award grant reporting desk for small nonprofits
 
-- Status: `shortlisted` (2026-10-28 scout; priority 4 of 7)
+- Status: `shortlisted` (2026-10-28 scout; priority 4 of 8 since 2026-10-28 rerun 2)
 - First seen / last checked: 2026-10-28 / 2026-10-28 ET
 - Lane: C (always-on deadline watching, evidence collection and reporting).
 - **Origin observation:** a bookkeeper ("tax_tina") for a nonprofit client, Beancount forum,
@@ -448,9 +455,102 @@ lead into formal Operator Blueprint V2 Step 0.
   are stronger; ahead of IEP on fresh spend evidence and a clear price gap below the existing desks).
   Recheck 2026-11-11; expires 2027-04-30. Step 0 candidate ID: none.
 
+### `DISC-2026-10-28-029`: clinical research site invoicing and sponsor payment desk
+
+- Status: `shortlisted` (2026-10-28 scout rerun 2; priority 5 of 8)
+- First seen / last checked: 2026-10-28 / 2026-10-28 ET
+- Lane: C (reconciling every completed visit against the trial agreement as it happens, and chasing
+  sponsors until paid), with lane A buyer evidence.
+- **Origin observation:** Samuel Searcy, founder and CEO of ClinTrial Research (a site network),
+  LinkedIn 2026-02-13 (read through Exa): sites carry trial costs "often for 90, 120, sometimes 180+
+  days before receiving payment"; "Sites close. Coordinators leave."; 25 comments.
+  <https://www.linkedin.com/posts/samuel-searcy-3462891a4_clinicalresearch-sitepayments-activity-7428187083061583874-5dFh>
+- Supporting buyer observations (rerun 2 ledger #16–#21): Innovo Research posts a part-time clinical
+  research finance assistant to configure study financials from trial agreements, invoice sponsors,
+  "Manually gathers data from study teams (if necessary) to invoice", and make sure the site "is paid
+  for all contracted research-related services" (2026-01-23, read); Kinetic Clinical Research hires a
+  finance assistant to "Prepare, track, and follow up on invoices submitted to CROs, sponsors" and
+  track stipends and pass-throughs (2026-07-09, read); Flourish Research, OneOncology and American
+  Oncology Network hire research finance and AR staff (summaries); a LinkedIn commenter: small misses
+  make it "easy to justify a dedicated finance position, team, or outsourced billing company"
+  (2026-01-08, read; role not shown).
+- Signal types: buyer behavior, spend, conversation.
+- Who appears to care / decision: owners and directors of independent research sites and small site
+  networks (physician practices running trials, standalone sites with a few coordinators), deciding
+  whether to hire a research finance person, pay a billing firm, or leave invoicing to coordinators.
+- Buyer / costly problem: each trial agreement has its own budget, visit payments, invoiceable
+  procedures, pass-throughs, screen-fail and rescreen terms and holdbacks; coordinators who run visits
+  are left to invoice them, so completed work goes uninvoiced and sponsor payments arrive late or
+  short with no one reconciling them (#16, #17, #20; seller and consultant context: missed
+  pass-throughs at $250–$750 each, visits "marked complete but never paid").
+- Potential offer / observable outcome: a monthly desk per site: agents read each trial agreement
+  and budget into the site's CTMS or a ledger, match every completed visit, procedure and
+  pass-through from the CTMS, EDC or visit log to an invoice line as it happens, reconcile each
+  sponsor remittance against the contract, and chase overdue and short payments; the operator
+  reviews and sends. Outcome: share of completed work invoiced within 30 days, days to payment,
+  dollars recovered from earlier unbilled or short-paid items.
+- What AI and agents do / what the operator does: agents read agreements, budgets, visit logs and
+  remittances and keep every study's invoice and receivable state current; the operator sets up
+  each study, checks invoices and disputes, talks to sponsor and CRO payment teams, and answers to
+  the site director. Before AI: a research finance assistant at each site (#16–#19), an end-to-end
+  billing firm, or coordinators after visits.
+- **Unit economics sketch (modeled scenario):** an independent site with 5–20 active studies might
+  bill $1–4 million a year. If 3–5% of earned revenue goes uninvoiced or short-paid (seller and
+  consultant claims, not measured), $30,000–$200,000 a year is at stake, plus the cost of carrying
+  90–180 days of receivables (#20). A fee of $1,000–$2,000 a month, or a share of recovered
+  back-billing, is below a part-time finance hire. One operator with agents might serve 15–25 sites:
+  $180,000–$600,000 a year gross. Sustains one person if sites pay that range.
+- Why now: agents can read trial agreements and match visit data to them line by line; search
+  interest in "clinical trial billing" moved off zero in 2025–2026 (Trends, low volume); a solo
+  operator is already marketing site revenue recovery on LinkedIn (Anna Cartwright, 2026-08-05), and
+  a consultant's comment thread treats outsourcing as normal.
+- **Delivery boundary:** invoicing sponsors and CROs under a trial agreement needs no licence; sites
+  hire untrained part-time staff for it (#16). Billing standard-of-care items to Medicare or
+  insurers (coverage analysis, claims) is regulated medical billing and is out of scope; the site
+  stays the party to every agreement and signs any dispute.
+- **Substitutes:** Clinical Research Billing (end-to-end site revenue management through the site's
+  CTMS: invoicing, cash application, follow-up on late payments; partners with CRIO; no price
+  published); Anna Cartwright (solo site revenue recovery, no price published); site CTMS with
+  invoicing modules (CRIO, RealTime; tools, the site still runs them); sponsor-side payment platforms
+  (Suvoda, IQVIA, SiteDocs Pay; bought by sponsors, not sites); the site's own finance staff.
+- Test 1: passes; a site network founder's account of 90–180+ day payment delays (#20) plus
+  independent postings from different sites hiring finance staff for this job (#16–#19).
+  Problem-value signals: `old-way spend` (#16–#19), `problem cost` (#20), `demand signal` (#21).
+  Payment evidence: `found` as old-way spend (finance staff); outside-provider price unknown,
+  viewer's first test.
+- Test 2: passes; agents keeping every study's invoice and receivable state current is what lets one
+  person serve many sites; before, each site needed its own finance person or a billing firm.
+- Test 3: passes (above).
+- Test 4: passes for now; done-for-you firms exist but publish no price, and no buyer-side evidence
+  was found that small sites readily use them or get the outcome from CTMS invoicing alone. Switching
+  question: why would a site move this from a part-time finance hire to an outside operator rather
+  than to CTMS invoicing run by coordinators? (Possible answers to test: coordinators already skip
+  it, which is how the leak happens; a part-time hire turns over and takes study memory with them.)
+- Test 5: passes; showable with a synthetic trial agreement, budget and three months of visit logs
+  and remittances, and the agent's invoice and gap report; no guest; Operator Economy angle: sites
+  quietly finance sponsors and lose earned money to hidden labor no one has time for.
+- Possible OE point of view: the smallest research sites do the work and wait months to be paid for
+  it; the leak is not fraud or bad contracts but nobody matching each visit to the agreement. An
+  accountable operator with agents can do that matching for many sites.
+- Strongest invalidating question: is the money mostly lost in visits never invoiced (which a desk
+  fixes) or in sponsor payment terms and delay (which it does not), and do small sites already buy
+  this from firms like Clinical Research Billing at a price one operator cannot beat?
+- Evidence still needed: a small site owner's own words on unbilled or short-paid visits with an
+  amount; a published or quoted price for outsourced site billing; how many small independent sites
+  use a CTMS with invoicing (data access for the agents).
+- Google Trends US 5y (2026-10-28): "clinical trial billing" and "clinical research billing" near
+  zero with isolated spikes to 2024, frequent from 2025, peaks around mid-2026, now low.
+- Semantic deduplication: no match in candidates, episodes, research or the pool for site invoicing.
+  Nearest is admitted `DISC-2026-10-13-023` (receivables desk for small B2B businesses), which
+  chases invoices already issued; this lead's core is creating the invoices from visit data against
+  each agreement. Flagged for the bench as a possible vertical of the receivables desk.
+- Disposition: shortlisted, priority 5 (behind the grant reporting desk, whose problem-cost evidence
+  includes buyers' hours and an enforcement case; ahead of IEP on fresh spend evidence and a
+  continuous agent-shaped job). Recheck 2026-11-11; expires 2027-04-30. Step 0 candidate ID: none.
+
 ### `DISC-2026-09-30-016` — AI-leveraged special-education (IEP) advocacy for parents
 
-- Status: `shortlisted` (2026-09-30 scout; priority 5 of 7 since 2026-10-28; was 4 of 6 from 2026-10-21)
+- Status: `shortlisted` (2026-09-30 scout; priority 6 of 8 since 2026-10-28 rerun 2; was 5 of 7 earlier 2026-10-28)
 - First seen / last checked: 2026-09-30 / 2026-10-01 ET
 - Exact question or change: IDEA monitoring and enforcement moved from the Education Department to
   HHS under agreements signed 2026-06-15 (K-12 Dive 2026-06-16
@@ -512,8 +612,8 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-27-012` — Medicare WISeR prior-auth and appeal desk for small pain and spine practices
 
-- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 6 of 7 since
-  2026-10-28, was 5 of 6 from 2026-10-21; below the IEP lead since 2026-09-30 because WISeR's
+- Status: `shortlisted` (2026-09-27 run 4; re-screened 2026-09-28 scout; priority 7 of 8 since
+  2026-10-28 rerun 2, was 6 of 7 earlier 2026-10-28; below the IEP lead since 2026-09-30 because WISeR's
   survival past 2026-12-11 is uncertain)
 - First seen / last checked: 2026-09-27 / 2026-09-28 ET
 - Exact question or change: CMS's WISeR model (from 2026-01-01, six years) adds AI-assisted prior
@@ -590,7 +690,7 @@ lead into formal Operator Blueprint V2 Step 0.
 
 ### `DISC-2026-09-28-011` — AI prep backend for private-school admissions consultants
 
-- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 7 of 7 since 2026-10-28; was 6 of 6 from 2026-10-21)
+- Status: `shortlisted` (re-screened 2026-10-13 scout run 2; priority 8 of 8 since 2026-10-28 rerun 2; was 7 of 7 earlier 2026-10-28)
 - **Re-screen 2026-10-13 (five tests):** fresh buyer-side observations: admissions firms pay outside
   contract coaches for this exact work — StudyPoint "online admissions consultant", March 2026,
   $75–100/hr, school lists, interview prep and essays (search summary; page 403); Crimson Education
@@ -2092,6 +2192,14 @@ None.
   offshore staff $15–$17 an hour) and roofing insurance supplements stay rejected (crowded
   done-for-you supplement firms; carrier contact is public-adjusting territory). Reopening conditions
   in `runs/2026-10-28.md`.
+
+- 2026-10-28 (scout rerun 2): Beverage alcohol compliance reporting for small wineries and
+  distilleries: rejected on test 2 (TTB operational reports and excise returns are calculations from
+  records the producer's software already holds) and test 4(a) (AIA's full compliance package, DH
+  Wine Compliance, Amber + Oak and BevLogic already run it for small producers). Re-screens: outsourced
+  construction takeoffs stay rejected (offshore BPO takeoff estimators; no buyer evidence AI tools
+  fail) and HazCom SDS updates stay rejected (no fresh buyer-side observation, 2026-10-28).
+  Reopening conditions in `runs/2026-10-28.md`, rerun 2.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
