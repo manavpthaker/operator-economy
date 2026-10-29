@@ -4,22 +4,23 @@ Template status: approved V2 Step 0.2 template; locked 2026-08-21.
 
 Template version: `operator-blueprint-v2-step0.2`
 
-**Record status: OWNER-REVIEW DRAFT.** Prepared by the research bench on 2026-10-26 after the
-owner's threshold override. Not a promotion. No queue row, no episode number, no editorial work.
+**Record status: PROMOTED.** Drafted by the research bench on 2026-10-26 after the owner's
+threshold override; the owner's calibration-zone decision to promote (brownbot approvals decision
+id 474, 2026-10-26) was recorded by the bench on 2026-10-29. No episode number. No `QUEUE.md` row
+yet: the scheduled bench does not write canonical queue rows.
 
 Candidate ID: `candidate-2026-10-15-receivables-desk`
 
-Decision date: pending owner review
+Decision date: 2026-10-26
 
-Decision approved by: pending (Manav Thaker)
+Decision approved by: Manav Thaker
 
 Research cutoff: 2026-10-22 (bound package); refresh check 2026-10-26 recorded below, outside the
 bound hashes
 
 Research refresh date: 2027-01-15 (quarterly survey cycle, AR-agent pricing, state law sessions)
 
-Decision: **pending owner review** (bench recommendation: eligible; promote only on the owner's
-calibration-zone decision)
+Decision: **promoted**
 
 Evidence class: **adjacent synthesis**
 
@@ -43,7 +44,7 @@ Decision history (not one of the six bound artifacts):
 - Opportunity-readiness score: **68/100** (bench scorecard; automated, not an independent review)
 - Numeric threshold: **fail** (68 of 70); owner override used (below)
 - Calibration zone: **65-75** (68)
-- Required owner review: **pending**
+- Required owner review: **complete 2026-10-26, promote**
 - Evidence and analogy floor: **pass**
 - Canvas feasibility: **pass** (go to market weak)
 - Narrative engine: **pass**
@@ -78,13 +79,22 @@ The override does not waive hard gates or change the evidence class.
 
 Required: **yes**
 
-Reviewed by: pending (Manav Thaker)
+Reviewed by: Manav Thaker
 
-Decision date: pending
+Decision date: 2026-10-26
 
-Decision: pending — approve eligibility / promote / continue research
+Decision: **promote**
 
-Reason: pending. The override permits a promotion record; it is not itself the calibration-zone
+Record: brownbot approvals, routine `oe-research-bench`, key
+`receivables-desk:calibration-2026-10-26`, decision id 474, outcome `as-drafted` (approve), created
+2026-10-26 13:52:05, decided 2026-10-26 19:54:22. Text approved: "promote the receivables desk to
+Step 1 (editorial work can start; you still assign the episode number)." The staged item pointed at
+this record (SHA-256 `52b0833961e7cce226c3a971e977d6bf298a7af07c70203bc6efcd7bffade230` at the
+time), which binds the six hashes above; the decision was staged with the Invoice Butler risk
+stated.
+
+Reason: owner elected to promote with every hard gate passing and the calibration-zone risks stated.
+Bench context at the time of the decision: the override permits a promotion record; it is not itself the calibration-zone
 decision to promote. Bench recommendation, for the owner to accept or reject: approve eligibility
 and promote only if the owner wants a receivables episode in the next production slot, because the
 case is thin at the low end and the 2026-10-26 refresh adds a substitute that sells the human layer.
@@ -147,7 +157,7 @@ Before release, public facts and every stated number still require approval unde
 
 ## Handoff
 
-Editorial development authorized: **no**
+Editorial development authorized: **yes** (owner decision id 474, 2026-10-26)
 
 Future episode number: **unassigned**
 
@@ -155,6 +165,6 @@ Episode number assignment is recorded only when the promoted candidate enters `0
 
 ## Invalidation
 
-Package status: **current** (six hashes match as of 2026-10-26)
+Package status: **current** (six hashes re-checked and matching on 2026-10-29)
 
 This decision applies only to the six reviewed artifact hashes above. A changed artifact hash or passed research refresh date makes the promotion stale. Mark the active queue row `stale`, stop editorial development, refresh the affected work, and issue a new promotion record before resuming.

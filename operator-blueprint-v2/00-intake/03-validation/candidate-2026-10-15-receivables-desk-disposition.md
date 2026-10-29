@@ -177,3 +177,20 @@ recorded; calibration-zone decision pending)
 Editorial development authorized: no
 
 Episode number: unassigned
+
+## Addendum 2026-10-29 (Thursday bench)
+
+Decision: **promoted** (owner calibration-zone decision recorded)
+
+- Owner decision: brownbot approvals decision id 474 (`oe-research-bench`, key
+  `receivables-desk:calibration-2026-10-26`), approved 2026-10-26 19:54 ET: promote to Step 1;
+  the owner still assigns the episode number.
+- Promotion record updated: `../04-queue/candidate-2026-10-15-receivables-desk-promotion.md`
+  (decision promoted; editorial development authorized: yes). Six bound hashes re-checked
+  2026-10-29 and matching.
+- Not done by the scheduled bench: no `QUEUE.md` row, no episode number, no workspace. A Step 0
+  handoff check draft is at `../../01-editorial/01-handoff/candidate-2026-10-15-receivables-desk-step0-handoff.md`.
+
+Editorial development authorized: yes
+
+Episode number: unassigned
