@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-10-28 ET, scout rerun 2 (scheduled 17:00 Wednesday): shortlists `DISC-2026-10-28-029`
+Updated: 2026-11-02 ET, scout run (Monday): holds `DISC-2026-11-02-030` (long-term care insurance claim
+desk for families with someone in a facility) on one condition, Family Solutions for Care's price;
+re-screens permit expediting (stays rejected: Permitio at $25–$100 a permit) and workers' comp audit
+disputes (stays rejected: one buyer voice, not AI work); rejects driver qualification file upkeep,
+vendor COI tracking and organic certification paperwork. Shortlist unchanged at 8; order: CAM review,
+money desk, child care subsidy desk, grant reporting desk, site invoicing desk, IEP advocacy, WISeR
+desk, admissions backend. Full record: `runs/2026-11-02.md`.
+Previous: 2026-10-28 ET, scout rerun 2 (scheduled 17:00 Wednesday): shortlists `DISC-2026-10-28-029`
 (clinical research site invoicing and sponsor payment desk, priority 5); re-screens outsourced
 construction takeoffs (stays rejected: offshore takeoff estimators) and HazCom SDS updates (stays
 rejected: no fresh buyer observation); rejects beverage alcohol compliance reporting for small
@@ -789,6 +796,66 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-11-02-030`: long-term care insurance claim desk for families with someone in a facility
+
+- Status: `held`
+- First seen / last checked: 2026-11-02 / 2026-11-02 ET
+- Lane: A (households with private long-term care insurance), with lane C always-on chasing.
+- **Origin observation:** AgingCare question 493392, 2025-04 (read): an adult child finds the memory
+  care facility's business manager did not send the last three invoices, and the insurer's one
+  notice says the claim closes in 30 days.
+  <https://www.agingcare.com/questions/if-dads-mc-facility-didnt-submit-2-invoices-in-a-row-for-reimbursement-for-ltc-and-closes-his-claim--493392.htm>
+- Supporting buyer observations (run ledger #11–#14): AgingCare 492053 (2025-01, "nearly $5,000"
+  held up; their elder care attorney "doesn't handle things like this"); AgingCare 490366 (2024-10,
+  a reply: "almost $18000.00 coming out of momma's checking account"); ALZConnected 74964 (2025-12,
+  spouse billed because the facility was late with paperwork); Bogleheads 474004 (2026-08-06: "What
+  professional service (if there is one) can help my Wife with the process and claims?"). All read.
+- Signal types: conversation, buyer behavior.
+- Who appears to care / decision: an adult child or spouse paying a facility up front and waiting on
+  reimbursement, deciding whether to keep chasing it alone.
+- Buyer / costly problem: the policy pays only on complete monthly paperwork that the family does not
+  control; a late facility invoice or missed letter holds up thousands a month or closes the claim.
+- Potential offer / observable outcome: a monthly desk per claim: every invoice, care note and insurer
+  letter in one file, nothing late, reimbursements received against billed, a clean year-end record.
+- What AI and agents do / what the operator does: agents read every invoice, care note and letter,
+  keep the elimination-period and recertification calendar, chase the facility billing office and the
+  carrier, and reconcile paid against billed and the 1099-LTC. The operator signs off and makes the
+  hard calls. The family stays the claimant and signs. Before AI: a family member's unpaid hours, or
+  a claims firm's staff.
+- **Unit economics sketch (modeled scenario):** at stake about $5,000–$6,000 a month per claim (buyer
+  figures). $150–$300 a month or a small share of benefits; 60–100 claims per operator is
+  $9,000–$30,000 a month.
+- Why now: agents can hold months of correspondence per claim and notice what has not arrived; the
+  people who bought these policies 20 years ago are now claiming (Bogleheads #14: policies "about 21
+  yrs running").
+- Strongest existing answer / gap: Family Solutions for Care says it does "every step" in all 50
+  states with ongoing claims management and free policy reviews, price unpublished. Home care agencies
+  file free for their own clients only (24 Hour Home Care NJ, LifeWorx, Careworks); facility residents
+  depend on the facility billing office, which is the failure buyers name. Mrs LTC (fee not shown), RN
+  Insurance Navigators (one nurse, Pennsylvania), some carriers' own concierge staff (seller claim). A
+  guide seller says consultants charge a share of the claim or $2,000+ (seller claim).
+- Possible OE point of view: the money is already owed; what stands between a family and it is a
+  monthly paperwork chain nobody owns. Showable with a synthetic claim file and chase log; no guest.
+- Test 1: passes (independent buyers, `problem cost`, `demand signal`). Payment evidence: `residual`
+  only in seller-hosted testimonials; otherwise unknown, viewer's first test.
+- Test 2: passes (above). Test 3: passes with a state limit: the residual is keeping the file and
+  chasing paperwork, never negotiating. Texas's public adjuster definition reaches property claims;
+  Florida 626.854 covers anyone who for money "prepares, completes, or files an insurance claim" (any
+  exemption not seen). Confirm by state.
+- Test 4: unresolved, the hold below. Test 5: passes; no duplicate. Nearest is `DISC-2026-10-19-026`,
+  a different job (a parent's mail and bills at home, not one benefit recovered monthly); if this
+  reopens, the bench decides whether it stands alone or is a module of `026`.
+- Switching question: why pay for this rather than a home care agency's free filing, the carrier's
+  claims staff, or an adult child's evenings?
+- Why held: one named missing condition: what Family Solutions for Care charges a family with a
+  facility claim. If it is cheap and families use it, test 4(a) rejects this.
+- Strongest invalidating question: once a claim is running, does the chase stay monthly work a family
+  would pay for, or is it a setup problem that ends after the first few months?
+- Google Trends US 12 months (2026-11-02): "long term care insurance claim" average 1 against
+  "organic certification" 51; too little volume for related queries.
+- Reopening condition: as above, from a public page, a buyer's account or a bench price check. Recheck
+  2026-11-30; expires 2027-05-31.
 
 ### `DISC-2026-10-14-025` — supplier follow-up (expediting) desk for small manufacturers
 
@@ -2201,8 +2268,17 @@ None.
   fail) and HazCom SDS updates stay rejected (no fresh buyer-side observation, 2026-10-28).
   Reopening conditions in `runs/2026-10-28.md`, rerun 2.
 
+- 2026-11-02 (scout): Driver qualification file upkeep for small fleets: rejected on test 4(a);
+  DotFleet runs it at $75 per driver then $30 per driver a month. Vendor COI tracking for small
+  property managers: rejected on test 4(a); self-serve from $0.95 per vendor a month, Evident from $15
+  per vendor billed annually, BCS chases by phone. Organic certification paperwork for small farms: rejected on
+  test 1 (no farmer seen paying) and test 4(a) (NOFA/Mass $30–$60 an hour, Kona Organic writes plans).
+  Re-screens: permit expediting stays rejected (Permitio human-backed at $25–$100 a permit, 317
+  jurisdictions) and workers' comp audit disputes stay rejected (one buyer voice; not AI work).
+  Reopening conditions in `runs/2026-11-02.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`.
