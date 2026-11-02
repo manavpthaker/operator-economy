@@ -6,8 +6,9 @@ Template version: `operator-blueprint-v2-step0.2`
 
 **Record status: PROMOTED.** Drafted by the research bench on 2026-10-26 after the owner's
 threshold override; the owner's calibration-zone decision to promote (brownbot approvals decision
-id 474, 2026-10-26) was recorded by the bench on 2026-10-29. No episode number. No `QUEUE.md` row
-yet: the scheduled bench does not write canonical queue rows.
+id 474, 2026-10-26) was recorded by the bench on 2026-10-29. Episode number EP010 assigned by owner
+decision id 563 (2026-10-29), recorded 2026-11-02. No `QUEUE.md` row yet: the scheduled bench does
+not write canonical queue rows.
 
 Candidate ID: `candidate-2026-10-15-receivables-desk`
 
@@ -144,7 +145,9 @@ Before release, public facts and every stated number still require approval unde
   month; positioned for growing software firms on Orb, not small service firms), but it strengthens
   the strongest disconfirming evidence: the free tier undercuts the sending, and a funded seller
   now bundles the judgment work. Fold it into the research brief as CLM-023 at Step 1 refresh or
-  before any script lock.
+  before any script lock. **Done 2026-11-02:** carried as CLM-023 by reference in
+  `../02-research/candidate-2026-10-15-receivables-desk-amendment-01.md` (SHA-256
+  `25daa6ccb48711553584ef515d36cad484a57192780059effa4dffe25d6d7b81`); the bound research brief is unchanged.
 - **Go to market is weak.** Bookkeepers are the referral hypothesis and are also sold the same tools
   directly (CLM-021).
 - **Coverage risk.** idealab shows the idea pitched as a 2–20 person venture; the episode cannot
@@ -159,12 +162,12 @@ Before release, public facts and every stated number still require approval unde
 
 Editorial development authorized: **yes** (owner decision id 474, 2026-10-26)
 
-Future episode number: **unassigned**
+Episode number: **EP010** (owner decision id 563, `../OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`)
 
 Episode number assignment is recorded only when the promoted candidate enters `01-editorial/`.
 
 ## Invalidation
 
-Package status: **current** (six hashes re-checked and matching on 2026-10-29)
+Package status: **current** (six hashes re-checked and matching on 2026-11-02)
 
 This decision applies only to the six reviewed artifact hashes above. A changed artifact hash or passed research refresh date makes the promotion stale. Mark the active queue row `stale`, stop editorial development, refresh the affected work, and issue a new promotion record before resuming.

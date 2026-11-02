@@ -4,11 +4,13 @@ Status: canonical V2 Step 1 v1.4 template.
 
 Template version: approved `operator-blueprint-v2-step1-v1.4`
 
-**Record status: BENCH DRAFT.** Prepared by the scheduled research bench before an episode number
-exists. Not a handoff acceptance and not a workspace authorization; the handoff decision below is
-left for the owner. Move into the episode workspace once a number is assigned.
+**Record status: ACCEPTED, Gate E1 PASS.** Drafted by the research bench on 2026-10-29 at
+`01-editorial/01-handoff/` (SHA-256
+`a736b63fc82bcb1dae95cfc6f3265a35e7ffa86080804c62053e744c7e61e32d`, commit `1a36fea1`). The owner
+approved episode number and workspace against that draft on 2026-10-29 (decision id 563). Moved here
+and re-verified 2026-11-02.
 
-Episode number: unassigned
+Episode number: **EP010** (never reused, never changed)
 
 Candidate ID: `candidate-2026-10-15-receivables-desk`
 
@@ -16,7 +18,7 @@ Candidate slug: `receivables-desk`
 
 Promotion record: `operator-blueprint-v2/00-intake/04-queue/candidate-2026-10-15-receivables-desk-promotion.md`
 
-Promotion-record SHA-256: `6c0de1474c44be14f0720a4e01a87a3a230b7424d2486a10893376c5711ac5d2`
+Promotion-record SHA-256: `09396836bbee0298fd4594f9b1422ce70dac41884930f86efae3920efc06f43f` (recomputed 2026-11-02; adds EP010 and the amendment reference, changes no bound hash)
 
 Promotion decision date: 2026-10-26
 
@@ -24,7 +26,7 @@ Research refresh due: 2027-01-15
 
 Verified by: research bench (automated; not a named human)
 
-Verified at: 2026-10-29 05:05 ET
+Verified at: 2026-11-02 ET
 
 ## Promotion authority
 
@@ -33,7 +35,7 @@ Verified at: 2026-10-29 05:05 ET
 - [x] Named approval is present (Manav Thaker, brownbot approvals decision id 474).
 - [x] Calibration-zone review or owner override is complete when required (override id 405,
   2026-10-22; calibration review id 474, 2026-10-26).
-- [x] The promotion record is not stale (hashes match; refresh due 2027-01-15).
+- [x] The promotion record is not stale (six hashes match on 2026-11-02; refresh due 2027-01-15).
 
 ## Reviewed artifact integrity
 
@@ -66,7 +68,7 @@ Any mismatch stops Step 1 until Step 0 issues a refreshed decision.
   one vendor survey every time; every price attributed to the seller's page with read date; the
   state reading said as a non-lawyer reading of eight statutes.
 - Caveats editorial must retain: Invoice Butler (free AI follow-up, human AR specialists on custom
-  annual plans) is the strongest disconfirming evidence and is outside the bound research brief;
+  annual plans) is the strongest disconfirming evidence, carried as CLM-023 by amendment 01;
   go to market is weak (bookkeepers are also sold the tools directly); idealab shows the idea
   pitched as a venture, so no novelty claim.
 
@@ -78,26 +80,28 @@ Any mismatch stops Step 1 until Step 0 issues a refreshed decision.
 - [x] Guest and access blockers are clear (no guest).
 - [x] Buyer, market, and analogy gaps are within the approved uncertainty boundary (adjacent
   synthesis; viewer's first test carries the unknowns).
-- [ ] No new research question is being hidden inside editorial development. **Open item:**
-  Invoice Butler must enter the research brief as CLM-023 before claims-map or script lock. Doing
-  so changes the research-brief hash, so it needs a Step 0 amendment (as EP009's
-  `step0-amendment-request-01.md` did) or a re-bound promotion record, not a silent edit.
+- [x] No new research question is being hidden inside editorial development. The one open item,
+  Invoice Butler, is closed: carried as CLM-023 by
+  `00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md` / `25daa6ccb48711553584ef515d36cad484a57192780059effa4dffe25d6d7b81`, by reference, so the research-brief
+  hash holds.
 
 ## Handoff decision
 
-Decision: pending owner (bench recommendation: accept into Step 1 once an episode number is
-assigned, with the CLM-023 amendment as the first editorial-side task)
+Decision: **accept into Step 1**
 
-Reason: all promotion-authority and integrity checks pass; one known research item is recorded
-above rather than hidden.
+Reason: all promotion-authority and integrity checks pass, and the one known research item is closed
+by amendment 01. The owner's approved text reads: "assign EP010 to the receivables desk, so the next
+bench creates its workspace and starts the editorial contract (first task: add the Invoice Butler
+finding through a Step 0 amendment)... All handoff checks pass." The bench reads that as acceptance
+of the bench recommendation in the draft it pointed at.
 
-Episode number assigned: unassigned
+Episode number assigned: EP010
 
-Episode workspace authorized: no
+Episode workspace authorized: yes, created 2026-11-02 at `operator-blueprint-v2/episodes/EP010-receivables-desk/`
 
-Approved by: pending
+Approved by: Manav Thaker (brownbot approvals decision id 563, recorded by the research bench)
 
-Approval date: pending
+Approval date: 2026-10-29
 
 ## Downstream route and boundary
 

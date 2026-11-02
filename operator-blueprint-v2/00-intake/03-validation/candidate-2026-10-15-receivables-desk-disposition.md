@@ -194,3 +194,19 @@ Decision: **promoted** (owner calibration-zone decision recorded)
 Editorial development authorized: yes
 
 Episode number: unassigned
+
+## Addendum 2026-11-02 (Monday bench)
+
+Decision: **in Step 1 as EP010** (owner decision recorded)
+
+- Owner decision: brownbot approvals decision id 563 (`oe-research-bench`, key
+  `receivables-desk:episode-number-2026-10-29`), approved 2026-10-29 09:37: assign EP010, create the
+  workspace, start the editorial contract. Record:
+  `../OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`.
+- Invoice Butler carried as CLM-023 by amendment:
+  `../02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`. Park condition not met.
+- Six bound hashes re-checked 2026-11-02 and matching.
+
+Editorial development authorized: yes
+
+Episode number: EP010
