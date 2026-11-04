@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-11-02 ET, scout run (Monday): holds `DISC-2026-11-02-030` (long-term care insurance claim
+Updated: 2026-11-04 ET, scout run (Wednesday): no new lead. Rejects certified payroll filing for small
+subcontractors, dental insurance claims follow-up, short-term rental compliance for small towns and
+PBM audit responses for independent pharmacies; re-screens agency policy checking and LTL freight
+claims (both stay rejected). The run's best buyer evidence is a duplicate of parked
+`candidate-2026-09-28-records-request-overflow`; new evidence is noted for the bench, unblock not met.
+Shortlist unchanged at 8; order: CAM review, money desk, child care subsidy desk, grant reporting desk,
+site invoicing desk, IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-11-04.md`.
+Previous: 2026-11-02 ET, scout run (Monday): holds `DISC-2026-11-02-030` (long-term care insurance claim
 desk for families with someone in a facility) on one condition, Family Solutions for Care's price;
 re-screens permit expediting (stays rejected: Permitio at $25–$100 a permit) and workers' comp audit
 disputes (stays rejected: one buyer voice, not AI work); rejects driver qualification file upkeep,
@@ -2277,8 +2284,16 @@ None.
   jurisdictions) and workers' comp audit disputes stay rejected (one buyer voice; not AI work).
   Reopening conditions in `runs/2026-11-02.md`.
 
+- 2026-11-04 (scout): Certified payroll filing for small subcontractors: rejected on test 4(a); services
+  publish $50 to $150 a weekly report, one files at $12 a report or $145 a month, tools $29 to $59 a month.
+  Dental insurance claims follow-up: rejected on test 4(a); US billing services and offshore assistants at
+  $6 to $7 an hour. Short-term rental compliance for small towns: rejected on test 4(a); Deckard $8,000 and
+  Granicus $15,123 sell monitoring, and enforcement stays with an officer. PBM audit responses for
+  independent pharmacies: rejected on test 1 (no buyer voice); PAAS National and law firms sell it. Re-screens
+  stay rejected: agency policy checking ($13 to $19 an hour non-licensed assistants) and LTL freight claims
+  (no fresh buyer voice). Reopening conditions in `runs/2026-11-04.md`.
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`.
