@@ -1,6 +1,6 @@
 # Editorial contract: a receivables desk
 
-Status: **draft** (research bench review candidate, 2026-11-02; owner decision pending at Gate E2)
+Status: **approved** (owner, 2026-11-02, brownbot approvals decision id 683; recorded by the research bench 2026-11-05)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -209,12 +209,14 @@ Do you have your own experience of chasing a late invoice that you want in this 
 
 ## Approval
 
-Decision: pending owner
+Decision: **approve**
 
-Bench recommendation: approve this viewer, promise, central argument, spoken name, and exclusions.
+Bench recommendation was: approve this viewer, promise, central argument, spoken name, and exclusions.
 
-Approved by: pending
+Approved by: Manav Thaker (brownbot approvals decision id 683, key `receivables-desk:contract-e2-2026-11-02`, not edited by the owner)
 
-Approval date: pending
+Approval date: 2026-11-02
+
+The approved text says the Canvas may cut the client count or fail. Client count, fee band, and contribution figures in this contract stay inputs to Gate E3.
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.
