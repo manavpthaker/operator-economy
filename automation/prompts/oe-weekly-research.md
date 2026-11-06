@@ -124,6 +124,17 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    $0.20 of Exa a run. Run `$BB scout -- status` first; if the month's shared total is $15 or more,
    use no Exa this run. Stop Exa at $0.20 or when a call is refused, and record the Exa commands and
    the run's Exa spend in the run record.
+   Xpoz for Reddit buyer voice (owner approval 2026-11-06, rules in content-os
+   `outreach/research-sources.md`): read what the lead's buyers say in their own words, never broad
+   topic discovery. Use it on the lead in hand only: one subreddit's newest posts where those buyers
+   gather (`getRedditSubredditWithPostsByName`), a narrow keyword search inside that subreddit
+   joined with `AND` (for example `("paying someone" OR "takes me hours" OR "is there a tool") AND
+   invoices`, with `subreddit`, `sort: "new"`, `time: "month"` as parameters), or one thread with
+   its comments. At most 60 credits a run (about 5 calls at about 12 credits each, empty or not).
+   Run `getAccountDetails` first and last; use no Xpoz once fewer than 1,000 credits remain this
+   month, and never buy extra credits. Cite the thread URL with "read through Xpoz" in the locator.
+   A Reddit post is buyer voice (an observed anecdote), never market proof, price evidence, or a
+   verified person. Record the Xpoz calls and credits used in the run record.
 5. Identify the strongest existing coverage and the strongest alternative explanation. Check
    idealab.ai for the candidate (owner decision 2026-10-20,
    `operator-blueprint-v2/00-intake/OWNER-DECISION-2026-10-20-IDEALAB-SOURCE.md`): at most 3
