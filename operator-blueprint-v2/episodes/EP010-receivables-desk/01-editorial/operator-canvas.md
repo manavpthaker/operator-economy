@@ -1,6 +1,6 @@
 # Operator Canvas: a receivables desk
 
-Status: **draft** (research bench review candidate, 2026-11-05; owner decision pending at Gate E3)
+Status: **locked** (owner, 2026-11-05, brownbot approvals decision id 875; recorded by the research bench 2026-11-06)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -461,12 +461,14 @@ Bench check, not an owner or independent review.
 
 ## Canvas lock
 
-Decision: pending owner
+Decision: **lock**
 
-Bench recommendation: lock, including 24 clients, $400 to $500, one paid seat per client in the base, and the full-time statement, in place of the contract's 30 clients and $300 to $500.
+Bench recommendation was: lock, including 24 clients, $400 to $500, one paid seat per client in the base, and the full-time statement, in place of the contract's 30 clients and $300 to $500.
 
-Approved by: pending
+Approved by: Manav Thaker (brownbot approvals decision id 875, key `receivables-desk:canvas-e3-2026-11-05`, not edited by the owner)
 
-Approval date: pending
+Approval date: 2026-11-05
+
+Bound draft SHA-256: `1be89127eb0095ece9604bbefc5bc953ffd01f85c1f38abb8859fd35225c7b78`. Only the status line and this lock block changed. U008 is resolved by this lock: 24 clients and $400 to $500 supersede the contract's figures.
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.
