@@ -130,7 +130,8 @@ Use this lane when no current promoted candidate is awaiting safe Step 1 work.
    gather (`getRedditSubredditWithPostsByName`), a narrow keyword search inside that subreddit
    joined with `AND` (for example `("paying someone" OR "takes me hours" OR "is there a tool") AND
    invoices`, with `subreddit`, `sort: "new"`, `time: "month"` as parameters), or one thread with
-   its comments. At most 60 credits a run (about 5 calls at about 12 credits each, empty or not).
+   its comments. At most 60 credits a run (Reddit calls cost about 1 to 3 credits each; track credits with
+   `getAccountDetails`, and check each post's date yourself because the `time` filter is loose).
    Run `getAccountDetails` first and last; use no Xpoz once fewer than 1,000 credits remain this
    month, and never buy extra credits. Cite the thread URL with "read through Xpoz" in the locator.
    A Reddit post is buyer voice (an observed anecdote), never market proof, price evidence, or a
