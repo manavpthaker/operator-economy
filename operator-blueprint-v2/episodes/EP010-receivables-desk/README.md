@@ -18,7 +18,8 @@ Status: **Step 1, beats, outline, and voice map approved at E4B; script v0.2 in 
 | Step 1, E4 narrative spine | approved 2026-11-09, owner decision id 1046 (claims map v0.1 stays draft) |
 | Step 1, E4B beats, outline, voice map | approved 2026-11-09, owner decision in thread |
 | Step 1, E5 script review | script v0.2 and claims map v0.3 drafted 2026-11-09; separate-agent read dispositioned; owner cold read pending |
-| Step 1, E5V and E6 | not started |
+| Step 1, E5V voice | conformity report drafted 2026-11-09; owner answered yes on voice, cold-read details pending |
+| Step 1, E6 lock | not reached |
 | Steps 2 to 8 | boundary-only: no script lock, narration, voice, spend, publishing, or outreach |
 
 Research refresh due: 2027-01-15. A passed date or a changed bound hash makes the promotion stale and stops Step 1.
@@ -46,7 +47,8 @@ EP010-receivables-desk/
     ├── voice-and-comedy-map.md     approved
     ├── script.md                   review v0.2
     ├── performance-readthrough.md  derived from script v0.2
-    └── review-disposition.md       draft
+    ├── review-disposition.md       draft
+    └── editorial-voice-conformity.md draft
 ```
 
 Owner decisions: `../../00-intake/OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`, `../../00-intake/OWNER-DECISION-2026-11-02-RECEIVABLES-DESK-CONTRACT.md`, `../../00-intake/OWNER-DECISION-2026-11-05-RECEIVABLES-DESK-CANVAS.md`, `../../00-intake/OWNER-DECISION-2026-11-06-RECEIVABLES-DESK-BUILD.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-SPINE.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-BEATS.md`. Amendment: `../../00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`.
