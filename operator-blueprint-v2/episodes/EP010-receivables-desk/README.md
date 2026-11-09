@@ -6,7 +6,7 @@ Slug: `receivables-desk`
 
 Candidate ID: `candidate-2026-10-15-receivables-desk`
 
-Status: **Step 1, BUILD approved at E3I; narrative spine in draft, owner decision pending at Gate E4**
+Status: **Step 1, narrative spine approved at E4; beat sheet in draft**
 
 | Stage | State |
 |---|---|
@@ -15,16 +15,16 @@ Status: **Step 1, BUILD approved at E3I; narrative spine in draft, owner decisio
 | Step 1, E2 contract | approved 2026-11-02, owner decision id 683 |
 | Step 1, E3 Canvas | locked 2026-11-05, owner decision id 875 |
 | Step 1, E3I investment thesis | approved 2026-11-06, owner decision id 1004 (BUILD, "a receivables desk") |
-| Step 1, E4 narrative spine | draft 2026-11-09, with claims map v0.1; owner decision pending |
-| Step 1, E4B onward | not started |
+| Step 1, E4 narrative spine | approved 2026-11-09, owner decision id 1046 (claims map v0.1 stays draft) |
+| Step 1, E4B beats, outline, voice map | beat sheet draft 2026-11-09; outline and voice map not started |
+| Step 1, E5 onward | not started |
 | Steps 2 to 8 | boundary-only: no script lock, narration, voice, spend, publishing, or outreach |
 
 Research refresh due: 2027-01-15. A passed date or a changed bound hash makes the promotion stale and stops Step 1.
 
 ## Owner decisions required, in order
 
-1. E4: narrative spine (with claims map v0.1).
-2. E4B: beat sheet, outline, voice map.
+1. E4B: beat sheet, outline, voice map, as one decision.
 3. E5: claims map.
 4. E5V and E6: one continuous cold read, then lock or revise.
 
@@ -40,7 +40,8 @@ EP010-receivables-desk/
     ├── operator-canvas.md          locked
     ├── episode-investment-thesis.md approved
     ├── claims-map.md               draft v0.1
-    └── narrative-spine.md          draft
+    ├── narrative-spine.md          approved
+    └── episode-beat-sheet.md       draft
 ```
 
-Owner decisions: `../../00-intake/OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`, `../../00-intake/OWNER-DECISION-2026-11-02-RECEIVABLES-DESK-CONTRACT.md`, `../../00-intake/OWNER-DECISION-2026-11-05-RECEIVABLES-DESK-CANVAS.md`, `../../00-intake/OWNER-DECISION-2026-11-06-RECEIVABLES-DESK-BUILD.md`. Amendment: `../../00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`.
+Owner decisions: `../../00-intake/OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`, `../../00-intake/OWNER-DECISION-2026-11-02-RECEIVABLES-DESK-CONTRACT.md`, `../../00-intake/OWNER-DECISION-2026-11-05-RECEIVABLES-DESK-CANVAS.md`, `../../00-intake/OWNER-DECISION-2026-11-06-RECEIVABLES-DESK-BUILD.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-SPINE.md`. Amendment: `../../00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`.

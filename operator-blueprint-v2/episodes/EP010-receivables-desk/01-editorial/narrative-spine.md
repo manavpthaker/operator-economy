@@ -1,6 +1,6 @@
 # Narrative spine: a receivables desk
 
-Status: **draft** (research bench review candidate, 2026-11-09; owner decision pending at Gate E4)
+Status: **approved** (owner, 2026-11-09, brownbot approvals decision id 1046) (Gate E4)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -362,12 +362,12 @@ Adversarial editorial pass:
 
 ## Approval
 
-Decision: pending owner
+Decision: **approve**
 
-Bench recommendation: approve the unanswered reply as the carrier, the doorbell as the governing analogy, and the stop rule as the honest center of the ending.
+Bench recommendation was: approve the unanswered reply as the carrier, the doorbell as the governing analogy, and the stop rule as the honest center of the ending.
 
-Approved by: pending
+Approved by: Manav Thaker (brownbot approvals decision id 1046, key `receivables-desk:spine-e4-2026-11-09`, not edited by the owner)
 
-Approval date: pending
+Approval date: 2026-11-09
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock. Do not place a self-hash inside this file.
