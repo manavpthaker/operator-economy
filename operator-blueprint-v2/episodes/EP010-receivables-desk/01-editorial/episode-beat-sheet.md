@@ -1,6 +1,6 @@
 # Episode beat sheet: a receivables desk
 
-Status: **draft** (review candidate, 2026-11-09; owner decision pending at Gate E4B, together with the outline and voice-and-comedy map)
+Status: **approved** (owner, 2026-11-09) (Gate E4B)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -323,10 +323,10 @@ Adversarial editorial pass:
 
 ## Approval
 
-Decision: pending owner, at Gate E4B with the outline and voice-and-comedy map
+Decision: **approve**, at Gate E4B with the outline and voice-and-comedy map
 
-Approved by: pending
+Approved by: Manav Thaker (decision given in the working thread 2026-11-09: "we'll approve it here. keep going"; staged as brownbot approvals key `receivables-desk:beats-e4b-2026-11-09`, not edited)
 
-Approval date: pending
+Approval date: 2026-11-09
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.

@@ -1,6 +1,6 @@
 # Voice and comedy map: a receivables desk
 
-Status: **draft** (review candidate, 2026-11-09; owner decision pending at Gate E4B, together with the beat sheet and outline)
+Status: **approved** (owner, 2026-11-09) (Gate E4B)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -14,9 +14,9 @@ Episode-investment-thesis SHA-256: `1d1286a3c8935617b2bbebe4ccb4effb3c446497375d
 
 Narrative-spine SHA-256: `fc2ed87206b2c1305687d35b6b002a6081de4e7ad42f7dd9b81b4455bf3cc6f9`
 
-Episode-beat-sheet SHA-256: `c795e943e7ef4a47d0e8fc91cdc3a079dd63ef961678a6fa6c1615495e807d7f`
+Episode-beat-sheet SHA-256: `6327a53518033cf65a4c6aa31cd86194b55ace186d3c212a24f14b5fe415eb2d`
 
-Episode-outline SHA-256: `877818e1c7f9375742c3795ded0f2e9f12ce21790dffe84a33b5d6fe94ee2333`
+Episode-outline SHA-256: `1b1a3baa932c98207d1799d4bae3cc3d47596b0aa7f7edf62cffc52254f214dc`
 
 Claims-map revision: v0.2 draft / `0283fa19587940f2cc2e32c6f04f2339b090034caa6ec76b82d8d72540adf1a6`
 
@@ -463,10 +463,10 @@ Adversarial editorial pass:
 
 ## Approval
 
-Decision: pending owner, at Gate E4B with the beat sheet and outline
+Decision: **approve**, at Gate E4B with the beat sheet and outline
 
-Approved by: pending
+Approved by: Manav Thaker (decision given in the working thread 2026-11-09: "we'll approve it here. keep going"; staged as brownbot approvals key `receivables-desk:beats-e4b-2026-11-09`, not edited)
 
-Approval date: pending
+Approval date: 2026-11-09
 
 Calculate the SHA-256 after this approval record is complete. Store it in dependent artifacts and the editorial lock; do not place a self-hash inside this file.

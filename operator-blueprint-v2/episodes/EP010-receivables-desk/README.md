@@ -6,7 +6,7 @@ Slug: `receivables-desk`
 
 Candidate ID: `candidate-2026-10-15-receivables-desk`
 
-Status: **Step 1, narrative spine approved at E4; beats, outline, and voice map in draft, owner decision pending at Gate E4B**
+Status: **Step 1, beats, outline, and voice map approved at E4B; script v0.2 in review, owner cold read pending**
 
 | Stage | State |
 |---|---|
@@ -16,17 +16,17 @@ Status: **Step 1, narrative spine approved at E4; beats, outline, and voice map 
 | Step 1, E3 Canvas | locked 2026-11-05, owner decision id 875 |
 | Step 1, E3I investment thesis | approved 2026-11-06, owner decision id 1004 (BUILD, "a receivables desk") |
 | Step 1, E4 narrative spine | approved 2026-11-09, owner decision id 1046 (claims map v0.1 stays draft) |
-| Step 1, E4B beats, outline, voice map | all three drafted 2026-11-09; owner decision pending |
-| Step 1, E5 onward | not started |
+| Step 1, E4B beats, outline, voice map | approved 2026-11-09, owner decision in thread |
+| Step 1, E5 script review | script v0.2 and claims map v0.3 drafted 2026-11-09; separate-agent read dispositioned; owner cold read pending |
+| Step 1, E5V and E6 | not started |
 | Steps 2 to 8 | boundary-only: no script lock, narration, voice, spend, publishing, or outreach |
 
 Research refresh due: 2027-01-15. A passed date or a changed bound hash makes the promotion stale and stops Step 1.
 
 ## Owner decisions required, in order
 
-1. E4B: beat sheet, outline, voice map, as one decision.
-2. E5: claims map (v0.2 draft).
-3. E5V and E6: one continuous cold read, then lock or revise.
+1. E5: claims map (v0.3 draft) and script.
+2. E5V and E6: one continuous cold read, then lock or revise.
 
 ## Layout
 
@@ -39,11 +39,14 @@ EP010-receivables-desk/
     ├── editorial-contract.md       approved
     ├── operator-canvas.md          locked
     ├── episode-investment-thesis.md approved
-    ├── claims-map.md               draft v0.2
+    ├── claims-map.md               draft v0.3
     ├── narrative-spine.md          approved
-    ├── episode-beat-sheet.md       draft
-    ├── episode-outline.md          draft
-    └── voice-and-comedy-map.md     draft
+    ├── episode-beat-sheet.md       approved
+    ├── episode-outline.md          approved
+    ├── voice-and-comedy-map.md     approved
+    ├── script.md                   review v0.2
+    ├── performance-readthrough.md  derived from script v0.2
+    └── review-disposition.md       draft
 ```
 
-Owner decisions: `../../00-intake/OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`, `../../00-intake/OWNER-DECISION-2026-11-02-RECEIVABLES-DESK-CONTRACT.md`, `../../00-intake/OWNER-DECISION-2026-11-05-RECEIVABLES-DESK-CANVAS.md`, `../../00-intake/OWNER-DECISION-2026-11-06-RECEIVABLES-DESK-BUILD.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-SPINE.md`. Amendment: `../../00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`.
+Owner decisions: `../../00-intake/OWNER-DECISION-2026-10-29-RECEIVABLES-DESK-EP010.md`, `../../00-intake/OWNER-DECISION-2026-11-02-RECEIVABLES-DESK-CONTRACT.md`, `../../00-intake/OWNER-DECISION-2026-11-05-RECEIVABLES-DESK-CANVAS.md`, `../../00-intake/OWNER-DECISION-2026-11-06-RECEIVABLES-DESK-BUILD.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-SPINE.md`, `../../00-intake/OWNER-DECISION-2026-11-09-RECEIVABLES-DESK-BEATS.md`. Amendment: `../../00-intake/02-research/candidate-2026-10-15-receivables-desk-amendment-01.md`.
