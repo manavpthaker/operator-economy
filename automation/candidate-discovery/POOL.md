@@ -1,6 +1,12 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-11-04 ET, scout run (Wednesday): no new lead. Rejects certified payroll filing for small
+Updated: 2026-11-09 ET, scout run (Monday): no new lead. Rejects a fractional admin desk for small
+nonprofits, retainage and lien-deadline tracking for subcontractors, Medicaid application preparation for
+families and a Shopify chargeback evidence desk; re-screens Amazon suspension appeals and property tax appeals
+for small commercial owners (both stay rejected). Shortlist unchanged at 8; order: CAM review, money desk,
+child care subsidy desk, grant reporting desk, site invoicing desk, IEP advocacy, WISeR desk, admissions
+backend. Full record: `runs/2026-11-09.md`.
+Previous: 2026-11-04 ET, scout run (Wednesday): no new lead. Rejects certified payroll filing for small
 subcontractors, dental insurance claims follow-up, short-term rental compliance for small towns and
 PBM audit responses for independent pharmacies; re-screens agency policy checking and LTL freight
 claims (both stay rejected). The run's best buyer evidence is a duplicate of parked
@@ -2292,8 +2298,15 @@ None.
   independent pharmacies: rejected on test 1 (no buyer voice); PAAS National and law firms sell it. Re-screens
   stay rejected: agency policy checking ($13 to $19 an hour non-licensed assistants) and LTL freight claims
   (no fresh buyer voice). Reopening conditions in `runs/2026-11-04.md`.
+- 2026-11-09 (scout): Fractional admin desk for small nonprofits: rejected on test 2 (generalist work; AI a helper).
+  Retainage and lien-deadline tracking for small subcontractors: rejected on test 1 (one thread, asker may be researching a
+  product). Medicaid application preparation for families: rejected on tests 1 and 3 (free help; eligibility stays with the
+  family). Shopify chargeback evidence desk: rejected on test 1 (nobody seen paying; tools and Shopify's own form). Re-screens
+  stay rejected: Amazon suspension appeals (test 4(a): done-for-you reinstatement services; Amazon decides) and property tax
+  appeals for small commercial owners (no fresh buyer voice). Reopening conditions in `runs/2026-11-09.md`.
+
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`.
