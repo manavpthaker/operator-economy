@@ -1,6 +1,6 @@
 # Episode investment thesis: a receivables desk
 
-Status: **draft** (research bench review candidate, 2026-11-06; owner decision pending at Gate E3I)
+Status: **approved** (owner, 2026-11-06, brownbot approvals decision id 1004; recorded by the research bench 2026-11-09)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -12,8 +12,8 @@ Gate position:
 
 ```text
 Operator Canvas locked at E3 (owner, 2026-11-05, decision id 875)
--> this thesis drafted for E3I (owner decision pending: BUILD or PARK, and the spoken name)
--> narrative development not started
+-> this thesis approved at E3I (owner, 2026-11-06, decision id 1004: BUILD, spoken name "a receivables desk")
+-> narrative development authorized
 ```
 
 Every number below is an internal input until approved under `content-os/facts.md`. Locators are Step 0 claim IDs (research brief and amendment 01). No claims map exists yet; it is built at E5.
@@ -87,7 +87,7 @@ Candidate line:
 
 Risk: "receivables" is accounting vocabulary. The intended viewer knows it; a general listener may not. The definition carries the meaning, so the name passes. Fallback if the owner prefers plainer words: "a late-invoice desk".
 
-Naming decision: **approve** (bench recommendation; owner decision at this gate)
+Naming decision: **approved** (owner, decision id 1004)
 
 ## Thesis stack
 
@@ -113,7 +113,7 @@ Valid no-build, refuse, narrow, defer, or stop result inside the first offer: th
 
 ### Affirmative build verdict
 
-Investment recommendation: **BUILD** (bounded; bench recommendation, owner decision pending)
+Investment recommendation: **BUILD** (bounded; owner approved, decision id 1004)
 
 Verdict:
 
@@ -596,7 +596,7 @@ Bench check, not an owner or independent review.
 - [x] 30- and 90-day plans build while testing.
 - [x] 55/45 balance committed.
 - [x] Claims boundary clear.
-- [ ] Named human approval. Pending.
+- [x] Named human approval. Manav Thaker, decision id 1004, 2026-11-06.
 
 ## Bench review notes
 
@@ -614,11 +614,11 @@ Adversarial editorial pass:
 
 ## Gate E3I approval
 
-Decision: pending owner
+Decision: **approve**
 
-Investment recommendation: BUILD (bench recommendation) / PARK (owner alternative)
+Investment recommendation: BUILD
 
-Gate E3I status: not reached
+Gate E3I status: **passed**
 
 Proposed short public category title: Receivables desk for small firms
 
@@ -634,8 +634,10 @@ Proposed BUILD verdict: as stated under "Affirmative build verdict".
 
 Unresolved caveats that do not block narrative development: U001 to U009 except U008 (resolved at E3); claims map pending.
 
-Approved by: pending
+Approved by: Manav Thaker (brownbot approvals decision id 1004, key `receivables-desk:thesis-e3i-2026-11-06`, not edited by the owner)
 
-Approval date: pending
+Approval date: 2026-11-06
+
+The stop rule in the approved text (stop if two of five do not take a paid month, or if owners buy the $99 tool) governs over the "none of five" wording in this thesis's kill condition and in Canvas section 11. See the owner-decision record.
 
 Calculate the SHA-256 after this approval record is complete. Store it in every dependent narrative artifact and the editorial lock. Do not place a self-hash inside this file.
