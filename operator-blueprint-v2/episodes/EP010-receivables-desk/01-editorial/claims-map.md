@@ -1,6 +1,6 @@
 # Claims map: a receivables desk
 
-Status: **draft v0.1** (research bench review candidate, 2026-11-09; written for Gate E4, owner decision pending; re-audited against the script at E5)
+Status: **draft v0.2** (review candidate, 2026-11-09; v0.1 plus C024 only; owner decision pending at Gate E5, re-audited against the script there)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -78,6 +78,7 @@ Reason the shorter public name remains accurate: "desk" names a staffed job, and
 | C021 | Illinois exempts contracted notice using only the creditor's name, from 2026-01-01 | observed, law-firm analysis | CLM-009 | verified; does not settle commercial reach | "Illinois carved out people who send notices using only the creditor's name" | law-firm analysis on receipt | at each named state | that Illinois permits the desk | 2027-01-15 |
 | C022 | California, Texas, New York, Georgia, Pennsylvania texts read cover consumer or financing debt, or no state regulator | observed (primary and analysis), non-lawyer reading | CLM-012 to CLM-016 | verified as read; Pennsylvania licensing unknown | "the others we read mostly cover consumer debt, which is not the same as saying you're clear" | non-lawyer reading, "the ones we read" | at each named state | "no licence needed"; a fifty-state map | 2027-01-15 to 2027-07-01 |
 | C023 | No one-person desk found at disclosed economics | absence, bounded | research brief; thesis "Reachable operator-scale parallel" | absence not proof | "we did not find one person doing this at numbers they've published" | "did not find" | none | "nobody is doing this"; that the idea is new | re-run before lock |
+| C024 | None of the seller pages read mentions that some states may treat this work as collection | absence, bounded; the episode's synthesis | contract POV; scorecard POV finding 1; CLM-009 to CLM-011, CLM-020 | absence not proof | "none of the seller pages we read bring this up" | "we read" | none | "no vendor tells you"; that sellers hide it; any motive | re-read the named seller pages before lock |
 
 ## Evidence-delivery registry
 

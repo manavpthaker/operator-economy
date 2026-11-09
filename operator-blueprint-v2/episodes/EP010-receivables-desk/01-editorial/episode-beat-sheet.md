@@ -14,7 +14,7 @@ Episode-Investment-Thesis SHA-256: `1d1286a3c8935617b2bbebe4ccb4effb3c446497375d
 
 Narrative-spine SHA-256: `fc2ed87206b2c1305687d35b6b002a6081de4e7ad42f7dd9b81b4455bf3cc6f9`
 
-Claims-map revision: v0.1 draft / `3a068008b57e31bc0dceca42422c8fac4e01f6655ad6d022873a9cc8357e1992`
+Claims-map revision: v0.2 draft / `0283fa19587940f2cc2e32c6f04f2339b090034caa6ec76b82d8d72540adf1a6` (v0.1 plus C024 only; the approved spine cites v0.1 and stays unchanged to keep its hash)
 
 Working promise: software will now chase a late invoice for free. Here is the part it doesn't do, what a person could charge for that part, and the legal line to check before the first client.
 
@@ -150,7 +150,7 @@ Evidence and explanation that must appear before it: the cold-open reply; the se
 
 Fair case for the existing system: the reminder really does work on the customer who forgot, and the tools do what they say.
 
-Point where that fair case stops being sufficient: when the customer answers. The bell worked. The customer came to the door, and nobody was home on your side.
+Point where that fair case stops being sufficient: when the customer answers. The bell worked. The customer answered and rang back with the wrong PO, and nobody was home on your side.
 
 Plainspoken ruling: "Somebody has to be home. That's the job."
 
@@ -191,7 +191,7 @@ Why the evidence supports attention without pretending demand or outcomes are es
 | B14 (S15, about 165 words) | delivery and responsibility | what the owner gets | the reply becomes one line on Friday's report | Canvas 5, 6, C007 | money never promised | report the state of every invoice, even when nothing moved | set locked accounts, same-day dispute hand-back, wrong-send route | "who is the first owner" |
 | B15 (S16, about 130 words) | go to market | how the first owner arrives | past employers, vendors, a bookkeeper who keeps flagging the same list | C018, Canvas 8 | channels untested; no conversion rate | start where you already know people | list five firms | "can it pay you" |
 | B16 (S17, about 230 words) | economics and required share | can it support me | your own hours, one operation per sentence | E001 to E011 | `Modeled scenario, not observed performance or an earnings forecast.` | twenty-four, not thirty. $300 doesn't fit. A full-time job at about $39.50 an hour before tax | run it on your hours | "if you're allowed" |
-| B16a (S18, about 100 words) | legal line | am I allowed | your state's statute, before anyone's customer | C019 to C022 | non-lawyer reading, each named state; not legal advice | check first | read your state's law, or ask someone who can | "what else breaks" |
+| B16a (S18, about 100 words) | legal line | am I allowed | your state's statute, before anyone's customer | C019 to C022, C024 | non-lawyer reading, each named state; not legal advice | check first | read your state's law, or ask someone who can | "what else breaks" |
 | B17 (S19, about 130 words) | expansion and hard part | what breaks it | owners who agree and buy the tool | Canvas 9, 11, C010 | every step needs a new buyer decision | stop if two of five don't take a paid month, or if owners buy the $99 tool | keep the hours log | "so what first" |
 | B18 (S20, about 130 words) | construction plan | what first | five documents, five free sorts, one month | E012, Canvas 12 | about 40 hours and $600, modeled; viewer's first test | this is building, not thinking | build the state note, rules sheet, ladder, sample report, hours log | "the reply" |
 | B19 (S21 to S23, about 105 words) | callback, payoff, BUILD | the invoice again; the verdict | the same reply answered | Canvas | never shown paid | "The verdict is build. Bounded." | read your state's law, then mark one report by hand | S24 |
@@ -311,7 +311,7 @@ Bench check, not an owner or independent review.
 
 Same agent ran both passes; not independent.
 
-Evidence pass: every figure traces to the claims map v0.1 or the locked Canvas. B05 and B08 rely on seller terms and say so. "It isn't the only one on the list" carries no count. Planned word totals check to 54 percent.
+Evidence pass: every figure traces to the claims map v0.2 or the locked Canvas. B05 and B08 rely on seller terms and say so. "It isn't the only one on the list" carries no count. Planned word totals check to 54 percent.
 
 Adversarial editorial pass:
 
