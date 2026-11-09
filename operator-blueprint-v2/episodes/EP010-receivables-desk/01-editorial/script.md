@@ -1,6 +1,6 @@
 # Script: a receivables desk
 
-Status: **review** (integrated revision v0.2, owner cold read pending; not locked)
+Status: **locked** (owner, 2026-11-09, revision v0.2)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -22,7 +22,7 @@ Episode-beat-sheet SHA-256: `6327a53518033cf65a4c6aa31cd86194b55ace186d3c212a24f
 
 Episode-outline SHA-256: `1b1a3baa932c98207d1799d4bae3cc3d47596b0aa7f7edf62cffc52254f214dc`
 
-Claims-map revision: v0.3 draft / `5212b80d5f6ab4f025148b5e5ce8574ce1cdf44ffd7fa6042da0d362ea29dd20`
+Claims-map revision: v0.3 draft / `b0e500d0be766ca52cb4812ccc6242bcadba3c20a210711bd87af6400bc6f3ea`
 
 Voice-and-comedy-map SHA-256: `72436a64bef3c599c0275c07b36c82e7a6d48eb76f57602c0cd9e1cff6070ddd`
 
@@ -491,18 +491,18 @@ Unresolved placeholders: zero
 | Revision | Date | Reviewer | Decision | Material change |
 |---|---|---|---|---|
 | v0.1 | 2026-11-09 | bench draft; separate-agent cold read | revise | first full draft |
-| v0.2 | 2026-11-09 | bench integration | pending owner cold read | 25 findings dispositioned in `review-disposition.md` |
+| v0.2 | 2026-11-09 | bench integration | owner cold read, voice yes, locked 2026-11-09 | 25 findings dispositioned in `review-disposition.md` |
 
 Bounded Step 0 amendment requests: none
 
 ## Final approval
 
-Decision: pending. Owner cold read required at E5V before any lock.
+Decision: **lock**
 
-Approved by: pending
+Approved by: Manav Thaker (working thread, 2026-11-09: "Yes, lock v0.2")
 
-Approval date: pending
+Approval date: 2026-11-09
 
-Locked revision: none
+Locked revision: v0.2
 
 The approved script SHA-256 is calculated after this record is complete and stored in the external editorial lock. Do not place a self-hash or downstream review hash inside this file.

@@ -1,6 +1,6 @@
 # Claims map: a receivables desk
 
-Status: **draft v0.3** (review candidate, 2026-11-09; audited against script v0.2; owner decision pending at Gate E5)
+Status: **approved v0.3** (owner, 2026-11-09, at the script lock; audited against script v0.2)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 

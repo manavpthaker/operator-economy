@@ -1,6 +1,6 @@
 # Review disposition: a receivables desk
 
-Status: draft (owner cold read and E5V pending)
+Status: complete (2026-11-09)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -16,7 +16,7 @@ Reviewed episode outline SHA-256: `1b1a3baa932c98207d1799d4bae3cc3d47596b0aa7f7e
 
 Reviewed voice-and-comedy map SHA-256: `72436a64bef3c599c0275c07b36c82e7a6d48eb76f57602c0cd9e1cff6070ddd`
 
-Reviewed editorial-voice conformity SHA-256: none yet
+Reviewed editorial-voice conformity SHA-256: `61990ff72fe12ef84c4e5bdab367c312b38ccd85cf5be93f9985a14796d2559a`
 
 Reviewed performance read-through SHA-256: see the run record; clean text of the reviewed revision
 
@@ -75,15 +75,17 @@ Positive findings to preserve: arithmetic checks out at $115,200, $39,312, $75,8
 - [x] Every rejected part records a reason.
 - [x] Positive findings marked preserve.
 - [x] No disposition introduces a new claim outside the approved evidence package (new wording is audited in the claims map).
-- [ ] Editorial-voice findings dispositioned against a conformity report. Pending E5V.
+- [x] Editorial-voice findings dispositioned against the conformity report.
 - [x] Evidence-delivery findings keep an audio-honest claim.
 - [x] Operator-market fit keeps experience and access first.
-- [ ] Exact last-two-lines seam test recorded per seam. Planned for E5V.
+- [x] Exact last-two-lines seam test recorded per seam in the conformity report.
 - [x] Repeated scene-opening marker addressed through causal handoffs.
 - [x] Opening and ending findings dispositioned against the approved beat sheet.
 - [x] The opening keeps a concrete hook, a payoff, and an open loop.
 
-## For the owner's cold read
+## Resolved at the owner's cold read (2026-11-09)
+
+The owner locked v0.2 with these left as written.
 
 1. The doorbell's ring-back and "The owner's around." The reviewer thought the image breaks on one listen and proposed one house and a porch. That would change what you approved at E4, so it is your call.
 2. "I think it's worth it when the stuck balance is big and the owner's the bottleneck." Written for you, as an opinion. Keep it only if it's yours.

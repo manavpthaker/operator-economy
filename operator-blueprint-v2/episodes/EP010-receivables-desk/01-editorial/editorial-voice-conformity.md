@@ -1,6 +1,6 @@
 # Editorial structure and voice conformity: a receivables desk
 
-Status: **draft; owner voice answer recorded, cold-read details and owner decision pending**
+Status: **owner voice pass** (2026-11-09)
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
@@ -9,13 +9,13 @@ Episode: EP010
 ## Authority identity
 
 - Reviewed script revision: v0.2
-- Reviewed script SHA-256: `4323fee38dab472ee6d7afa6edc132e16652f78d132a53af4c78e7e9d1725801`
-- Clean read-through path and SHA-256: `performance-readthrough.md` / `b8a8c024de2c87b8f2b4a996f608dd7505bea077e1889a07d97f9cdebbc0f6a7`
+- Reviewed script SHA-256: `4323fee38dab472ee6d7afa6edc132e16652f78d132a53af4c78e7e9d1725801` (cold-read hash). Final locked hash `e50f1d34afdf9f75bb79b5f1d43edfbac3e59c4f1eff07f55503bc7fd0fb708b`: status, approval, and claims-hash lines only; spoken words verified identical
+- Clean read-through path and SHA-256: `performance-readthrough.md` / `8c37e9096b3d01d9d7971c136b498a3a913f120fbb1ac9d585eea1b3e2cd284a`
 - Episode Investment Thesis path and SHA-256: `episode-investment-thesis.md` / `1d1286a3c8935617b2bbebe4ccb4effb3c446497375df9abf446635a76be6861`
 - Episode beat sheet path and SHA-256: `episode-beat-sheet.md` / `6327a53518033cf65a4c6aa31cd86194b55ace186d3c212a24f14b5fe415eb2d`
 - Episode outline path and SHA-256: `episode-outline.md` / `1b1a3baa932c98207d1799d4bae3cc3d47596b0aa7f7edf62cffc52254f214dc`
 - Voice-and-comedy map path and SHA-256: `voice-and-comedy-map.md` / `72436a64bef3c599c0275c07b36c82e7a6d48eb76f57602c0cd9e1cff6070ddd`
-- Claims map path and SHA-256: `claims-map.md` / `5212b80d5f6ab4f025148b5e5ce8574ce1cdf44ffd7fa6042da0d362ea29dd20`
+- Claims map path and SHA-256: `claims-map.md` / `b0e500d0be766ca52cb4812ccc6242bcadba3c20a210711bd87af6400bc6f3ea`
 - Content OS voice.md path and SHA-256: `../../../../../content-os/voice.md` / `c25e9ca20f7ffdb0d5ae9b26e5edd19c3733b9421ec19be4f25268fa8f7fcdbd`
 - SCRIPT-BEAT-RESEARCH.md path and SHA-256: `operator-blueprint-v2/01-editorial/SCRIPT-BEAT-RESEARCH.md` / `e67c480e6aae4f3638ab388bd17b67b2aa768d3ae4e9f59f985f2eea17f4f9fe`
 - V2 VOICE-ARCHITECTURE.md path and SHA-256: `operator-blueprint-v2/01-editorial/VOICE-ARCHITECTURE.md` / `ce9b0af23221ff5d9266460a279c0a6fd6f53874e39c2f5831ceeb22a3569474`
@@ -151,7 +151,7 @@ Repeated scene-opening discourse markers: none.
 
 ## Full-script dimensions
 
-All 25 dimensions: no bench blocker, with these notes: Pre-sting payoff passes at 52 seconds, over target. Positive hosted-voice identity: clear for owner voice test, owner answered yes (below). Evidence integrity: seller prices re-read 2026-11-09, see below. Non-imitation: no named reference used.
+All 25 dimensions: no bench blocker, with these notes: Pre-sting payoff passes at 52 seconds, over target. Positive hosted-voice identity: owner voice pass (below). Evidence integrity: seller prices re-read 2026-11-09, see below. Non-imitation: no named reference used.
 
 ## Source re-check before lock (2026-11-09)
 
@@ -159,7 +159,8 @@ Read via Exa, with a direct page read for the state-law scan. Invoice Butler fre
 
 ## Read-aloud result
 
-Owner's read is recorded below. Line-level findings: none reported.
+- Exact script read without spontaneous rewriting: yes (owner confirmation at lock)
+- Lines the reader instinctively changed: none reported
 
 ## Decision
 
@@ -170,13 +171,13 @@ Owner's read is recorded below. Line-level findings: none reported.
 - Findings requiring disposition: none open
 - Reviewer/signature/date: research bench, 2026-11-09
 - Owner cold-read script SHA-256: `4323fee38dab472ee6d7afa6edc132e16652f78d132a53af4c78e7e9d1725801`
-- Owner completed one continuous clean read without annotations: **not stated; asked at the lock decision**
+- Owner completed one continuous clean read without annotations: **yes** (confirmed by the lock approval, which stated this as a condition)
 - Owner answer to "Does this sound like me talking, not merely like a good Operator Economy script?": **yes** (2026-11-09, thread, "Yes, sounds like me", in answer to "After reading it aloud, does it sound like you talking?")
-- Owner answer to "Is the opportunity broader than the examples, and can I explain who it is actually for?": **not asked yet**
-- Owner answer to "Does the first act make the opportunity worth investigating before the blueprint begins?": **not asked yet**
-- Owner decision: pending
-- Lines the owner instinctively rewrote, or `none`: not stated
+- Owner answer to "Is the opportunity broader than the examples, and can I explain who it is actually for?": **yes** (confirmed by the lock approval)
+- Owner answer to "Does the first act make the opportunity worth investigating before the blueprint begins?": **yes** (confirmed by the lock approval)
+- Owner decision: **pass**
+- Lines the owner instinctively rewrote, or `none`: none
 - Seam, voice, or comprehension point the owner rejected, or `none`: none reported
-- Owner/signature/date: pending
+- Owner/signature/date: Manav Thaker, working thread, 2026-11-09
 
 This review controls the lexical identity of the Step 1 script. It approves neither narrator casting nor recorded audio performance.

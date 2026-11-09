@@ -2,7 +2,7 @@
 
 Template version: approved `operator-blueprint-v2-step1-v1.5`
 
-> Performance read-through only. Derived from script revision `v0.2`, SHA-256 `4323fee38dab472ee6d7afa6edc132e16652f78d132a53af4c78e7e9d1725801`, and Episode Investment Thesis SHA-256 `1d1286a3c8935617b2bbebe4ccb4effb3c446497375df9abf446635a76be6861`. 3576 spoken words. This file is not independently editable.
+> Performance read-through only. Derived from script revision `v0.2`, SHA-256 `e50f1d34afdf9f75bb79b5f1d43edfbac3e59c4f1eff07f55503bc7fd0fb708b` (the owner read the same words at `4323fee38dab472ee6d7afa6edc132e16652f78d132a53af4c78e7e9d1725801`; only status and approval lines differ), and Episode Investment Thesis SHA-256 `1d1286a3c8935617b2bbebe4ccb4effb3c446497375df9abf446635a76be6861`. 3576 spoken words. This file is not independently editable.
 
 ## Cold open
 
