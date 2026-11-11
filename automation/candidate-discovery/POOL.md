@@ -1,6 +1,11 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-11-09 ET, scout run (Monday): no new lead. Rejects a fractional admin desk for small
+Updated: 2026-11-11 ET, scout run (Wednesday): no new lead. Rejects a collections and back-office desk for
+small self-managed HOAs and a Google Business Profile watch and reinstatement desk; re-screens outsourced
+security questionnaires and title abstracts and runsheets (both stay rejected). Shortlist unchanged at 8; order:
+CAM review, money desk, child care subsidy desk, grant reporting desk, site invoicing desk, IEP advocacy, WISeR
+desk, admissions backend. Full record: `runs/2026-11-11.md`.
+Previous: 2026-11-09 ET, scout run (Monday): no new lead. Rejects a fractional admin desk for small
 nonprofits, retainage and lien-deadline tracking for subcontractors, Medicaid application preparation for
 families and a Shopify chargeback evidence desk; re-screens Amazon suspension appeals and property tax appeals
 for small commercial owners (both stay rejected). Shortlist unchanged at 8; order: CAM review, money desk,
@@ -2304,9 +2309,15 @@ None.
   family). Shopify chargeback evidence desk: rejected on test 1 (nobody seen paying; tools and Shopify's own form). Re-screens
   stay rejected: Amazon suspension appeals (test 4(a): done-for-you reinstatement services; Amazon decides) and property tax
   appeals for small commercial owners (no fresh buyer voice). Reopening conditions in `runs/2026-11-09.md`.
+- 2026-11-11 (scout): Collections and back office for small self-managed HOAs: rejected on tests 2 and 4(b) (boards run
+  PayHOA or a spreadsheet themselves; collections go to attorneys on contingency). Google Business Profile watch and
+  reinstatement desk: rejected on test 4(a) (pay-on-success reinstatement at $299 to $449; monitoring from $30 a month;
+  Google decides). Re-screens stay rejected: outsourced security questionnaires (test 4: Holdvero sells it done-for-you at
+  €695 a questionnaire; vCISOs run their own AI workflows) and title abstracts and runsheets (test 4: land services firms
+  would move the work to their own landmen; courthouse field work). Reopening conditions in `runs/2026-11-11.md`.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`, `runs/2026-11-11.md`.
