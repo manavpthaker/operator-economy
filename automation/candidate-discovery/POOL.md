@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-11-12 ET, Thursday bench: admits `DISC-2026-10-19-026` (remote money desk) as
+Updated: 2026-11-16 ET, scout run (Monday): no new lead. Re-screens `DISC-2026-09-28-013` (CAM review) as the
+Thursday bench asked and moves it from `shortlisted` to `held`: Tenantback audits free and disputes for 25% of money
+recovered, and no fresh tenant voice was found; reopening condition in the entry. Re-screens back-of-book indexing and
+EcoVadis questionnaires (both stay rejected). Rejects weekly tip reconciliation for small multi-unit restaurants, owner
+statements for small short-term rental managers and donation request handling. Exa was down (account out of credits);
+the run used Xpoz, free scout commands and web search. Shortlist 7 to 6; order: child care subsidy desk, grant reporting
+desk, site invoicing desk, IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-11-16.md`.
+Previous: 2026-11-12 ET, Thursday bench: admits `DISC-2026-10-19-026` (remote money desk) as
 `candidate-2026-11-12-remote-money-desk`; returns the CAM review lead to the scout for re-screening
 against Tenantback (free AI audits, 25% contingency disputes). Shortlist 8 to 7; order unchanged
 otherwise: CAM review (re-screen pending), child care subsidy desk, grant reporting desk, site
@@ -158,67 +165,6 @@ Authority: noncanonical. See `README.md`. Only the Monday research bench may adm
 lead into formal Operator Blueprint V2 Step 0.
 
 ## Shortlisted
-
-### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
-
-- Status: `shortlisted` (2026-09-28 scout; priority 1 of 8 since 2026-10-28 rerun 2; was 1 of 7 earlier 2026-10-28)
-- First seen / last checked: 2026-09-28 / 2026-09-28 ET
-- Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
-  often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
-  tenants. Can one AI-equipped operator make them worth doing on a $10k–$50k CAM bill?
-- Sources: Quora titles (SERP only) incl. "My landlord sold the property and the new owner doubled my
-  CAM charge. What can I do?"; BiggerPockets thread ≈2026-03, property manager, 8 replies, on charges
-  tenants dispute and gross-up overcharges
-  <https://www.biggerpockets.com/forums/32/topics/1281823-cam-reconciliation-the-charges-tenants-push-back-on-most-often>;
-  Google Trends US 5y ("CAM charges" at 5-year peak mid-2026); CAMAudit <https://www.camaudit.io/>
-  (AI engine sold to CPAs, tenant reps, attorneys: 20 checks, report, dispute letter). Full ledger:
-  `runs/2026-09-28.md`.
-- Signal types: conversation, search direction, capability, workflow.
-- Who cares / decision: owner-operators with one to five leased locations deciding whether to pay,
-  question, or audit a reconciliation.
-- Buyer / costly problem: an unexplained CAM true-up (admin fees, capital repairs, gross-up errors,
-  insurance and tax pass-throughs) and a short dispute window.
-- Offer / outcome: fixed-fee CAM review per location; each disputed line tied to a lease clause and a
-  statement line, letter sent inside the window, dollars credited.
-- Mechanism: AI abstracts the lease's expense clauses and checks each reconciliation line; operator
-  requests the landlord's ledger and invoices, reviews findings, drafts the letter; tenant sends it.
-- Why now: AI abstraction collapses review time; pass-throughs rose; a vendor now sells the engine to
-  small firms.
-- **AI-change test: passes.** AI reads lease and reconciliation line by line; before, auditor hours made
-  audits uneconomic for small tenants. To verify: minutes per location with and without AI.
-- **Delivery boundary: passes, with a lease condition.** Unlicensed lease auditors and CPAs do this
-  today; litigation stays with counsel; some leases limit audits to CPAs, bar contingency auditors, or
-  shift audit cost below a 3–5% overcharge. Residual: an unlicensed operator reviews a small tenant's
-  CAM reconciliation against its lease, requests backup, and prepares the documented dispute for the
-  tenant to send.
-- **Substitute:** CAMAudit (firm-facing engine; its outsourced service is direct, price unknown);
-  contingency lease-audit firms (30–50% or $2,000–5,000 plus a share; minimums ~$2,500–5,000 per
-  property — seller copy, context).
-- **Problem-value signals:** `problem cost` (tenants' own accounts of doubled CAM; property manager
-  confirming gross-up and admin overcharges); `demand signal` (recurring Quora questions, rising Trends).
-- **Payment evidence:** unknown — viewer's first test.
-- Strongest invalidating question: do small leases give usable audit rights, and is the recovery on a
-  $10k–$50k CAM bill big enough to pay a fixed fee?
-- Evidence still needed: sample small-shop audit clauses; a disclosed small-tenant recovery; CAMAudit's
-  outsourced price; state rules on who may audit.
-- Possible OE point of view: the landlord's accountant writes the bill and the lease is the tenant's
-  only check; AI makes that check cheap enough for the small shop. Showable with a synthetic lease.
-- Semantic deduplication: no match in the repository or pool.
-- Disposition: shortlisted. Decisive reason: private-sector buyer, AI plainly changes the economics,
-  two independent conversation surfaces. Recheck 2026-10-28; expires 2027-03-31. Step 0 candidate ID: none.
-- Bench recheck 2026-11-12 (Thursday bench; status unchanged, returned to the scout for re-screening;
-  not admitted): the substitute line is out of date. Tenantback (<https://tenantback.com/>, read via
-  Exa 2026-11-12) gives small tenants a free AI CAM audit by email and runs the dispute for 25% of
-  money recovered, nothing otherwise ($49 a location a month plus 12% on its portfolio plan). That is
-  this lead's offer, done for the tenant. CAMAudit now publishes its engine price to solo firms:
-  $490 for 10 audits ($49 each; <https://www.camaudit.io/pricing>, read via Exa). Tango launched an
-  enterprise CAM Reconciliation Agent on 2026-11-10 (press release, read via Exa); it targets
-  retailers with hundreds of leases. Residual human room, unverified: leases that bar contingency
-  auditors (CapVeri's landlord-favorable model clause bars them and requires a CPA firm; how often
-  small-shop leases carry that is unknown) and the landlord backup-records request. Problem-value
-  signal still rests on one property manager's BiggerPockets post (re-read; about April 2026) and
-  Quora titles never opened; seller pages carry the error-rate figures. Re-screen question: after a
-  free audit plus 25% contingency, what does a fixed-fee person sell, and to which tenants?
 
 ### `DISC-2026-10-21-027`: child care subsidy billing and recovery desk for small centers and family child care homes
 
@@ -760,6 +706,77 @@ lead into formal Operator Blueprint V2 Step 0.
 None.
 
 ## Held
+
+### `DISC-2026-09-28-013` — CAM reconciliation review for small commercial tenants
+
+- Status: `held` (2026-11-16 scout re-screen; was `shortlisted` from 2026-09-28, priority 1 of 8 until the 2026-11-12 bench returned it)
+- First seen / last checked: 2026-09-28 / 2026-11-16 ET
+- Exact question: small triple-net tenants get a year-end CAM (common-area maintenance) true-up bill,
+  often far above estimate, with 60–90 days to use audit rights. Audits have paid only for large
+  tenants. Can one AI-equipped operator make them worth doing on a $10k–$50k CAM bill?
+- Sources: Quora titles (SERP only) incl. "My landlord sold the property and the new owner doubled my
+  CAM charge. What can I do?"; BiggerPockets thread ≈2026-03, property manager, 8 replies, on charges
+  tenants dispute and gross-up overcharges
+  <https://www.biggerpockets.com/forums/32/topics/1281823-cam-reconciliation-the-charges-tenants-push-back-on-most-often>;
+  Google Trends US 5y ("CAM charges" at 5-year peak mid-2026); CAMAudit <https://www.camaudit.io/>
+  (AI engine sold to CPAs, tenant reps, attorneys: 20 checks, report, dispute letter). Full ledger:
+  `runs/2026-09-28.md`.
+- Signal types: conversation, search direction, capability, workflow.
+- Who cares / decision: owner-operators with one to five leased locations deciding whether to pay,
+  question, or audit a reconciliation.
+- Buyer / costly problem: an unexplained CAM true-up (admin fees, capital repairs, gross-up errors,
+  insurance and tax pass-throughs) and a short dispute window.
+- Offer / outcome: fixed-fee CAM review per location; each disputed line tied to a lease clause and a
+  statement line, letter sent inside the window, dollars credited.
+- Mechanism: AI abstracts the lease's expense clauses and checks each reconciliation line; operator
+  requests the landlord's ledger and invoices, reviews findings, drafts the letter; tenant sends it.
+- Why now: AI abstraction collapses review time; pass-throughs rose; a vendor now sells the engine to
+  small firms.
+- **AI-change test: passes.** AI reads lease and reconciliation line by line; before, auditor hours made
+  audits uneconomic for small tenants. To verify: minutes per location with and without AI.
+- **Delivery boundary: passes, with a lease condition.** Unlicensed lease auditors and CPAs do this
+  today; litigation stays with counsel; some leases limit audits to CPAs, bar contingency auditors, or
+  shift audit cost below a 3–5% overcharge. Residual: an unlicensed operator reviews a small tenant's
+  CAM reconciliation against its lease, requests backup, and prepares the documented dispute for the
+  tenant to send.
+- **Substitute:** CAMAudit (firm-facing engine; its outsourced service is direct, price unknown);
+  contingency lease-audit firms (30–50% or $2,000–5,000 plus a share; minimums ~$2,500–5,000 per
+  property — seller copy, context).
+- **Problem-value signals:** `problem cost` (tenants' own accounts of doubled CAM; property manager
+  confirming gross-up and admin overcharges); `demand signal` (recurring Quora questions, rising Trends).
+- **Payment evidence:** unknown — viewer's first test.
+- Strongest invalidating question: do small leases give usable audit rights, and is the recovery on a
+  $10k–$50k CAM bill big enough to pay a fixed fee?
+- Evidence still needed: sample small-shop audit clauses; a disclosed small-tenant recovery; CAMAudit's
+  outsourced price; state rules on who may audit.
+- Possible OE point of view: the landlord's accountant writes the bill and the lease is the tenant's
+  only check; AI makes that check cheap enough for the small shop. Showable with a synthetic lease.
+- Semantic deduplication: no match in the repository or pool.
+- Disposition: shortlisted. Decisive reason: private-sector buyer, AI plainly changes the economics,
+  two independent conversation surfaces. Recheck 2026-10-28; expires 2027-03-31. Step 0 candidate ID: none.
+- Bench recheck 2026-11-12 (Thursday bench; status unchanged, returned to the scout for re-screening;
+  not admitted): the substitute line is out of date. Tenantback (<https://tenantback.com/>, read via
+  Exa 2026-11-12) gives small tenants a free AI CAM audit by email and runs the dispute for 25% of
+  money recovered, nothing otherwise ($49 a location a month plus 12% on its portfolio plan). That is
+  this lead's offer, done for the tenant. CAMAudit now publishes its engine price to solo firms:
+  $490 for 10 audits ($49 each; <https://www.camaudit.io/pricing>, read via Exa). Tango launched an
+  enterprise CAM Reconciliation Agent on 2026-11-10 (press release, read via Exa); it targets
+  retailers with hundreds of leases. Residual human room, unverified: leases that bar contingency
+  auditors (CapVeri's landlord-favorable model clause bars them and requires a CPA firm; how often
+  small-shop leases carry that is unknown) and the landlord backup-records request. Problem-value
+  signal still rests on one property manager's BiggerPockets post (re-read; about April 2026) and
+  Quora titles never opened; seller pages carry the error-rate figures. Re-screen question: after a
+  free audit plus 25% contingency, what does a fixed-fee person sell, and to which tenants?
+- Scout re-screen 2026-11-16 (Monday; `runs/2026-11-16.md`): **held.** Tenantback's page re-read: free audit by
+  email, 25% of money recovered and nothing otherwise, $49 a location a month plus 12% on the portfolio plan; the
+  headline says it is for multi-location tenants and the page does not say whether a single-location tenant is served,
+  gives no minimum bill and does not mention leases that bar contingency auditors. No independent review of it was
+  found. No fresh tenant voice was found (Reddit returned lease-audit promoters; the one BiggerPockets thread,
+  2026-09-17, is a small landlord who is building his own lease-abstract tool). Test 1 still rests on one property
+  manager's post and unopened Quora titles; test 4 now has a done-for-you service that costs the tenant nothing up
+  front. **Reopening condition:** a single-location tenant's own account that a free-audit or contingency service
+  would not take the case, could not be used under the lease, or left the dispute work to the tenant; or a small
+  tenant paying a fixed fee for a CAM review. Recheck 2027-01-15; expires 2027-03-31.
 
 ### `DISC-2026-11-02-030`: long-term care insurance claim desk for families with someone in a facility
 
@@ -2342,9 +2359,17 @@ None.
   Google decides). Re-screens stay rejected: outsourced security questionnaires (test 4: Holdvero sells it done-for-you at
   €695 a questionnaire; vCISOs run their own AI workflows) and title abstracts and runsheets (test 4: land services firms
   would move the work to their own landmen; courthouse field work). Reopening conditions in `runs/2026-11-11.md`.
+- 2026-11-16 (scout): Weekly tip reconciliation and payroll prep for small multi-unit restaurants: rejected on tests 2
+  and 4(b) (tip software from $99 to $149 a location a month; owners in the same thread run 7shifts, Square or Toast
+  themselves). Monthly owner statements for small short-term rental managers: rejected on tests 1 and 4(b) (one voice;
+  Guesty, OwnerRez and Hostaway ship owner portals). Donation request handling for bakeries and restaurants: rejected on
+  tests 1 and 4(b) (no money at stake; a website form solves it). Re-screens stay rejected: back-of-book indexing (no
+  fresh author voice; the indexers' society review of Indexia, July 2026, noted as context) and EcoVadis questionnaires
+  for small suppliers (the one fresh thread was posted by someone selling a tool). `DISC-2026-09-28-013` (CAM review)
+  moved to held, not rejected. Reopening conditions in `runs/2026-11-16.md`.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`, `runs/2026-11-11.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`, `runs/2026-11-11.md`, `runs/2026-11-16.md`.
