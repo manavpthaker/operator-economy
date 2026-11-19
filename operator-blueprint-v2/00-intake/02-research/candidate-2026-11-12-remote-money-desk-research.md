@@ -12,9 +12,9 @@ Candidate brief: `operator-blueprint-v2/00-intake/01-candidates/candidate-2026-1
 
 Candidate brief SHA-256: `7debe8a80a43c528cc560d1a676d1a5b192b7edb4aaab3f684fd228a29cce984`
 
-Research cutoff: 2026-11-16 (second desk pass; first pass 2026-11-12)
+Research cutoff: 2026-11-19 (third desk pass; earlier passes 2026-11-12 and 2026-11-16)
 
-Research refresh date: not completed (boundary pass done 2026-11-16; scout-ledger re-read still open)
+Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-11-19; scout-ledger re-read still open)
 
 ## Executive finding
 
@@ -33,9 +33,19 @@ Research refresh date: not completed (boundary pass done 2026-11-16; scout-ledge
   the parent gives a login or card to can move money the parent is then liable for (CLM-012). The
   defensible desk never holds money and never pays with a shared login: it prepares, and the
   parent or their legal agent pays.
+- Revision, 2026-11-19: both remote sellers pay from the parent's own account, not their own
+  (CLM-019, CLM-020), so the observed model sits outside the FinCEN ruling's facts. Texas and
+  California define money transmission as selling payment instruments or stored value, or
+  receiving money for transmission (CLM-021, CLM-022). A desk that never receives the money and
+  pays only from the parent's account, under authority the bank recognises (not a shared login),
+  does not meet either definition on its face. That is an inference; no regulator opinion on this
+  model was found. The desk may therefore pay, but only that way.
+- Price pressure, 2026-11-19: SilverBills is listed "from $50 per month" (CLM-020). The $250 floor
+  is no longer the only anchor; the modeled price range is widened downward below.
 - Largest unresolved question: Will a family trust a remote desk with a parent's accounts, and how
   many hours does each household really take once calls and exceptions are counted? New second
-  question: is a desk that prepares but never pays still worth $250 a month to a family?
+  question (revised 2026-11-19): with a concierge bill-pay seller listed from $50 a month, what
+  does a family pay for the checking, calls, and record on top of payment?
 - Required public framing: The remote service and its $250 floor are seller statements, not
   evidence that families pay it. Household counts, hours, and income are a modeled scenario. Trust
   and price are the viewer's first test.
@@ -141,7 +151,44 @@ Research refresh date: not completed (boundary pass done 2026-11-16; scout-ledge
   desk operator must report suspected exploitation, including by a family member who is the
   paying customer. California's rule was read only in secondary summaries (it names bank staff)
   and is not used.
-- Not read this run: any state's power of attorney statute; the CFPB "Managing Someone Else's
+- CLM-019 (2026-11-19): Parent Bill Pay says "Bills are paid from their accounts straight to the
+  company that sent the bill, and every payment shows on their statement", that "How payments are
+  released, and who approves them, is agreed in writing at the start", and that a capable parent
+  "can sign the forms that let a bookkeeper see statements and pay bills on their behalf". Seller
+  copy. It shows the seller does not hold client money.
+- CLM-020 (2026-11-19): A Bills.com review dated 2026-11-01 says SilverBills will "set you up to
+  authorize having bill payments made out of your checking account", that "You do not have to keep
+  money on deposit with SilverBills", that with permission it notifies the bank of payee and
+  amount, and lists the service "from $50 per month". Third-party review read through WebFetch (a
+  model's reading of the page); the account mechanics are not on SilverBills' own pages. Updates
+  CLM-003's "costs are not listed".
+- CLM-021 (2026-11-19): Texas Finance Code 152.003, as enacted by S.B. 895 (88th Leg., eff.
+  2023-09-01): "Money transmission" means "(i) selling or issuing payment instruments ... (ii)
+  selling or issuing stored value ... or (iii) receiving money for money transmission services",
+  and "includes payroll processing services". Fact (enrolled bill text). Note: the chapter was
+  enacted by S.B. 895; CLM-011's note that the regulator FAQ cites H.B. 1666 is left as recorded.
+- CLM-022 (2026-11-19): California's regulator, quoting Financial Code 2003(q) and (u), states that
+  money transmission includes "(3) receiving money for transmission", defined as "receiving money
+  or monetary value in the United States for transmission within or outside the United States by
+  electronic or other means" (Department of Business Oversight interpretive opinion, 2019-11-26).
+  Fact as quoted by the regulator; the letter itself is about a payee's agent, not a household
+  desk, and its holding is not used.
+- Allowed inference from CLM-021 and CLM-022: a desk that never receives or holds the parent's
+  money is outside both definitions on their face. Not shown: any regulator ruling on a desk that
+  initiates payments from the parent's own account. The episode may not say "no licence needed".
+- CLM-023 (2026-11-19): Florida's power of attorney law says "An agent is a fiduciary", must "keep
+  a record of all receipts, disbursements, and transactions made on behalf of the principal", and
+  "May not delegate authority to a third person except as authorized" (Fla. Stat. 709.2114(1),
+  2026). Fact for one state. Allowed inference: a family member acting under a POA can hire help
+  but cannot hand the desk their authority, and the desk's weekly record is the record that agent
+  is already required to keep. This sharpens the candidate finding: the product is the record.
+- CLM-024 (2026-11-19): Wells Fargo lets a customer create a Guest User with "view-only account
+  access"; guests "are not able to ... perform transactions including Transfers and Payments", and
+  the customer must "create and manage" the guest's username and password. Fact for one bank (its
+  own help page). Two other banks' pages were tried: Huntington returned 403; a Wells Fargo
+  caregiving page returned 404; Amboy Bank's senior page offers only a trusted contact. One of
+  three banks confirmed.
+- Not read: any power of attorney statute outside Florida; the CFPB "Managing Someone Else's
   Money" guides (landing page only, updated 2026-06-25); bond and E&O prices.
 
 ### Scaled relevance
@@ -205,9 +252,11 @@ Research refresh date: not completed (boundary pass done 2026-11-16; scout-ledge
 - Technology and human stack: mail scanning, read-only account views where the parent's bank
   offers them (CLM-013), document-reading agents, a payment step the parent or their legal agent
   performs in their own bank; the operator owns rules, calls, and the record.
-- Hard limits (2026-11-16): no client money in the operator's account (CLM-010); no payments made
-  with a parent's shared login or card (CLM-012); report suspected exploitation where state law
-  requires it (CLM-014).
+- Hard limits (2026-11-16, revised 2026-11-19): no client money in the operator's account
+  (CLM-010, CLM-021, CLM-022); no payments made with a parent's shared login or card (CLM-012);
+  payments only from the parent's own account under an authority the bank recognises, agreed in
+  writing (CLM-019, CLM-020); the POA agent keeps their authority and the desk keeps their record
+  (CLM-023); report suspected exploitation where state law requires it (CLM-014).
 - Required skills or credentials: bookkeeping or household administration; no license found for
   daily money management (scout, context); bonding and E&O insurance are customary (CLM-006).
 - Go-to-market path: referrals from elder-law attorneys, geriatric care managers, and local
@@ -222,7 +271,7 @@ Every number in this section is an internal Step 0 input until it is approved un
 
 | Input | Working value or range | Basis | Status | Sensitivity or caveat |
 |---|---|---|---|---|
-| Pricing unit | $250–$350 per household per month | CLM-002 floor; CLM-009 hourly | modeled | Seller floor only; price is the viewer's first test |
+| Pricing unit | $100–$350 per household per month (widened 2026-11-19) | CLM-002 floor $250; CLM-020 floor $50; CLM-009 hourly | modeled | Two seller floors five times apart; price is the viewer's first test |
 | Client or transaction capacity | 25 (low) to 50 (base) households | hours below | modeled | Scout's 60–80 not used; untested |
 | Delivery hours | 2.5 hours per household per month | assumption | modeled | Calls and exceptions may dominate |
 | Loaded labor cost | the operator's own time | n/a | modeled | Contribution is before owner pay |
@@ -237,6 +286,11 @@ Low case: `$250 x 25 x 12 = $75,000`; less $9,000 software and $9,000 acquisitio
 $57,000 before owner compensation and tax.
 
 Base-case hours: 50 x 2.5 = 125 hours a month, about 29 a week before selling and admin.
+
+Compressed case (added 2026-11-19, from the $50 SilverBills floor): `$100 x 50 x 12 = $60,000`;
+less $18,000 software and $9,000 acquisition and insurance = $33,000 before owner compensation and
+tax. At that price the one-operator case needs either far more households per hour or a premium
+for the record and calls that families have not been shown to pay.
 
 Disclosure: `Modeled scenario, not observed performance or an earnings forecast.`
 
@@ -273,7 +327,8 @@ Disclosure: `Modeled scenario, not observed performance or an earnings forecast.
 - Claims that must not be made: that families pay remote desks at any price; any scam-loss or
   prevalence number without a primary source; any income figure as a forecast; that the IC3
   figure measures missed bills or what a desk would prevent; that a desk paying from the parent's
-  own account is outside money transmitter law.
+  own account is outside money transmitter law (2026-11-19: the definitions read support it on
+  their face, but no ruling was found; still not to be said).
 
 ## Thirty-day validation plan
 
@@ -315,6 +370,12 @@ Every load-bearing claim must meet `../03-validation/EVIDENCE-STANDARD.md`.
 | CLM-016 | Daily account monitoring for older adults sells for $7.49–$26.99 a month and cannot move money; verified as seller statement | EverSafe, <https://www.eversafe.com/pricing/> | Plan table; "No money can be moved with EverSafe." | undated / 2026-11-16 | not saved | seller; medium | substitute for the watching | 2026-12-31 | Seller copy; no evidence of how many families use it |
 | CLM-017 | Out-of-town child asks about hiring a household manager for parents' bill pay and what security checks exist; verified as anecdote | r/AgingParents, <https://www.reddit.com/r/AgingParents/comments/1x6reos/has_anyone_hired_a_household_manager_for_their/> | Post body (read through Xpoz) | 2026-10-15 / 2026-11-16 | not saved | forum; medium | direct | 2027-03-31 | One poster; not a verified person; never price evidence |
 | CLM-018 | A family reports a bank-referred, bonded case management agency that reviews bills and sends a quarterly accounting to everyone; another used the AADMM directory; verified as anecdote | same thread | Comments by Pretend-Panda and RevolutionaryRush521, 2026-10-15 (read through Xpoz; 9 of 13 comments returned) | 2026-10-15 / 2026-11-16 | not saved | forum; low to medium | direct | 2027-03-31 | No price; in-person agency, not a remote desk |
+| CLM-019 | Parent Bill Pay pays from the parent's accounts; approvals agreed in writing; capable parent signs forms for a bookkeeper; verified as seller statement | Parent Bill Pay, <https://parentbillpay.com/> | Sections on payments, approvals, and permissions (WebFetch, model reading of page) | undated / 2026-11-19 | not saved | seller; medium | direct | 2026-12-31 | Says nothing of how the bookkeeper initiates payment (bank bill pay, authorized user, or login) |
+| CLM-020 | SilverBills: no deposit, payments authorized from the customer's checking, bank notified of payee and amount, "from $50 per month"; verified as third-party review | Bills.com, <https://Bills.com/reviews/bill-pay/silverbills> | Review body (WebFetch, model reading of page) | 2026-11-01 / 2026-11-19 | not saved | secondary review; medium | direct | 2026-12-31 | Review site; SilverBills' own terms not read; "from" price |
+| CLM-021 | Texas defines money transmission as selling payment instruments or stored value or receiving money for money transmission services; verified fact | Texas Legislature, S.B. 895 enrolled text, <https://capitol.texas.gov/tlodocs/88R/billtext/html/SB00895F.htm> | Sec. 152.003, definition "Money transmission"; Sec. 152.004 exemptions read | 2023 / 2026-11-19 | local only, SHA-256 `17f39ec79061f99efe8d2aaacb6322cb4bcb1bff90d4a59b9867727b9205236f` (not committed) | enacted bill text; high | boundary | 2027-05-31 | Bill text, not the codified page (statutes site served an app shell); later amendments not checked |
+| CLM-022 | California money transmission includes receiving money for transmission, as defined in Fin. Code 2003(u); verified fact as quoted by regulator | California DBO interpretive opinion, <https://dfpi.ca.gov/wp-content/uploads/sites/337/2019/12/Agent-of-Payee-Exemption-–-Bill-Payment.pdf> | p. 2, "Money Transmission Act" | 2019-11-26 / 2026-11-19 | local only, SHA-256 `4e8f50eab2ea1e6172e2db793301acc01847ada885b4a9638cdf2c49121d35c7` (not committed) | state regulator letter; medium-high | boundary | 2027-05-31 | Statute quoted secondhand; letter's facts are a payee's agent, not a household desk |
+| CLM-023 | Florida POA agent is a fiduciary, must record all receipts and disbursements, may not delegate authority; verified fact | Fla. Stat. 709.2114, <https://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0700-0799/0709/Sections/0709.2114.html> | (1), (1)(a), (1)(b), (1)(c) | 2026 statutes / 2026-11-19 | not saved | statute (official); high | boundary | 2027-05-31 | One state; read through WebFetch |
+| CLM-024 | Wells Fargo offers view-only Guest Users who cannot transfer or pay; customer creates their login; verified fact | Wells Fargo, Profile FAQs, <https://www.wellsfargo.com/help/online-banking/profile-faqs/> | Guest User answers | undated / 2026-11-19 | not saved | bank's own page; high | access | 2027-05-31 | One bank of three tried |
 | CLM-009 | Scout-ledger items carried, not re-read this run: AgingCare 496696, 497474, 466765; DMM $75–$150 an hour (Clear Money Guide 2026-08-03); NYT 2026-03-25 summary; Manhattan household posting | `automation/candidate-discovery/runs/2026-10-19.md` | ledger #13–#20 | 2021–2026 / 2026-10-19 | n/a | mixed; low until re-read | direct and context | re-read before analogy map | Not verified by the bench. 2026-11-16: re-read attempted and blocked (AgingCare returned 403 to WebFetch; Exa refused for lack of credits). Search snippets confirm only the titles and one asker line: 496696 "Helping aging parents with bills" ("pay the same bill twice, put the wrong bill in the envelope") and 466765 "Is it safe to hire someone to pay bills?". 497474, the hourly DMM rate, the NYT item, and the Manhattan posting remain unread. |
 
 ## Unresolved questions
@@ -323,14 +384,16 @@ Answered 2026-11-16: abuse reporting in two states (CLM-014); the federal limits
 and on shared logins (CLM-010, CLM-012); read-only access is voluntary (CLM-013); a primary scam
 number (CLM-015).
 
+Answered 2026-11-19: both remote sellers pay from the parent's account (CLM-019, CLM-020); two
+states' money transmission definitions (CLM-021, CLM-022); one POA statute (CLM-023); one bank's
+view-only access (CLM-024).
+
 Still open, desk research:
 
-- How Parent Bill Pay and SilverBills actually move the money (own account, POA, or the family
-  pays). This decides whether the observed model sits inside or outside CLM-010.
-- Whether paying from the parent's own account under a POA or as an added signer is outside state
-  money transmitter laws; two state sources.
-- One state's power of attorney statute on an agent's duties and on hiring help.
-- Whether three large banks offer view-only third-party access today (their own pages).
+- The exact mechanism a remote seller uses to initiate payment from the parent's account (bank
+  bill pay as an authorized user, ACH authorization, or cheques signed by the family).
+- Any regulator ruling on a desk that initiates payments from a client's own account.
+- Two more banks' view-only access pages.
 - E&O, fidelity bond, and scanning costs.
 - A primary count of missed or late bills among older adults (none found; CFPB or Federal Reserve).
 - Re-read of CLM-009 items once AgingCare can be read again.

@@ -103,3 +103,60 @@ desk is "prepare, don't pay" and no seller offers that at a monthly price, the b
 consider parking with that as the stated reason.
 
 Editorial development authorized: no. Episode number: unassigned.
+
+## Addendum 2026-11-19 (Thursday bench)
+
+Decision: **continue research**. Not parked. No score; hard gates not evaluated.
+
+Reviewed artifact: research brief as updated this run, SHA-256
+`c127da7aba1b2eab39e4daec2efd0205b84df3d0a9ec3b73238ce2816d54f2f1`. Candidate brief unchanged
+(`7debe8a80a43c528cc560d1a676d1a5b192b7edb4aaab3f684fd228a29cce984`); still to be reissued with the
+analogy map.
+
+The 2026-11-16 park trigger ("the only lawful desk is prepare, don't pay, and no seller offers
+that at a monthly price") did not fire:
+
+1. How the sellers move money: done. Both pay from the parent's own account and hold no client
+   money (CLM-019 seller copy; CLM-020 third-party review). The exact payment mechanism is not
+   stated by either.
+2. Two state sources on money transmission: done. Texas and California define it as selling
+   payment instruments or stored value, or receiving money for transmission (CLM-021, CLM-022).
+   A desk that never receives the money is outside both on their face. Inference only; no ruling
+   on this model found.
+3. One POA statute: done (Florida 709.2114, CLM-023). The agent must keep a record of every
+   receipt and payment and may not delegate authority.
+4. Three banks' view-only pages: one of three (Wells Fargo Guest User, view-only, cannot pay,
+   CLM-024). Huntington 403; another Wells Fargo page 404; Amboy offers only a trusted contact.
+5. CLM-009 re-read: still blocked (AgingCare 403 again; Exa account out of credits). Third run
+   blocked.
+
+Findings that change the candidate:
+
+- The desk may pay, but only from the parent's own account under an authority the bank
+  recognises, agreed in writing; never from its own account and never with a shared login. The
+  2026-11-16 "prepare, don't pay" offer is relaxed to that.
+- SilverBills is listed "from $50 per month" (CLM-020, review dated 2026-11-01). With Parent Bill
+  Pay at $250, the two seller floors are five times apart. A compressed $100 case gives $33,000
+  before owner pay for 50 households. Price is now the candidate's weakest point, ahead of trust.
+- Florida's POA law makes the record a legal duty of the family's agent (CLM-023). The candidate
+  finding becomes: the desk produces the record the agent is already required to keep, and the
+  agent keeps the authority. Sourced for one state.
+
+Evidence pass (same agent as the adversarial pass; not independent): five primary or official
+sources (Texas enrolled bill, California regulator letter, Florida statute, Wells Fargo help
+page) and two seller or review pages, all read through WebFetch or curl. CLM-020's mechanics come
+from a review site, not SilverBills' terms. CLM-022 quotes the California statute secondhand.
+
+Adversarial editorial pass: the $50 floor cuts against the one-operator case. If a concierge
+service already pays the bills for $50, the desk must charge for the checking, calls, and record,
+and nothing read shows families pay for those. The legal lesson ("never hold it, never log in as
+them, keep the agent's record") is the episode's strongest original material, but it is sourced
+for two or three states only, and coverage by elder-law writers has not been checked. Repetition
+risk after EP010 (another desk) is unchanged.
+
+Next bench desk items, in order: (1) the analogy map, with CLM-009 items struck from load-bearing
+use if AgingCare is still unreadable; (2) one elder-law or trade source on paying a client's bills
+from their own account, to test whether the legal finding is already common coverage; (3)
+SilverBills' own terms if readable; then the scorecard.
+
+Editorial development authorized: no. Episode number: unassigned.
