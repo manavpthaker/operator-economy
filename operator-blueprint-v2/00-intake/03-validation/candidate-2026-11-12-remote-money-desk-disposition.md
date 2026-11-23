@@ -160,3 +160,56 @@ from their own account, to test whether the legal finding is already common cove
 SilverBills' own terms if readable; then the scorecard.
 
 Editorial development authorized: no. Episode number: unassigned.
+
+## Addendum 2026-11-23 (Monday bench)
+
+Decision: **continue research**. Not parked. Analogy map created and passes the evidence floor;
+scorecard not started, so no score and hard gates not evaluated.
+
+Reviewed artifacts: research brief as updated this run, SHA-256
+`a81fe8973b4826528497f4dfb2dd3afbed12ba1a575db5d83a84b0b8d181125e`; analogy map, SHA-256
+`53725c2ceaf5a1e27b9e2e9b5461619b76fabf45e99e202a7543a2a10eee3ab6`. Candidate brief unchanged
+(`7debe8a80a43c528cc560d1a676d1a5b192b7edb4aaab3f684fd228a29cce984`).
+
+Items from 2026-11-19:
+
+1. Analogy map: done. Ten transfer records; seven valid, one valid constraint, three weak; six
+   source families; go to market is the weak pillar. CLM-009 struck from load-bearing use
+   (AgingCare unreadable on three runs; not retried; Exa still out of credits).
+2. Elder-law coverage of the legal finding: partly done. Two caregiver guides read in full
+   (CaringInfo, Experian; CLM-026, CLM-027) plus a search summary of Nolo, Kiplinger, FindLaw and
+   Caring.com. The login warning and the record duty are common advice. The money transmitter
+   line, the Regulation E reason, and mandatory reporting were not found. No elder-law attorney's
+   own article read (Nolo 403).
+3. SilverBills' own terms: the domain now redirects to Paytrust (CLM-025). Terms page 404; the
+   pricing and process pages were read.
+
+Findings that change the candidate:
+
+- Price: Paytrust (formerly SilverBills) starts "at $500 a month", relaunched in 2025. The "from
+  $50" figure from 2026-11-19 came from an older review. Remote seller floors are now $250 and
+  $500, and the modeled price range moves to $200–$400. The 2026-11-19 view that price is the
+  weakest point is withdrawn; trust is again the main unknown.
+- Paytrust accepts "share your account logins". The largest observed seller does what CLM-012
+  shows can leave the parent liable. That makes "never pay with a shared login" a real point of
+  difference from an observed seller, not only a caution.
+- The candidate finding narrows: "never log in as them" is common caregiver advice (on consent
+  grounds), so the original material is the reasons (Regulation E liability, the money
+  transmitter line) and the reporting duty, not the warning itself.
+
+Evidence pass (same agent as the adversarial pass; not independent): three seller pages and two
+publisher guides, read through curl; Paytrust's own pages, not a review, now carry the price.
+All "starting at" prices are seller copy. Nothing shows families pay a remote desk.
+
+Adversarial editorial pass: higher seller floors help the one-operator case on paper but also say
+this is sold to the affluent; Paytrust courts financial advisers, so its $500 may not transfer to
+an ordinary family. The coverage check was two guides, so "absent from coverage" is still thin.
+Repetition after EP010 (another desk) is unchanged and is the strongest editorial reason against.
+
+Next bench desk items, in order: (1) reissue the candidate brief with the "prepare, check, pay
+from the parent's own account, record" offer and the three hard limits; (2) the scorecard, with
+the buyer-payment gap and the EP010 repetition risk scored as such; (3) one elder-law attorney's
+article if readable. A score of 65 to 75 keeps its calibration-zone rules; any score goes to the
+owner as a draft only.
+
+Editorial development authorized: no. Episode number: unassigned.
