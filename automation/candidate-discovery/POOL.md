@@ -1,6 +1,13 @@
 # Operator Economy candidate discovery pool
 
-Updated: 2026-11-18 ET, scout run (Wednesday): no new lead. Rejects an early-lapse and chargeback prevention desk for
+Updated: 2026-11-23 ET, scout run (Monday, deep-research motion e): no new lead. Rejects an FMCSA registration and
+authority desk for small carriers under Motus (J. J. Keller monitors and files for $45 a DOT number a month, small fleets
+keep the routine filings themselves, and the unserved part, fixing Motus errors, depends on FMCSA and should shrink as
+the rollout settles); reopening condition in the run record. Logs an owner-operator leaving factoring (about $800 a month
+in fees) as evidence for admitted `DISC-2026-10-13-023`. No re-screen this run. Exa was down (account out of credits);
+the run used Xpoz, free scout commands and web search. Shortlist unchanged at 6; order: child care subsidy desk, grant
+reporting desk, site invoicing desk, IEP advocacy, WISeR desk, admissions backend. Full record: `runs/2026-11-23.md`.
+Previous: 2026-11-18 ET, scout run (Wednesday): no new lead. Rejects an early-lapse and chargeback prevention desk for
 independent life insurance agents (carriers and large IMOs already run conservation teams for agents at no visible
 price; the agents who feel it most churn and are short of cash) and client document chase for small bookkeeping and tax
 practices (engagement-letter cutoffs and practice tools; the one consequence voice was a tool seller). Adds a nonprofit
@@ -2379,9 +2386,13 @@ None.
   and 1 (carrier conservation units and IMO conservation teams already do it for agents; no one seen paying; buyers
   churn). Client document chase for small bookkeeping and tax practices: rejected on tests 1 and 4(b) (engagement-letter
   cutoffs and practice-tool reminders; the consequence voice was a seller). Reopening conditions in `runs/2026-11-18.md`.
+- 2026-11-23: FMCSA registration and authority desk for small carriers (Motus): rejected on tests 4(a) and 2 (J. J.
+  Keller monitoring and auto-filing at $45 a DOT number a month, compliance packages $150 to $400, fleets self-manage with
+  reminders; the Motus error work depends on FMCSA and is transitional). Reopen if Motus errors still suspend carriers
+  after 2027-03-31 and carriers are seen paying an outside firm to fix them. Detail in `runs/2026-11-23.md`.
 
 Full evidence and screening: `runs/2026-09-20.md`, `runs/2026-09-21.md`, `runs/2026-09-23.md`,
 `runs/2026-09-25.md`, `runs/2026-09-27.md`, `runs/2026-09-28.md`, `runs/2026-09-29.md`, `runs/2026-09-30.md`,
 `runs/2026-10-01.md`, `runs/2026-10-02.md`, `runs/2026-10-03.md`, `runs/2026-10-04.md`, `runs/2026-10-05.md`,
 `runs/2026-10-06.md`, `runs/2026-10-07.md`, `runs/2026-10-08.md`, `runs/2026-10-09.md`,
-`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`, `runs/2026-11-11.md`, `runs/2026-11-16.md`, `runs/2026-11-18.md`.
+`runs/2026-10-10.md`, `runs/2026-10-11.md`, `runs/2026-10-12.md`, `runs/2026-10-13.md` (runs 1 and 2), `runs/2026-10-14.md`, `runs/2026-10-19.md`, `runs/2026-10-20.md`, `runs/2026-10-21.md`, `runs/2026-10-28.md`, `runs/2026-11-02.md`, `runs/2026-11-04.md`, `runs/2026-11-09.md`, `runs/2026-11-11.md`, `runs/2026-11-16.md`, `runs/2026-11-18.md`, `runs/2026-11-23.md`.
