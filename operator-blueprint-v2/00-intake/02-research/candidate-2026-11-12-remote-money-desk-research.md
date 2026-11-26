@@ -12,9 +12,9 @@ Candidate brief: `operator-blueprint-v2/00-intake/01-candidates/candidate-2026-1
 
 Candidate brief SHA-256: `7debe8a80a43c528cc560d1a676d1a5b192b7edb4aaab3f684fd228a29cce984`
 
-Research cutoff: 2026-11-23 (fourth desk pass; earlier passes 2026-11-12, 2026-11-16 and 2026-11-19)
+Research cutoff: 2026-11-26 (fifth desk pass; earlier passes 2026-11-12, 2026-11-16, 2026-11-19 and 2026-11-23)
 
-Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-11-19; scout-ledger re-read still open)
+Research refresh date: 2026-11-26 (claims used by the scorecard re-checked against this brief; CLM-009 remains struck, not refreshed)
 
 ## Executive finding
 
@@ -51,6 +51,14 @@ Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-1
   login (consent reason only) and to keep records, but neither names the money transmitter line,
   the Regulation E liability, or mandatory reporting (CLM-026, CLM-027). "Never log in as them" is
   common advice; the reasons behind it, and the other two limits, were not found in that coverage.
+- Coverage check, 2026-11-26: the CFPB's own guide for agents under a power of attorney (January
+  2022) tells the agent never to put the principal's money in "your own or someone else's" account,
+  to sign as agent and "Never just sign" the principal's name, and to keep "true and complete
+  records", which family members may see (CLM-028). The separation rule and the record duty are
+  therefore federal-regulator coverage, not an original finding. Still not found in any coverage
+  read (now three guides): the Regulation E reason a shared login leaves the parent liable
+  (CLM-012), the money transmitter line (CLM-010), and that the desk itself may be a mandatory
+  reporter, including of the family member who pays it (CLM-014).
 - Largest unresolved question: Will a family trust a remote desk with a parent's accounts, and how
   many hours does each household really take once calls and exceptions are counted? New second
   question (revised 2026-11-19): with a concierge bill-pay seller listed from $50 a month, what
@@ -103,6 +111,13 @@ Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-1
   quarterly accounting to everyone", and it is "costly but not outrageous". A second commenter
   found a money manager through the AADMM directory. One family's account on Reddit; no price; not
   a verified person. It shows the record going to the whole family is what this buyer praised.
+
+- CLM-029 (2026-11-26): an adult child with power of attorney, living several states away, posts
+  that their father (newly diagnosed with Alzheimer's) answered a mailed letter claiming to be from
+  his bank and gave a caller his account and routing numbers; the child had changed the online
+  password but "forgot about checks", and must now travel to the bank in person to open a new
+  account (r/AgingParents, 2026-11-25). Buyer voice, anecdote only. It shows the mail itself as the
+  scam route, and that the child already does the job themselves.
 
 ### Adjacent business evidence
 
@@ -206,6 +221,7 @@ Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-1
   "Paytrust/Silverbills". Seller copy. It shows an observed remote seller at a $500 floor that
   accepts shared logins. It does not show buyers pay that price, and the site is not aimed only
   at aging parents (it also courts financial advisers).
+- CLM-028 (2026-11-26): see "Demand and competition" (coverage check).
 - Not read: any power of attorney statute outside Florida; the CFPB "Managing Someone Else's
   Money" guides (landing page only, updated 2026-06-25); bond and E&O prices.
 
@@ -252,6 +268,14 @@ Research refresh date: not completed (boundary passes done 2026-11-16 and 2026-1
   transmitter (CLM-010), that a shared login makes the desk's transfers "authorized" under
   Regulation E (CLM-012), or that the desk operator may be a mandatory reporter (CLM-014). Limit:
   two guides read in full; no elder-law attorney's own article read.
+- CLM-028 (2026-11-26): CFPB, "Managing someone else's money: Help for agents under a power of
+  attorney" (dated January 2022 on its last page; linked from the CFPB guides page): Duty 3, "Never
+  deposit Martina's money or property into your own or someone else's bank account"; sign "as agent
+  for" and "Never just sign" the principal's name; Duty 4, "You must keep true and complete records",
+  and "you may want to let another family member or friend ... see them"; also "Don't share numbers
+  or passwords for Martina's accounts ... unless you know whom you're dealing with". Fact (federal
+  regulator guide). It makes separation, signing as agent, and records common federal coverage. It
+  does not mention Regulation E liability, money transmission, or a duty to report.
 - Information gap (revised 2026-11-16): none of the seller pages or threads read names the two
   federal rules that decide how a desk may touch money (CLM-010, CLM-012), or says that the
   operator may be a mandatory reporter (CLM-014). That is a candidate sourced finding. Limit: only
@@ -414,6 +438,8 @@ Every load-bearing claim must meet `../03-validation/EVIDENCE-STANDARD.md`.
 | CLM-025 | SilverBills now redirects to Paytrust: relaunched 2025, "Starting at $500 a month", accepts bills or shared account logins, reviews each bill before money moves, client rules include approve each payment; verified as seller statement | Paytrust, <https://paytrust.com/pricing>, <https://paytrust.com/how-we-do-it>, <https://paytrust.com/who-we-are> (silverbills.com 301 to paytrust.com) | Pricing hero; "Hand Us Your Bills"; "We Handle Everything"; "Complete control"; CEO bio (curl) | undated, footer 2016–2026 / 2026-11-23 | local only, SHA-256 pricing `28091903d77f7020418078b2a9bd78ca0e128fb9892b3977d0889b4509301833`, how-we-do-it `0ce1dca916284aea14680589b2767f5743ce8b5395dadc22b2667bfd6c864694` (not committed) | seller; medium | direct | 2026-12-31 | Seller copy; "starting at" price; no buyer evidence; not senior-specific; terms page 404 |
 | CLM-026 | Caregiver guide advises against using the account holder's login, on consent grounds; verified fact | CaringInfo (NHPCO), <https://www.caringinfo.org/planning/financial-matters/how-to-provide-financial-caregiving/> | "Get access to accounts" paragraph (curl) | 2022-03-03, modified 2025-11-25 / 2026-11-23 | local only, SHA-256 `e284e86599c3c3e3d9594705995a9f5fe01b72a1a7a040bd230d2da2da03f7da` (not committed) | nonprofit guide; medium-high | coverage check | 2027-05-31 | One guide; silent on Reg E, money transmission, reporting |
 | CLM-027 | Consumer POA guide advises using the principal's accounts and keeping detailed records; verified fact | Experian, <https://www.experian.com/blogs/ask-experian/should-i-accept-financial-power-of-attorney-for-family-member/> | Agent duties list (curl) | 2026-06-17 / 2026-11-23 | local only, SHA-256 `629ac8beeb84b44297057def835d503198ddf89ed0d94303d9150d8fcccc9bf1` (not committed) | publisher guide; medium | coverage check | 2027-05-31 | Consumer publisher, not elder-law counsel |
+| CLM-028 | CFPB agent guide: never deposit the principal's money in your own or someone else's account; sign as agent; keep true and complete records; family may see them; verified fact | CFPB, "Help for agents under a power of attorney", <https://files.consumerfinance.gov/f/documents/cfpb_msem_national_agents_guide.pdf> (linked from <https://www.consumerfinance.gov/consumer-tools/managing-someone-elses-money/>) | Duty 3 (p. 9-10); Duty 4 (p. 10); scams tips (p. 14 approx.) (curl, pdftotext) | January 2022 / 2026-11-26 | local only, SHA-256 `ef3d7eb6a8e9b5dbdbd7a697c78ccce40fa1022075267592573c49d1446638ab` (not committed) | federal regulator guide; high | coverage check | 2027-05-31 | National edition; silent on Reg E, money transmission, reporting duty |
+| CLM-029 | POA child several states away: father answered a mailed fake-bank letter and gave account numbers; child must travel to open a new account; verified as anecdote | r/AgingParents, <https://www.reddit.com/r/AgingParents/comments/1y5ja0k/dad_fell_for_a_scam_how_to_set_up_bank_account/> | Post body (read through Xpoz; comments not read) | 2026-11-25 / 2026-11-26 | not saved | forum; low to medium | direct | 2027-03-31 | One poster; not a verified person; no price; not demand for a paid desk |
 | CLM-009 | Scout-ledger items carried, not re-read this run: AgingCare 496696, 497474, 466765; DMM $75–$150 an hour (Clear Money Guide 2026-08-03); NYT 2026-03-25 summary; Manhattan household posting | `automation/candidate-discovery/runs/2026-10-19.md` | ledger #13–#20 | 2021–2026 / 2026-10-19 | n/a | mixed; low until re-read | direct and context | re-read before analogy map | Not verified by the bench. 2026-11-16: re-read attempted and blocked (AgingCare returned 403 to WebFetch; Exa refused for lack of credits). Search snippets confirm only the titles and one asker line: 496696 "Helping aging parents with bills" ("pay the same bill twice, put the wrong bill in the envelope") and 466765 "Is it safe to hire someone to pay bills?". 497474, the hourly DMM rate, the NYT item, and the Manhattan posting remain unread. |
 
 ## Unresolved questions
@@ -440,6 +466,10 @@ Still open, desk research:
 - A primary count of missed or late bills among older adults (none found; CFPB or Federal Reserve).
 - Re-read of CLM-009 items once AgingCare can be read again.
 - An elder-law attorney's own article on hiring a bill-paying service (Nolo returned 403).
+
+Answered 2026-11-26: the CFPB agent guide covers separation, signing as agent, and records
+(CLM-028), so those are common coverage. Elder-law attorney article: still unread (Nolo and the ABA
+aging commission page returned 403).
 
 Viewer's first test, not desk research: trust and price for a remote desk; whether families will
 pay for a desk that prepares and records but leaves the payment click to them.

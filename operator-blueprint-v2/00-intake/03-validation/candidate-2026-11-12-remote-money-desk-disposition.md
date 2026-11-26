@@ -213,3 +213,61 @@ article if readable. A score of 65 to 75 keeps its calibration-zone rules; any s
 owner as a draft only.
 
 Editorial development authorized: no. Episode number: unassigned.
+
+## Addendum 2026-11-26 (Thursday bench)
+
+Decision: **parked**. Decision stage: validation. Supersedes the 2026-11-23 "continue research".
+
+Reviewed artifacts:
+
+- Candidate brief reissue 02: `../01-candidates/candidate-2026-11-12-remote-money-desk-02.md`, SHA-256 `42b59fdde18f2fe9ffb632557b4f4eb400279b22329800ae2745714b7841762a` (issue 01 kept unchanged)
+- Research brief: SHA-256 `894f0da2f21d84b5122cb7bf56241248c22bb85aeddc16a47115e1487317280c`
+- Analogy map: SHA-256 `53725c2ceaf5a1e27b9e2e9b5461619b76fabf45e99e202a7543a2a10eee3ab6` (unchanged)
+- Editorial-potential review: SHA-256 `63901510c79cd9e1c7a8175751a9267a13333f47ebe6013f3b0f3ceec47052f2` (pass)
+- Canvas feasibility review: SHA-256 `26a346a5182cf5f72bed1c022b7e65a015ac3263628243a438d8030505013f58` (pass; go to market weak)
+- Scorecard: SHA-256 `370a019e3c3580db66663bdb75fd941cf79f950478aefa2b7973332f98b83a32` (56; all hard gates pass)
+
+Reason for stopping:
+
+- Failed or incomplete requirement: numeric threshold (56 of 70; below the 65 calibration zone).
+  No hard gate failed.
+- Plain-English finding: the business holds together and is lawful to describe within three
+  limits, but the score is held down by whether families pay a remote desk, how a remote desk wins
+  referrals, and the thin margin over .49 to  software. Those are field questions, which the
+  coaching standard puts in the viewer's first test, not in more desk passes. The POV also
+  narrowed this run: the CFPB's own guide for agents (CLM-028) already gives the separation and
+  record rules. The operating shape repeats EP010's receivables desk.
+- Not a park for a missing price anchor alone: the price gap is scored as a gap and modeled at
+   to  (owner decision 2026-10-13).
+- Claims that remain unusable: any statement that families pay a remote desk; any prevented-loss
+  or income figure; "no licence needed"; CLM-009 items.
+
+Re-entry:
+
+Re-entry allowed: yes
+
+Re-entry condition (any one; none is owner field work):
+
+1. A named owner decision to override the threshold for this candidate.
+2. New desk evidence that a referral source (bank program, Area Agency on Aging, elder-law or care
+   management network) sends families to remote bill-pay services, or a public record of families
+   paying a remote desk (not seller testimonials alone).
+3. A published ruling or regulator guidance on a third party initiating payments from a client's
+   own account, which would make the legal limits a stronger original finding.
+4. EP010 has been public for at least eight weeks and channel evidence shows desk-shaped episodes
+   still perform, lowering the repetition deduction.
+
+On re-entry, issue a new reviewed package; keep this record.
+
+Destination: parked (03-validation); pool lead `DISC-2026-10-19-026` stays `admitted` with this
+candidate ID (pool not edited this run).
+
+Evidence pass (same agent as the adversarial pass; not independent): one federal regulator guide
+(CLM-028, read in full) and one Reddit post (CLM-029, anecdote). Elder-law attorney article still
+unread (Nolo and ABA 403).
+
+Adversarial editorial pass: if the legal limits are removed, what remains is a second desk episode
+with weaker buyer evidence than EP010. With them, it is a narrow but real lesson, sourced in two or
+three states. That is not enough to clear the threshold.
+
+Editorial development authorized: no. Episode number: unassigned.
